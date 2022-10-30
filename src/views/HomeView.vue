@@ -6,14 +6,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import Multi_step_form from '../components/multi_step_form.vue';
-export default {
-  setup() {
-    return {};
-  },
-  components: { Multi_step_form }
-}
+
 </script>
 
 <style lang="scss" scoped>
