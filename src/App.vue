@@ -16,5 +16,23 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <style lang="scss" scoped>
+@import "./assets/colors.scss";
+
+.wrapper {
+  nav {
+    background-color: $Midnight-Green;
+    display: flex;
+    
+    
+    a {
+      color: white;
+      margin: 0 20px;
+      padding: 5px 0; 
+
+      text-decoration: none;
+    }
+  }
+}
+
 
 </style>
