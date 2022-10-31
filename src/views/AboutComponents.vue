@@ -4,19 +4,35 @@
         <MyButton @click="handleBack" :arrowFront="false" buttonText="Tilbage" />
         <MyButton @click="handleNext" :arrowFront="true" buttonText="Næste" />
         </div>
+
+        <div>
+        <Searchbar style="margin:500px" />
+        </div>
+
     </div>
+
   </template>
+
+
+
   
   <script setup>
-  import MyButton from "../components/buttons.vue";
+
+    
+
+import Searchbar from "../components/searchbar.vue";
+import MyButton from "../components/buttons.vue";
   
-  function handleNext() {
+    function handleNext() {
             console.log("Next");
         }
+
     function handleBack() {
             console.log("Back");
         }
   
+     
+
   </script>
 
 
