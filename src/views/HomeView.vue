@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import Multi_step_form from '../components/multi_step_form.vue';
+
 
 </script>
 

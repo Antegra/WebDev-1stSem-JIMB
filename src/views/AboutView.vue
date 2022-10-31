@@ -1,12 +1,13 @@
 <template>
   <div>
     <h1>
-      About test
+      About 
     </h1>
   </div>
 </template>
 
 <script setup>
+
 
 </script>
 
