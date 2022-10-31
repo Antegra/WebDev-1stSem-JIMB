@@ -1,12 +1,16 @@
 <template>
-    <div>
+    <div class="componentswrapper">
         <div class="buttons">
         <MyButton @click="handleBack" :arrowFront="false" buttonText="Tilbage" />
         <MyButton @click="handleNext" :arrowFront="true" buttonText="Næste" />
         </div>
 
         <div>
-        <Searchbar style="margin:500px" />
+        <Searchbar style="margin:auto" />
+        </div>
+
+        <div>
+         
         </div>
 
     </div>
@@ -18,10 +22,10 @@
   
   <script setup>
 
-    
 
-import Searchbar from "../components/searchbar.vue";
-import MyButton from "../components/buttons.vue";
+import Searchbar from "../components/c-searchbar.vue";
+import MyButton from "../components/c-buttons.vue";
+
   
     function handleNext() {
             console.log("Next");
@@ -43,6 +47,16 @@ import MyButton from "../components/buttons.vue";
   <style lang="scss" scoped>
     .buttons {
         display:flex;
+        justify-content: center;
+    }
+
+
+    .componentswrapper {
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
     }
 
 

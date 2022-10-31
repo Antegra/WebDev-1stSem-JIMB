@@ -35,7 +35,8 @@ export default {
 button {
     background: #fff;
     color:#000;
-    border: 1px solid #000;
+    border: 0.5px solid #eee;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     border-radius: 5px;
     padding: 10px 30px;
     position: relative;
