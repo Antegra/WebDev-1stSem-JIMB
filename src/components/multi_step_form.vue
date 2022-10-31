@@ -3,12 +3,67 @@ import { ref } from 'vue';
 
 
 let step = ref(1);
-let first_name = ref("");
 
+
+// step 1 - Om mødet 
+let sp_1 = ref("Angiv måned");
+let dates = ref(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
+
+let sp_2 = ref("Vælge type henvendelse")
+let types = ref(["Fysik", "Online", "Telefon"]);
+
+
+// step 2 - Hvem blev vejledt?
+let sp_3 = ref("Hvem blev vejledt?");
+let persons = ref(["Mand", "Kvinde", "Gruppe", "andet"]);
+
+let sp_4 = ref("Niveau");
+let niveaus = ref(["Nuværende studerende", "Potentielle studerende"]);
+
+// step 3 - Uddannelsested
+let locations = ref(["Odense", "Vejle", "Svendborg", "Jellinge"]);
+let educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker", "Byggekoordinator",
+"Bygningskonstruktør",
+"Datamatiker",
+"Digital konceptudvikling",
+"E-handel",
+"El-installatør",
+"Energiteknolog",
+"Ergoterapeut",
+"Financial controller",
+"Finans",
+"Finansøkonom",
+"Fysioterapeut",
+"Handelsøkonom",
+"Innovation og entrepreneurship",
+"International handel og markedsføring",
+"International hospitality management",
+"IT-sikkerhed",
+"IT-teknolog",
+"Jordbrug",
+"Jordbrugsteknolog",
+"Laborant",
+"Logistikøkonom",
+"Lærer",
+"Markedsføringsøkonom",
+"Multimediedesigner",
+"Procesteknolog",
+"Produktionsteknolog",
+"Produktudvikling og teknisk integration",
+"Pædagog",
+"Radiograf",
+"Serviceøkonom", "Socialrådgiver", "Softwareudvikling", "Sport management", "Sundhedsadministrativ koordinator", "Sygeplejerske", "VVS-installatør", "Webudvikling", "Økonomi og IT"
+
+])
+
+
+function test(e) {
+    console.log(e);
+}
 
 function next() {
     step.value += 1;
-    //console.log(first_name.value);
+    
 
 }
 
@@ -22,10 +77,19 @@ function previous() {
 
 <template>
     <div>
+        <!-- step 1 - Om mødet -->
         <section class="register" v-show="step === 1">
             <div class="form-group">
-                <h2>title 1.</h2>
-                <input v-model="first_name" type="text" name="" id="" placeholder="First name">
+                <h2>Om mødet</h2>
+
+                <p>{{ sp_1 }}</p>
+                <select name="cars" id="cars">
+                    <option v-for="date in dates" value="{{ date }}"> {{ date }}</option>
+                </select>
+                <p>{{ sp_2 }}</p>
+                <button v-for="type in types"> {{ type }} </button>
+
+                
 
             </div>
 
@@ -35,16 +99,36 @@ function previous() {
 
         </section>
 
+        <!-- step 2 - Hvem er det med -->
         <section class="register" v-show="step === 2">
-            <h2>title 2.</h2>
+            <h3>{{ sp_3 }}</h3>
+            <div>
+                <button v-for="person in persons"> {{ person }} </button>
+            </div>
+
+            <h3>{{ sp_4 }}</h3>
+            <div>
+                <button v-for="niveau in niveaus"> {{ niveau }}</button>
+            </div>
+
             <div class="navigation-group">
                 <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
                 <input class="form_btn" type="submit" value="next" @click.prevent="next">
             </div>
         </section>
 
+        <!-- step 3 -  Uddannelsested-->
         <section class="register" v-show="step === 3">
             <h2>title 3.</h2>
+
+            <div>
+                <button v-for="location in locations"> {{location}} </button>
+            </div>
+
+            <div>
+                <button v-for="edu in educations" @click="test(edu)"> {{ edu }} </button>
+            </div>
+
             <div class="navigation-group">
                 <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
                 <input class="form_btn" type="submit" value="next" @click.prevent="next">
