@@ -41,7 +41,6 @@ function previous() {
                 <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
                 <input class="form_btn" type="submit" value="next" @click.prevent="next">
             </div>
-
         </section>
 
         <section class="register" v-show="step === 3">
