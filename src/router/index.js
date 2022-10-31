@@ -12,18 +12,32 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
     },
     {
       path: '/components',
       name: 'components',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutComponents.vue')
+    },
+    {
+      path: '/newcase',
+      name: 'newcase',
+      component: () => import('../views/NewcaseView.vue')
+    },
+    {
+      path: '/oldcases',
+      name: 'oldcases',
+      component: () => import('../views/OldcasesView.vue')
+    },
+    {
+      path: '/data',
+      name: 'data',
+      component: () => import('../views/DataView.vue')
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('../views/SettingsView.vue')
     }
   ]
 })

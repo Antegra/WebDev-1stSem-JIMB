@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>
-      <Multi_step_form />
+      Hjem
     </h1>
   </div>
 </template>
