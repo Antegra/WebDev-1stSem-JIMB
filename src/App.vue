@@ -1,38 +1,23 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import Header from './components/header.vue';
 
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-  <RouterView />
+  <div class="system-container">
+    <Header/>
+  </div>
 </template>
 
 <style lang="scss" scoped>
 @import "./assets/colors.scss";
 
-.wrapper {
-  nav {
-    background-color: deeppink;
-    display: flex;
-    
-    
-    a {
-      color: white;
-      margin: 0 20px;
-      padding: 5px 0; 
-
-      text-decoration: none;
-    }
-  }
+.system-container {
+  font-family: 'Proixma Nova Alt', sans-serif;
+  max-width: 1080px;
 }
 
 
 </style>
+
