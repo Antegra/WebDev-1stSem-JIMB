@@ -21,12 +21,7 @@ export default {
             type: Boolean,
             default: () => false,
         }
-    },
-    // methods: {
-    //     handleClick() {
-    //         console.log("HEJ");
-    //     }
-    // }
+    }
 }
 </script>
 

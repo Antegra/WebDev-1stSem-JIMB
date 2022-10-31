@@ -8,29 +8,20 @@
   </template>
   
   <script setup>
-  import MyButton from "../components/buttons.vue"
+  import MyButton from "../components/buttons.vue";
   
-  
+  function handleNext() {
+            console.log("Next");
+        }
+    function handleBack() {
+            console.log("Back");
+        }
   
   </script>
 
 
 
-<script>
-export default {
-  components: {
-    MyButton
-  },
-  methods: {
-        handleNext() {
-            console.log("Next");
-        },
-        handleBack() {
-            console.log("Back");
-        },
-    }
-}
-</script>
+
   
   
   <style lang="scss" scoped>
