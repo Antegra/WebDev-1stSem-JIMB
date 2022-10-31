@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>
-      
+      Hjem
     </h1>
   </div>
 </template>
