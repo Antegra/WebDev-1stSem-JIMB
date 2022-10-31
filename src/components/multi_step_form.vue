@@ -8,7 +8,7 @@ let first_name = ref("");
 
 function next() {
     step.value += 1;
-    //console.log(first_name.value);
+    
 
 }
 
