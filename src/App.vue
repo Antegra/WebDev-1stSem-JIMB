@@ -20,7 +20,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 .wrapper {
   nav {
-    background-color: $Midnight-Green;
+    background-color: deeppink;
     display: flex;
     
     
