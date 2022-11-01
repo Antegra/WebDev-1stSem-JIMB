@@ -2,8 +2,9 @@
 import { ref } from 'vue';
 
 
-let step = ref(3);
-let input = ref("");
+let step = ref(1);
+let input_educations = ref("");
+let input_subjects = ref("");
 
 
 // step 1 - Om mødet 
@@ -27,24 +28,27 @@ let locations = ref(["Odense", "Vejle", "Svendborg", "Jellinge"]);
 let educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker", "Byggekoordinator", "Bygningskonstruktør", "Datamatiker", "Digital konceptudvikling", "E-handel", "El-installatør", "Energiteknolog", "Ergoterapeut", "Financial controller", "Finans", "Finansøkonom", "Fysioterapeut", "Handelsøkonom", "Innovation og entrepreneurship", "International handel og markedsføring", "International hospitality management", "IT-sikkerhed", "IT-teknolog", "Jordbrug", "Jordbrugsteknolog", "Laborant", "Logistikøkonom", "Lærer", "Markedsføringsøkonom", "Multimediedesigner", "Procesteknolog", "Produktionsteknolog", "Produktudvikling og teknisk integration", "Pædagog", "Radiograf", "Serviceøkonom", "Socialrådgiver", "Softwareudvikling", "Sport management", "Sundhedsadministrativ koordinator", "Sygeplejerske", "VVS-installatør", "Webudvikling", "Økonomi og IT"]);
 let f_educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker"]);
 
+let educations_minus_fav = educations.value.filter(item => !f_educations.value.includes(item))
+
+
 // step 4 - Hvad handlede samtalen om ?
 let sp_6 = ref("Hvad handlede samtalen om ?");
 let subjects = ref(["Administrative forhold", "Barsel", "Eksamen", "Fastholde trivsel", "Internationale muligheder", "Mistrivsel", "Optagelsesvejledning", "Ordensreglement", "Orlov", "Overflytning/genindskrivning", "Personlige forhold", "Praktik i DK/klinik/dialogmøder", "Ikke studierelevant", "SPS", "Studieophør", "Studieplanlægning", "Studietvivl / Studievalg", "Studieudfordringer", "Sygdom", "Undervisningen", "Økonomi",]);
 
 
-let educations_minus_fav = educations.value.filter(item => !f_educations.value.includes(item))
+let durations = ref(["1-15 min", "16-30 min", "31-45 min", "46-60 min", "Mere end 60 min"]);
 
 
 
 function filteredEducations() {
     return educations_minus_fav.filter((edu) =>
-        edu.toLowerCase().includes(input.value.toLowerCase())
+        edu.toLowerCase().includes(input_educations.value.toLowerCase())
     );
 }
 
 function filteredSubject() {
     return subjects.value.filter((subject) =>
-        subject.toLowerCase().includes(input.value.toLowerCase())
+        subject.toLowerCase().includes(input_subjects.value.toLowerCase())
     );
 }
 
@@ -75,7 +79,7 @@ function previous() {
                 <h2>Om mødet</h2>
 
                 <p>{{ sp_1 }}</p>
-                <select name="cars" id="cars">
+                <select>
                     <option v-for="date in dates" value="{{ date }}"> {{ date }}</option>
                 </select>
                 <p>{{ sp_2 }}</p>
@@ -125,7 +129,7 @@ function previous() {
                 </div>
             </div>
 
-            <input type="text" v-model="input" placeholder="Search..." />
+            <input type="text" v-model="input_educations" placeholder="Search..." />
 
             <div class="educations">
                 <button v-for="edu in filteredEducations()" :key="edu" @click="test(edu)"> {{ edu }} </button>
@@ -140,19 +144,27 @@ function previous() {
 
         <!-- step 4 - Hvad handler samtalen om -->
         <section class="register" v-show="step === 4">
-            <h2>{{ sp_5 }}</h2>
+            <h2>{{ sp_6 }}</h2>
 
-            <input type="text" v-model="input" placeholder="Search..." />
+            <input type="text" v-model="input_subjects" placeholder="Search..." />
 
             <div class="educations">
                 <button v-for="subject in filteredSubject()" :key="subject" @click="test(subject)"> {{ subject }}
                 </button>
             </div>
 
+            <h2> Hvor lang tid tog det?</h2>
+
+            <div>
+                <button v-for="duration in durations" @click="test(duration)"> {{ duration }}</button>
+            </div>
+
             <div class="navigation-group">
                 <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
-                <input class="form_btn" type="submit" value="next" @click.prevent="next">
+                <input class="form_btn" type="submit" value="afslut" @click.prevent="next">
             </div>
+
+
         </section>
     </div>
 </template>
