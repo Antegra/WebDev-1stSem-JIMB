@@ -119,7 +119,10 @@ function previous() {
 
 
             <div class="educations">
-                <button v-for="edu in f_educations" :key="edu" @click="test(edu)"> {{ edu }} </button>
+                <div v-for="edu in f_educations" :key="edu">
+                    <button @click="test(edu)"> {{ edu }} </button>
+                    <span>Fav</span>
+                </div>
             </div>
 
             <input type="text" v-model="input" placeholder="Search..." />
@@ -201,6 +204,16 @@ function previous() {
         button {
             width: 170px;
             height: 40px;
+        }
+
+        span {
+            font-size: 12px;
+            background-color: $Maize;
+            padding: 2px 10px;
+
+            position: relative;
+            left: -35px;
+            top: -20px;
         }
 
     }
