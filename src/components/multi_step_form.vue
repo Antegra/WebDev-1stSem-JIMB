@@ -3,8 +3,17 @@ import { ref } from 'vue';
 
 
 let step = ref(1);
-let input_educations = ref("");
-let input_subjects = ref("");
+
+let anwsers = {
+    month: "",
+    type: "",
+    sex: "",
+    niveau: "",
+    educations: [],
+    subject: [],
+    duration: ""
+
+};
 
 
 // step 1 - Om mødet 
@@ -24,6 +33,7 @@ let niveaus = ref(["Nuværende studerende", "Potentielle studerende"]);
 
 // step 3 - Uddannelsested
 let sp_5 = ref("Uddannelsested");
+let input_educations = ref("");
 let locations = ref(["Odense", "Vejle", "Svendborg", "Jellinge"]);
 let educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker", "Byggekoordinator", "Bygningskonstruktør", "Datamatiker", "Digital konceptudvikling", "E-handel", "El-installatør", "Energiteknolog", "Ergoterapeut", "Financial controller", "Finans", "Finansøkonom", "Fysioterapeut", "Handelsøkonom", "Innovation og entrepreneurship", "International handel og markedsføring", "International hospitality management", "IT-sikkerhed", "IT-teknolog", "Jordbrug", "Jordbrugsteknolog", "Laborant", "Logistikøkonom", "Lærer", "Markedsføringsøkonom", "Multimediedesigner", "Procesteknolog", "Produktionsteknolog", "Produktudvikling og teknisk integration", "Pædagog", "Radiograf", "Serviceøkonom", "Socialrådgiver", "Softwareudvikling", "Sport management", "Sundhedsadministrativ koordinator", "Sygeplejerske", "VVS-installatør", "Webudvikling", "Økonomi og IT"]);
 let f_educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker"]);
@@ -33,6 +43,7 @@ let educations_minus_fav = educations.value.filter(item => !f_educations.value.i
 
 // step 4 - Hvad handlede samtalen om ?
 let sp_6 = ref("Hvad handlede samtalen om ?");
+let input_subjects = ref("");
 let subjects = ref(["Administrative forhold", "Barsel", "Eksamen", "Fastholde trivsel", "Internationale muligheder", "Mistrivsel", "Optagelsesvejledning", "Ordensreglement", "Orlov", "Overflytning/genindskrivning", "Personlige forhold", "Praktik i DK/klinik/dialogmøder", "Ikke studierelevant", "SPS", "Studieophør", "Studieplanlægning", "Studietvivl / Studievalg", "Studieudfordringer", "Sygdom", "Undervisningen", "Økonomi",]);
 
 
@@ -56,6 +67,41 @@ function filteredSubject() {
 function test(e) {
     console.log(e);
 
+}
+
+function month(e) {
+    anwsers.month = e.target.value;
+    console.log(anwsers); 
+}
+
+function meeting(e) {
+    anwsers.type = e;
+    console.log(anwsers); 
+}
+
+function sex(e) {
+    anwsers.sex = e;
+    console.log(anwsers); 
+}
+
+function level(e) {
+    anwsers.niveau = e;
+    console.log(anwsers); 
+}
+
+function educations_anwser(e) {
+    anwsers.educations.push(e);
+    console.log(anwsers); 
+}
+
+function subject_anwser(e) {
+    anwsers.subject.push(e);
+    console.log(anwsers); 
+}
+
+function duration_anwser(e) {
+    anwsers.duration = e;
+    console.log(anwsers); 
 }
 
 function next() {
@@ -83,11 +129,11 @@ function done() {
                 <h2>Om mødet</h2>
 
                 <p>{{ sp_1 }}</p>
-                <select>
-                    <option v-for="date in dates" value="{{ date }}"> {{ date }}</option>
+                <select @change="month($event)">
+                    <option v-for="date in dates" :value="date"> {{ date }}</option>
                 </select>
                 <p>{{ sp_2 }}</p>
-                <button v-for="type in types"> {{ type }} </button>
+                <button v-for="type in types" @click="meeting(type)"> {{ type }} </button>
 
 
             </div>
@@ -102,12 +148,12 @@ function done() {
         <section class="register" v-show="step === 2">
             <h3>{{ sp_3 }}</h3>
             <div>
-                <button v-for="person in persons"> {{ person }} </button>
+                <button v-for="person in persons" @click="sex(person)"> {{ person }} </button>
             </div>
 
             <h3>{{ sp_4 }}</h3>
             <div>
-                <button v-for="niveau in niveaus"> {{ niveau }}</button>
+                <button v-for="niveau in niveaus" @click="level(niveau)"> {{ niveau }}</button>
             </div>
 
             <div class="navigation-group">
@@ -128,7 +174,7 @@ function done() {
 
             <div class="educations">
                 <div v-for="edu in f_educations" :key="edu">
-                    <button @click="test(edu)"> {{ edu }} </button>
+                    <button @click="educations_anwser(edu)"> {{ edu }} </button>
                     <span>Fav</span>
                 </div>
             </div>
@@ -136,7 +182,7 @@ function done() {
             <input type="text" v-model="input_educations" placeholder="Search..." />
 
             <div class="educations">
-                <button v-for="edu in filteredEducations()" :key="edu" @click="test(edu)"> {{ edu }} </button>
+                <button v-for="edu in filteredEducations()" :key="edu" @click="educations_anwser(edu)"> {{ edu }} </button>
             </div>
 
             <div class="navigation-group">
@@ -153,16 +199,37 @@ function done() {
             <input type="text" v-model="input_subjects" placeholder="Search..." />
 
             <div class="educations">
-                <button v-for="subject in filteredSubject()" :key="subject" @click="test(subject)"> {{ subject }}
+                <button v-for="subject in filteredSubject()" :key="subject" @click="subject_anwser(subject)"> {{ subject }}
                 </button>
             </div>
 
             <h2> Hvor lang tid tog det?</h2>
 
             <div>
-                <button v-for="duration in durations" @click="test(duration)"> {{ duration }}</button>
+                <button v-for="duration in durations" @click="duration_anwser(duration)"> {{ duration }}</button>
             </div>
 
+            <div class="navigation-group">
+                <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
+                <input class="form_btn" type="submit" value="next" @click.prevent="next">
+            </div>
+
+
+        </section>
+
+         <!-- step 4 - Hvad handler samtalen om -->
+         <section class="register" v-show="step === 5">
+            <h2>test</h2>
+
+            <div class="anwsers">
+                <p>Sex: {{ anwsers.sex }}</p>
+                <p>Type: {{ anwsers.type }}</p>
+                <p>Month: {{ anwsers.month }}</p>
+                <p>Duration: {{ anwsers.duration }}</p>
+                <p>Educations: <li v-for="e in anwsers.educations">{{ e }}</li></p>
+                <p>Subjects: <li v-for="e in anwsers.subject">{{ e }}</li></p>
+            </div>
+         
             <div class="navigation-group">
                 <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
                 <input class="form_btn" type="submit" value="afslut" @click.prevent="done">
@@ -232,6 +299,10 @@ function done() {
             top: -20px;
         }
 
+    }
+
+    .anwsers {
+        font-size: 16px;
     }
 }
 </style>
