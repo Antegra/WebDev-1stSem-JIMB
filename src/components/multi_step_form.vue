@@ -53,8 +53,6 @@ function filteredSubject() {
 }
 
 
-
-
 function test(e) {
     console.log(e);
 
@@ -67,6 +65,12 @@ function next() {
 function previous() {
     step.value = step.value - 1;
 }
+
+function done() {
+    step.value = 1;
+    window.location.href = '/';
+}
+
 
 </script>
 
@@ -161,7 +165,7 @@ function previous() {
 
             <div class="navigation-group">
                 <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
-                <input class="form_btn" type="submit" value="afslut" @click.prevent="next">
+                <input class="form_btn" type="submit" value="afslut" @click.prevent="done">
             </div>
 
 
