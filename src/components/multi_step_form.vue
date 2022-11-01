@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 
 
-let step = ref(1);
+let step = ref(3);
 let input = ref("");
 
 
@@ -25,27 +25,35 @@ let niveaus = ref(["Nuværende studerende", "Potentielle studerende"]);
 let sp_5 = ref("Uddannelsested");
 let locations = ref(["Odense", "Vejle", "Svendborg", "Jellinge"]);
 let educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker", "Byggekoordinator", "Bygningskonstruktør", "Datamatiker", "Digital konceptudvikling", "E-handel", "El-installatør", "Energiteknolog", "Ergoterapeut", "Financial controller", "Finans", "Finansøkonom", "Fysioterapeut", "Handelsøkonom", "Innovation og entrepreneurship", "International handel og markedsføring", "International hospitality management", "IT-sikkerhed", "IT-teknolog", "Jordbrug", "Jordbrugsteknolog", "Laborant", "Logistikøkonom", "Lærer", "Markedsføringsøkonom", "Multimediedesigner", "Procesteknolog", "Produktionsteknolog", "Produktudvikling og teknisk integration", "Pædagog", "Radiograf", "Serviceøkonom", "Socialrådgiver", "Softwareudvikling", "Sport management", "Sundhedsadministrativ koordinator", "Sygeplejerske", "VVS-installatør", "Webudvikling", "Økonomi og IT"]);
+let f_educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker"]);
 
 // step 4 - Hvad handlede samtalen om ?
 let sp_6 = ref("Hvad handlede samtalen om ?");
-let subjects = ref(["Administrative forhold ", "Barsel", "Eksamen", "Fastholde trivsel", "Internationale muligheder", "Mistrivsel", "Optagelsesvejledning", "Ordensreglement", "Orlov", "Overflytning/genindskrivning", "Personlige forhold", "Praktik i DK/klinik/dialogmøder", "Ikke studierelevant", "SPS", "Studieophør", "Studieplanlægning", "Studietvivl / Studievalg", "Studieudfordringer", "Sygdom", "Undervisningen", "Økonomi",
-])
+let subjects = ref(["Administrative forhold", "Barsel", "Eksamen", "Fastholde trivsel", "Internationale muligheder", "Mistrivsel", "Optagelsesvejledning", "Ordensreglement", "Orlov", "Overflytning/genindskrivning", "Personlige forhold", "Praktik i DK/klinik/dialogmøder", "Ikke studierelevant", "SPS", "Studieophør", "Studieplanlægning", "Studietvivl / Studievalg", "Studieudfordringer", "Sygdom", "Undervisningen", "Økonomi",]);
+
+
+let educations_minus_fav = educations.value.filter(item => !f_educations.value.includes(item))
+
+
 
 function filteredEducations() {
-  return educations.value.filter((edu) =>
-    edu.toLowerCase().includes(input.value.toLowerCase())
-  );
+    return educations_minus_fav.filter((edu) =>
+        edu.toLowerCase().includes(input.value.toLowerCase())
+    );
 }
 
 function filteredSubject() {
-  return subjects.value.filter((subject) =>
-  subject.toLowerCase().includes(input.value.toLowerCase())
-  );
+    return subjects.value.filter((subject) =>
+        subject.toLowerCase().includes(input.value.toLowerCase())
+    );
 }
+
+
 
 
 function test(e) {
     console.log(e);
+
 }
 
 function next() {
@@ -105,13 +113,19 @@ function previous() {
             <h2>{{ sp_5 }}</h2>
 
             <div>
-                <button v-for="location in locations"> {{location}} </button>
+                <button v-for="location in locations"> {{ location }} </button>
+            </div>
+
+
+
+            <div class="educations">
+                <button v-for="edu in f_educations" :key="edu" @click="test(edu)"> {{ edu }} </button>
             </div>
 
             <input type="text" v-model="input" placeholder="Search..." />
 
             <div class="educations">
-                <button  v-for="edu in filteredEducations()" :key="edu"  @click="test(edu)"> {{ edu }} </button>
+                <button v-for="edu in filteredEducations()" :key="edu" @click="test(edu)"> {{ edu }} </button>
             </div>
 
             <div class="navigation-group">
@@ -128,7 +142,8 @@ function previous() {
             <input type="text" v-model="input" placeholder="Search..." />
 
             <div class="educations">
-                <button  v-for="subject in filteredSubject()" :key="subject"  @click="test(subject)"> {{ subject }} </button>
+                <button v-for="subject in filteredSubject()" :key="subject" @click="test(subject)"> {{ subject }}
+                </button>
             </div>
 
             <div class="navigation-group">
@@ -150,7 +165,7 @@ function previous() {
     margin: auto;
     padding: 2vh 0;
 
-    overflow: scroll;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -181,7 +196,7 @@ function previous() {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        
+
 
         button {
             width: 170px;
