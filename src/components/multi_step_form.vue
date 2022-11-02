@@ -64,44 +64,39 @@ function filteredSubject() {
 }
 
 
-function test(e) {
-    console.log(e);
-
-}
-
 function month(e) {
     anwsers.month = e.target.value;
-    console.log(anwsers); 
+    console.log(anwsers);
 }
 
 function meeting(e) {
     anwsers.type = e;
-    console.log(anwsers); 
+    console.log(anwsers);
 }
 
 function sex(e) {
     anwsers.sex = e;
-    console.log(anwsers); 
+    console.log(anwsers);
 }
 
 function level(e) {
     anwsers.niveau = e;
-    console.log(anwsers); 
+    console.log(anwsers);
 }
 
 function educations_anwser(e) {
     anwsers.educations.push(e);
-    console.log(anwsers); 
+    console.log(anwsers);
 }
 
 function subject_anwser(e) {
     anwsers.subject.push(e);
-    console.log(anwsers); 
+    console.log(anwsers);
 }
 
 function duration_anwser(e) {
     anwsers.duration = e;
-    console.log(anwsers); 
+    console.log(anwsers);
 }
 
 function next() {
@@ -182,7 +177,8 @@ function done() {
             <input type="text" v-model="input_educations" placeholder="Search..." />
 
             <div class="educations">
-                <button v-for="edu in filteredEducations()" :key="edu" @click="educations_anwser(edu)"> {{ edu }} </button>
+                <button v-for="edu in filteredEducations()" :key="edu" @click="educations_anwser(edu)"> {{ edu }}
+                </button>
             </div>
 
             <div class="navigation-group">
@@ -199,7 +195,8 @@ function done() {
             <input type="text" v-model="input_subjects" placeholder="Search..." />
 
             <div class="educations">
-                <button v-for="subject in filteredSubject()" :key="subject" @click="subject_anwser(subject)"> {{ subject }}
+                <button v-for="subject in filteredSubject()" :key="subject" @click="subject_anwser(subject)"> {{ subject
+                }}
                 </button>
             </div>
 
@@ -217,8 +214,8 @@ function done() {
 
         </section>
 
-         <!-- step 4 - Hvad handler samtalen om -->
-         <section class="register" v-show="step === 5">
+        <!-- step 4 - Hvad handler samtalen om -->
+        <section class="register" v-show="step === 5">
             <h2>test</h2>
 
             <div class="anwsers">
@@ -226,10 +223,12 @@ function done() {
                 <p>Type: {{ anwsers.type }}</p>
                 <p>Month: {{ anwsers.month }}</p>
                 <p>Duration: {{ anwsers.duration }}</p>
-                <p>Educations: <li v-for="e in anwsers.educations">{{ e }}</li></p>
-                <p>Subjects: <li v-for="e in anwsers.subject">{{ e }}</li></p>
+                <p>Educations: <li v-for="e in anwsers.educations">{{ e }}</li>
+                </p>
+                <p>Subjects: <li v-for="e in anwsers.subject">{{ e }}</li>
+                </p>
             </div>
-         
+
             <div class="navigation-group">
                 <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
                 <input class="form_btn" type="submit" value="afslut" @click.prevent="done">
