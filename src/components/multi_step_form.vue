@@ -152,11 +152,69 @@ function duration_anwser(e) {
     console.log(anwsers);
 }
 
-function next() {
-    step.value += 1;
+function next(e) {
+    const boxes = document.querySelectorAll('button')
+    switch (e) {
+        case 1:
+
+            if (anwsers.type == "") {
+                boxes.forEach(box => {
+                    box.classList.add("alert")
+                });
+            } else {
+                step.value += 1;
+                boxes.forEach(box => {
+                    box.classList.remove("alert");
+                });
+            }
+            break;
+
+        case 2:
+            if (anwsers.sex == "" || anwsers.niveau == "") {
+                boxes.forEach(box => {
+                    box.classList.add("alert")
+                });
+            } else {
+                step.value += 1;
+                boxes.forEach(box => {
+                    box.classList.remove("alert");
+                });
+            }
+            break;
+
+        case 3:
+            if (anwsers.educations == "" || anwsers.locations == "") {
+                boxes.forEach(box => {
+                    box.classList.add("alert")
+                });
+            } else {
+                step.value += 1;
+                boxes.forEach(box => {
+                    box.classList.remove("alert");
+                });
+            }
+            break;
+
+        case 4:
+            if (anwsers.subject == "" || anwsers.duration == "") {
+                boxes.forEach(box => {
+                    box.classList.add("alert")
+                });
+            } else {
+                step.value += 1;
+                boxes.forEach(box => {
+                    box.classList.remove("alert");
+                });
+            }
+            break;
+    }
 }
 
 function previous() {
+    const boxes = document.querySelectorAll('button')
+    boxes.forEach(box => {
+        box.classList.remove("alert")
+    });
     step.value = step.value - 1;
 }
 
@@ -173,6 +231,24 @@ function done() {
     <div @load="test()">
         <!-- step 1 - Om mødet -->
         <section class="register" v-show="step === 1">
+            <div class="progress_bar">
+                <div class="1 bobble active">
+                    <p>1</p>
+                    <p>Om mødet</p>
+                </div>
+                <div class="2 bobble">
+                    <p>2</p>
+                    <p>Om mødet</p>
+                </div>
+                <div class="3 bobble">
+                    <p>3</p>
+                    <p>Om mødet</p>
+                </div>
+                <div class="4 bobble">
+                    <p>4</p>
+                    <p>Om mødet</p>
+                </div>
+            </div>
             <div class="form-group-1">
                 <h2>Om mødet</h2>
 
@@ -190,34 +266,70 @@ function done() {
             </div>
 
             <div class="navigation-group">
-                <input class="form_btn" type="submit" value="next" @click.prevent="next">
+                <input class="form_btn" type="submit" value="next" @click.prevent="next(1)">
             </div>
 
         </section>
 
         <!-- step 2 - Hvem er det med -->
         <section class="register" v-show="step === 2">
-            <div class="form-group-2">
-                <h3>{{ sp_3 }}</h3>
-                <div class="form-group-2-1">
-                    <button v-for="person in persons" @click="sex(person)" :id="person"> {{ person }} </button>
+            <div class="progress_bar">
+                <div class="1 bobble active">
+                    <p>1</p>
+                    <p>Om mødet</p>
                 </div>
-
-                <h3>{{ sp_4 }}</h3>
-                <div class="form-group-2-2">
-                    <button v-for="niveau in niveaus" @click="level(niveau)" :id="niveau"> {{ niveau }}</button>
+                <div class="2 bobble active">
+                    <p>2</p>
+                    <p>Om mødet</p>
                 </div>
-
-                <div class="navigation-group">
-                    <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
-                    <input class="form_btn" type="submit" value="next" @click.prevent="next">
+                <div class="3 bobble">
+                    <p>3</p>
+                    <p>Om mødet</p>
+                </div>
+                <div class="4 bobble">
+                    <p>4</p>
+                    <p>Om mødet</p>
                 </div>
             </div>
+
+            <h3>{{ sp_3 }}</h3>
+            <div class="form-group-2-1">
+                <button v-for="person in persons" @click="sex(person)" :id="person"> {{ person }} </button>
+            </div>
+
+            <h3>{{ sp_4 }}</h3>
+            <div class="form-group-2-2">
+                <button v-for="niveau in niveaus" @click="level(niveau)" :id="niveau"> {{ niveau }}</button>
+            </div>
+
+            <div class="navigation-group">
+                <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
+                <input class="form_btn" type="submit" value="next" @click.prevent="next(2)">
+            </div>
+
         </section>
 
 
         <!-- step 3 -  Uddannelsested-->
         <section class="register" v-show="step === 3">
+            <div class="progress_bar">
+                <div class="1 bobble active">
+                    <p>1</p>
+                    <p>Om mødet</p>
+                </div>
+                <div class="2 bobble active">
+                    <p>2</p>
+                    <p>Om mødet</p>
+                </div>
+                <div class="3 bobble active">
+                    <p>3</p>
+                    <p>Om mødet</p>
+                </div>
+                <div class="4 bobble">
+                    <p>4</p>
+                    <p>Om mødet</p>
+                </div>
+            </div>
             <h2>{{ sp_5 }}</h2>
 
             <div class="form-group-3-1">
@@ -242,7 +354,7 @@ function done() {
 
             <div class="navigation-group">
                 <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
-                <input class="form_btn" type="submit" value="next" @click.prevent="next">
+                <input class="form_btn" type="submit" value="next" @click.prevent="next(3)">
             </div>
 
         </section>
@@ -250,7 +362,24 @@ function done() {
 
         <!-- step 4 - Hvad handler samtalen om -->
         <section class="register form-group-4" v-show="step === 4">
-
+            <div class="progress_bar">
+                <div class="1 bobble active">
+                    <p>1</p>
+                    <p>Om mødet</p>
+                </div>
+                <div class="2 bobble active">
+                    <p>2</p>
+                    <p>Om mødet</p>
+                </div>
+                <div class="3 bobble active">
+                    <p>3</p>
+                    <p>Om mødet</p>
+                </div>
+                <div class="4 bobble active">
+                    <p>4</p>
+                    <p>Om mødet</p>
+                </div>
+            </div>
             <h2>{{ sp_6 }}</h2>
 
             <input type="text" v-model="input_subjects" placeholder="Search..." />
@@ -272,7 +401,7 @@ function done() {
 
             <div class="navigation-group">
                 <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
-                <input class="form_btn" type="submit" value="next" @click.prevent="next">
+                <input class="form_btn" type="submit" value="next" @click.prevent="next(4)">
             </div>
 
 
@@ -309,10 +438,41 @@ function done() {
 <style lang="scss" scoped>
 @import "../assets/colors.scss";
 
+.progress_bar {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+
+
+    .bobble {
+        border: 2px solid $Midnight-Green;
+        border-radius: 50%;
+        padding: 15px;
+    }
+
+    p {
+        text-align: center;
+        font-size: 16px;
+        color: $Midnight-Green;
+    }
+
+    .active {
+        background-color: $Midnight-Green;
+
+        p {
+            color: white;
+        }
+    }
+}
+
 .selected {
     background-color: $Maize;
     color: $Midnight-Green;
     border: none;
+}
+
+.alert {
+    border-color: red;
 }
 
 .register {
