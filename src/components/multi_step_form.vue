@@ -9,6 +9,7 @@ let anwsers = {
     type: "",
     sex: "",
     niveau: "",
+    locations: [],
     educations: [],
     subject: [],
     duration: ""
@@ -19,10 +20,15 @@ let anwsers = {
 // step 1 - Om mødet 
 let sp_1 = ref("Angiv måned");
 let dates = ref(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
+const d = new Date();
+let select_month = ref([]);
+anwsers.month = dates.value[d.getMonth()];
+select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() - 1]];
+
+
 
 let sp_2 = ref("Vælge type henvendelse")
 let types = ref(["Fysik", "Online", "Telefon"]);
-
 
 // step 2 - Hvem blev vejledt?
 let sp_3 = ref("Hvem blev vejledt?");
@@ -34,12 +40,11 @@ let niveaus = ref(["Nuværende studerende", "Potentielle studerende"]);
 // step 3 - Uddannelsested
 let sp_5 = ref("Uddannelsested");
 let input_educations = ref("");
-let locations = ref(["Odense", "Vejle", "Svendborg", "Jellinge"]);
+let locations = ref(["Odense", "Vejle", "Svendborg", "Jellinge", "Frederica"]);
 let educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker", "Byggekoordinator", "Bygningskonstruktør", "Datamatiker", "Digital konceptudvikling", "E-handel", "El-installatør", "Energiteknolog", "Ergoterapeut", "Financial controller", "Finans", "Finansøkonom", "Fysioterapeut", "Handelsøkonom", "Innovation og entrepreneurship", "International handel og markedsføring", "International hospitality management", "IT-sikkerhed", "IT-teknolog", "Jordbrug", "Jordbrugsteknolog", "Laborant", "Logistikøkonom", "Lærer", "Markedsføringsøkonom", "Multimediedesigner", "Procesteknolog", "Produktionsteknolog", "Produktudvikling og teknisk integration", "Pædagog", "Radiograf", "Serviceøkonom", "Socialrådgiver", "Softwareudvikling", "Sport management", "Sundhedsadministrativ koordinator", "Sygeplejerske", "VVS-installatør", "Webudvikling", "Økonomi og IT"]);
 let f_educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker"]);
 
 let educations_minus_fav = educations.value.filter(item => !f_educations.value.includes(item))
-
 
 // step 4 - Hvad handlede samtalen om ?
 let sp_6 = ref("Hvad handlede samtalen om ?");
@@ -48,8 +53,6 @@ let subjects = ref(["Administrative forhold", "Barsel", "Eksamen", "Fastholde tr
 
 
 let durations = ref(["1-15 min", "16-30 min", "31-45 min", "46-60 min", "Mere end 60 min"]);
-
-
 
 function filteredEducations() {
     return educations_minus_fav.filter((edu) =>
@@ -63,39 +66,89 @@ function filteredSubject() {
     );
 }
 
-
 function month(e) {
     anwsers.month = e.target.value;
-    console.log(anwsers);
 }
 
 function meeting(e) {
     anwsers.type = e;
+    const boxes = document.querySelectorAll('.form-group-1-2 .selected');
+
+    boxes.forEach(box => {
+        box.classList.remove('selected');
+    });
+
+    document.getElementById(e).classList.toggle("selected");
     console.log(anwsers);
 }
 
 function sex(e) {
     anwsers.sex = e;
+
+    const boxes = document.querySelectorAll('.form-group-2-1 .selected');
+
+    boxes.forEach(box => {
+        box.classList.remove('selected');
+    });
+
+    document.getElementById(e).classList.toggle("selected");
     console.log(anwsers);
 }
 
 function level(e) {
     anwsers.niveau = e;
+
+    const boxes = document.querySelectorAll('.form-group-2-2 .selected');
+
+    boxes.forEach(box => {
+        box.classList.remove('selected');
+    });
+
+    document.getElementById(e).classList.toggle("selected");
     console.log(anwsers);
 }
 
-function educations_anwser(e) {
-    anwsers.educations.push(e);
+function location_anwser(e) {
+    if (anwsers.locations.includes(e)) {
+        anwsers.locations = anwsers.locations.filter(function (item) {
+            return item !== e
+        });
+    } else {
+        anwsers.locations.push(e);
+
+    }
     console.log(anwsers);
+
+    document.getElementById(e).classList.toggle("selected");
+}
+
+function educations_anwser(e) {
+    if (anwsers.educations.includes(e)) {
+        anwsers.educations = anwsers.educations.filter(function (item) {
+            return item !== e
+        });
+    } else {
+        anwsers.educations.push(e);
+
+    }
+    document.getElementById(e).classList.toggle("selected");
+
 }
 
 function subject_anwser(e) {
     anwsers.subject.push(e);
-    console.log(anwsers);
+    document.getElementById(e).classList.toggle("selected");
 }
 
 function duration_anwser(e) {
     anwsers.duration = e;
+    const boxes = document.querySelectorAll('.form-group-4-2 .selected');
+
+    boxes.forEach(box => {
+        box.classList.remove('selected');
+    });
+
+    document.getElementById(e).classList.toggle("selected");
     console.log(anwsers);
 }
 
@@ -117,19 +170,22 @@ function done() {
 
 
 <template>
-    <div>
+    <div @load="test()">
         <!-- step 1 - Om mødet -->
         <section class="register" v-show="step === 1">
-            <div class="form-group">
+            <div class="form-group-1">
                 <h2>Om mødet</h2>
 
                 <p>{{ sp_1 }}</p>
-                <select @change="month($event)">
-                    <option v-for="date in dates" :value="date"> {{ date }}</option>
-                </select>
+                <div class="form-group-1-1">
+                    <select @change="month($event)">
+                        <option v-for="date in select_month" :value="date"> {{ date }}</option>
+                    </select>
+                </div>
                 <p>{{ sp_2 }}</p>
-                <button v-for="type in types" @click="meeting(type)"> {{ type }} </button>
-
+                <div class="form-group-1-2">
+                    <button v-for="type in types" @click="meeting(type)" :id="type"> {{ type }} </button>
+                </div>
 
             </div>
 
@@ -141,35 +197,37 @@ function done() {
 
         <!-- step 2 - Hvem er det med -->
         <section class="register" v-show="step === 2">
-            <h3>{{ sp_3 }}</h3>
-            <div>
-                <button v-for="person in persons" @click="sex(person)"> {{ person }} </button>
-            </div>
+            <div class="form-group-2">
+                <h3>{{ sp_3 }}</h3>
+                <div class="form-group-2-1">
+                    <button v-for="person in persons" @click="sex(person)" :id="person"> {{ person }} </button>
+                </div>
 
-            <h3>{{ sp_4 }}</h3>
-            <div>
-                <button v-for="niveau in niveaus" @click="level(niveau)"> {{ niveau }}</button>
-            </div>
+                <h3>{{ sp_4 }}</h3>
+                <div class="form-group-2-2">
+                    <button v-for="niveau in niveaus" @click="level(niveau)" :id="niveau"> {{ niveau }}</button>
+                </div>
 
-            <div class="navigation-group">
-                <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
-                <input class="form_btn" type="submit" value="next" @click.prevent="next">
+                <div class="navigation-group">
+                    <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
+                    <input class="form_btn" type="submit" value="next" @click.prevent="next">
+                </div>
             </div>
         </section>
+
 
         <!-- step 3 -  Uddannelsested-->
         <section class="register" v-show="step === 3">
             <h2>{{ sp_5 }}</h2>
 
-            <div>
-                <button v-for="location in locations"> {{ location }} </button>
+            <div class="form-group-3-1">
+                <button v-for="location in locations" :id="location" @click="location_anwser(location)"> {{ location }}
+                </button>
             </div>
 
-
-
-            <div class="educations">
+            <div class="educations form-group-3-2">
                 <div v-for="edu in f_educations" :key="edu">
-                    <button @click="educations_anwser(edu)"> {{ edu }} </button>
+                    <button @click="educations_anwser(edu)" :id="edu"> {{ edu }} </button>
                     <span>Fav</span>
                 </div>
             </div>
@@ -177,7 +235,8 @@ function done() {
             <input type="text" v-model="input_educations" placeholder="Search..." />
 
             <div class="educations">
-                <button v-for="edu in filteredEducations()" :key="edu" @click="educations_anwser(edu)"> {{ edu }}
+                <button v-for="edu in filteredEducations()" :id="edu" :key="edu" @click="educations_anwser(edu)"> {{ edu
+                }}
                 </button>
             </div>
 
@@ -188,22 +247,27 @@ function done() {
 
         </section>
 
+
         <!-- step 4 - Hvad handler samtalen om -->
-        <section class="register" v-show="step === 4">
+        <section class="register form-group-4" v-show="step === 4">
+
             <h2>{{ sp_6 }}</h2>
 
             <input type="text" v-model="input_subjects" placeholder="Search..." />
 
-            <div class="educations">
-                <button v-for="subject in filteredSubject()" :key="subject" @click="subject_anwser(subject)"> {{ subject
-                }}
+            <div class="educations form-group-4-1">
+                <button v-for="subject in filteredSubject()" :id="subject" :key="subject"
+                    @click="subject_anwser(subject)"> {{
+                            subject
+                    }}
                 </button>
             </div>
 
             <h2> Hvor lang tid tog det?</h2>
 
-            <div>
-                <button v-for="duration in durations" @click="duration_anwser(duration)"> {{ duration }}</button>
+            <div class="form-group-4-2">
+                <button v-for="duration in durations" :id="duration" @click="duration_anwser(duration)"> {{ duration
+                }}</button>
             </div>
 
             <div class="navigation-group">
@@ -214,7 +278,7 @@ function done() {
 
         </section>
 
-        <!-- step 4 - Hvad handler samtalen om -->
+        <!-- step 5 - result -->
         <section class="register" v-show="step === 5">
             <h2>test</h2>
 
@@ -223,9 +287,11 @@ function done() {
                 <p>Type: {{ anwsers.type }}</p>
                 <p>Month: {{ anwsers.month }}</p>
                 <p>Duration: {{ anwsers.duration }}</p>
-                <p>Educations: <li v-for="e in anwsers.educations">{{ e }}</li>
+                <p>Location: <li v-for="e in anwsers.locations"> {{ e }} </li>
                 </p>
-                <p>Subjects: <li v-for="e in anwsers.subject">{{ e }}</li>
+                <p>Educations: <li v-for="e in anwsers.educations">{{ e }} </li>
+                </p>
+                <p>Subjects: <li v-for="e in anwsers.subject">{{ e }} </li>
                 </p>
             </div>
 
@@ -242,6 +308,12 @@ function done() {
 
 <style lang="scss" scoped>
 @import "../assets/colors.scss";
+
+.selected {
+    background-color: $Maize;
+    color: $Midnight-Green;
+    border: none;
+}
 
 .register {
     background-color: $Columbia-blue;
@@ -281,6 +353,7 @@ function done() {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+
 
 
         button {
