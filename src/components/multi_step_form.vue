@@ -26,7 +26,6 @@ anwsers.month = dates.value[d.getMonth()];
 select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() - 1]];
 
 
-
 let sp_2 = ref("Vælge type henvendelse")
 let types = ref(["Fysik", "Online", "Telefon"]);
 
@@ -228,7 +227,7 @@ function done() {
 
 
 <template>
-    <div @load="test()">
+    <div>
         <!-- step 1 - Om mødet -->
         <section class="register" v-show="step === 1">
             <div class="progress_bar">
