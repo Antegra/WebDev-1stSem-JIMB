@@ -19,6 +19,7 @@ export default {
         <RouterLink to="/oldcases">Se gamle sager</RouterLink>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -59,5 +60,6 @@ export default {
   }
 }
 }
+
 </style>
   
