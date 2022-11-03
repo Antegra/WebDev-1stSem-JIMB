@@ -14,7 +14,6 @@ import Header from './components/header.vue';
 
 .system-container {
   font-family: 'Proixma Nova Alt', sans-serif;
-  max-width: 1080px;
 }
 </style>
 
