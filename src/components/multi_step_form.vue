@@ -19,7 +19,7 @@ let anwsers = {
 
 // step 1 - Om mødet 
 let sp_1 = ref("Angiv måned");
-let dates = ref(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
+let dates = ref(["Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"]);
 const d = new Date();
 let select_month = ref([]);
 anwsers.month = dates.value[d.getMonth()];
