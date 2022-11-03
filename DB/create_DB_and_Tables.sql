@@ -46,8 +46,6 @@ GO
 CREATE TABLE edu (
 	edu_id INT IDENTITY (1, 1) PRIMARY KEY,
 	name VARCHAR (50) NOT NULL,
-	location_id INT,
-    FOREIGN KEY (location_id) REFERENCES locations (location_id)
 );
 GO
 
