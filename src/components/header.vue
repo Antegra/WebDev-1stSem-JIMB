@@ -4,14 +4,13 @@ import { RouterLink, RouterView } from "vue-router";
 function toggleNav() {
   var x = document.getElementById("main-navigation")
   var y = document.getElementById("toggleicon");
-  if (x.className === "main-navigation" || y.className === "toggleicon") {
-    x.className += "-responsive ";
-    y.className += "-active ";
+  if (x.className === "main-navigation") {
+    x.className = x.className.replace('main-navigation','main-navigation-responsive');
+    y.innerHTML = y.innerHTML.replace( 'menu','close');
   } else {
-    x.className = "main-navigation";
-    y.className += "toggleicon";
+    y.innerHTML = y.innerHTML.replace( 'close','menu') ;
+    x.className = x.className.replace('main-navigation-responsive','main-navigation');
   }
-  console.log('menuen virker')
 }
 </script>
 
@@ -23,8 +22,8 @@ function toggleNav() {
           <img class="logo" src="../assets/img/ucl-logo.png" alt="UCLs logo" />
         </RouterLink>
         <div class="main-navigation" id="main-navigation">
-          <a href="javascript:void(0);" @click="toggleNav" >
-            <span class="material-symbols-outlined toggleicon" id="toggleicon">
+          <a href="javascript:void(0);">
+            <span class="material-symbols-outlined toggleicon" id="toggleicon" @click="toggleNav">
               menu
             </span>
           </a>
@@ -62,12 +61,10 @@ header {
         max-width: 143px;
       }
       .main-navigation {
-        overflow: hidden;
         a {
           color: $Midnight-Green;
           margin: 0 20px;
           text-decoration: none;
-  
           .material-symbols-outlined {
             position: relative;
             top: 5px;
@@ -86,16 +83,13 @@ header {
     
     //Mobileview
     @media screen and (max-width: 620px) {
-
       nav {
         padding: 2rem;
         justify-content: space-between;
-        
         .main-navigation {
           .navigation-link {
             display: none;
           }
-
           .toggleicon {
             display: inline;
         }
@@ -106,15 +100,20 @@ header {
         right: 0;
         height: 100vh;
         width: 50vw;
-        background-color: $Columbia-blue;
+        background-color: $Midnight-Green;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
         align-items: center;
-
+        .toggleicon {
+          position: absolute;
+          right: 2rem;
+          top: 2rem;
+          color: white;
+        }
         .navigation-link {
           padding: 1rem 0;
-          color: $Midnight-Green;
+          color: white;
           text-decoration: none;
         }
       }
