@@ -1,8 +1,8 @@
 
-CREATE DATABASE Studieservice;
+CREATE DATABASE Studieservice5;
 GO
 
-USE Studieservice;
+USE Studieservice5;
 GO
 
 -- create tables
