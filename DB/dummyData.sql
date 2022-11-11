@@ -9,6 +9,7 @@ INSERT INTO role(role_id,title) VALUES(1,'Admin')
 INSERT INTO role(role_id,title) VALUES(2,'Bruger')
 
 
+
 SET IDENTITY_INSERT role OFF;
 
 SET IDENTITY_INSERT sex ON;  
@@ -88,7 +89,7 @@ INSERT INTO edu(edu_id,name) VALUES(9,'Energiteknolog')
 INSERT INTO edu(edu_id,name) VALUES(10,'Ergoterapeut')
 INSERT INTO edu(edu_id,name) VALUES(11,'El-installatør')
 INSERT INTO edu(edu_id,name) VALUES(12,'E-handel')
-INSERT INTO edu(edu_id,name) VALUES(12,'Fysioterapeut')
+INSERT INTO edu(edu_id,name) VALUES(13,'Fysioterapeut')
 INSERT INTO edu(edu_id,name) VALUES(14,'Finans')
 INSERT INTO edu(edu_id,name) VALUES(15,'Finansøkonom')
 INSERT INTO edu(edu_id,name) VALUES(16,'Financial controller')
@@ -140,9 +141,9 @@ SET IDENTITY_INSERT users OFF;
 
 SET IDENTITY_INSERT cases ON;  
 
-INSERT INTO cases(case_id,month,niveau,nationality,user_id,sex_id,duration_id,type_id) VALUES(1,11,1,1,1,2,3,1)
-INSERT INTO cases(case_id,month,niveau,nationality,user_id,sex_id,duration_id,type_id) VALUES(2,10,1,1,2,1,2,2)
-INSERT INTO cases(case_id,month,niveau,nationality,user_id,sex_id,duration_id,type_id) VALUES(3,10,1,1,3,3,1,3)
+INSERT INTO cases(case_id,month,niveau,nationality,user_id,sex_id,duration_id,type_id,primeEdu) VALUES(1,2022-11-01,1,1,1,2,3,1,1)
+INSERT INTO cases(case_id,month,niveau,nationality,user_id,sex_id,duration_id,type_id,primeEdu) VALUES(2,2022-11-01,1,1,2,1,2,2,1)
+INSERT INTO cases(case_id,month,niveau,nationality,user_id,sex_id,duration_id,type_id,primeEdu) VALUES(3,2022-10-01,1,1,3,3,1,3,1)
 
 SET IDENTITY_INSERT cases OFF;
 

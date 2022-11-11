@@ -61,13 +61,14 @@ GO
 
 CREATE TABLE cases (
 	case_id INT IDENTITY (1, 1) PRIMARY KEY,
-	month int NOT NULL,
+	month DATE NOT NULL,
     niveau BIT NOT NULL,
 	nationality BIT NOT NULL,
 	user_id INT,
 	sex_id INT,
 	duration_id INT,
 	type_id INT,
+	primeEdu BIT,
 	FOREIGN KEY (user_id) REFERENCES users (user_id),
     FOREIGN KEY (sex_id) REFERENCES sex (sex_id),
     FOREIGN KEY (duration_id) REFERENCES duration (duration_id),
