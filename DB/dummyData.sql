@@ -1,4 +1,4 @@
-USE Studieservice;
+USE Studieservice5;
 GO
 
 /* Add dummy data into tables */
@@ -133,21 +133,19 @@ SET IDENTITY_INSERT edu OFF;
 
 SET IDENTITY_INSERT users ON;  
 
-INSERT INTO users(users_id,firstName,lastName,email,role_id,password) VALUES(1,'Hanne','Nielsen','hani@ucl.dk',2,HannePW)
-INSERT INTO users(users_id,firstName,lastName,email,role_id,password) VALUES(2,'Lars','Piet','lapi@ucl.dk',2,LarsPW)
-INSERT INTO users(users_id,firstName,lastName,email,role_id,password) VALUES(3,'Pierre','Gallet','piga@ucl.dk',1,PierrePW)
+INSERT INTO users(user_id,firstName,lastName,email,role_id) VALUES(1,'Hanne','Nielsen','hani@ucl.dk',2)
+INSERT INTO users(user_id,firstName,lastName,email,role_id) VALUES(2,'Lars','Piet','lapi@ucl.dk',2)
+INSERT INTO users(user_id,firstName,lastName,email,role_id) VALUES(3,'Pierre','Gallet','piga@ucl.dk',1)
 
 SET IDENTITY_INSERT users OFF;
 
 SET IDENTITY_INSERT cases ON;  
 
-INSERT INTO cases(case_id,month,niveau,nationality,user_id,sex_id,duration_id,type_id,primeEdu) VALUES(1,2022-11-01,1,1,1,2,3,1,1)
-INSERT INTO cases(case_id,month,niveau,nationality,user_id,sex_id,duration_id,type_id,primeEdu) VALUES(2,2022-11-01,1,1,2,1,2,2,1)
-INSERT INTO cases(case_id,month,niveau,nationality,user_id,sex_id,duration_id,type_id,primeEdu) VALUES(3,2022-10-01,1,1,3,3,1,3,1)
+INSERT INTO cases(case_id,month,niveau,nationality,user_id,sex_id,duration_id,type_id,primeEdu) VALUES(1,'2022-11-01',1,1,1,2,3,1,1)
+INSERT INTO cases(case_id,month,niveau,nationality,user_id,sex_id,duration_id,type_id,primeEdu) VALUES(2,'2022-11-01',1,1,2,1,2,2,1)
+INSERT INTO cases(case_id,month,niveau,nationality,user_id,sex_id,duration_id,type_id,primeEdu) VALUES(3,'2022-10-01',1,1,3,3,1,3,1)
 
-SET IDENTITY_INSERT cases OFF;
-
-SET IDENTITY_INSERT edu_user ON;  
+SET IDENTITY_INSERT cases OFF; 
 
 INSERT INTO edu_user(edu_id,user_id) VALUES(24,1)
 INSERT INTO edu_user(edu_id,user_id) VALUES(25,1)
@@ -156,9 +154,7 @@ INSERT INTO edu_user(edu_id,user_id) VALUES(4,1)
 INSERT INTO edu_user(edu_id,user_id) VALUES(44,1)
 INSERT INTO edu_user(edu_id,user_id) VALUES(44,2)
 
-SET IDENTITY_INSERT edu_user OFF;
 
-SET IDENTITY_INSERT edu_case ON;  
 
 INSERT INTO edu_case(edu_id,case_id) VALUES(44,1)
 INSERT INTO edu_case(edu_id,case_id) VALUES(48,1)
@@ -166,9 +162,9 @@ INSERT INTO edu_case(edu_id,case_id) VALUES(50,3)
 INSERT INTO edu_case(edu_id,case_id) VALUES(3,2)
 
 
-SET IDENTITY_INSERT edu_case OFF;
 
-SET IDENTITY_INSERT edu_location ON;  
+
+ 
 
 INSERT INTO edu_location(edu_id,location_id) VALUES(1,1)
 INSERT INTO edu_location(edu_id,location_id) VALUES(2,1)
@@ -245,9 +241,7 @@ INSERT INTO edu_location(edu_id,location_id) VALUES(50,1)
 INSERT INTO edu_location(edu_id,location_id) VALUES(51,1)
 
 
-SET IDENTITY_INSERT edu_location OFF;
 
-SET IDENTITY_INSERT subject_case ON;  
 
 INSERT INTO subject_case(subject_id,case_id) VALUES(10,1)
 INSERT INTO subject_case(subject_id,case_id) VALUES(12,1)
@@ -256,18 +250,14 @@ INSERT INTO subject_case(subject_id,case_id) VALUES(17,2)
 INSERT INTO subject_case(subject_id,case_id) VALUES(1,2)
 INSERT INTO subject_case(subject_id,case_id) VALUES(20,3)
 
-SET IDENTITY_INSERT subject_case OFF;
-
-SET IDENTITY_INSERT location_case ON;  
+ 
 
 INSERT INTO location_case(location_id,case_id) VALUES(1,1)
 INSERT INTO location_case(location_id,case_id) VALUES(1,2)
 INSERT INTO location_case(location_id,case_id) VALUES(5,2)
 INSERT INTO location_case(location_id,case_id) VALUES(1,3)
 
-SET IDENTITY_INSERT location_case OFF;
-
-SET IDENTITY_INSERT location_user ON;  
+ 
 
 INSERT INTO location_user(location_id,user_id) VALUES(1,1)
 INSERT INTO location_user(location_id,user_id) VALUES(1,2)
@@ -277,5 +267,3 @@ INSERT INTO location_user(location_id,user_id) VALUES(2,3)
 INSERT INTO location_user(location_id,user_id) VALUES(3,3)
 INSERT INTO location_user(location_id,user_id) VALUES(4,3)
 INSERT INTO location_user(location_id,user_id) VALUES(5,3)
-
-SET IDENTITY_INSERT location_user OFF;
