@@ -25,23 +25,19 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/colors.scss";
+@import "../assets/typography.scss";
+@import "../assets/button.scss";
+@import "../assets/variabler.scss";
+@import "../assets/mixins.scss";
 
 .hub {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-width: 1080;
-  height: 90vh;
+
+  @include mainWrap;
   
 .hub-container {
-  padding: 5rem;
-  background-color: $Columbia-blue;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: $Midnight-Green;
-  border-radius: 2px;
+
+
+  @include flowDesign; 
 
   .button-container {
     min-width: 600px;

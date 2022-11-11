@@ -1,0 +1,24 @@
+@mixin mainWrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 1080;
+    height: 100vh;
+}
+
+@mixin flowDesign {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 1080px;
+    width: 100%;
+    margin: auto;
+    align-items: center;
+
+    background: $Midnight-Green;
+    border-radius: $stdBorderRadius;
+    color: #fff;
+    box-shadow: $stdDropshadow;
+}

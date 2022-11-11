@@ -17,6 +17,12 @@ let anwsers = {
 };
 
 
+let bub1 = "Måned & type";
+let bub2 = "Køn & studiestatus";
+let bub3 = "Lokation & uddannelser";
+let bub4 = "Emner & tid";
+
+
 // step 1 - Om mødet 
 let sp_1 = ref("Angiv måned");
 let dates = ref(["Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"]);
@@ -227,25 +233,26 @@ function done() {
 
 
 <template>
-    <div>
+    <div class="section-wrapper">
         <!-- step 1 - Om mødet -->
         <section class="register" v-show="step === 1">
             <div class="progress_bar">
                 <div class="1 bobble active">
                     <p>1</p>
-                    <p>Om mødet</p>
+                    <p>{{ bub1 }}</p>
                 </div>
                 <div class="2 bobble">
                     <p>2</p>
-                    <p>Om mødet</p>
+                    <p> {{bub2}}</p>
                 </div>
                 <div class="3 bobble">
                     <p>3</p>
-                    <p>Om mødet</p>
+                    <p>{{bub3}}</p>
+                 
                 </div>
                 <div class="4 bobble">
                     <p>4</p>
-                    <p>Om mødet</p>
+                    <p>{{bub4}}</p>
                 </div>
             </div>
             <div class="form-group-1">
@@ -275,19 +282,20 @@ function done() {
             <div class="progress_bar">
                 <div class="1 bobble active">
                     <p>1</p>
-                    <p>Om mødet</p>
+                    <p>{{ bub1 }}</p>
                 </div>
                 <div class="2 bobble active">
                     <p>2</p>
-                    <p>Om mødet</p>
+                    <p> {{bub2}}</p>
                 </div>
                 <div class="3 bobble">
                     <p>3</p>
-                    <p>Om mødet</p>
+                    <p>{{bub3}}</p>
+                 
                 </div>
                 <div class="4 bobble">
                     <p>4</p>
-                    <p>Om mødet</p>
+                    <p>{{bub4}}</p>
                 </div>
             </div>
 
@@ -314,19 +322,20 @@ function done() {
             <div class="progress_bar">
                 <div class="1 bobble active">
                     <p>1</p>
-                    <p>Om mødet</p>
+                    <p>{{ bub1 }}</p>
                 </div>
                 <div class="2 bobble active">
                     <p>2</p>
-                    <p>Om mødet</p>
+                    <p> {{bub2}}</p>
                 </div>
                 <div class="3 bobble active">
                     <p>3</p>
-                    <p>Om mødet</p>
+                    <p>{{bub3}}</p>
+          
                 </div>
                 <div class="4 bobble">
                     <p>4</p>
-                    <p>Om mødet</p>
+                    <p>{{bub4}}</p>
                 </div>
             </div>
             <h2>{{ sp_5 }}</h2>
@@ -364,19 +373,20 @@ function done() {
             <div class="progress_bar">
                 <div class="1 bobble active">
                     <p>1</p>
-                    <p>Om mødet</p>
+                    <p>{{ bub1 }}</p>
                 </div>
-                <div class="2 bobble active">
+                <div class="2 bobbl active">
                     <p>2</p>
-                    <p>Om mødet</p>
+                    <p> {{bub2}}</p>
                 </div>
                 <div class="3 bobble active">
                     <p>3</p>
-                    <p>Om mødet</p>
+                    <p>{{bub3}}</p>
+                 
                 </div>
                 <div class="4 bobble active">
                     <p>4</p>
-                    <p>Om mødet</p>
+                    <p>{{bub4}}</p>
                 </div>
             </div>
             <h2>{{ sp_6 }}</h2>
@@ -435,31 +445,80 @@ function done() {
 
 
 <style lang="scss" scoped>
+
 @import "../assets/colors.scss";
+@import "../assets/typography.scss";
+@import "../assets/button.scss";
+@import "../assets/variabler.scss";
+@import "../assets/mixins.scss";
 
 .progress_bar {
     display: flex;
     justify-content: space-around;
     width: 80%;
+    position: absolute;
+    top: -120px;
 
 
     .bobble {
-        border: 2px solid $Midnight-Green;
+        background: #fff;
         border-radius: 50%;
-        padding: 15px;
+        height: 60px;
+        width: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position:relative;
+        box-shadow: $stdDropshadow;
+        
+        &:after {
+            position:absolute;
+            content: " ";
+            width: 182px;
+            height: 3px;
+            background: #fff;
+            left: -175px;
+            box-shadow: $stdDropshadow;
+            z-index: -1;
+
+        }
+
+   
+        &:first-of-type {
+            &:after {
+                content: unset;
+            }
+        }
     }
 
     p {
         text-align: center;
         font-size: 16px;
         color: $Midnight-Green;
+        
+        &:last-of-type {
+            position:absolute;
+            bottom: -44px;
+            font-size: 16px;
+            font-weight: 400;
+            white-space: nowrap;
+        }
     }
 
     .active {
-        background-color: $Midnight-Green;
+        background-color: $Verdigris;
+
+        &:after {
+            background-color: $Verdigris;
+        }
 
         p {
-            color: white;
+            color:#fff;
+            &:last-of-type {
+               
+                color: $Midnight-Green;
+            }
+            
         }
     }
 }
@@ -474,18 +533,24 @@ function done() {
     border-color: red;
 }
 
+
+.section-wrapper {
+   @include mainWrap; 
+}
 .register {
     background-color: $Columbia-blue;
     width: 75vw;
-    height: 75vh;
+    
     margin: auto;
     padding: 2vh 0;
-
+    position: relative;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+
+   @include flowDesign; 
 
     h2 {
         text-transform: capitalize;
