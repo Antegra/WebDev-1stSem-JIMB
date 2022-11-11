@@ -1,0 +1,18 @@
+.button {
+    height: 50px;
+    max-width: 224px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    &.login {
+        width: 131px;
+        background: $Maize;
+        font-weight: bold;
+    }
+}
+
+body {
+    background-image: url(../img/background.svg);
+}
