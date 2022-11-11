@@ -149,21 +149,12 @@ SET IDENTITY_INSERT cases OFF;
 
 SET IDENTITY_INSERT edu_user ON;  
 
-INSERT INTO edu_user(edu_id,user_id) VALUES(1,24)
-INSERT INTO edu_user(edu_id,user_id) VALUES(1,25)
-INSERT INTO edu_user(edu_id,user_id) VALUES(1,72)
-INSERT INTO edu_user(edu_id,user_id) VALUES(1,3)
-INSERT INTO edu_user(edu_id,user_id) VALUES(1,4)
-INSERT INTO edu_user(edu_id,user_id) VALUES(1,44)
-INSERT INTO edu_user(edu_id,user_id) VALUES(2,44)
-INSERT INTO edu_user(edu_id,user_id) VALUES(2,60)
-INSERT INTO edu_user(edu_id,user_id) VALUES(2,61)
-INSERT INTO edu_user(edu_id,user_id) VALUES(2,62)
-INSERT INTO edu_user(edu_id,user_id) VALUES(2,68)
-INSERT INTO edu_user(edu_id,user_id) VALUES(2,69)
-INSERT INTO edu_user(edu_id,user_id) VALUES(2,70)
-INSERT INTO edu_user(edu_id,user_id) VALUES(2,71)
-INSERT INTO edu_user(edu_id,user_id) VALUES(2,67)
+INSERT INTO edu_user(edu_id,user_id) VALUES(24,1)
+INSERT INTO edu_user(edu_id,user_id) VALUES(25,1)
+INSERT INTO edu_user(edu_id,user_id) VALUES(3,1)
+INSERT INTO edu_user(edu_id,user_id) VALUES(4,1)
+INSERT INTO edu_user(edu_id,user_id) VALUES(44,1)
+INSERT INTO edu_user(edu_id,user_id) VALUES(44,2)
 
 SET IDENTITY_INSERT edu_user OFF;
 
