@@ -25,27 +25,12 @@ import Login from "../components/login.vue"
 @import "../assets/typography.scss";
 @import "../assets/button.scss";
 @import "../assets/variabler.scss";
+@import "../assets/mixins.scss";
 
 .auth-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 1080;
-    height: 90vh;
+   @include mainWrap;
     .auth-inner{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        max-width: 1080px;
-        width: 100%;
-        margin:auto;
-        align-items: center;
-        height: 550px;
-        
-        background: $Midnight-Green;
-        border-radius: $stdBorderRadius;
-        color: #fff;
+        @include flowDesign;
         h1 {
             margin-bottom: 54px;
         }

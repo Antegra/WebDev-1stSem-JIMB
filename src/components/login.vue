@@ -1,5 +1,5 @@
 <template>
-    <form class="login">
+    <form class="login" action="/">
         <h1>Studieadministation</h1>
 
         <div class="form-group-wrapper">
