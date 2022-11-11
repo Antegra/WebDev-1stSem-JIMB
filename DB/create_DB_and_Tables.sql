@@ -55,6 +55,7 @@ CREATE TABLE users (
     lastName VARCHAR (50) NOT NULL,
     email VARCHAR (100) NOT NULL,
 	role_id INT,
+	password VARCHAR (50) NOT NULL,
     FOREIGN KEY (role_id) REFERENCES role (role_id)
 );
 GO

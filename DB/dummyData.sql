@@ -133,9 +133,9 @@ SET IDENTITY_INSERT edu OFF;
 
 SET IDENTITY_INSERT users ON;  
 
-INSERT INTO users(users_id,firstName,lastName,email,role_id) VALUES(1,'Hanne','Nielsen','hani@ucl.dk',2)
-INSERT INTO users(users_id,firstName,lastName,email,role_id) VALUES(2,'Lars','Piet','lapi@ucl.dk',2)
-INSERT INTO users(users_id,firstName,lastName,email,role_id) VALUES(3,'Pierre','Gallet','piga@ucl.dk',1)
+INSERT INTO users(users_id,firstName,lastName,email,role_id,password) VALUES(1,'Hanne','Nielsen','hani@ucl.dk',2,HannePW)
+INSERT INTO users(users_id,firstName,lastName,email,role_id,password) VALUES(2,'Lars','Piet','lapi@ucl.dk',2,LarsPW)
+INSERT INTO users(users_id,firstName,lastName,email,role_id,password) VALUES(3,'Pierre','Gallet','piga@ucl.dk',1,PierrePW)
 
 SET IDENTITY_INSERT users OFF;
 
