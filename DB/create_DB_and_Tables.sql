@@ -26,7 +26,7 @@ GO
 
 CREATE TABLE type (
 	type_id INT IDENTITY (1, 1) PRIMARY KEY,
-	type VARCHAR (50) NOT NULL
+	name VARCHAR (50) NOT NULL
 );
 GO
 

@@ -33,9 +33,9 @@ SET IDENTITY_INSERT duration OFF;
 
 SET IDENTITY_INSERT type ON;  
 
-INSERT INTO type(type_id,type) VALUES(1,'Personlig')
-INSERT INTO type(type_id,type) VALUES(2,'Telefon')
-INSERT INTO type(type_id,type) VALUES(3,'Virtuel')
+INSERT INTO type(type_id,name) VALUES(1,'Personlig')
+INSERT INTO type(type_id,name) VALUES(2,'Telefon')
+INSERT INTO type(type_id,name) VALUES(3,'Virtuel')
 
 SET IDENTITY_INSERT type OFF;
 
