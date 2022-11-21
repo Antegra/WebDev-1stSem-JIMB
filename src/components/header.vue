@@ -44,7 +44,13 @@ function toggleNav() {
 </template>
 
 <style lang="scss" scoped>
-@import "../assets/colors.scss";
+@import "../assets/scss/colors.scss";
+@import "../assets/scss/typography.scss";
+
+@import "../assets/scss/variabler.scss";
+@import "../assets/scss/button.scss";
+@import "../assets/scss/mixins.scss";
+@import "../assets/scss/layout.scss";
 header {
   display: flex;
   flex: row;

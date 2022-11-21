@@ -1,0 +1,74 @@
+.button,
+button {
+    height: 50px !important;
+    max-width: 224px !important;
+    width: 100% !important;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    &.login {
+        width: 131px;
+        background: $Maize;
+        font-weight: bold;
+    }
+}
+
+.educations {
+    button {
+        &:nth-child(n + 16) {
+            display: none;
+        }
+    }
+    &.loaded {
+        button {
+            &:nth-child(n + 16) {
+                display: block;
+            }
+        }
+    }
+}
+
+.navigation-group {
+    input {
+        background: $Maize;
+        color: $Midnight-Green !important;
+        font-weight: bold;
+        box-shadow: $stdDropshadow;
+    }
+
+    .back {
+        position: relative;
+        &:after {
+            content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.222' height='12.887' viewBox='0 0 7.222 12.887'%3E%3Cpath id='Path_87' data-name='Path 87' d='M14.3,18.151l-.778.778-2.444-2.444L7.857,13.264,2.192,18.929l-.778-.778,6.443-6.444Z' transform='translate(-11.707 14.301) rotate(-90)' fill='%23153943'/%3E%3C/svg%3E%0A");
+            top: 2px;
+            transition: 0.2s ease;
+            position: absolute;
+            left: 30px;
+        }
+        &:hover {
+            &:after {
+                transition: 0.2s ease;
+                left: 28px;
+            }
+        }
+    }
+
+    .next {
+        position: relative;
+
+        &:after {
+            position: absolute;
+            transition: 0.2s ease;
+            right: 30px;
+            top: 2px;
+            content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.222' height='12.887' viewBox='0 0 7.222 12.887'%3E%3Cpath id='Path_87' data-name='Path 87' d='M14.3,18.151l-.778.778L7.857,13.264,2.192,18.929l-.778-.778,2.014-2.014,4.43-4.43Z' transform='translate(18.929 -1.414) rotate(90)' fill='%23153943'/%3E%3C/svg%3E%0A");
+        }
+        &:hover {
+            &:after {
+                transition: 0.2s ease;
+                right: 28px;
+            }
+        }
+    }
+}

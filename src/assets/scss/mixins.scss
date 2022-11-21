@@ -3,12 +3,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 1080;
-    height: 100vh;
+    max-width: 861px;
+
+    margin: auto;
+    margin-top: 200px;
 }
 
 @mixin flowDesign {
-    padding: 40px;
+    padding: 60px 0px;
     display: flex;
     flex-direction: column;
     justify-content: center;

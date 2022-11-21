@@ -24,15 +24,19 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import "../assets/colors.scss";
-@import "../assets/typography.scss";
-@import "../assets/button.scss";
-@import "../assets/variabler.scss";
-@import "../assets/mixins.scss";
+@import "../assets/scss/colors.scss";
+@import "../assets/scss/typography.scss";
 
+@import "../assets/scss/variabler.scss";
+@import "../assets/scss/button.scss";
+@import "../assets/scss/mixins.scss";
+@import "../assets/scss/layout.scss";
 .hub {
 
   @include mainWrap;
+  height: 100vh;
+  margin-top:unset;
+
   
 .hub-container {
 
