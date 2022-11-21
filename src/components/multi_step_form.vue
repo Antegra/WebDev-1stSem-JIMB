@@ -17,6 +17,7 @@ let anwsers = {
 };
 
 
+
 let bub1 = "Måned & type";
 let bub2 = "Køn & studiestatus";
 let bub3 = "Lokation & uddannelser";
@@ -37,7 +38,7 @@ let types = ref(["Fysik", "Online", "Telefon"]);
 
 // step 2 - Hvem blev vejledt?
 let sp_3 = ref("Hvem blev vejledt?");
-let persons = ref(["Mand", "Kvinde", "Gruppe", "andet"]);
+let persons = ref(["Mand", "Kvinde", "Gruppe"]);
 
 let sp_4 = ref("Niveau");
 let niveaus = ref(["Nuværende studerende", "Potentielle studerende"]);
@@ -215,6 +216,11 @@ function next(e) {
     }
 }
 
+function loadMore() {
+    document.querySelector(".loadbtn").classList.toggle("loaded");
+}
+
+
 function previous() {
     const boxes = document.querySelectorAll('button')
     boxes.forEach(box => {
@@ -227,6 +233,9 @@ function done() {
     step.value = 1;
     window.location.href = '/';
 }
+
+
+
 
 
 </script>
@@ -256,16 +265,16 @@ function done() {
                 </div>
             </div>
             <div class="form-group-1">
-                <h2>Om mødet</h2>
+               
 
-                <p>{{ sp_1 }}</p>
-                <div class="form-group-1-1">
+                <h2>{{ sp_1 }}</h2>
+                <div class="form-group-1-1 form-style">
                     <select @change="month($event)">
                         <option v-for="date in select_month" :value="date"> {{ date }}</option>
                     </select>
                 </div>
-                <p>{{ sp_2 }}</p>
-                <div class="form-group-1-2">
+                <h2>{{ sp_2 }}</h2>
+                <div class="form-group-1-2 form-style">
                     <button v-for="type in types" @click="meeting(type)" :id="type"> {{ type }} </button>
                 </div>
 
@@ -299,13 +308,13 @@ function done() {
                 </div>
             </div>
 
-            <h3>{{ sp_3 }}</h3>
-            <div class="form-group-2-1">
+            <h2>{{ sp_3 }}</h2>
+            <div class="form-group-2-1 form-style">
                 <button v-for="person in persons" @click="sex(person)" :id="person"> {{ person }} </button>
             </div>
 
-            <h3>{{ sp_4 }}</h3>
-            <div class="form-group-2-2">
+            <h2 class="seperator">{{ sp_4 }}</h2>
+            <div class="form-group-2-2 form-style">
                 <button v-for="niveau in niveaus" @click="level(niveau)" :id="niveau"> {{ niveau }}</button>
             </div>
 
@@ -340,42 +349,55 @@ function done() {
             </div>
             <h2>{{ sp_5 }}</h2>
 
-            <div class="form-group-3-1">
+            <div class="form-group-3-1 form-style">
                 <button v-for="location in locations" :id="location" @click="location_anwser(location)"> {{ location }}
                 </button>
             </div>
 
-            <div class="educations form-group-3-2">
+            <h2 class="seperator">Vælg uddannelse(r)</h2> 
+
+            <div class="educations form-group-3-2 form-style">
                 <div v-for="edu in f_educations" :key="edu">
                     <button @click="educations_anwser(edu)" :id="edu"> {{ edu }} </button>
-                    <span>Fav</span>
+                    <span>Fast</span>
                 </div>
             </div>
 
-            <input type="text" v-model="input_educations" placeholder="Search..." />
 
-            <div class="educations">
+            <div class="search-box">
+                <input type="text" v-model="input_educations" placeholder="Søg..." />
+            </div>
+           
+
+         
+
+            <div class="educations loadbtn">
                 <button v-for="edu in filteredEducations()" :id="edu" :key="edu" @click="educations_anwser(edu)"> {{ edu
                 }}
                 </button>
             </div>
+ 
+            <span class="load" @click="loadMore()">Indlæs mere</span>
+
 
             <div class="navigation-group">
                 <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
                 <input class="form_btn" type="submit" value="next" @click.prevent="next(3)">
-            </div>
+        </div>
+
+            
 
         </section>
 
 
         <!-- step 4 - Hvad handler samtalen om -->
-        <section class="register form-group-4" v-show="step === 4">
+        <section class="register form-group-4 " v-show="step === 4">
             <div class="progress_bar">
                 <div class="1 bobble active">
                     <p>1</p>
                     <p>{{ bub1 }}</p>
                 </div>
-                <div class="2 bobbl active">
+                <div class="2 bobble active">
                     <p>2</p>
                     <p> {{bub2}}</p>
                 </div>
@@ -391,9 +413,14 @@ function done() {
             </div>
             <h2>{{ sp_6 }}</h2>
 
-            <input type="text" v-model="input_subjects" placeholder="Search..." />
 
-            <div class="educations form-group-4-1">
+            <div class="search-box">
+                <input type="text" v-model="input_subjects" placeholder="Search..." />
+            </div>
+           
+            
+
+            <div class="educations form-group-4-1 form-style">
                 <button v-for="subject in filteredSubject()" :id="subject" :key="subject"
                     @click="subject_anwser(subject)"> {{
                             subject
@@ -401,9 +428,9 @@ function done() {
                 </button>
             </div>
 
-            <h2> Hvor lang tid tog det?</h2>
+            <h2 class="seperator"> Hvor lang tid tog det?</h2>
 
-            <div class="form-group-4-2">
+            <div class="form-group-4-2 form-style">
                 <button v-for="duration in durations" :id="duration" @click="duration_anwser(duration)"> {{ duration
                 }}</button>
             </div>
@@ -446,19 +473,25 @@ function done() {
 
 <style lang="scss" scoped>
 
-@import "../assets/colors.scss";
-@import "../assets/typography.scss";
-@import "../assets/button.scss";
-@import "../assets/variabler.scss";
-@import "../assets/mixins.scss";
+@import "../assets/scss/colors.scss";
+@import "../assets/scss/typography.scss";
+@import "../assets/scss/button.scss";
+@import "../assets/scss/variabler.scss";
+@import "../assets/scss/mixins.scss";
 
 .progress_bar {
     display: flex;
-    justify-content: space-around;
-    width: 80%;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 861px;
     position: absolute;
-    top: -120px;
+    top: 120px;
 
+    p {
+        &:first-of-type {
+            margin-bottom: 0px;
+        }
+    }
 
     .bobble {
         background: #fff;
@@ -474,10 +507,10 @@ function done() {
         &:after {
             position:absolute;
             content: " ";
-            width: 182px;
+            width: 220px;
             height: 3px;
             background: #fff;
-            left: -175px;
+            left: -214px;
             box-shadow: $stdDropshadow;
             z-index: -1;
 
@@ -524,41 +557,27 @@ function done() {
 }
 
 .selected {
-    background-color: $Maize;
+    background-color: $Maize!important;
     color: $Midnight-Green;
     border: none;
+    font-weight: bold;
+    transition: 0.5s;
+    box-shadow: $stdDropshadow;
+
 }
 
 .alert {
-    border-color: red;
+    background: red;
 }
+
 
 
 .section-wrapper {
    @include mainWrap; 
 }
 .register {
-    background-color: $Columbia-blue;
-    width: 75vw;
-    
-    margin: auto;
-    padding: 2vh 0;
-    position: relative;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-
    @include flowDesign; 
 
-    h2 {
-        text-transform: capitalize;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        Color: $Midnight-Green;
-        padding: 0;
-        margin: 0;
-    }
 
     .form_btn {
         margin: 0 1vw;
@@ -577,6 +596,8 @@ function done() {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        gap: 16px;
+        width: 100%;
 
 
 
@@ -587,12 +608,12 @@ function done() {
 
         span {
             font-size: 12px;
-            background-color: $Maize;
+            background-color: $Maximum-red-purple;
             padding: 2px 10px;
-
             position: relative;
-            left: -35px;
-            top: -20px;
+            left: -6px;
+            top: -79px;
+            border-radius: 10px;
         }
 
     }

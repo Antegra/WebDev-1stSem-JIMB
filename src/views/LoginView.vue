@@ -21,11 +21,11 @@ import Login from "../components/login.vue"
 </template>
 
 <style lang="scss">
-@import "../assets/colors.scss";
-@import "../assets/typography.scss";
-@import "../assets/button.scss";
-@import "../assets/variabler.scss";
-@import "../assets/mixins.scss";
+@import "../assets/scss/colors.scss";
+@import "../assets/scss/typography.scss";
+@import "../assets/scss/button.scss";
+@import "../assets/scss/variabler.scss";
+@import "../assets/scss/mixins.scss";
 
 .auth-wrapper {
    @include mainWrap;
