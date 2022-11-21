@@ -218,6 +218,7 @@ function next(e) {
 
 function loadMore() {
     document.querySelector(".loadbtn").classList.toggle("loaded");
+    document.querySelector(".load").classList.toggle("displaynone");
 }
 
 
@@ -281,7 +282,7 @@ function done() {
             </div>
 
             <div class="navigation-group">
-                <input class="form_btn" type="submit" value="next" @click.prevent="next(1)">
+            <div class="next"><input class="form_btn button" type="submit" value="Næste" @click.prevent="next(1)"></div>
             </div>
 
         </section>
@@ -319,8 +320,9 @@ function done() {
             </div>
 
             <div class="navigation-group">
-                <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
-                <input class="form_btn" type="submit" value="next" @click.prevent="next(2)">
+                <div class="back"><input class="form_btn button back" type="submit" value="Tilbage" @click.prevent="previous"></div>
+                <div class="seperatordiv"></div>
+                <div class="next"><input class="form_btn button next" type="submit" value="Næste" @click.prevent="next(2)"></div>
             </div>
 
         </section>
@@ -364,7 +366,7 @@ function done() {
             </div>
 
 
-            <div class="search-box">
+            <div class="search-box position-fix">
                 <input type="text" v-model="input_educations" placeholder="Søg..." />
             </div>
            
@@ -381,8 +383,9 @@ function done() {
 
 
             <div class="navigation-group">
-                <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
-                <input class="form_btn" type="submit" value="next" @click.prevent="next(3)">
+                <div class="back"><input class="form_btn button back" type="submit" value="Tilbage" @click.prevent="previous"></div>
+                <div class="seperatordiv"></div>
+                <div class="next"><input class="form_btn button next" type="submit" value="Næste" @click.prevent="next(3)"></div>
         </div>
 
             
@@ -415,7 +418,7 @@ function done() {
 
 
             <div class="search-box">
-                <input type="text" v-model="input_subjects" placeholder="Search..." />
+                <input type="text" v-model="input_subjects" placeholder="Søg..." />
             </div>
            
             
@@ -436,8 +439,9 @@ function done() {
             </div>
 
             <div class="navigation-group">
-                <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
-                <input class="form_btn" type="submit" value="next" @click.prevent="next(4)">
+                <div class="back"><input class="form_btn button back" type="submit" value="Tilbage" @click.prevent="previous"></div>
+                <div class="seperatordiv"></div>
+                <div class="next"><input class="form_btn button next" type="submit" value="Næste" @click.prevent="next(4)"></div>
             </div>
 
 
@@ -461,10 +465,13 @@ function done() {
             </div>
 
             <div class="navigation-group">
-                <input class="form_btn" type="submit" value="previous" @click.prevent="previous">
-                <input class="form_btn" type="submit" value="afslut" @click.prevent="done">
+               
+                <div class="back"> <input class="form_btn button back" type="submit" value="Tilbage" @click.prevent="previous"></div>
+                <div class="seperatordiv"></div>
+                <div class="next"><input class="form_btn button next" type="submit" value="Afslut" @click.prevent="done"></div>
             </div>
 
+    
 
         </section>
     </div>
@@ -475,9 +482,10 @@ function done() {
 
 @import "../assets/scss/colors.scss";
 @import "../assets/scss/typography.scss";
-@import "../assets/scss/button.scss";
 @import "../assets/scss/variabler.scss";
+@import "../assets/scss/button.scss";
 @import "../assets/scss/mixins.scss";
+@import "../assets/scss/layout.scss";
 
 .progress_bar {
     display: flex;
@@ -485,7 +493,7 @@ function done() {
     width: 100%;
     max-width: 861px;
     position: absolute;
-    top: 120px;
+    top: -120px;
 
     p {
         &:first-of-type {
@@ -577,18 +585,19 @@ function done() {
 }
 .register {
    @include flowDesign; 
+   position:relative;
 
 
     .form_btn {
-        margin: 0 1vw;
-        background-color: $Midnight-Green;
+        
+        
         border: none;
         text-transform: uppercase;
         color: white;
         padding: 15px 32px;
         text-align: center;
         text-decoration: none;
-        display: inline-block;
+        
         font-size: 12px;
     }
 
