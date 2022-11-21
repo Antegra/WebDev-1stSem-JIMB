@@ -439,16 +439,25 @@ function done() {
             <p class="alert_text alert_6">* Du mangle noget her...</p>
             <div class="educations form-group-4-1 form-style">
                 <p v-for="test in filteredSubject()"> {{ test }}</p>
+<<<<<<< Updated upstream
 
                 <div class="subjects" v-for="subject in subjects">
 
                     <p id="subject_icon">i<span id="subject_test"> {{ subject.description }}</span></p>
 
+=======
+                <!-- 
+                <div class="subjects" v-for="subject in subjects">
+
+                    <p id="subject_icon">i<span id="subject_test"> {{ subject.description }}</span></p>
+
+>>>>>>> Stashed changes
                     <button :id="subject.title" :key="subject.title" @click="subject_anwser(subject.title)"> {{
                             subject.title
                     }}
                     </button>
 
+<<<<<<< Updated upstream
                 </div>
 
 
@@ -456,6 +465,15 @@ function done() {
                 <button v-for="subject in subjects" :id="subject.title" :key="subject.title"
                     @click="subject_anwser(subject.title)"> {{ subject.title }}
                 </button>
+=======
+                </div> -->
+
+
+
+                <!--                 <button v-for="subject in subjects" :id="subject.title" :key="subject.title"
+                    @click="subject_anwser(subject.title)"> {{ subject.title }}
+                </button> -->
+>>>>>>> Stashed changes
 
             </div>
 
