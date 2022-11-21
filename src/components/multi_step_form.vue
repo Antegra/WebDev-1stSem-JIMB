@@ -9,7 +9,7 @@ let anwsers = {
     type: "",
     sex: "",
     niveau: "",
-    locations: [],
+    locations: "",
     educations: [],
     subject: [],
     duration: ""
