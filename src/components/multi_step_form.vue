@@ -115,16 +115,15 @@ function level(e) {
 }
 
 function location_anwser(e) {
-    if (anwsers.locations.includes(e)) {
-        anwsers.locations = anwsers.locations.filter(function (item) {
-            return item !== e
-        });
-    } else {
-        anwsers.locations.push(e);
 
-    }
+    anwsers.locations = e;
+
     console.log(anwsers);
+    const boxes = document.querySelectorAll('.form-group-3-1 .selected');
 
+    boxes.forEach(box => {
+        box.classList.remove('selected');
+    });
     document.getElementById(e).classList.toggle("selected");
 }
 
@@ -159,29 +158,41 @@ function duration_anwser(e) {
 }
 
 function next(e) {
-    const boxes = document.querySelectorAll('button')
+
     switch (e) {
         case 1:
-
+            const boxes = document.querySelector('.alert_1')
             if (anwsers.type == "") {
-                boxes.forEach(box => {
-                    box.classList.add("alert")
-                });
+                boxes.classList.add("alert")
+                location.href = "#";
+                location.href = "#alert_1";
+
             } else {
                 step.value += 1;
-                boxes.forEach(box => {
-                    box.classList.remove("alert");
-                });
+                boxes.classList.remove("alert");
+
             }
             break;
 
         case 2:
             if (anwsers.sex == "" || anwsers.niveau == "") {
-                boxes.forEach(box => {
-                    box.classList.add("alert")
-                });
+                if (anwsers.sex == "") {
+                    const boxes = document.querySelector('.alert_2')
+                    boxes.classList.add("alert")
+                    location.href = "#";
+                    location.href = "#alert_2";
+
+                } else if (anwsers.niveau == "") {
+                    const boxes = document.querySelector('.alert_3')
+                    boxes.classList.add("alert")
+                    location.href = "#";
+                    location.href = "#alert_3";
+                }
+
+
             } else {
                 step.value += 1;
+                const boxes = document.querySelectorAll('alert')
                 boxes.forEach(box => {
                     box.classList.remove("alert");
                 });
@@ -189,12 +200,23 @@ function next(e) {
             break;
 
         case 3:
-            if (anwsers.educations == "" || anwsers.locations == "") {
-                boxes.forEach(box => {
-                    box.classList.add("alert")
-                });
+            if (anwsers.locations == "" || anwsers.educations == "") {
+                if (anwsers.locations == "") {
+                    const boxes = document.querySelector('.alert_4')
+                    boxes.classList.add("alert")
+                    location.href = "#";
+                    location.href = "#alert_4";
+
+                } else if (anwsers.educations == "") {
+                    const boxes = document.querySelector('.alert_5')
+
+                    boxes.classList.add("alert")
+
+                }
+
             } else {
                 step.value += 1;
+                const boxes = document.querySelectorAll('alert')
                 boxes.forEach(box => {
                     box.classList.remove("alert");
                 });
@@ -203,11 +225,20 @@ function next(e) {
 
         case 4:
             if (anwsers.subject == "" || anwsers.duration == "") {
-                boxes.forEach(box => {
-                    box.classList.add("alert")
-                });
+                if (anwsers.subject == "") {
+                    const boxes = document.querySelector('.alert_6')
+
+                    boxes.classList.add("alert")
+                    location.href = "#";
+                    location.href = "#alert_6";
+
+                } else if (anwsers.duration == "") {
+                    const boxes = document.querySelector('.alert_7')
+                    boxes.classList.add("alert")
+                }
             } else {
                 step.value += 1;
+                const boxes = document.querySelectorAll('alert')
                 boxes.forEach(box => {
                     box.classList.remove("alert");
                 });
@@ -253,20 +284,20 @@ function done() {
                 </div>
                 <div class="2 bobble">
                     <p>2</p>
-                    <p> {{bub2}}</p>
+                    <p> {{ bub2 }}</p>
                 </div>
                 <div class="3 bobble">
                     <p>3</p>
-                    <p>{{bub3}}</p>
-                 
+                    <p>{{ bub3 }}</p>
+
                 </div>
                 <div class="4 bobble">
                     <p>4</p>
-                    <p>{{bub4}}</p>
+                    <p>{{ bub4 }}</p>
                 </div>
             </div>
             <div class="form-group-1">
-               
+
 
                 <h2>{{ sp_1 }}</h2>
                 <div class="form-group-1-1 form-style">
@@ -275,6 +306,7 @@ function done() {
                     </select>
                 </div>
                 <h2>{{ sp_2 }}</h2>
+                <p class="alert_text alert_1 ">* Du mangle noget her...</p>
                 <div class="form-group-1-2 form-style">
                     <button v-for="type in types" @click="meeting(type)" :id="type"> {{ type }} </button>
                 </div>
@@ -282,7 +314,8 @@ function done() {
             </div>
 
             <div class="navigation-group">
-            <div class="next"><input class="form_btn button" type="submit" value="Næste" @click.prevent="next(1)"></div>
+                <div class="next"><input class="form_btn button" type="submit" value="Næste" @click.prevent="next(1)">
+                </div>
             </div>
 
         </section>
@@ -296,33 +329,37 @@ function done() {
                 </div>
                 <div class="2 bobble active">
                     <p>2</p>
-                    <p> {{bub2}}</p>
+                    <p> {{ bub2 }}</p>
                 </div>
                 <div class="3 bobble">
                     <p>3</p>
-                    <p>{{bub3}}</p>
-                 
+                    <p>{{ bub3 }}</p>
+
                 </div>
                 <div class="4 bobble">
                     <p>4</p>
-                    <p>{{bub4}}</p>
+                    <p>{{ bub4 }}</p>
                 </div>
             </div>
 
             <h2>{{ sp_3 }}</h2>
+            <p class="alert_text alert_2">* Du mangle noget her...</p>
             <div class="form-group-2-1 form-style">
                 <button v-for="person in persons" @click="sex(person)" :id="person"> {{ person }} </button>
             </div>
 
             <h2 class="seperator">{{ sp_4 }}</h2>
+            <p class="alert_text alert_3">* Du mangle noget her...</p>
             <div class="form-group-2-2 form-style">
                 <button v-for="niveau in niveaus" @click="level(niveau)" :id="niveau"> {{ niveau }}</button>
             </div>
 
             <div class="navigation-group">
-                <div class="back"><input class="form_btn button back" type="submit" value="Tilbage" @click.prevent="previous"></div>
+                <div class="back"><input class="form_btn button back" type="submit" value="Tilbage"
+                        @click.prevent="previous"></div>
                 <div class="seperatordiv"></div>
-                <div class="next"><input class="form_btn button next" type="submit" value="Næste" @click.prevent="next(2)"></div>
+                <div class="next"><input class="form_btn button next" type="submit" value="Næste"
+                        @click.prevent="next(2)"></div>
             </div>
 
         </section>
@@ -337,27 +374,27 @@ function done() {
                 </div>
                 <div class="2 bobble active">
                     <p>2</p>
-                    <p> {{bub2}}</p>
+                    <p> {{ bub2 }}</p>
                 </div>
                 <div class="3 bobble active">
                     <p>3</p>
-                    <p>{{bub3}}</p>
-          
+                    <p>{{ bub3 }}</p>
+
                 </div>
                 <div class="4 bobble">
                     <p>4</p>
-                    <p>{{bub4}}</p>
+                    <p>{{ bub4 }}</p>
                 </div>
             </div>
             <h2>{{ sp_5 }}</h2>
-
+            <p class="alert_text alert_4">* Du mangle noget her...</p>
             <div class="form-group-3-1 form-style">
                 <button v-for="location in locations" :id="location" @click="location_anwser(location)"> {{ location }}
                 </button>
             </div>
 
-            <h2 class="seperator">Vælg uddannelse(r)</h2> 
-
+            <h2 class="seperator">Vælg uddannelse(r)</h2>
+            <p class="alert_text alert_5">* Du mangle noget her...</p>
             <div class="educations form-group-3-2 form-style">
                 <div v-for="edu in f_educations" :key="edu">
                     <button @click="educations_anwser(edu)" :id="edu"> {{ edu }} </button>
@@ -369,26 +406,28 @@ function done() {
             <div class="search-box position-fix">
                 <input type="text" v-model="input_educations" placeholder="Søg..." />
             </div>
-           
 
-         
+
+
 
             <div class="educations loadbtn">
                 <button v-for="edu in filteredEducations()" :id="edu" :key="edu" @click="educations_anwser(edu)"> {{ edu
                 }}
                 </button>
             </div>
- 
+
             <span class="load" @click="loadMore()">Indlæs mere</span>
 
 
             <div class="navigation-group">
-                <div class="back"><input class="form_btn button back" type="submit" value="Tilbage" @click.prevent="previous"></div>
+                <div class="back"><input class="form_btn button back" type="submit" value="Tilbage"
+                        @click.prevent="previous"></div>
                 <div class="seperatordiv"></div>
-                <div class="next"><input class="form_btn button next" type="submit" value="Næste" @click.prevent="next(3)"></div>
-        </div>
+                <div class="next"><input class="form_btn button next" type="submit" value="Næste"
+                        @click.prevent="next(3)"></div>
+            </div>
 
-            
+
 
         </section>
 
@@ -402,28 +441,26 @@ function done() {
                 </div>
                 <div class="2 bobble active">
                     <p>2</p>
-                    <p> {{bub2}}</p>
+                    <p> {{ bub2 }}</p>
                 </div>
                 <div class="3 bobble active">
                     <p>3</p>
-                    <p>{{bub3}}</p>
-                 
+                    <p>{{ bub3 }}</p>
+
                 </div>
                 <div class="4 bobble active">
                     <p>4</p>
-                    <p>{{bub4}}</p>
+                    <p>{{ bub4 }}</p>
                 </div>
             </div>
             <h2>{{ sp_6 }}</h2>
 
-
             <div class="search-box">
                 <input type="text" v-model="input_subjects" placeholder="Søg..." />
             </div>
-           
-            
-
+            <p class="alert_text alert_6">* Du mangle noget her...</p>
             <div class="educations form-group-4-1 form-style">
+
                 <button v-for="subject in filteredSubject()" :id="subject" :key="subject"
                     @click="subject_anwser(subject)"> {{
                             subject
@@ -432,16 +469,18 @@ function done() {
             </div>
 
             <h2 class="seperator"> Hvor lang tid tog det?</h2>
-
+            <p class="alert_text alert_7">* Du mangle noget her...</p>
             <div class="form-group-4-2 form-style">
                 <button v-for="duration in durations" :id="duration" @click="duration_anwser(duration)"> {{ duration
                 }}</button>
             </div>
 
             <div class="navigation-group">
-                <div class="back"><input class="form_btn button back" type="submit" value="Tilbage" @click.prevent="previous"></div>
+                <div class="back"><input class="form_btn button back" type="submit" value="Tilbage"
+                        @click.prevent="previous"></div>
                 <div class="seperatordiv"></div>
-                <div class="next"><input class="form_btn button next" type="submit" value="Næste" @click.prevent="next(4)"></div>
+                <div class="next"><input class="form_btn button next" type="submit" value="Næste"
+                        @click.prevent="next(4)"></div>
             </div>
 
 
@@ -456,7 +495,7 @@ function done() {
                 <p>Type: {{ anwsers.type }}</p>
                 <p>Month: {{ anwsers.month }}</p>
                 <p>Duration: {{ anwsers.duration }}</p>
-                <p>Location: <li v-for="e in anwsers.locations"> {{ e }} </li>
+                <p>Location: {{ anwsers.locations }}
                 </p>
                 <p>Educations: <li v-for="e in anwsers.educations">{{ e }} </li>
                 </p>
@@ -465,13 +504,15 @@ function done() {
             </div>
 
             <div class="navigation-group">
-               
-                <div class="back"> <input class="form_btn button back" type="submit" value="Tilbage" @click.prevent="previous"></div>
+
+                <div class="back"> <input class="form_btn button back" type="submit" value="Tilbage"
+                        @click.prevent="previous"></div>
                 <div class="seperatordiv"></div>
-                <div class="next"><input class="form_btn button next" type="submit" value="Afslut" @click.prevent="done"></div>
+                <div class="next"><input class="form_btn button next" type="submit" value="Afslut"
+                        @click.prevent="done"></div>
             </div>
 
-    
+
 
         </section>
     </div>
@@ -479,7 +520,6 @@ function done() {
 
 
 <style lang="scss" scoped>
-
 @import "../assets/scss/colors.scss";
 @import "../assets/scss/typography.scss";
 @import "../assets/scss/variabler.scss";
@@ -509,11 +549,11 @@ function done() {
         display: flex;
         align-items: center;
         justify-content: center;
-        position:relative;
+        position: relative;
         box-shadow: $stdDropshadow;
-        
+
         &:after {
-            position:absolute;
+            position: absolute;
             content: " ";
             width: 220px;
             height: 3px;
@@ -524,7 +564,7 @@ function done() {
 
         }
 
-   
+
         &:first-of-type {
             &:after {
                 content: unset;
@@ -536,9 +576,9 @@ function done() {
         text-align: center;
         font-size: 16px;
         color: $Midnight-Green;
-        
+
         &:last-of-type {
-            position:absolute;
+            position: absolute;
             bottom: -44px;
             font-size: 16px;
             font-weight: 400;
@@ -554,18 +594,19 @@ function done() {
         }
 
         p {
-            color:#fff;
+            color: #fff;
+
             &:last-of-type {
-               
+
                 color: $Midnight-Green;
             }
-            
+
         }
     }
 }
 
 .selected {
-    background-color: $Maize!important;
+    background-color: $Maize !important;
     color: $Midnight-Green;
     border: none;
     font-weight: bold;
@@ -574,30 +615,41 @@ function done() {
 
 }
 
+.alert_text {
+    display: none;
+}
+
 .alert {
-    background: red;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 15px;
+    font-size: 12px;
+    color: rgb(255, 255, 255);
+    text-decoration: underline dotted red 5px;
+
 }
 
 
 
 .section-wrapper {
-   @include mainWrap; 
+    @include mainWrap;
 }
+
 .register {
-   @include flowDesign; 
-   position:relative;
+    @include flowDesign;
+    position: relative;
 
 
     .form_btn {
-        
-        
+
+
         border: none;
         text-transform: uppercase;
         color: white;
         padding: 15px 32px;
         text-align: center;
         text-decoration: none;
-        
+
         font-size: 12px;
     }
 
@@ -629,6 +681,10 @@ function done() {
 
     .anwsers {
         font-size: 16px;
+    }
+
+    .section-wrapper {
+        scroll-behavior: smooth;
     }
 }
 </style>
