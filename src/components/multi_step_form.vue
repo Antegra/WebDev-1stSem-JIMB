@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 
-let step = ref(4);
+let step = ref(1);
 
 let anwsers = {
     month: "",
@@ -50,11 +50,9 @@ let educations_minus_fav = educations.value.filter(item => !f_educations.value.i
 let sp_6 = ref("Hvad handlede samtalen om ?");
 let input_subjects = ref("");
 let subjects = ref([{ title: "Administrative forhold", description: "Vejledning om at søge dispensation, merit, kompetencevurdering mm." }, { title: "Barsel", description: "Barsel" }, { title: "Eksamen", description: "fx regler, klage, snyd, omprøver, særlige prøvevilkår" }, { title: "Fastholde trivsel", description: "statussamtaler og opfølgning på studerende mm." }, { title: "Internationale muligheder", description: "studieophold og/eller praktik" }, { title: "Mistrivsel", description: "fx i forhold til studiet, hverdagen" }, { title: "Optagelsesvejledning", description: "fx indhold, adgangskrav, videreuddannelse, struktur" }, { title: "Ordensreglement", description: "fx krænkelser, overskridelser af regler" }, { title: "Orlov", description: "Orlov" }, { title: "Overflytning/genindskrivning", description: "(internt/eksternt)" }, { title: "Personlige forhold", description: "(fx alvorlige sociale begivenheder, familiære/nære forhold)" }, { title: "Praktik i DK/klinik/dialogmøder", description: "Spørgsmål om praktik eller lign." }, { title: "Ikke studierelevant", description: "Ting der ikke er relevante" }, { title: "SPS", description: "Spørgsmål om SPS" }, { title: "Studieophør", description: "Udmeldelse" }, { title: "Studieplanlægning", description: "individuel studieplan, omlagte forløb. Fx forsinkede studerende og UCL Eliteordning" }, { title: "Studietvivl / Studievalg", description: "Spørgsmå om studievallg" }, { title: "Studieudfordringer", description: "faglige, eksamensnervøsitet/-angst, studie- og eksamensteknik, forståelse for studiet, samarbejdsvanskeligheder, manglende gruppe mm." }, { title: "Sygdom", description: "egen fysisk eller psykisk sygdom mm." }, { title: "Undervisningen", description: "fx samarbejdsvanskeligheder med underviser, kritik af kvaliteten" }, { title: "Økonomi", description: "fx SU, private forhold" }]);
-let subject_title = [];
 
-for (let i = 0; i < subjects.value.length; i++) {
-    subject_title.push(subjects.value[i].title);
-}
+
+
 
 let durations = ref(["1-15 min", "16-30 min", "31-45 min", "46-60 min", "Mere end 60 min"]);
 
@@ -62,16 +60,28 @@ let durations = ref(["1-15 min", "16-30 min", "31-45 min", "46-60 min", "Mere en
 
 
 function filteredEducations() {
+
     return educations_minus_fav.filter((edu) =>
         edu.toLowerCase().includes(input_educations.value.toLowerCase())
     );
 }
 
 function filteredSubject() {
+    let subject_title = [];
 
-    return subject_title.filter((test) =>
-        test.toLowerCase().includes(input_subjects.value.toLowerCase)
-    );
+    for (let i = 0; i < subjects.value.length; i++) {
+
+        let obj = {
+            title: subjects.value[i].title,
+            description: subjects.value[i].description
+        }
+        subject_title.push(obj);
+    }
+
+    return subject_title.filter(subject_title =>
+        subject_title.title.toLowerCase().includes(input_subjects.value.toLocaleLowerCase()));
+
+
 }
 
 function month(e) {
@@ -87,7 +97,7 @@ function meeting(e) {
     });
 
     document.getElementById(e).classList.toggle("selected");
-    console.log(anwsers);
+
 }
 
 function sex(e) {
@@ -100,7 +110,7 @@ function sex(e) {
     });
 
     document.getElementById(e).classList.toggle("selected");
-    console.log(anwsers);
+
 }
 
 function level(e) {
@@ -113,14 +123,14 @@ function level(e) {
     });
 
     document.getElementById(e).classList.toggle("selected");
-    console.log(anwsers);
+
 }
 
 function location_anwser(e) {
 
     anwsers.locations = e;
 
-    console.log(anwsers);
+
     const boxes = document.querySelectorAll('.form-group-3-1 .selected');
 
     boxes.forEach(box => {
@@ -156,7 +166,7 @@ function duration_anwser(e) {
     });
 
     document.getElementById(e).classList.toggle("selected");
-    console.log(anwsers);
+
 }
 
 function next(e) {
@@ -438,42 +448,17 @@ function done() {
             </div>
             <p class="alert_text alert_6">* Du mangle noget her...</p>
             <div class="educations form-group-4-1 form-style">
-                <p v-for="test in filteredSubject()"> {{ test }}</p>
-<<<<<<< Updated upstream
 
-                <div class="subjects" v-for="subject in subjects">
+                <div class="subjects" v-for="subject in filteredSubject()">
 
                     <p id="subject_icon">i<span id="subject_test"> {{ subject.description }}</span></p>
 
-=======
-                <!-- 
-                <div class="subjects" v-for="subject in subjects">
-
-                    <p id="subject_icon">i<span id="subject_test"> {{ subject.description }}</span></p>
-
->>>>>>> Stashed changes
                     <button :id="subject.title" :key="subject.title" @click="subject_anwser(subject.title)"> {{
                             subject.title
                     }}
                     </button>
 
-<<<<<<< Updated upstream
                 </div>
-
-
-
-                <button v-for="subject in subjects" :id="subject.title" :key="subject.title"
-                    @click="subject_anwser(subject.title)"> {{ subject.title }}
-                </button>
-=======
-                </div> -->
-
-
-
-                <!--                 <button v-for="subject in subjects" :id="subject.title" :key="subject.title"
-                    @click="subject_anwser(subject.title)"> {{ subject.title }}
-                </button> -->
->>>>>>> Stashed changes
 
             </div>
 
