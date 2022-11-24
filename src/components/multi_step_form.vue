@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 
-let step = ref(1);
+let step = ref(4);
 
 let anwsers = {
     month: "",
@@ -52,8 +52,6 @@ let input_subjects = ref("");
 let subjects = ref([{ title: "Administrative forhold", description: "Vejledning om at søge dispensation, merit, kompetencevurdering mm." }, { title: "Barsel", description: "Barsel" }, { title: "Eksamen", description: "fx regler, klage, snyd, omprøver, særlige prøvevilkår" }, { title: "Fastholde trivsel", description: "statussamtaler og opfølgning på studerende mm." }, { title: "Internationale muligheder", description: "studieophold og/eller praktik" }, { title: "Mistrivsel", description: "fx i forhold til studiet, hverdagen" }, { title: "Optagelsesvejledning", description: "fx indhold, adgangskrav, videreuddannelse, struktur" }, { title: "Ordensreglement", description: "fx krænkelser, overskridelser af regler" }, { title: "Orlov", description: "Orlov" }, { title: "Overflytning/genindskrivning", description: "(internt/eksternt)" }, { title: "Personlige forhold", description: "(fx alvorlige sociale begivenheder, familiære/nære forhold)" }, { title: "Praktik i DK/klinik/dialogmøder", description: "Spørgsmål om praktik eller lign." }, { title: "Ikke studierelevant", description: "Ting der ikke er relevante" }, { title: "SPS", description: "Spørgsmål om SPS" }, { title: "Studieophør", description: "Udmeldelse" }, { title: "Studieplanlægning", description: "individuel studieplan, omlagte forløb. Fx forsinkede studerende og UCL Eliteordning" }, { title: "Studietvivl / Studievalg", description: "Spørgsmå om studievallg" }, { title: "Studieudfordringer", description: "faglige, eksamensnervøsitet/-angst, studie- og eksamensteknik, forståelse for studiet, samarbejdsvanskeligheder, manglende gruppe mm." }, { title: "Sygdom", description: "egen fysisk eller psykisk sygdom mm." }, { title: "Undervisningen", description: "fx samarbejdsvanskeligheder med underviser, kritik af kvaliteten" }, { title: "Økonomi", description: "fx SU, private forhold" }]);
 
 
-
-
 let durations = ref(["1-15 min", "16-30 min", "31-45 min", "46-60 min", "Mere end 60 min"]);
 
 
@@ -79,7 +77,7 @@ function filteredSubject() {
     }
 
     return subject_title.filter(subject_title =>
-        subject_title.title.toLowerCase().includes(input_subjects.value.toLocaleLowerCase()));
+        subject_title.description.toLowerCase().includes(input_subjects.value.toLocaleLowerCase()));
 
 
 }
