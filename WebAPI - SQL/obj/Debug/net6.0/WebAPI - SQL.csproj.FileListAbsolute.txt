@@ -1,0 +1,39 @@
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.csproj.AssemblyReference.cache
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.GeneratedMSBuildEditorConfig.editorconfig
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.AssemblyInfoInputs.cache
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.AssemblyInfo.cs
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.csproj.CoreCompileInputs.cache
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.MvcApplicationPartsAssemblyInfo.cs
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.MvcApplicationPartsAssemblyInfo.cache
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/appsettings.Development.json
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/appsettings.json
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/WebAPI - SQL
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/WebAPI - SQL.deps.json
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/WebAPI - SQL.runtimeconfig.json
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/WebAPI - SQL.dll
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/WebAPI - SQL.pdb
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Microsoft.OpenApi.dll
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/System.Data.SqlClient.dll
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-arm64/native/sni.dll
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-x64/native/sni.dll
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-x86/native/sni.dll
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win/lib/netcoreapp2.1/System.Data.SqlClient.dll
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/staticwebassets/msbuild.WebAPI - SQL.Microsoft.AspNetCore.StaticWebAssets.props
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/staticwebassets/msbuild.build.WebAPI - SQL.props
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/staticwebassets/msbuild.buildMultiTargeting.WebAPI - SQL.props
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/staticwebassets/msbuild.buildTransitive.WebAPI - SQL.props
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/staticwebassets.pack.json
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/staticwebassets.build.json
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/staticwebassets.development.json
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/scopedcss/bundle/WebAPI - SQL.styles.css
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.csproj.CopyComplete
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.dll
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/refint/WebAPI - SQL.dll
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.pdb
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.genruntimeconfig.cache
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/ref/WebAPI - SQL.dll
+/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Newtonsoft.Json.dll
