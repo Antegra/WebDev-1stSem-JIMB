@@ -13,7 +13,7 @@ namespace WebAPI___SQL.Controllers
     [ApiController]
     public class EducationController : ControllerBase
     {
-        string constr = "";
+        string constr = "data source=uclssdemo.database.windows.net; initial catalog=Studieservice; user id=awesomegroupx; password=t4prSlX1JCZ0Ujv";
 
         // GET: api/Educations
         [HttpGet]

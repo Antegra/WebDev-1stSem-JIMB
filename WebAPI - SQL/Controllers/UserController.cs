@@ -12,7 +12,7 @@ namespace WebAPI___SQL.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        string constr = "";
+        string constr = "data source=uclssdemo.database.windows.net; initial catalog=Studieservice; user id=awesomegroupx; password=t4prSlX1JCZ0Ujv";
 
         // GET: api/Users
         [HttpGet]
@@ -31,14 +31,14 @@ namespace WebAPI___SQL.Controllers
                     {
                         while (sdr.Read())
                         {
-                            // var x = from user in users
-                            //             join role in roles on user.role_id equals role.role_id
-                            //             select new { user.firstName, user.lastName, user.email, role.title };
+                            var x = from user in users
+                                        join role in roles on user.role_id equals role.role_id
+                                        select new { user.firstName, user.lastName, user.email, role.title };
 
-                            // foreach (var item in x)
-                            // {
-                            //     Console.WriteLine($"{item.firstName} - {item.title}");
-                            // }
+                            foreach (var item in x)
+                            {
+                                Console.WriteLine($"{item.firstName} - {item.title}");
+                            }
                         }
                         con.Close();
                     }
