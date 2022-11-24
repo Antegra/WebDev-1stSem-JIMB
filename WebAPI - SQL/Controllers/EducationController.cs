@@ -90,13 +90,14 @@ namespace WebAPI___SQL.Controllers
             Education education = new Education();
             if (ModelState.IsValid)
             {
-                string query = "UPDATE edu SET name = @name, description = @description WHERE edu_id =@edu_id";
+                string query = "UPDATE edu SET name = @name WHERE edu_id =@edu_id";
                 using (SqlConnection con = new SqlConnection(constr))
                 {
                     using (SqlCommand cmd = new SqlCommand(query))
                     {
                         cmd.Connection = con;
                         cmd.Parameters.AddWithValue("@name", Education.name);
+                        cmd.Parameters.AddWithValue("@edu_id", Education.edu_id);
                         con.Open();
                         int i = cmd.ExecuteNonQuery();
                         if (i > 0)
@@ -122,7 +123,7 @@ namespace WebAPI___SQL.Controllers
             using (SqlConnection con = new SqlConnection(constr))
             {
                 //inserting Patient data into database
-                string query = "INSERT INTO education VALUES (@name, @description)";
+                string query = "INSERT INTO edu VALUES (@name)";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Connection = con;
@@ -147,7 +148,7 @@ namespace WebAPI___SQL.Controllers
 
             using (SqlConnection con = new SqlConnection(constr))
             {
-                string query = "DELETE FROM education WHERE education_id='" + id + "'";
+                string query = "DELETE FROM edu WHERE edu_id='" + id + "'";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     con.Open();

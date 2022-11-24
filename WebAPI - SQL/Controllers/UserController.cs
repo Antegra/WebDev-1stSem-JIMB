@@ -19,7 +19,6 @@ namespace WebAPI___SQL.Controllers
         public async Task<ActionResult<List<User>>> GetAllUsers()
         {
             List<User> users = new List<User>();
-            List<Role> roles = new List<Role>();
             string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, role.title FROM users INNER JOIN role ON users.role_id = role.role_id";
             using (SqlConnection con = new SqlConnection(constr))
             {
@@ -31,14 +30,22 @@ namespace WebAPI___SQL.Controllers
                     {
                         while (sdr.Read())
                         {
-                            var x = from user in users
-                                        join role in roles on user.role_id equals role.role_id
-                                        select new { user.firstName, user.lastName, user.email, role.title };
+                            //var x = from user in users
+                            //            join role in roles on user.role_id equals role.role_id
+                            //            select new { user.firstName, user.lastName, user.email, role.title };
 
-                            foreach (var item in x)
+                            //foreach (var item in x)
+                            //{
+                            //    Console.WriteLine($"{item.firstName} - {item.title}");
+                            //}
+
+                            users.Add(new User
                             {
-                                Console.WriteLine($"{item.firstName} - {item.title}");
-                            }
+                                user_id = Convert.ToInt32(sdr["user_id"]),
+                                firstName = Convert.ToString(sdr["firstName"]),
+                                lastName = Convert.ToString(sdr["firstName"]),
+                                email = Convert.ToString(sdr["email"])
+                            });
                         }
                         con.Close();
                     }
