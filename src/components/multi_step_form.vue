@@ -269,8 +269,13 @@ function previous() {
 
 function done() {
     step.value = 1;
-    window.location.href = '/';
+    window.location.href = '/?succes=true';
+    
 }
+
+
+
+
 
 </script>
 

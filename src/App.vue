@@ -1,8 +1,9 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import Header from './components/header.vue';
+import Modal from './components/modal.vue';
 
-document.getElementsByClassName("load")
+
 </script>
 
 
@@ -11,7 +12,10 @@ document.getElementsByClassName("load")
 <template>
   <div class="system-container">
     <Header/>
+    <Modal/>
   </div>
+
+
 </template>
 
 <style lang="scss" scoped>
