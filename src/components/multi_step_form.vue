@@ -651,12 +651,14 @@ function done() {
 
         span {
             font-size: 12px;
-            background-color: $Maximum-red-purple;
+            background-color: $Verdigris;
             padding: 2px 10px;
+
             position: relative;
             left: -6px;
             top: -79px;
             border-radius: 10px;
+            box-shadow: $stdDropshadow;
         }
 
     }
@@ -672,9 +674,9 @@ function done() {
 
         span {
             position: absolute;
-            top: 0;
+            top: -10px;
             display: none;
-            padding: 5px 10px;
+            padding: 10px 10px;
             min-width: 200px;
             text-align: center;
         }
