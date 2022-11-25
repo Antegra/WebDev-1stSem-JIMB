@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as s,p as _,a,b as c}from"./index.62808c0e.js";const n=o=>(_("data-v-da94fd31"),o=o(),a(),o),d=n(()=>c("div",{class:"buttons"},null,-1)),p=[d],u={__name:"AboutComponents",setup(o){return(l,r)=>(t(),s("div",null,p))}},m=e(u,[["__scopeId","data-v-da94fd31"]]);export{m as default};
