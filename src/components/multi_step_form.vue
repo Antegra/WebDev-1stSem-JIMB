@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 
-let step = ref(4);
+let step = ref(1);
 
 let anwsers = {
     month: "",
