@@ -35,7 +35,7 @@ export default {
 
   @include mainWrap;
   height: 100vh;
-  margin-top:unset;
+  margin-top:-80px;
 
   
 .hub-container {
@@ -55,7 +55,7 @@ export default {
       padding: 2rem 4rem;
       background-color: white;
       color: $Midnight-Green;
-      border-radius: 2px;
+      border-radius: 5px;
     }
   }
 }
