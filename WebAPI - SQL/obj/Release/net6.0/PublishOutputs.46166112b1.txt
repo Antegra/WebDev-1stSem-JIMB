@@ -1,0 +1,18 @@
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\WebAPI - SQL.exe
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\appsettings.Development.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\appsettings.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\WebAPI - SQL.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\WebAPI - SQL.deps.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\WebAPI - SQL.runtimeconfig.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\WebAPI - SQL.pdb
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\Microsoft.OpenApi.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\Newtonsoft.Json.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\System.Data.SqlClient.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\runtimes\win-arm64\native\sni.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\runtimes\win-x64\native\sni.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\runtimes\win-x86\native\sni.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\PubTmp\Out\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
