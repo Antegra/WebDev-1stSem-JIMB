@@ -35,7 +35,7 @@ namespace WebAPI___SQL.Controllers
                             {
                                 subject_id = Convert.ToInt32(sdr["subject_id"]),
                                 name = Convert.ToString(sdr["name"]),
-                                description = Convert.ToString(sdr["description"]),
+                                description = Convert.ToString(sdr["description"])
                             });
                         }
                     }
