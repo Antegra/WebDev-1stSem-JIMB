@@ -5,7 +5,6 @@ namespace WebAPI___SQL.Models
 	{
         public int role_id { get; set; }
         public string title { get; set; }
-        public virtual List<User> Users { get; set; }
     }
 }
 
