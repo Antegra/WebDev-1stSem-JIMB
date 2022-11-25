@@ -12,6 +12,13 @@ function toggleNav() {
     x.className = x.className.replace('main-navigation-responsive','main-navigation');
   }
 }
+
+
+
+document.getElementsByClassName("load")
+
+
+
 </script>
 
 <template>
