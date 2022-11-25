@@ -480,7 +480,7 @@ function done() {
 
         <!-- step 5 - result -->
         <section class="register" v-show="step === 5">
-            <h2>test</h2>
+            <h2>Dette er de information du har valgt</h2>
 
             <div class="anwsers">
                 <p>Sex: {{ anwsers.sex }}</p>
