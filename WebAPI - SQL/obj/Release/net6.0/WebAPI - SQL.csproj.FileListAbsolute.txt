@@ -32,3 +32,13 @@ C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\n
 C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\WebAPI - SQL.pdb
 C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\WebAPI - SQL.genruntimeconfig.cache
 C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Release\net6.0\ref\WebAPI - SQL.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Release\net6.0\test\web.config
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Release\net6.0\test\appsettings.Development.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Release\net6.0\test\appsettings.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Release\net6.0\test\WebAPI - SQL.deps.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Release\net6.0\test\WebAPI - SQL.runtimeconfig.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Release\net6.0\test\test\web.config
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Release\net6.0\test\test\appsettings.Development.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Release\net6.0\test\test\appsettings.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Release\net6.0\test\test\WebAPI - SQL.deps.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Release\net6.0\test\test\WebAPI - SQL.runtimeconfig.json
