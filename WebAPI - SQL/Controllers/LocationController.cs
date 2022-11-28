@@ -1,26 +1,26 @@
-﻿using WebAPI___SQL.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
+using WebAPI___SQL.Models;
+using Location = WebAPI___SQL.Models.Location;
 
 namespace WebAPI___SQL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EducationController : ControllerBase
+    public class LocationController : ControllerBase
     {
         string constr = "Server=tcp:uclssdemo.database.windows.net,1433;Initial Catalog=studieservice;Persist Security Info=False;User ID=awesomegroupx;Password=t4prSlX1JCZ0Ujv;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
-        // GET: api/Education
+        // GET: api/Location
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Education>>> GetAllEducations()
+        public async Task<ActionResult<IEnumerable<Location>>> GetAllSubjects()
         {
-            List<Education> educations = new List<Education>();
-            string query = "SELECT * FROM edu";
+            List<Location> locations = new List<Location>();
+            string query = "SELECT * FROM locations";
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -31,10 +31,10 @@ namespace WebAPI___SQL.Controllers
                     {
                         while (sdr.Read())
                         {
-                            educations.Add(new Education
+                            locations.Add(new Location
                             {
-                                edu_id = Convert.ToInt32(sdr["edu_id"]),
-                                name = Convert.ToString(sdr["name"]),
+                                location_id = Convert.ToInt32(sdr["location_id"]),
+                                name = Convert.ToString(sdr["name"])
                             });
                         }
                     }
@@ -42,16 +42,16 @@ namespace WebAPI___SQL.Controllers
                 }
             }
 
-            return educations;
+            return locations;
         }
 
-        // GET: api/Education/1
+        // GET: api/Location/1
         [HttpGet("{id}")]
-        public async Task<ActionResult<Education>> GetEducation(int id)
+        public async Task<ActionResult<Location>> GetLocation(int id)
         {
 
-            Education educationObj = new Education();
-            string query = "SELECT * FROM edu WHERE edu_id=" + id;
+            Location locationObj = new Location();
+            string query = "SELECT * FROM locations WHERE location_id=" + id;
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -62,9 +62,9 @@ namespace WebAPI___SQL.Controllers
                     {
                         while (sdr.Read())
                         {
-                            educationObj = new Education
+                            locationObj = new Location
                             {
-                                edu_id = Convert.ToInt32(sdr["edu_id"]),
+                                location_id = Convert.ToInt32(sdr["location_id"]),
                                 name = Convert.ToString(sdr["name"]),
                             };
                         }
@@ -72,32 +72,32 @@ namespace WebAPI___SQL.Controllers
                     con.Close();
                 }
             }
-            if (educationObj == null)
+            if (locationObj == null)
             {
                 return NotFound();
             }
-            return educationObj;
+            return locationObj;
         }
 
-        // PUT: api/Education/1
+        // PUT: api/Location/1
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEducation(int id, Education Education)
+        public async Task<IActionResult> PutLocation(int id, Location Location)
         {
-            if (id != Education.edu_id)
+            if (id != Location.location_id)
             {
                 return BadRequest();
             }
-            Education education = new Education();
+            Location location = new Location();
             if (ModelState.IsValid)
             {
-                string query = "UPDATE edu SET name = @name WHERE edu_id =@edu_id";
+                string query = "UPDATE locations SET name = @name WHERE location_id =@location_id";
                 using (SqlConnection con = new SqlConnection(constr))
                 {
                     using (SqlCommand cmd = new SqlCommand(query))
                     {
                         cmd.Connection = con;
-                        cmd.Parameters.AddWithValue("@name", Education.name);
-                        cmd.Parameters.AddWithValue("@edu_id", Education.edu_id);
+                        cmd.Parameters.AddWithValue("@name", Location.name);
+                        cmd.Parameters.AddWithValue("@location_id", Location.location_id);
                         con.Open();
                         int i = cmd.ExecuteNonQuery();
                         if (i > 0)
@@ -112,9 +112,9 @@ namespace WebAPI___SQL.Controllers
             return BadRequest(ModelState);
         }
 
-        // POST: api/Education
+        // POST: api/Location
         [HttpPost]
-        public async Task<ActionResult<Education>> PostEducation(Education Education)
+        public async Task<ActionResult<Location>> PostLocation(Location Location)
         {
             if (!ModelState.IsValid)
             {
@@ -123,11 +123,11 @@ namespace WebAPI___SQL.Controllers
             using (SqlConnection con = new SqlConnection(constr))
             {
                 //inserting Patient data into database
-                string query = "INSERT INTO edu VALUES (@name)";
+                string query = "INSERT INTO locations VALUES (@name)";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@name", Education.name);
+                    cmd.Parameters.AddWithValue("@name", Location.name);
                     con.Open();
                     int i = cmd.ExecuteNonQuery();
                     if (i > 0)
@@ -141,14 +141,14 @@ namespace WebAPI___SQL.Controllers
 
         }
 
-        // DELETE: api/Education/5
+        // DELETE: api/Location/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEducation(int id)
+        public async Task<IActionResult> DeleteLocation(int id)
         {
 
             using (SqlConnection con = new SqlConnection(constr))
             {
-                string query = "DELETE FROM edu WHERE edu_id='" + id + "'";
+                string query = "DELETE FROM locations WHERE location_id='" + id + "'";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     con.Open();
@@ -162,5 +162,7 @@ namespace WebAPI___SQL.Controllers
             }
             return BadRequest();
         }
+
     }
 }
+
