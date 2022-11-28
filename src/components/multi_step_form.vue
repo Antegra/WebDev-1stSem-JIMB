@@ -259,19 +259,37 @@ function loadMore() {
     document.querySelector(".load").classList.toggle("displaynone");
 }
 
-function previous() {
+function previous(x) {
     const boxes = document.querySelectorAll('button')
     boxes.forEach(box => {
         box.classList.remove("alert")
     });
-    step.value = step.value - 1;
+    // step.value = step.value - 1;
+
+    switch (x) {
+        case 1:
+            step.value = step.value - 1;
+        break;
+        
+        case 2:
+            step.value = step.value - 2;
+        break;
+        
+        case 3:
+            step.value = step.value - 3;
+        break;
+        
+    }
 }
 
 function done() {
-    step.value = 1;
+    // step.value = 1;
     window.location.href = '/?succes=true';
     
 }
+
+
+
 
 
 
@@ -288,16 +306,16 @@ function done() {
                     <p>1</p>
                     <p>{{ bub1 }}</p>
                 </div>
-                <div class="2 bobble">
+                <div class="2 bobble" @click.prevent="next(1)">
                     <p>2</p>
                     <p> {{ bub2 }}</p>
                 </div>
-                <div class="3 bobble">
+                <div class="3 bobble" @click.prevent="next(2)">
                     <p>3</p>
                     <p>{{ bub3 }}</p>
 
                 </div>
-                <div class="4 bobble">
+                <div class="4 bobble" @click.prevent="next(3)">
                     <p>4</p>
                     <p>{{ bub4 }}</p>
                 </div>
@@ -311,7 +329,7 @@ function done() {
                     </select>
                 </div>
                 <h2>{{ sp_2 }}</h2>
-                <p class="alert_text alert_1 ">* Du mangle noget her...</p>
+                <p class="alert_text alert_1 ">* Vælg venligst type henvændelse</p>
                 <div class="form-group-1-2 form-style">
                     <button v-for="type in types" @click="meeting(type)" :id="type"> {{ type }} </button>
                 </div>
@@ -326,7 +344,7 @@ function done() {
         <!-- step 2 - Hvem er det med -->
         <section class="register" v-show="step === 2">
             <div class="progress_bar">
-                <div class="1 bobble active">
+                <div class="1 bobble active" @click.prevent="previous(1)">
                     <p>1</p>
                     <p>{{ bub1 }}</p>
                 </div>
@@ -334,32 +352,32 @@ function done() {
                     <p>2</p>
                     <p> {{ bub2 }}</p>
                 </div>
-                <div class="3 bobble">
+                <div class="3 bobble" @click.prevent="next(1)">
                     <p>3</p>
                     <p>{{ bub3 }}</p>
 
                 </div>
-                <div class="4 bobble">
+                <div class="4 bobble" @click.prevent="next(2)">
                     <p>4</p>
                     <p>{{ bub4 }}</p>
                 </div>
             </div>
 
             <h2>{{ sp_3 }}</h2>
-            <p class="alert_text alert_2">* Du mangle noget her...</p>
+            <p class="alert_text alert_2">* Du mangler noget her </p>
             <div class="form-group-2-1 form-style">
                 <button v-for="person in persons" @click="sex(person)" :id="person"> {{ person }} </button>
             </div>
 
             <h2 class="seperator">{{ sp_4 }}</h2>
-            <p class="alert_text alert_3">* Du mangle noget her...</p>
+            <p class="alert_text alert_3">* Du mangler at udfylde niveau.</p>
             <div class="form-group-2-2 form-style">
                 <button v-for="niveau in niveaus" @click="level(niveau)" :id="niveau"> {{ niveau }}</button>
             </div>
 
             <div class="navigation-group">
                 <div class="back"><input class="form_btn button back" type="submit" value="Tilbage"
-                        @click.prevent="previous"></div>
+                    @click.prevent="previous(1)"></div>
                 <div class="seperatordiv"></div>
                 <div class="next"><input class="form_btn button next" type="submit" value="Næste"
                         @click.prevent="next(2)"></div>
@@ -369,11 +387,11 @@ function done() {
         <!-- step 3 -  Uddannelsested-->
         <section class="register" v-show="step === 3">
             <div class="progress_bar">
-                <div class="1 bobble active">
+                <div class="1 bobble active" @click.prevent="previous(2)">
                     <p>1</p>
                     <p>{{ bub1 }}</p>
                 </div>
-                <div class="2 bobble active">
+                <div class="2 bobble active" @click.prevent="previous(1)">
                     <p>2</p>
                     <p> {{ bub2 }}</p>
                 </div>
@@ -381,20 +399,20 @@ function done() {
                     <p>3</p>
                     <p>{{ bub3 }}</p>
                 </div>
-                <div class="4 bobble">
+                <div class="4 bobble" @click.prevent="next(1)">
                     <p>4</p>
                     <p>{{ bub4 }}</p>
                 </div>
             </div>
             <h2>{{ sp_5 }}</h2>
-            <p class="alert_text alert_4">* Du mangle noget her...</p>
+            <p class="alert_text alert_4">* Du mangler noget her...</p>
             <div class="form-group-3-1 form-style">
                 <button v-for="location in locations" :id="location" @click="location_anwser(location)"> {{ location }}
                 </button>
             </div>
 
             <h2 class="seperator">Vælg uddannelse(r)</h2>
-            <p class="alert_text alert_5">* Du mangle noget her...</p>
+            <p class="alert_text alert_5">* Du mangler noget her...</p>
             <div class="educations form-group-3-2 form-style">
                 <div v-for="edu in f_educations" :key="edu">
                     <button @click="educations_anwser(edu)" :id="edu"> {{ edu }} </button>
@@ -416,7 +434,7 @@ function done() {
 
             <div class="navigation-group">
                 <div class="back"><input class="form_btn button back" type="submit" value="Tilbage"
-                        @click.prevent="previous"></div>
+                    @click.prevent="previous(1)"></div>
                 <div class="seperatordiv"></div>
                 <div class="next"><input class="form_btn button next" type="submit" value="Næste"
                         @click.prevent="next(3)"></div>
@@ -427,19 +445,19 @@ function done() {
         <!-- step 4 - Hvad handler samtalen om -->
         <section class="register form-group-4 " v-show="step === 4">
             <div class="progress_bar">
-                <div class="1 bobble active">
+                <div class="1 bobble active" @click.prevent="previous(3)">
                     <p>1</p>
                     <p>{{ bub1 }}</p>
                 </div>
-                <div class="2 bobble active">
+                <div class="2 bobble active" @click.prevent="previous(2)">
                     <p>2</p>
                     <p> {{ bub2 }}</p>
                 </div>
-                <div class="3 bobble active">
+                <div class="3 bobble active" @click.prevent="previous(1)">
                     <p>3</p>
                     <p>{{ bub3 }}</p>
                 </div>
-                <div class="4 bobble active">
+                <div class="4 bobble active ">
                     <p>4</p>
                     <p>{{ bub4 }}</p>
                 </div>
@@ -449,7 +467,7 @@ function done() {
             <div class="search-box">
                 <input type="text" v-model="input_subjects" placeholder="Søg..." />
             </div>
-            <p class="alert_text alert_6">* Du mangle noget her...</p>
+            <p class="alert_text alert_6">* Du mangler noget her...</p>
             <div class="educations form-group-4-1 form-style">
 
                 <div class="subjects" v-for="subject in filteredSubject()">
@@ -467,7 +485,7 @@ function done() {
             </div>
 
             <h2 class="seperator"> Hvor lang tid tog det?</h2>
-            <p class="alert_text alert_7">* Du mangle noget her...</p>
+            <p class="alert_text alert_7">* Du mangler noget her...</p>
             <div class="form-group-4-2 form-style">
                 <button v-for="duration in durations" :id="duration" @click="duration_anwser(duration)"> {{ duration
                 }}</button>
@@ -475,7 +493,7 @@ function done() {
 
             <div class="navigation-group">
                 <div class="back"><input class="form_btn button back" type="submit" value="Tilbage"
-                        @click.prevent="previous"></div>
+                        @click.prevent="previous(1)"></div>
                 <div class="seperatordiv"></div>
                 <div class="next"><input class="form_btn button next" type="submit" value="Næste"
                         @click.prevent="next(4)"></div>
@@ -503,7 +521,7 @@ function done() {
             <div class="navigation-group">
 
                 <div class="back"> <input class="form_btn button back" type="submit" value="Tilbage"
-                        @click.prevent="previous"></div>
+                    @click.prevent="previous(1)"></div>
                 <div class="seperatordiv"></div>
                 <div class="next"><input class="form_btn button next" type="submit" value="Afslut"
                         @click.prevent="done"></div>
