@@ -12,14 +12,14 @@ namespace WebAPI___SQL.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        string constr = "data source=uclssdemo.database.windows.net; initial catalog=Studieservice; user id=awesomegroupx; password=t4prSlX1JCZ0Ujv";
+        string constr = "Server=tcp:uclssdemo.database.windows.net,1433;Initial Catalog=studieservice;Persist Security Info=False;User ID=awesomegroupx;Password=t4prSlX1JCZ0Ujv;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         // GET: api/User
         [HttpGet]
         public async Task<ActionResult<List<User>>> GetAllUsers()
         {
             List<User> users = new List<User>();
-            string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, users.password, role.title FROM users INNER JOIN role ON users.role_id = role.role_id";
+            string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title FROM users INNER JOIN role ON users.role_id = role.role_id";
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -37,7 +37,8 @@ namespace WebAPI___SQL.Controllers
                                 lastName = Convert.ToString(sdr["firstName"]),
                                 email = Convert.ToString(sdr["email"]),
                                 password = Convert.ToString(sdr["password"]),
-                                title = Convert.ToString(sdr["title"])
+                                title = Convert.ToString(sdr["title"]),
+                                role_id = Convert.ToInt32(sdr["role_id"])
                             }) ;
                         }
                         con.Close();
@@ -45,7 +46,7 @@ namespace WebAPI___SQL.Controllers
                 }
             }
 
-            return users ;
+            return users;
         }
 
         // GET: api/User/1
@@ -53,7 +54,7 @@ namespace WebAPI___SQL.Controllers
         public async Task<ActionResult<User>> GetUsers(int id)
         {
 
-            User usersObj = new User();
+            User userObj = new User();
             string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, users.password, role.title FROM users INNER JOIN role ON users.role_id = role.role_id WHERE user_id=" + id;
             using (SqlConnection con = new SqlConnection(constr))
             {
@@ -65,7 +66,7 @@ namespace WebAPI___SQL.Controllers
                     {
                         while (sdr.Read())
                         {
-                            usersObj = new User
+                            userObj = new User
                             {
                                 user_id = Convert.ToInt32(sdr["user_id"]),
                                 firstName = Convert.ToString(sdr["firstName"]),
@@ -79,11 +80,11 @@ namespace WebAPI___SQL.Controllers
                     con.Close();
                 }
             }
-            if (usersObj == null)
+            if (userObj == null)
             {
                 return NotFound();
             }
-            return usersObj;
+            return userObj;
         }
 
         // PUT: api/User/1
@@ -97,17 +98,18 @@ namespace WebAPI___SQL.Controllers
             User user = new User();
             if (ModelState.IsValid)
             {
-                string query = "UPDATE users SET users.firstName = @firstName, users.lastName = @lastName, users.email = @email, users.password = @password, role.title = @title FROM users INNER JOIN role ON users.role_id = role.role_id WHERE users.user_id =" + id;
+                string query = "UPDATE users SET firstName = @firstName, lastName = @lastName, email = @email, password = @password, role_id = @roleId WHERE user_id = @user_id";
                 using (SqlConnection con = new SqlConnection(constr))
                 {
                     using (SqlCommand cmd = new SqlCommand(query))
                     {
                         cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@user_id", User.user_id);
                         cmd.Parameters.AddWithValue("@firstName", User.firstName);
                         cmd.Parameters.AddWithValue("@lastName", User.lastName);
                         cmd.Parameters.AddWithValue("@email", User.email);
                         cmd.Parameters.AddWithValue("@password", User.password);
-                        cmd.Parameters.AddWithValue("@title", User.title);
+                        cmd.Parameters.AddWithValue("@roleId", User.role_id);
                         con.Open();
                         int i = cmd.ExecuteNonQuery();
                         if (i > 0)
@@ -132,7 +134,7 @@ namespace WebAPI___SQL.Controllers
             }
             using (SqlConnection con = new SqlConnection(constr))
             {
-                string query = "INSERT INTO users (users.firstName, users.lastName, users.email, users.password) VALUES (@firstName, @lastName, @email, @password)";
+                string query = "INSERT INTO users (firstName, lastName, email, password, role_id) VALUES (@firstName, @lastName, @email, @password, @roleId)";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Connection = con;
@@ -140,6 +142,7 @@ namespace WebAPI___SQL.Controllers
                     cmd.Parameters.AddWithValue("@lastName", User.lastName);
                     cmd.Parameters.AddWithValue("@email", User.email);
                     cmd.Parameters.AddWithValue("@password", User.password);
+                    cmd.Parameters.AddWithValue("@roleId", User.role_id);
                     con.Open();
                     int i = cmd.ExecuteNonQuery();
                     if (i > 0)
@@ -151,6 +154,28 @@ namespace WebAPI___SQL.Controllers
             }
             return BadRequest();
 
+        }
+
+        // DELETE: api/User/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                string query = "DELETE FROM users WHERE user_id='" + id + "'";
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    int i = cmd.ExecuteNonQuery();
+                    if (i > 0)
+                    {
+                        return NoContent();
+                    }
+                    con.Close();
+                }
+            }
+            return BadRequest();
         }
 
     }

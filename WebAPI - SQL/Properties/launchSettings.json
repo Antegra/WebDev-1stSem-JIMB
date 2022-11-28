@@ -4,7 +4,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "https://ashy-hill-0cf770903.2.azurestaticapps.net",
+      "applicationUrl": "http://localhost:32006",
       "sslPort": 44389
     }
   },

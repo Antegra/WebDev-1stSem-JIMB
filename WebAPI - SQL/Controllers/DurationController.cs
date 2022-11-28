@@ -1,26 +1,26 @@
-﻿using WebAPI___SQL.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
+using WebAPI___SQL.Models;
+using Duration = WebAPI___SQL.Models.Duration;
 
 namespace WebAPI___SQL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EducationController : ControllerBase
+    public class DurationController : ControllerBase
     {
         string constr = "Server=tcp:uclssdemo.database.windows.net,1433;Initial Catalog=studieservice;Persist Security Info=False;User ID=awesomegroupx;Password=t4prSlX1JCZ0Ujv;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
-        // GET: api/Education
+        // GET: api/Duration
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Education>>> GetAllEducations()
+        public async Task<ActionResult<IEnumerable<Duration>>> GetAllSubjects()
         {
-            List<Education> educations = new List<Education>();
-            string query = "SELECT * FROM edu";
+            List<Duration> durations = new List<Duration>();
+            string query = "SELECT * FROM duration";
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -31,10 +31,10 @@ namespace WebAPI___SQL.Controllers
                     {
                         while (sdr.Read())
                         {
-                            educations.Add(new Education
+                            durations.Add(new Duration
                             {
-                                edu_id = Convert.ToInt32(sdr["edu_id"]),
-                                name = Convert.ToString(sdr["name"]),
+                                duration_id = Convert.ToInt32(sdr["duration_id"]),
+                                length = Convert.ToString(sdr["length"])
                             });
                         }
                     }
@@ -42,16 +42,16 @@ namespace WebAPI___SQL.Controllers
                 }
             }
 
-            return educations;
+            return durations;
         }
 
-        // GET: api/Education/1
+        // GET: api/Duration/1
         [HttpGet("{id}")]
-        public async Task<ActionResult<Education>> GetEducation(int id)
+        public async Task<ActionResult<Duration>> GetDuration(int id)
         {
 
-            Education educationObj = new Education();
-            string query = "SELECT * FROM edu WHERE edu_id=" + id;
+            Duration durationObj = new Duration();
+            string query = "SELECT * FROM duration WHERE duration_id=" + id;
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -62,42 +62,42 @@ namespace WebAPI___SQL.Controllers
                     {
                         while (sdr.Read())
                         {
-                            educationObj = new Education
+                            durationObj = new Duration
                             {
-                                edu_id = Convert.ToInt32(sdr["edu_id"]),
-                                name = Convert.ToString(sdr["name"]),
+                                duration_id = Convert.ToInt32(sdr["duration_id"]),
+                                length = Convert.ToString(sdr["length"]),
                             };
                         }
                     }
                     con.Close();
                 }
             }
-            if (educationObj == null)
+            if (durationObj == null)
             {
                 return NotFound();
             }
-            return educationObj;
+            return durationObj;
         }
 
-        // PUT: api/Education/1
+        // PUT: api/Duration/1
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEducation(int id, Education Education)
+        public async Task<IActionResult> PutDuration(int id, Duration Duration)
         {
-            if (id != Education.edu_id)
+            if (id != Duration.duration_id)
             {
                 return BadRequest();
             }
-            Education education = new Education();
+            Duration duration = new Duration();
             if (ModelState.IsValid)
             {
-                string query = "UPDATE edu SET name = @name WHERE edu_id =@edu_id";
+                string query = "UPDATE duration SET length = @length WHERE duration_id =@duration_id";
                 using (SqlConnection con = new SqlConnection(constr))
                 {
                     using (SqlCommand cmd = new SqlCommand(query))
                     {
                         cmd.Connection = con;
-                        cmd.Parameters.AddWithValue("@name", Education.name);
-                        cmd.Parameters.AddWithValue("@edu_id", Education.edu_id);
+                        cmd.Parameters.AddWithValue("@length", Duration.length);
+                        cmd.Parameters.AddWithValue("@duration_id", Duration.duration_id);
                         con.Open();
                         int i = cmd.ExecuteNonQuery();
                         if (i > 0)
@@ -112,9 +112,9 @@ namespace WebAPI___SQL.Controllers
             return BadRequest(ModelState);
         }
 
-        // POST: api/Education
+        // POST: api/Duration
         [HttpPost]
-        public async Task<ActionResult<Education>> PostEducation(Education Education)
+        public async Task<ActionResult<Duration>> PostDuration(Duration Duration)
         {
             if (!ModelState.IsValid)
             {
@@ -123,11 +123,11 @@ namespace WebAPI___SQL.Controllers
             using (SqlConnection con = new SqlConnection(constr))
             {
                 //inserting Patient data into database
-                string query = "INSERT INTO edu VALUES (@name)";
+                string query = "INSERT INTO duration VALUES (@length)";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@name", Education.name);
+                    cmd.Parameters.AddWithValue("@length", Duration.length);
                     con.Open();
                     int i = cmd.ExecuteNonQuery();
                     if (i > 0)
@@ -141,14 +141,14 @@ namespace WebAPI___SQL.Controllers
 
         }
 
-        // DELETE: api/Education/5
+        // DELETE: api/Duration/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEducation(int id)
+        public async Task<IActionResult> DeleteDuration(int id)
         {
 
             using (SqlConnection con = new SqlConnection(constr))
             {
-                string query = "DELETE FROM edu WHERE edu_id='" + id + "'";
+                string query = "DELETE FROM duration WHERE duration_id='" + id + "'";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     con.Open();
@@ -162,5 +162,7 @@ namespace WebAPI___SQL.Controllers
             }
             return BadRequest();
         }
+
     }
 }
+

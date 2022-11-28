@@ -13,9 +13,9 @@ namespace WebAPI___SQL.Controllers
     [ApiController]
     public class SubjectController : ControllerBase
     {
-        string constr = "data source=uclssdemo.database.windows.net; initial catalog=Studieservice; user id=awesomegroupx; password=t4prSlX1JCZ0Ujv";
+        string constr = "Server=tcp:uclssdemo.database.windows.net,1433;Initial Catalog=studieservice;Persist Security Info=False;User ID=awesomegroupx;Password=t4prSlX1JCZ0Ujv;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
-        // GET: api/Subjects
+        // GET: api/Subject
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Subject>>> GetAllSubjects()
         {
