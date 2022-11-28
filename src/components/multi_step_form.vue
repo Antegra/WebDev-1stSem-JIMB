@@ -32,9 +32,12 @@ let sp_2 = ref("Vælge type henvendelse")
 let types = ref(["Fysik", "Online", "Telefon"]);
 
 async function getText() {
-    let x = await fetch('https://uclssapitest.azurewebsites.net/api/type');
-
-    console.log(x);
+    await fetch('https://uclssapitest.azurewebsites.net/api/type')
+        .then((response) => response.json())
+        .then((test) => console.log(test))
+    for (let i = 0; i < test.length; i++) {
+        console.log(test.name)
+    }
 }
 
 // step 2 - Hvem blev vejledt?
