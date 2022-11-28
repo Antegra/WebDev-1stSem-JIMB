@@ -41,7 +41,7 @@ let niveaus = ref(["Nuværende studerende", "Potentielle studerende"]);
 // step 3 - Uddannelsested
 let sp_5 = ref("Uddannelsested");
 let input_educations = ref("");
-let locations = ref(["Odense", "Vejle", "Svendborg", "Jellinge", "Frederica"]);
+let locations = ref([]);
 let educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker", "Byggekoordinator", "Bygningskonstruktør", "Datamatiker", "Digital konceptudvikling", "E-handel", "El-installatør", "Energiteknolog", "Ergoterapeut", "Financial controller", "Finans", "Finansøkonom", "Fysioterapeut", "Handelsøkonom", "Innovation og entrepreneurship", "International handel og markedsføring", "International hospitality management", "IT-sikkerhed", "IT-teknolog", "Jordbrug", "Jordbrugsteknolog", "Laborant", "Logistikøkonom", "Lærer", "Markedsføringsøkonom", "Multimediedesigner", "Procesteknolog", "Produktionsteknolog", "Produktudvikling og teknisk integration", "Pædagog", "Radiograf", "Serviceøkonom", "Socialrådgiver", "Softwareudvikling", "Sport management", "Sundhedsadministrativ koordinator", "Sygeplejerske", "VVS-installatør", "Webudvikling", "Økonomi og IT"]);
 let f_educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker"]);
 let educations_minus_fav = educations.value.filter(item => !f_educations.value.includes(item))
@@ -49,10 +49,10 @@ let educations_minus_fav = educations.value.filter(item => !f_educations.value.i
 // step 4 - Hvad handlede samtalen om ?
 let sp_6 = ref("Hvad handlede samtalen om ?");
 let input_subjects = ref("");
-let subjects = ref([{ title: "Administrative forhold", description: "Vejledning om at søge dispensation, merit, kompetencevurdering mm." }, { title: "Barsel", description: "" }, { title: "Eksamen", description: "fx regler, klage, snyd, omprøver, særlige prøvevilkår" }, { title: "Fastholde trivsel", description: "statussamtaler og opfølgning på studerende mm." }, { title: "Internationale muligheder", description: "studieophold og/eller praktik" }, { title: "Mistrivsel", description: "fx i forhold til studiet, hverdagen" }, { title: "Optagelsesvejledning", description: "fx indhold, adgangskrav, videreuddannelse, struktur" }, { title: "Ordensreglement", description: "fx krænkelser, overskridelser af regler" }, { title: "Orlov", description: "" }, { title: "Overflytning/genindskrivning", description: "(internt/eksternt)" }, { title: "Personlige forhold", description: "(fx alvorlige sociale begivenheder, familiære/nære forhold)" }, { title: "Praktik i DK/klinik/dialogmøder", description: "Spørgsmål om praktik eller lign." }, { title: "Ikke studierelevant", description: "Ting der ikke er relevante" }, { title: "SPS", description: "Spørgsmål om SPS" }, { title: "Studieophør", description: "Udmeldelse" }, { title: "Studieplanlægning", description: "individuel studieplan, omlagte forløb. Fx forsinkede studerende og UCL Eliteordning" }, { title: "Studietvivl / Studievalg", description: "Spørgsmå om studievallg" }, { title: "Studieudfordringer", description: "faglige, eksamensnervøsitet/-angst, studie- og eksamensteknik, forståelse for studiet, samarbejdsvanskeligheder, manglende gruppe mm." }, { title: "Sygdom", description: "egen fysisk eller psykisk sygdom mm." }, { title: "Undervisningen", description: "fx samarbejdsvanskeligheder med underviser, kritik af kvaliteten" }, { title: "Økonomi", description: "fx SU, private forhold" }]);
+let subjects = ref([]);
 
 
-let durations = ref(["1-15 min", "16-30 min", "31-45 min", "46-60 min", "Mere end 60 min"]);
+let durations = ref([]);
 
 
 onMounted(async () => {
@@ -69,14 +69,42 @@ onMounted(async () => {
         persons.value.push(fetchedGender[i].name)
     }
 
+
+    const fetchedLocation = await fetch('https://uclssapitest.azurewebsites.net/api/location')
+        .then((fetchedLocation) => fetchedLocation.json())
+    for (let i = 0; i < fetchedLocation.length; i++){
+        locations.value.push(fetchedLocation[i].name)
+    }
+
+    // SKAL KIGGES PÅ
     const fetchedEducation = await fetch('https://uclssapitest.azurewebsites.net/api/Education')
         .then((fetchedEducation) => fetchedEducation.json())
     for (let i = 0; i < fetchedEducation.length; i++) {
         educations.value.push(fetchedEducation[i].name)
     }
 
-
     console.log(educations.value)
+
+
+    const fetchedDuration = await fetch('https://uclssapitest.azurewebsites.net/api/Duration')
+        .then((fetchedDuration) => fetchedDuration.json())
+    for (let i = 0; i < fetchedDuration.length; i++){
+        durations.value.push(fetchedDuration[i].length)
+    }
+
+
+    const fetchedSubject = await fetch('https://uclssapitest.azurewebsites.net/api/Subject')
+        .then((fetchedSubject) => fetchedSubject.json())
+        for (let i = 0; i < fetchedSubject.length; i++){
+            
+            let obj = [ {
+                title: fetchedSubject[i].name,
+                description: fetchedSubject[i].description
+            }]
+            
+            console.log(obj)
+            
+        }
 })
 
 function filteredEducations() {
@@ -100,9 +128,10 @@ function filteredSubject() {
 
     return subject_title.filter(subject_title =>
         subject_title.description.toLowerCase().includes(input_subjects.value.toLocaleLowerCase()) || subject_title.title.toLowerCase().includes(input_subjects.value.toLocaleLowerCase()));
-
-
 }
+
+
+
 
 function month(e) {
     anwsers.month = e.target.value;
