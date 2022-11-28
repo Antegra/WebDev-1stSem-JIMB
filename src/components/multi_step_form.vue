@@ -1,12 +1,12 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUpdated } from 'vue';
 
-let step = ref(1);
+let step = ref(3);
 
 let anwsers = {
     month: "",
-    type: "",
-    sex: "",
+    type: 0,
+    sex: 0,
     niveau: "",
     locations: "",
     educations: [],
@@ -42,9 +42,10 @@ let niveaus = ref(["Nuværende studerende", "Potentielle studerende"]);
 let sp_5 = ref("Uddannelsested");
 let input_educations = ref("");
 let locations = ref(["Odense", "Vejle", "Svendborg", "Jellinge", "Frederica"]);
-let educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker", "Byggekoordinator", "Bygningskonstruktør", "Datamatiker", "Digital konceptudvikling", "E-handel", "El-installatør", "Energiteknolog", "Ergoterapeut", "Financial controller", "Finans", "Finansøkonom", "Fysioterapeut", "Handelsøkonom", "Innovation og entrepreneurship", "International handel og markedsføring", "International hospitality management", "IT-sikkerhed", "IT-teknolog", "Jordbrug", "Jordbrugsteknolog", "Laborant", "Logistikøkonom", "Lærer", "Markedsføringsøkonom", "Multimediedesigner", "Procesteknolog", "Produktionsteknolog", "Produktudvikling og teknisk integration", "Pædagog", "Radiograf", "Serviceøkonom", "Socialrådgiver", "Softwareudvikling", "Sport management", "Sundhedsadministrativ koordinator", "Sygeplejerske", "VVS-installatør", "Webudvikling", "Økonomi og IT"]);
+let educations = ref([]);
 let f_educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker"]);
-let educations_minus_fav = educations.value.filter(item => !f_educations.value.includes(item))
+
+
 
 // step 4 - Hvad handlede samtalen om ?
 let sp_6 = ref("Hvad handlede samtalen om ?");
@@ -60,29 +61,27 @@ onMounted(async () => {
     const fetchedTypes = await fetch('https://uclssapitest.azurewebsites.net/api/type')
         .then((fetchedTypes) => fetchedTypes.json())
     for (let i = 0; i < fetchedTypes.length; i++) {
-        types.value.push(fetchedTypes[i].name)
+        types.value.push({ name: fetchedTypes[i].name, id: fetchedTypes[i].type_id })
     }
-
     const fetchedGender = await fetch('https://uclssapitest.azurewebsites.net/api/sex')
         .then((fetchedGender) => fetchedGender.json())
     for (let i = 0; i < fetchedGender.length; i++) {
-        persons.value.push(fetchedGender[i].name)
+        persons.value.push({ name: fetchedGender[i].name, id: fetchedGender[i].sex_id })
     }
 
     const fetchedEducation = await fetch('https://uclssapitest.azurewebsites.net/api/Education')
         .then((fetchedEducation) => fetchedEducation.json())
     for (let i = 0; i < fetchedEducation.length; i++) {
-        educations.value.push(fetchedEducation[i].name)
+        educations.value.push({ name: fetchedEducation[i].name, id: fetchedEducation[i].edu_id })
     }
 
 
-    console.log(educations.value)
 })
-
+let educations_minus_fav = educations.value.filter(item => !f_educations.value.includes(item))
 function filteredEducations() {
 
-    return educations_minus_fav.filter((educations) =>
-        educations.toLowerCase().includes(input_educations.value.toLowerCase())
+    return educations_minus_fav.filter((edu) =>
+        edu.toLowerCase().includes(input_educations.value.toLowerCase())
     );
 }
 
@@ -355,7 +354,7 @@ function done() {
                 <h2>{{ sp_2 }}</h2>
                 <p class="alert_text alert_1 ">* Vælg venligst type henvændelse</p>
                 <div class="form-group-1-2 form-style">
-                    <button v-for="type in types" @click="meeting(type)" :id="type"> {{ type }} </button>
+                    <button v-for="type in types" @click="meeting(type.id)" :id="type.id"> {{ type.name }} </button>
                 </div>
             </div>
 
@@ -390,7 +389,8 @@ function done() {
             <h2>{{ sp_3 }}</h2>
             <p class="alert_text alert_2">* Du mangler noget her </p>
             <div class="form-group-2-1 form-style">
-                <button v-for="person in persons" @click="sex(person)" :id="person"> {{ person }} </button>
+                <button v-for="person in persons" @click="sex(person.id)" :id="person.id"> {{ person.name }}
+                </button>
             </div>
 
             <h2 class="seperator">{{ sp_4 }}</h2>
@@ -449,7 +449,8 @@ function done() {
             </div>
 
             <div class="educations loadbtn">
-                <button v-for="edu in filteredEducations()" :id="edu" :key="edu" @click="educations_anwser(edu)"> {{ edu
+                <button v-for="edu in filteredEducations()" :id="edu" :key="edu" @click="educations_anwser(edu)"> {{
+                        edu.name
                 }}
                 </button>
             </div>
