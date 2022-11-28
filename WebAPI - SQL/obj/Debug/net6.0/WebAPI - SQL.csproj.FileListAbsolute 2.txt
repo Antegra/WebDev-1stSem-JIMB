@@ -1,0 +1,44 @@
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\appsettings.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\WebAPI - SQL.exe
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\WebAPI - SQL.deps.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\WebAPI - SQL.runtimeconfig.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\WebAPI - SQL.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\WebAPI - SQL.pdb
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\System.Data.SqlClient.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\runtimes\win-arm64\native\sni.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\runtimes\win-x64\native\sni.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\runtimes\win-x86\native\sni.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.csproj.AssemblyReference.cache
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.AssemblyInfoInputs.cache
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.AssemblyInfo.cs
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.csproj.CoreCompileInputs.cache
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Debug\net6.0\scopedcss\bundle\WebAPI - SQL.styles.css
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.csproj.CopyComplete
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Debug\net6.0\refint\WebAPI - SQL.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.pdb
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.genruntimeconfig.cache
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\obj\Debug\net6.0\ref\WebAPI - SQL.dll
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\test\web.config
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\test\appsettings.Development.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\test\appsettings.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\test\WebAPI - SQL.deps.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\test\WebAPI - SQL.runtimeconfig.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\test\test\web.config
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\test\test\appsettings.Development.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\test\test\appsettings.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\test\test\WebAPI - SQL.deps.json
+C:\Users\Benjamin\Documents\GitHub\WebDev-1stSem-JIMB\WebAPI - SQL\bin\Debug\net6.0\test\test\WebAPI - SQL.runtimeconfig.json
