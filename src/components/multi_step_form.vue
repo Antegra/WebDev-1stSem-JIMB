@@ -31,6 +31,12 @@ select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() - 1]];
 let sp_2 = ref("Vælge type henvendelse")
 let types = ref(["Fysik", "Online", "Telefon"]);
 
+async function getText() {
+    let x = await fetch('https://uclssapitest.azurewebsites.net/api/type');
+
+    console.log(x);
+}
+
 // step 2 - Hvem blev vejledt?
 let sp_3 = ref("Hvem blev vejledt?");
 let persons = ref(["Mand", "Kvinde", "Gruppe"]);
@@ -269,23 +275,23 @@ function previous(x) {
     switch (x) {
         case 1:
             step.value = step.value - 1;
-        break;
-        
+            break;
+
         case 2:
             step.value = step.value - 2;
-        break;
-        
+            break;
+
         case 3:
             step.value = step.value - 3;
-        break;
-        
+            break;
+
     }
 }
 
 function done() {
     // step.value = 1;
     window.location.href = '/?succes=true';
-    
+
 }
 
 
@@ -327,6 +333,7 @@ function done() {
                     <select @change="month($event)">
                         <option v-for="date in select_month" :value="date"> {{ date }}</option>
                     </select>
+                    <button v-on:click="getText()">test</button>
                 </div>
                 <h2>{{ sp_2 }}</h2>
                 <p class="alert_text alert_1 ">* Vælg venligst type henvændelse</p>
@@ -377,7 +384,7 @@ function done() {
 
             <div class="navigation-group">
                 <div class="back"><input class="form_btn button back" type="submit" value="Tilbage"
-                    @click.prevent="previous(1)"></div>
+                        @click.prevent="previous(1)"></div>
                 <div class="seperatordiv"></div>
                 <div class="next"><input class="form_btn button next" type="submit" value="Næste"
                         @click.prevent="next(2)"></div>
@@ -434,7 +441,7 @@ function done() {
 
             <div class="navigation-group">
                 <div class="back"><input class="form_btn button back" type="submit" value="Tilbage"
-                    @click.prevent="previous(1)"></div>
+                        @click.prevent="previous(1)"></div>
                 <div class="seperatordiv"></div>
                 <div class="next"><input class="form_btn button next" type="submit" value="Næste"
                         @click.prevent="next(3)"></div>
@@ -521,7 +528,7 @@ function done() {
             <div class="navigation-group">
 
                 <div class="back"> <input class="form_btn button back" type="submit" value="Tilbage"
-                    @click.prevent="previous(1)"></div>
+                        @click.prevent="previous(1)"></div>
                 <div class="seperatordiv"></div>
                 <div class="next"><input class="form_btn button next" type="submit" value="Afslut"
                         @click.prevent="done"></div>
