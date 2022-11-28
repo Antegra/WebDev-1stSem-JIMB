@@ -34,10 +34,9 @@ let types = ref(["Fysik", "Online", "Telefon"]);
 async function getText() {
     await fetch('https://uclssapitest.azurewebsites.net/api/type')
         .then((response) => response.json())
-        .then((test) => console.log(test))
-    for (let i = 0; i < test.length; i++) {
-        console.log(test.name)
-    }
+        for (let i = 0; i < response.length; i++) {
+            console.log(types.value.push(response[i].name));
+        }
 }
 
 // step 2 - Hvem blev vejledt?
