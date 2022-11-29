@@ -75,7 +75,7 @@ onMounted(async () => {
     const fetchedEducation = await fetch('https://uclssapitest.azurewebsites.net/api/Education')
         .then((fetchedEducation) => fetchedEducation.json())
     for (let i = 0; i < fetchedEducation.length; i++) {
-        educations.value.push({ name: fetchedEducation[i].name, id: fetchedEducation[i].edu_id })
+        educations.value.push({ id: fetchedEducation[i].edu_id, name: fetchedEducation[i].name })
     }
 
     const fetchedSubject = await fetch('https://uclssapitest.azurewebsites.net/api/Subject')
@@ -97,34 +97,32 @@ onMounted(async () => {
 
 
 function filteredEducations() {
-    let EduNoProxy = [];
+    /*    let EduNoProxy = [];
+   
+       for (let i = 0; i < educations.value.length; i++) {
+   
+           let obj = {
+               id: educations.value[i].id,
+               name: educations.value[i].name,
+   
+           }
+           EduNoProxy.push(obj);
+       }
+   
+       let FEduNoProxy = [];
+   
+       for (let i = 0; i < f_educations.value.length; i++) {
+   
+           let obj = {
+               id: f_educations.value[i].edu_id,
+               name: f_educations.value[i].name
+   
+           }
+           FEduNoProxy.push(obj);
+       } */
 
-    for (let i = 0; i < educations.value.length; i++) {
-
-        let obj = {
-            id: educations.value[i].id,
-            name: educations.value[i].name,
-
-        }
-        EduNoProxy.push(obj);
-    }
-
-    let FEduNoProxy = [];
-
-    for (let i = 0; i < f_educations.value.length; i++) {
-
-        let obj = {
-            id: f_educations.value[i].edu_id,
-            name: f_educations.value[i].name
-
-        }
-        FEduNoProxy.push(obj);
-    }
-
-    let educations_minus_fav = [];
-
-
-    educations_minus_fav = EduNoProxy.filter(test => !FEduNoProxy.includes(test.id));
+    console.log(educations)
+    let educations_minus_fav = educations.value.filter(el => !f_educations.value.includes(el));
 
     return educations_minus_fav.filter((edu) =>
         edu.name.toLowerCase().includes(input_educations.value.toLowerCase())
