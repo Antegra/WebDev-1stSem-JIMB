@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, onUpdated } from 'vue';
 
-let step = ref(3);
+let step = ref(1);
 
 let anwsers = {
     month: "",
@@ -41,18 +41,14 @@ let niveaus = ref(["Nuværende studerende", "Potentielle studerende"]);
 // step 3 - Uddannelsested
 let sp_5 = ref("Uddannelsested");
 let input_educations = ref("");
-let locations = ref(["Odense", "Vejle", "Svendborg", "Jellinge", "Frederica"]);
+let locations = ref([]);
 let educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker", "Byggekoordinator", "Bygningskonstruktør", "Datamatiker", "Digital konceptudvikling", "E-handel", "El-installatør", "Energiteknolog", "Ergoterapeut", "Financial controller", "Finans", "Finansøkonom", "Fysioterapeut", "Handelsøkonom", "Innovation og entrepreneurship", "International handel og markedsføring", "International hospitality management", "IT-sikkerhed", "IT-teknolog", "Jordbrug", "Jordbrugsteknolog", "Laborant", "Logistikøkonom", "Lærer", "Markedsføringsøkonom", "Multimediedesigner", "Procesteknolog", "Produktionsteknolog", "Produktudvikling og teknisk integration", "Pædagog", "Radiograf", "Serviceøkonom", "Socialrådgiver", "Softwareudvikling", "Sport management", "Sundhedsadministrativ koordinator", "Sygeplejerske", "VVS-installatør", "Webudvikling", "Økonomi og IT"]);
 let f_educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker"]);
-
-
 
 // step 4 - Hvad handlede samtalen om ?
 let sp_6 = ref("Hvad handlede samtalen om ?");
 let input_subjects = ref("");
 let subjects = ref([]);
-
-
 let durations = ref([]);
 
 
@@ -69,11 +65,10 @@ onMounted(async () => {
         persons.value.push({ name: fetchedGender[i].name, id: fetchedGender[i].sex_id })
     }
 
-
     const fetchedLocation = await fetch('https://uclssapitest.azurewebsites.net/api/location')
         .then((fetchedLocation) => fetchedLocation.json())
     for (let i = 0; i < fetchedLocation.length; i++) {
-        locations.value.push(fetchedLocation[i].name)
+        locations.value.push({ id: fetchedLocation[i].location_id, name: fetchedLocation[i].name })
     }
 
     // SKAL KIGGES PÅ
@@ -83,9 +78,19 @@ onMounted(async () => {
         educations.value.push({ name: fetchedEducation[i].name, id: fetchedEducation[i].edu_id })
     }
 
+    const fetchedSubject = await fetch('https://uclssapitest.azurewebsites.net/api/Subject')
+        .then((fetchedSubject) => fetchedSubject.json())
+    for (let i = 0; i < fetchedSubject.length; i++) {
+        subjects.value.push({ id: fetchedSubject[i].subject_id, name: fetchedSubject[i].name, description: fetchedSubject[i].description })
+    }
 
-    console.log(educations.value)
+    const fetchedDuration = await fetch('https://uclssapitest.azurewebsites.net/api/Duration')
+        .then((fetchedDuration) => fetchedDuration.json())
+    for (let i = 0; i < fetchedDuration.length; i++) {
+        durations.value.push({ id: fetchedDuration[i].duration_id, name: fetchedDuration[i].length })
+    }
 })
+
 let educations_minus_fav = educations.value.filter(item => !f_educations.value.includes(item))
 function filteredEducations() {
 
@@ -100,14 +105,16 @@ function filteredSubject() {
     for (let i = 0; i < subjects.value.length; i++) {
 
         let obj = {
-            title: subjects.value[i].title,
+            id: subjects.value[i].id,
+            name: subjects.value[i].name,
             description: subjects.value[i].description
         }
         subject_title.push(obj);
     }
-
+    console.log(subject_title);
     return subject_title.filter(subject_title =>
-        subject_title.description.toLowerCase().includes(input_subjects.value.toLocaleLowerCase()) || subject_title.title.toLowerCase().includes(input_subjects.value.toLocaleLowerCase()));
+        subject_title.description.toLowerCase().includes(input_subjects.value.toLowerCase()) || subject_title.name.toLowerCase().includes(input_subjects.value.toLowerCase()));
+
 }
 
 
@@ -130,7 +137,7 @@ function meeting(e) {
 }
 
 function sex(e) {
-    anwsers.sex = e;
+    anwsers.sex = e.id;
 
     const boxes = document.querySelectorAll('.form-group-2-1 .selected');
 
@@ -138,7 +145,7 @@ function sex(e) {
         box.classList.remove('selected');
     });
 
-    document.getElementById(e).classList.toggle("selected");
+    document.getElementById(e.name).classList.toggle("selected");
 
 }
 
@@ -157,7 +164,7 @@ function level(e) {
 
 function location_anwser(e) {
 
-    anwsers.locations = e;
+    anwsers.locations = e.id;
 
 
     const boxes = document.querySelectorAll('.form-group-3-1 .selected');
@@ -165,7 +172,7 @@ function location_anwser(e) {
     boxes.forEach(box => {
         box.classList.remove('selected');
     });
-    document.getElementById(e).classList.toggle("selected");
+    document.getElementById(e.name).classList.toggle("selected");
 }
 
 function educations_anwser(e) {
@@ -182,19 +189,20 @@ function educations_anwser(e) {
 }
 
 function subject_anwser(e) {
-    anwsers.subject.push(e);
-    document.getElementById(e).classList.toggle("selected");
+    anwsers.subject.push(e.id);
+    document.getElementById(e.name).classList.toggle("selected");
+    console.log(anwsers)
 }
 
 function duration_anwser(e) {
-    anwsers.duration = e;
+    anwsers.duration = e.id;
     const boxes = document.querySelectorAll('.form-group-4-2 .selected');
 
     boxes.forEach(box => {
         box.classList.remove('selected');
     });
 
-    document.getElementById(e).classList.toggle("selected");
+    document.getElementById(e.name).classList.toggle("selected");
 
 }
 
@@ -399,7 +407,7 @@ function done() {
             <h2>{{ sp_3 }}</h2>
             <p class="alert_text alert_2">* Du mangler noget her </p>
             <div class="form-group-2-1 form-style">
-                <button v-for="person in persons" @click="sex(person.id)" :id="person.id"> {{ person.name }}
+                <button v-for="person in persons" @click="sex(person)" :id="person.name"> {{ person.name }}
                 </button>
             </div>
 
@@ -441,7 +449,9 @@ function done() {
             <h2>{{ sp_5 }}</h2>
             <p class="alert_text alert_4">* Du mangler noget her...</p>
             <div class="form-group-3-1 form-style">
-                <button v-for="location in locations" :id="location" @click="location_anwser(location)"> {{ location }}
+                <button v-for="location in locations" :id="location.name" @click="location_anwser(location)"> {{
+                        location.name
+                }}
                 </button>
             </div>
 
@@ -460,7 +470,7 @@ function done() {
 
             <div class="educations loadbtn">
                 <button v-for="edu in filteredEducations()" :id="edu" :key="edu" @click="educations_anwser(edu)"> {{
-                        edu.name
+                        edu
                 }}
                 </button>
             </div>
@@ -510,8 +520,8 @@ function done() {
                     <p v-show="subject.description" id="subject_icon">i<span id="subject_test"> {{ subject.description
                     }}</span></p>
 
-                    <button :id="subject.title" :key="subject.title" @click="subject_anwser(subject.title)"> {{
-                            subject.title
+                    <button :id="subject.name" :key="subject.id" @click="subject_anwser(subject)"> {{
+                            subject.name
                     }}
                     </button>
 
@@ -522,7 +532,8 @@ function done() {
             <h2 class="seperator"> Hvor lang tid tog det?</h2>
             <p class="alert_text alert_7">* Du mangler noget her...</p>
             <div class="form-group-4-2 form-style">
-                <button v-for="duration in durations" :id="duration" @click="duration_anwser(duration)"> {{ duration
+                <button v-for="duration in durations" :id="duration.name" @click="duration_anwser(duration)"> {{
+                        duration.name
                 }}</button>
             </div>
 
