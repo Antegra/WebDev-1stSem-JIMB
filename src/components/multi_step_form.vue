@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, onUpdated } from 'vue';
 
-let step = ref(1);
+let step = ref(3);
 
 let anwsers = {
     month: "",
@@ -42,8 +42,8 @@ let niveaus = ref(["Nuværende studerende", "Potentielle studerende"]);
 let sp_5 = ref("Uddannelsested");
 let input_educations = ref("");
 let locations = ref([]);
-let educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker", "Byggekoordinator", "Bygningskonstruktør", "Datamatiker", "Digital konceptudvikling", "E-handel", "El-installatør", "Energiteknolog", "Ergoterapeut", "Financial controller", "Finans", "Finansøkonom", "Fysioterapeut", "Handelsøkonom", "Innovation og entrepreneurship", "International handel og markedsføring", "International hospitality management", "IT-sikkerhed", "IT-teknolog", "Jordbrug", "Jordbrugsteknolog", "Laborant", "Logistikøkonom", "Lærer", "Markedsføringsøkonom", "Multimediedesigner", "Procesteknolog", "Produktionsteknolog", "Produktudvikling og teknisk integration", "Pædagog", "Radiograf", "Serviceøkonom", "Socialrådgiver", "Softwareudvikling", "Sport management", "Sundhedsadministrativ koordinator", "Sygeplejerske", "VVS-installatør", "Webudvikling", "Økonomi og IT"]);
-let f_educations = ref(["Administrationsbachelor", "Automationsteknolog", "Autoteknolog", "Bioanalytiker"]);
+let educations = ref([]);
+let f_educations = ref([{ "edu_id": 1, "name": "Administrationsbachelor" }, { "edu_id": 2, "name": "Autoteknolog" }]);
 
 // step 4 - Hvad handlede samtalen om ?
 let sp_6 = ref("Hvad handlede samtalen om ?");
@@ -89,13 +89,45 @@ onMounted(async () => {
     for (let i = 0; i < fetchedDuration.length; i++) {
         durations.value.push({ id: fetchedDuration[i].duration_id, name: fetchedDuration[i].length })
     }
+
+
 })
 
-let educations_minus_fav = educations.value.filter(item => !f_educations.value.includes(item))
+
+
+
 function filteredEducations() {
+    let EduNoProxy = [];
+
+    for (let i = 0; i < educations.value.length; i++) {
+
+        let obj = {
+            id: educations.value[i].id,
+            name: educations.value[i].name,
+
+        }
+        EduNoProxy.push(obj);
+    }
+
+    let FEduNoProxy = [];
+
+    for (let i = 0; i < f_educations.value.length; i++) {
+
+        let obj = {
+            id: f_educations.value[i].edu_id,
+            name: f_educations.value[i].name
+
+        }
+        FEduNoProxy.push(obj);
+    }
+
+    let educations_minus_fav = [];
+
+
+    educations_minus_fav = EduNoProxy.filter(test => !FEduNoProxy.includes(test.id));
 
     return educations_minus_fav.filter((edu) =>
-        edu.toLowerCase().includes(input_educations.value.toLowerCase())
+        edu.name.toLowerCase().includes(input_educations.value.toLowerCase())
     );
 }
 
@@ -111,7 +143,7 @@ function filteredSubject() {
         }
         subject_title.push(obj);
     }
-    console.log(subject_title);
+
     return subject_title.filter(subject_title =>
         subject_title.description.toLowerCase().includes(input_subjects.value.toLowerCase()) || subject_title.name.toLowerCase().includes(input_subjects.value.toLowerCase()));
 
@@ -176,15 +208,15 @@ function location_anwser(e) {
 }
 
 function educations_anwser(e) {
-    if (anwsers.educations.includes(e)) {
+    if (anwsers.educations.includes(e.id)) {
         anwsers.educations = anwsers.educations.filter(function (item) {
-            return item !== e
+            return item !== e.id
         });
     } else {
-        anwsers.educations.push(e);
+        anwsers.educations.push(e.id);
 
     }
-    document.getElementById(e).classList.toggle("selected");
+    document.getElementById(e.name).classList.toggle("selected");
 
 }
 
@@ -458,8 +490,8 @@ function done() {
             <h2 class="seperator">Vælg uddannelse(r)</h2>
             <p class="alert_text alert_5">* Du mangler noget her...</p>
             <div class="educations form-group-3-2 form-style">
-                <div v-for="edu in f_educations" :key="edu">
-                    <button @click="educations_anwser(edu)" :id="edu"> {{ edu }} </button>
+                <div v-for="educations in f_educations" :key="educations">
+                    <button @click="educations_anwser(educations)" :id="educations.id"> {{ educations.name }} </button>
                     <span>Fast</span>
                 </div>
             </div>
@@ -469,9 +501,10 @@ function done() {
             </div>
 
             <div class="educations loadbtn">
-                <button v-for="edu in filteredEducations()" :id="edu" :key="edu" @click="educations_anwser(edu)"> {{
-                        edu
-                }}
+                <button v-for="educations in filteredEducations()" :id="educations.name" :key="educations"
+                    @click="educations_anwser(educations)"> {{
+                            educations.name
+                    }}
                 </button>
             </div>
 
