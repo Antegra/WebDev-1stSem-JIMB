@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, computed, onBeforeMount } from 'vue';
 
-let step = ref(3);
+let step = ref(4);
 
 let anwsers = {
     month: "",
@@ -122,7 +122,9 @@ function filteredSubject() {
         let obj = {
             id: subjects.value[i].id,
             name: subjects.value[i].name,
-            description: subjects.value[i].description
+            description: subjects.value[i].description,
+            isSelected: false
+            
         }
         subject_title.push(obj);
     }
@@ -200,13 +202,22 @@ function educations_anwser(e) {
 
     }
     document.getElementById(e.name).classList.toggle("selected");
+    console.log(anwsers);
 
 }
 
 function subject_anwser(e) {
-    anwsers.subject.push(e.id);
+    if (anwsers.subject.includes(e.id)) {
+        anwsers.subject = anwsers.subject.filter(function (item) {
+            subjects.value[e.id].isSelected = false;
+            return item !== e.id
+        });
+    } else {
+        anwsers.subject.push(e.id);
+        subjects.value[e.index].isSelected = true;
+    }
     document.getElementById(e.name).classList.toggle("selected");
-    console.log(anwsers)
+
 }
 
 function duration_anwser(e) {
@@ -343,13 +354,6 @@ function done() {
 
 }
 
-
-
-
-
-
-
-
 </script>
 
 <template>
@@ -474,7 +478,7 @@ function done() {
             <p class="alert_text alert_5">* Du mangler noget her...</p>
             <div class="educations form-group-3-2 form-style">
                 <div v-for="educations in f_educations" :key="educations">
-                    <button @click="educations_anwser(educations)" :id="educations.id"> {{ educations.name }} </button>
+                    <button @click="educations_anwser(educations)" :id="educations.name"> {{ educations.name }} </button>
                     <span>Fast</span>
                 </div>
             </div>
@@ -531,12 +535,12 @@ function done() {
             <p class="alert_text alert_6">* Du mangler noget her...</p>
             <div class="educations form-group-4-1 form-style">
 
-                <div class="subjects" v-for="subject in filteredSubject()">
+                <div class="subjects" v-for="(subject, index) in filteredSubject()">
 
                     <p v-show="subject.description" id="subject_icon">i<span id="subject_test"> {{ subject.description
                     }}</span></p>
 
-                    <button :id="subject.name" :key="subject.id" @click="subject_anwser(subject)"> {{
+                    <button :id="subject.name" :class="{ 'selected': subject.isSelected }" :key="subject" @click="subject_anwser({...subject, index: index})"> {{
                             subject.name
                     }}
                     </button>
