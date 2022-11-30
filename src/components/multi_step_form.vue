@@ -107,14 +107,12 @@ const educations_minus_fav2 = computed(() => {
     
 }) 
 
-console.log(educations_minus_fav2)
-
-
-function filteredEducations() {
-    return educations_minus_fav2.filter((edu) =>
+const filteredEducations = computed(() => {
+    return educations_minus_fav2.value.filter((edu) =>
         edu.name.toLowerCase().includes(input_educations.value.toLowerCase())
     );
-}
+    
+}) 
 
 function filteredSubject() {
     let subject_title = [];
@@ -486,7 +484,7 @@ function done() {
             </div>
 
             <div class="educations loadbtn">
-                <button v-for="educations in educations_minus_fav2" :id="educations.name" :key="educations"
+                <button v-for="educations in filteredEducations" :id="educations.name" :key="educations"
                     @click="educations_anwser(educations)"> {{
                             educations.name
                     }}
