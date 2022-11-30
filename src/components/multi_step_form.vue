@@ -1,7 +1,7 @@
 <script setup>
-import { ref, onMounted, onUpdated } from 'vue';
+import { ref, onMounted } from 'vue';
 
-let step = ref(3);
+let step = ref(1);
 
 let anwsers = {
     month: "",
@@ -120,8 +120,7 @@ function filteredEducations() {
            }
            FEduNoProxy.push(obj);
        } */
-
-    console.log(educations)
+    
     let educations_minus_fav = educations.value.filter(el => !f_educations.value.includes(el));
 
     return educations_minus_fav.filter((edu) =>
