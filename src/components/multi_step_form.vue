@@ -1,7 +1,7 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed, onBeforeMount } from 'vue';
 
-let step = ref(1);
+let step = ref(3);
 
 let anwsers = {
     month: "",
@@ -43,7 +43,7 @@ let sp_5 = ref("Uddannelsested");
 let input_educations = ref("");
 let locations = ref([]);
 let educations = ref([]);
-let f_educations = ref([{ "edu_id": 1, "name": "Administrationsbachelor" }, { "edu_id": 2, "name": "Autoteknolog" }]);
+let f_educations = ref([{ "id": 1, "name": "Administrationsbachelor" }, { "id": 2, "name": "Autoteknolog" }]);
 
 // step 4 - Hvad handlede samtalen om ?
 let sp_6 = ref("Hvad handlede samtalen om ?");
@@ -52,7 +52,7 @@ let subjects = ref([]);
 let durations = ref([]);
 
 
-onMounted(async () => {
+onBeforeMount(async () => {
 
     const fetchedTypes = await fetch('https://uclssapitest.azurewebsites.net/api/type')
         .then((fetchedTypes) => fetchedTypes.json())
@@ -92,8 +92,35 @@ onMounted(async () => {
 
 
 })
+const educations_minus_fav = computed(() => {
+    console.log(f_educations.value[0].id);
+    
+    return educations.value.filter((el) => {
+        
+        for(let i = 0; i < f_educations.value.length; i++) {
+            // console.log(">", f_educations.value[i].id == educations.value[i].id, f_educations.value[i].id, educations.value[i].id, i, f_educations.value.length)
+            if(f_educations.value[i].id == educations.value[i].id){
+                console.log()
+            }
+        }
+
+        return false;
+    } ); 
+    
+    
+}) 
 
 
+/* let educations_minus_fav = educations.value.filter((el) => {
+        for(let i = 0; i < f_educations.value.length; i++) {
+            if(f_educations.value[i] != educations.value[i]){
+
+                console.log("#", i);
+                return true;
+            }
+        }
+        !f_educations.value.includes(el);
+    } ); */
 
 
 function filteredEducations() {
@@ -120,8 +147,13 @@ function filteredEducations() {
            }
            FEduNoProxy.push(obj);
        } */
+
     
-    let educations_minus_fav = educations.value.filter(el => !f_educations.value.includes(el));
+
+
+  
+    
+
 
     return educations_minus_fav.filter((edu) =>
         edu.name.toLowerCase().includes(input_educations.value.toLowerCase())
@@ -498,7 +530,7 @@ function done() {
             </div>
 
             <div class="educations loadbtn">
-                <button v-for="educations in filteredEducations()" :id="educations.name" :key="educations"
+                <button v-for="educations in educations_minus_fav" :id="educations.name" :key="educations"
                     @click="educations_anwser(educations)"> {{
                             educations.name
                     }}
