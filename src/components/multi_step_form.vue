@@ -92,70 +92,26 @@ onBeforeMount(async () => {
 
 
 })
-const educations_minus_fav = computed(() => {
-    console.log(f_educations.value[0].id);
-    
-    return educations.value.filter((el) => {
-        
-        for(let i = 0; i < f_educations.value.length; i++) {
-            // console.log(">", f_educations.value[i].id == educations.value[i].id, f_educations.value[i].id, educations.value[i].id, i, f_educations.value.length)
-            if(f_educations.value[i].id == educations.value[i].id){
-                console.log()
+const educations_minus_fav2 = computed(() => {
+    return educations.value.filter((obj) => {
+         for(let i = 0; i < f_educations.value.length; i++) {
+            if(f_educations.value[i].id == obj.id){
+                return false;
+                
             }
         }
 
-        return false;
+        return true; 
     } ); 
     
     
 }) 
 
-
-/* let educations_minus_fav = educations.value.filter((el) => {
-        for(let i = 0; i < f_educations.value.length; i++) {
-            if(f_educations.value[i] != educations.value[i]){
-
-                console.log("#", i);
-                return true;
-            }
-        }
-        !f_educations.value.includes(el);
-    } ); */
+console.log(educations_minus_fav2)
 
 
 function filteredEducations() {
-    /*    let EduNoProxy = [];
-   
-       for (let i = 0; i < educations.value.length; i++) {
-   
-           let obj = {
-               id: educations.value[i].id,
-               name: educations.value[i].name,
-   
-           }
-           EduNoProxy.push(obj);
-       }
-   
-       let FEduNoProxy = [];
-   
-       for (let i = 0; i < f_educations.value.length; i++) {
-   
-           let obj = {
-               id: f_educations.value[i].edu_id,
-               name: f_educations.value[i].name
-   
-           }
-           FEduNoProxy.push(obj);
-       } */
-
-    
-
-
-  
-    
-
-
-    return educations_minus_fav.filter((edu) =>
+    return educations_minus_fav2.filter((edu) =>
         edu.name.toLowerCase().includes(input_educations.value.toLowerCase())
     );
 }
@@ -530,7 +486,7 @@ function done() {
             </div>
 
             <div class="educations loadbtn">
-                <button v-for="educations in educations_minus_fav" :id="educations.name" :key="educations"
+                <button v-for="educations in educations_minus_fav2" :id="educations.name" :key="educations"
                     @click="educations_anwser(educations)"> {{
                             educations.name
                     }}
