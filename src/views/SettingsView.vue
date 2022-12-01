@@ -1,81 +1,47 @@
-<script setup>
- import tabVue from '../components/tab.vue';
-import tabsVue from '../components/tabs.vue';
+<script>
+    import tab from '../components/tabs.vue';
+    export default {
+    components: {
+        tab,
+    },
+
+    data() {
+        return {
+        tabList: ["Tab 1", "Tab 2", "Tab 3", "Tab 4"],
+        };
+    },
+    };
 </script>
-
 <template>
-  <div class="settings">
-    <div class="settings-container">
-      <tabsVue>
-        <tabVue name="Brugere">
-          <h1>
-            Brugere
-          </h1>
-          <button> Tilføj ny bruger</button>
-          <div class="table">
-            table
-          </div>
-        </tabVue>
-  
-        <tabVue name="Emner">
-          <h1>
-            Emner
-          </h1>
-          <button> Tilføj nyt emne</button>
-          <div class="table">
-            table
-          </div>
-        </tabVue>
-  
-        <tabVue name="Lokationer">
-          <h1>
-            Lokationer
-          </h1>
-          <button> Tilføj ny lokation</button>
-          <div class="table">
-            table
-          </div>
-        </tabVue>
-  
-        <tabVue name="Uddannelser">
-          <h1>
-            Uddannelser
-          </h1>
-          <button> Tilføj ny uddannelse</button>
-          <div class="table">
-            table
-          </div>
-        </tabVue>
-        
-        <tabVue name="Profil">
-          <h1>
-            Profil
-          </h1>
-          
-        </tabVue>
-      </tabsVue>
+    <div class="settings">
+        <div class="settings-container">
+            <tab :tabList="tabList">
+            <template v-slot:tabPanel-1> Content 1 </template>
+            <template v-slot:tabPanel-2> Content 2 </template>
+            <template v-slot:tabPanel-3> Content 3 </template>
+            <template v-slot:tabPanel-4> Content 4 </template>
+            </tab>
+        </div>
     </div>
-  </div>
-  </template>
-  
-  <style lang="scss" scoped>
-    @import "../assets/scss/colors.scss";
-    @import "../assets/scss/typography.scss";
+</template>
 
-    @import "../assets/scss/variabler.scss";
-    @import "../assets/scss/button.scss";
-    @import "../assets/scss/mixins.scss";
-    @import "../assets/scss/layout.scss";
+<style lang="scss" scoped>
+@import "../assets/scss/colors.scss";
+@import "../assets/scss/typography.scss";
 
-    .settings {
-      @include mainWrap;
-      height: 100vh;
-      margin-top:unset;
-    .settings-container {
-      @include flowDesign;
-      
-    }
-    }
-    
-  </style>
+@import "../assets/scss/variabler.scss";
+@import "../assets/scss/button.scss";
+@import "../assets/scss/mixins.scss";
+@import "../assets/scss/layout.scss";
+
+.settings {
+  @include mainWrap;
+  height: 100vh;
+  margin-top:unset;
+.settings-container {
+  @include flowDesign;
   
+}
+}
+
+</style>
