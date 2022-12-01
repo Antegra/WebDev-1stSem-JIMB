@@ -94,42 +94,29 @@ onBeforeMount(async () => {
 })
 const educations_minus_fav2 = computed(() => {
     return educations.value.filter((obj) => {
-         for(let i = 0; i < f_educations.value.length; i++) {
-            if(f_educations.value[i].id == obj.id){
+        for (let i = 0; i < f_educations.value.length; i++) {
+            if (f_educations.value[i].id == obj.id) {
                 return false;
-                
+
             }
         }
 
-        return true; 
-    } ); 
-    
-    
-}) 
+        return true;
+    });
+
+
+})
 
 const filteredEducations = computed(() => {
     return educations_minus_fav2.value.filter((edu) =>
         edu.name.toLowerCase().includes(input_educations.value.toLowerCase())
     );
-    
-}) 
+
+})
 
 function filteredSubject() {
-    let subject_title = [];
 
-    for (let i = 0; i < subjects.value.length; i++) {
-
-        let obj = {
-            id: subjects.value[i].id,
-            name: subjects.value[i].name,
-            description: subjects.value[i].description,
-            isSelected: false
-            
-        }
-        subject_title.push(obj);
-    }
-
-    return subject_title.filter(subject_title =>
+    return subjects.value.filter(subject_title =>
         subject_title.description.toLowerCase().includes(input_subjects.value.toLowerCase()) || subject_title.name.toLowerCase().includes(input_subjects.value.toLowerCase()));
 
 }
@@ -209,12 +196,12 @@ function educations_anwser(e) {
 function subject_anwser(e) {
     if (anwsers.subject.includes(e.id)) {
         anwsers.subject = anwsers.subject.filter(function (item) {
-            subjects.value[e.id].isSelected = false;
+
             return item !== e.id
         });
     } else {
         anwsers.subject.push(e.id);
-        subjects.value[e.index].isSelected = true;
+
     }
     document.getElementById(e.name).classList.toggle("selected");
 
@@ -478,7 +465,8 @@ function done() {
             <p class="alert_text alert_5">* Du mangler noget her...</p>
             <div class="educations form-group-3-2 form-style">
                 <div v-for="educations in f_educations" :key="educations">
-                    <button @click="educations_anwser(educations)" :id="educations.name"> {{ educations.name }} </button>
+                    <button @click="educations_anwser(educations)" :id="educations.name"> {{ educations.name }}
+                    </button>
                     <span>Fast</span>
                 </div>
             </div>
@@ -540,9 +528,10 @@ function done() {
                     <p v-show="subject.description" id="subject_icon">i<span id="subject_test"> {{ subject.description
                     }}</span></p>
 
-                    <button :id="subject.name" :class="{ 'selected': subject.isSelected }" :key="subject" @click="subject_anwser({...subject, index: index})"> {{
-                            subject.name
-                    }}
+                    <button :id="subject.name" :class="{ 'selected': subject.isSelected }" :key="subject"
+                        @click="subject_anwser({ ...subject, index: index })"> {{
+                                subject.name
+                        }}
                     </button>
 
                 </div>
