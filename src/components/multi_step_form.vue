@@ -22,11 +22,14 @@ let bub4 = "Emner & tid";
 
 // step 1 - Om mødet 
 let sp_1 = ref("Angiv måned");
-let dates = ref(["Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"]);
+let dates = ref([{ name: "Januar", id: 0 }, { name: "Februar", id: 1 }, { name: "Marts", id: 2 }, { namae: "April", id: 3 }, { name: "Maj", id: 4 }, { name: "Juni", id: 5 }, { name: "Juli", id: 6 }, { name: "August", id: 7 }, { name: "September", id: 8 }, { name: "Oktober", id: 9 }, { name: "November", id: 10 }, { name: "December", id: 11 }]);
 const d = new Date();
+
+
 let select_month = ref([]);
 anwsers.month = dates.value[d.getMonth()];
-select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() - 1]];
+
+select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() - 1], dates.value[d.getMonth() - 2]];
 
 let sp_2 = ref("Vælge type henvendelse")
 let types = ref([]);
@@ -125,7 +128,9 @@ function filteredSubject() {
 
 
 function month(e) {
-    anwsers.month = e.target.value;
+    d.setMonth(e.target.value);
+    anwsers.month = d.toISOString().substring(0, 10);
+
 }
 
 function meeting(e) {
@@ -371,7 +376,7 @@ function done() {
                 <h2>{{ sp_1 }}</h2>
                 <div class="form-group-1-1 form-style">
                     <select @change="month($event)">
-                        <option v-for="date in select_month" :value="date"> {{ date }}</option>
+                        <option v-for="date in select_month" :value="date.id"> {{ date.name }}</option>
                     </select>
                     <!-- <button v-on:click="getText()">test</button> -->
                 </div>
