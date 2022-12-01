@@ -196,12 +196,12 @@ function educations_anwser(e) {
 function subject_anwser(e) {
     if (anwsers.subject.includes(e.id)) {
         anwsers.subject = anwsers.subject.filter(function (item) {
-
+            subjects.value[e.id].isSelected = false;
             return item !== e.id
         });
     } else {
         anwsers.subject.push(e.id);
-
+        subjects.value[e.index].isSelected = true;
     }
     document.getElementById(e.name).classList.toggle("selected");
 
