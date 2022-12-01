@@ -25,9 +25,11 @@ let sp_1 = ref("Angiv måned");
 let dates = ref([{ name: "Januar", id: 0 }, { name: "Februar", id: 1 }, { name: "Marts", id: 2 }, { namae: "April", id: 3 }, { name: "Maj", id: 4 }, { name: "Juni", id: 5 }, { name: "Juli", id: 6 }, { name: "August", id: 7 }, { name: "September", id: 8 }, { name: "Oktober", id: 9 }, { name: "November", id: 10 }, { name: "December", id: 11 }]);
 const d = new Date();
 
-
+let q = d.toISOString().substring(0, 10)
 let select_month = ref([]);
-anwsers.month = dates.value[d.getMonth()];
+
+anwsers.month = q;
+console.log(anwsers);
 
 select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() - 1], dates.value[d.getMonth() - 2]];
 
@@ -130,7 +132,7 @@ function filteredSubject() {
 function month(e) {
     d.setMonth(e.target.value);
     anwsers.month = d.toISOString().substring(0, 10);
-
+    console.log(anwsers);
 }
 
 function meeting(e) {
