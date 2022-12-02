@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Benjamin\\Documents\\GitHub\\WebDev-1stSem-JIMB\\WebAPI - SQL\\WebAPI - SQL.csproj": {}
+    "D:\\code\\WebAPI - SQL\\WebAPI - SQL\\WebAPI - SQL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Benjamin\\Documents\\GitHub\\WebDev-1stSem-JIMB\\WebAPI - SQL\\WebAPI - SQL.csproj": {
+    "D:\\code\\WebAPI - SQL\\WebAPI - SQL\\WebAPI - SQL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Benjamin\\Documents\\GitHub\\WebDev-1stSem-JIMB\\WebAPI - SQL\\WebAPI - SQL.csproj",
+        "projectUniqueName": "D:\\code\\WebAPI - SQL\\WebAPI - SQL\\WebAPI - SQL.csproj",
         "projectName": "WebAPI - SQL",
-        "projectPath": "C:\\Users\\Benjamin\\Documents\\GitHub\\WebDev-1stSem-JIMB\\WebAPI - SQL\\WebAPI - SQL.csproj",
-        "packagesPath": "C:\\Users\\Benjamin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Benjamin\\Documents\\GitHub\\WebDev-1stSem-JIMB\\WebAPI - SQL\\obj\\",
+        "projectPath": "D:\\code\\WebAPI - SQL\\WebAPI - SQL\\WebAPI - SQL.csproj",
+        "packagesPath": "C:\\Users\\45257\\.nuget\\packages\\",
+        "outputPath": "D:\\code\\WebAPI - SQL\\WebAPI - SQL\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Benjamin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\45257\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -72,7 +69,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -84,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
