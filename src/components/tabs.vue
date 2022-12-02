@@ -24,7 +24,7 @@ export default {
           li_active: index + 1 === activeTab,
         }"
       >
-        <label :for="`${_uid}${index}`" v-text="tab" />
+        <label :for="`${_uid}${index}`" v-text="tab"/>
         <input
           :id="`${_uid}${index}`"
           type="radio"
@@ -36,7 +36,7 @@ export default {
     </ul>
     <template v-for="(tab, index) in tabList">
       <div :key="index" v-if="index + 1 === activeTab">
-        <slot :name="`tabPanel-${index + 1}`" />
+        <slot :name="`tabPanel-${index + 1}`"/>
       </div>
     </template>
   </div>

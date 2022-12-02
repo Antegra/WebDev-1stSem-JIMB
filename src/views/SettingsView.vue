@@ -15,24 +15,85 @@ export default {
         "Eksport",
         "Profil",
       ],
-      users: []
+      users: [],
+      isActive: false
     };
   },
   methods: {
     getUsers() {
-        fetch('https://uclssapitest.azurewebsites.net/api/user')
-        .then(response => response.json())
-        .then(data => this.users = data)
-    }
-  }
-};
+      fetch("https://uclssapitest.azurewebsites.net/api/user")
+        .then((response) => response.json())
+        .then((data) => (this.users = data));
+    },
+    editUser() {
+      const inputs = document.querySelectorAll('input[type="text"]');
+      if (!this.disabled) {
+        this.disabled = true;
+        for(var i = 0; i < inputs.length; i++) {
+          inputs[i].disabled = false;
+        }
+        document.getElementsByClassName('save')[0].style.display = "block"
+        document.getElementsByClassName('pen')[0].style.display = "none"
+      } else {
+        document.getElementsByClassName('save')[0].style.display = "none"
+        document.getElementsByClassName('pen')[0].style.display = "block"
+        for(var i = 0; i < inputs.length; i++) {
+          inputs[i].disabled = true;
+        }
+      }
+      
+    
 
+      // fetch("https://uclssapitest.azurewebsites.net/api/user/1", {
+      //   method: "PUT",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     user_id: 1,
+      //     firstName: "yyy",
+      //     lastName: "xxx",
+      //     email: "hanne@ucl.dk",
+      //     password: "1234",
+      //     title: "",
+      //     role_id: 0,
+      //   }),
+      // })
+      //   .then((response) => response.json())
+      //   .then((data) => console.log(data));
+    },
+    //post, delete, edit users
+    getSubjects() {
+      fetch("https://uclssapitest.azurewebsites.net/api/subject")
+        .then((response) => response.json())
+        .then((data) => (this.subjects = data));
+    },
+    //post, delete, edit subjects
+    getLocations() {
+      fetch("https://uclssapitest.azurewebsites.net/api/location")
+        .then((response) => response.json())
+        .then((data) => (this.locations = data));
+    },
+    //post, delete, edit locations
+    getEducations() {
+      fetch("https://uclssapitest.azurewebsites.net/api/education")
+        .then((response) => response.json())
+        .then((data) => (this.educations = data));
+    },
+  },
+  beforeMount() {
+    this.getUsers();
+    this.getSubjects();
+    this.getLocations();
+    this.getEducations();
+  },
+};
 </script>
 <template>
   <div class="settings">
     <div class="settings-container">
-      <tab :tabList="tabList" @click="getUsers">
-        <template v-slot:tabPanel-1 >
+      <tab :tabList="tabList">
+        <template v-slot:tabPanel-1>
           <div class="header">
             <h2>Brugere</h2>
             <button>Tilføj ny bruger</button>
@@ -40,50 +101,98 @@ export default {
           <table>
             <thead>
               <tr>
-                <th>Navn</th>
+                <th>Fornavn</th>
+                <th>Efternavn</th>
                 <th>Email</th>
-                <th>password</th>
+                <th>Brugerrolle</th>
                 <th>Rediger/slet</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="user in users" :key="user.user_id">
-                <td>{{user.firstName}} {{user.lastName}} </td>
-                <td>{{user.email}} </td>
-                <td>{{user.password}} </td>
                 <td>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="59.825"
-                    height="20"
-                    viewBox="0 0 59.825 20"
+                  <input
+                    disabled
+                    type="text"
+                    v-model="user.firstName"
+                  />
+                </td>
+                <td>
+                  <input
+                    disabled
+                    type="text"
+                    v-model="user.lastName"
+                  />
+                </td>
+                <td>
+                  <input
+                    disabled 
+                    type="text"
+                    v-model="user.email"
+                  />
+                </td>
+                <td>{{ user.title }}</td>
+                <td class="edit_save">
+                  <button
+                    @click="editUser"
                   >
-                    <g
-                      id="Group_478"
-                      data-name="Group 478"
-                      transform="translate(-1218.442 -612)"
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="59.825"
+                      height="20"
+                      viewBox="0 0 59.825 20"
+                      
                     >
-                      <path
-                        id="da086273b974cb595139babd4da17772"
-                        d="M21.015,10.466l-.328,9.75a3.245,3.245,0,0,1-3.281,3.106H11.172a3.245,3.245,0,0,1-3.281-3.1l-.328-9.753A.821.821,0,0,1,9.2,10.413l.328,9.752a1.627,1.627,0,0,0,1.641,1.549h6.234a1.627,1.627,0,0,0,1.641-1.552l.328-9.749a.821.821,0,0,1,1.641.053ZM22.1,7.221a.813.813,0,0,1-.82.805H7.3a.805.805,0,1,1,0-1.611H9.841a1.04,1.04,0,0,0,1.044-.925,2.437,2.437,0,0,1,2.448-2.17h1.911a2.437,2.437,0,0,1,2.448,2.17,1.04,1.04,0,0,0,1.044.925h2.543a.813.813,0,0,1,.82.805Zm-9.791-.805h3.96a2.619,2.619,0,0,1-.209-.76.815.815,0,0,0-.815-.725H13.334a.815.815,0,0,0-.815.725,2.62,2.62,0,0,1-.21.76Zm.826,12.2V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Zm3.949,0V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Z"
-                        transform="translate(1256.167 608.678)"
-                        fill="#eb0000"
-                      />
-                      <path
-                        id="b21743bd27446b402537e815c62aa968"
-                        d="M21.224,2.73a3.319,3.319,0,0,1,0,4.695L8.96,19.686a4.151,4.151,0,0,1-1.928,1.092l-3.8.951a.83.83,0,0,1-1.007-1.006l.951-3.8a4.15,4.15,0,0,1,1.092-1.928L16.528,2.73A3.321,3.321,0,0,1,21.224,2.73Zm-5.87,3.521L5.438,16.164a2.49,2.49,0,0,0-.655,1.157l-.615,2.461,2.461-.615a2.49,2.49,0,0,0,1.157-.655L17.7,8.6ZM17.7,3.9,16.528,5.077l2.348,2.347L20.05,6.251A1.66,1.66,0,0,0,17.7,3.9Z"
-                        transform="translate(1216.246 610.243)"
-                        fill="#153943"
-                      />
-                    </g>
-                  </svg>
+                      <g
+                        id="Group_478"
+                        data-name="Group 478"
+                        transform="translate(-1218.442 -612)"
+                      >
+                        <path
+                          id="b21743bd27446b402537e815c62aa968"
+                          d="M21.224,2.73a3.319,3.319,0,0,1,0,4.695L8.96,19.686a4.151,4.151,0,0,1-1.928,1.092l-3.8.951a.83.83,0,0,1-1.007-1.006l.951-3.8a4.15,4.15,0,0,1,1.092-1.928L16.528,2.73A3.321,3.321,0,0,1,21.224,2.73Zm-5.87,3.521L5.438,16.164a2.49,2.49,0,0,0-.655,1.157l-.615,2.461,2.461-.615a2.49,2.49,0,0,0,1.157-.655L17.7,8.6ZM17.7,3.9,16.528,5.077l2.348,2.347L20.05,6.251A1.66,1.66,0,0,0,17.7,3.9Z"
+                          transform="translate(1216.246 610.243)"
+                          fill="#153943"
+                          class="pen"
+                        />
+                        <path
+                          id="da086273b974cb595139babd4da17772"
+                          d="M21.015,10.466l-.328,9.75a3.245,3.245,0,0,1-3.281,3.106H11.172a3.245,3.245,0,0,1-3.281-3.1l-.328-9.753A.821.821,0,0,1,9.2,10.413l.328,9.752a1.627,1.627,0,0,0,1.641,1.549h6.234a1.627,1.627,0,0,0,1.641-1.552l.328-9.749a.821.821,0,0,1,1.641.053ZM22.1,7.221a.813.813,0,0,1-.82.805H7.3a.805.805,0,1,1,0-1.611H9.841a1.04,1.04,0,0,0,1.044-.925,2.437,2.437,0,0,1,2.448-2.17h1.911a2.437,2.437,0,0,1,2.448,2.17,1.04,1.04,0,0,0,1.044.925h2.543a.813.813,0,0,1,.82.805Zm-9.791-.805h3.96a2.619,2.619,0,0,1-.209-.76.815.815,0,0,0-.815-.725H13.334a.815.815,0,0,0-.815.725,2.62,2.62,0,0,1-.21.76Zm.826,12.2V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Zm3.949,0V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Z"
+                          transform="translate(1216.246 610.243)"
+                          fill="#eb0000"
+                          class="save"
+                        />
+                      </g>
+                    </svg>
+                  </button>
+                  <button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="59.825"
+                      height="20"
+                      viewBox="0 0 59.825 20"
+                    >
+                      <g
+                        id="Group_478"
+                        data-name="Group 478"
+                        transform="translate(-1218.442 -612)"
+                      >
+                        <path
+                          id="da086273b974cb595139babd4da17772"
+                          d="M21.015,10.466l-.328,9.75a3.245,3.245,0,0,1-3.281,3.106H11.172a3.245,3.245,0,0,1-3.281-3.1l-.328-9.753A.821.821,0,0,1,9.2,10.413l.328,9.752a1.627,1.627,0,0,0,1.641,1.549h6.234a1.627,1.627,0,0,0,1.641-1.552l.328-9.749a.821.821,0,0,1,1.641.053ZM22.1,7.221a.813.813,0,0,1-.82.805H7.3a.805.805,0,1,1,0-1.611H9.841a1.04,1.04,0,0,0,1.044-.925,2.437,2.437,0,0,1,2.448-2.17h1.911a2.437,2.437,0,0,1,2.448,2.17,1.04,1.04,0,0,0,1.044.925h2.543a.813.813,0,0,1,.82.805Zm-9.791-.805h3.96a2.619,2.619,0,0,1-.209-.76.815.815,0,0,0-.815-.725H13.334a.815.815,0,0,0-.815.725,2.62,2.62,0,0,1-.21.76Zm.826,12.2V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Zm3.949,0V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Z"
+                          transform="translate(1256.167 608.678)"
+                          fill="#eb0000"
+                        />
+                      </g>
+                    </svg>
+                  </button>
                 </td>
               </tr>
             </tbody>
           </table>
         </template>
         <template v-slot:tabPanel-2>
-            <div class="header">
+          <div class="header">
             <h2>Emner</h2>
             <button>Tilføj nyt emne</button>
           </div>
@@ -96,40 +205,9 @@ export default {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Barsel</td>
-                <td></td>
-                <td>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="59.825"
-                    height="20"
-                    viewBox="0 0 59.825 20"
-                  >
-                    <g
-                      id="Group_478"
-                      data-name="Group 478"
-                      transform="translate(-1218.442 -612)"
-                    >
-                      <path
-                        id="da086273b974cb595139babd4da17772"
-                        d="M21.015,10.466l-.328,9.75a3.245,3.245,0,0,1-3.281,3.106H11.172a3.245,3.245,0,0,1-3.281-3.1l-.328-9.753A.821.821,0,0,1,9.2,10.413l.328,9.752a1.627,1.627,0,0,0,1.641,1.549h6.234a1.627,1.627,0,0,0,1.641-1.552l.328-9.749a.821.821,0,0,1,1.641.053ZM22.1,7.221a.813.813,0,0,1-.82.805H7.3a.805.805,0,1,1,0-1.611H9.841a1.04,1.04,0,0,0,1.044-.925,2.437,2.437,0,0,1,2.448-2.17h1.911a2.437,2.437,0,0,1,2.448,2.17,1.04,1.04,0,0,0,1.044.925h2.543a.813.813,0,0,1,.82.805Zm-9.791-.805h3.96a2.619,2.619,0,0,1-.209-.76.815.815,0,0,0-.815-.725H13.334a.815.815,0,0,0-.815.725,2.62,2.62,0,0,1-.21.76Zm.826,12.2V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Zm3.949,0V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Z"
-                        transform="translate(1256.167 608.678)"
-                        fill="#eb0000"
-                      />
-                      <path
-                        id="b21743bd27446b402537e815c62aa968"
-                        d="M21.224,2.73a3.319,3.319,0,0,1,0,4.695L8.96,19.686a4.151,4.151,0,0,1-1.928,1.092l-3.8.951a.83.83,0,0,1-1.007-1.006l.951-3.8a4.15,4.15,0,0,1,1.092-1.928L16.528,2.73A3.321,3.321,0,0,1,21.224,2.73Zm-5.87,3.521L5.438,16.164a2.49,2.49,0,0,0-.655,1.157l-.615,2.461,2.461-.615a2.49,2.49,0,0,0,1.157-.655L17.7,8.6ZM17.7,3.9,16.528,5.077l2.348,2.347L20.05,6.251A1.66,1.66,0,0,0,17.7,3.9Z"
-                        transform="translate(1216.246 610.243)"
-                        fill="#153943"
-                      />
-                    </g>
-                  </svg>
-                </td>
-              </tr>
-              <tr>
-                <td>Orlov</td>
-                <td>Spørgsmål ang. orlov</td>
+              <tr v-for="subject in subjects" :key="subject.subject_id">
+                <td>{{ subject.name }}</td>
+                <td>{{ subject.description }}</td>
                 <td>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -162,7 +240,7 @@ export default {
           </table>
         </template>
         <template v-slot:tabPanel-3>
-            <div class="header">
+          <div class="header">
             <h2>Lokationer</h2>
             <button>Tilføj ny lokation</button>
           </div>
@@ -175,39 +253,8 @@ export default {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Fredercia</td>
-                <td></td>
-                <td>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="59.825"
-                    height="20"
-                    viewBox="0 0 59.825 20"
-                  >
-                    <g
-                      id="Group_478"
-                      data-name="Group 478"
-                      transform="translate(-1218.442 -612)"
-                    >
-                      <path
-                        id="da086273b974cb595139babd4da17772"
-                        d="M21.015,10.466l-.328,9.75a3.245,3.245,0,0,1-3.281,3.106H11.172a3.245,3.245,0,0,1-3.281-3.1l-.328-9.753A.821.821,0,0,1,9.2,10.413l.328,9.752a1.627,1.627,0,0,0,1.641,1.549h6.234a1.627,1.627,0,0,0,1.641-1.552l.328-9.749a.821.821,0,0,1,1.641.053ZM22.1,7.221a.813.813,0,0,1-.82.805H7.3a.805.805,0,1,1,0-1.611H9.841a1.04,1.04,0,0,0,1.044-.925,2.437,2.437,0,0,1,2.448-2.17h1.911a2.437,2.437,0,0,1,2.448,2.17,1.04,1.04,0,0,0,1.044.925h2.543a.813.813,0,0,1,.82.805Zm-9.791-.805h3.96a2.619,2.619,0,0,1-.209-.76.815.815,0,0,0-.815-.725H13.334a.815.815,0,0,0-.815.725,2.62,2.62,0,0,1-.21.76Zm.826,12.2V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Zm3.949,0V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Z"
-                        transform="translate(1256.167 608.678)"
-                        fill="#eb0000"
-                      />
-                      <path
-                        id="b21743bd27446b402537e815c62aa968"
-                        d="M21.224,2.73a3.319,3.319,0,0,1,0,4.695L8.96,19.686a4.151,4.151,0,0,1-1.928,1.092l-3.8.951a.83.83,0,0,1-1.007-1.006l.951-3.8a4.15,4.15,0,0,1,1.092-1.928L16.528,2.73A3.321,3.321,0,0,1,21.224,2.73Zm-5.87,3.521L5.438,16.164a2.49,2.49,0,0,0-.655,1.157l-.615,2.461,2.461-.615a2.49,2.49,0,0,0,1.157-.655L17.7,8.6ZM17.7,3.9,16.528,5.077l2.348,2.347L20.05,6.251A1.66,1.66,0,0,0,17.7,3.9Z"
-                        transform="translate(1216.246 610.243)"
-                        fill="#153943"
-                      />
-                    </g>
-                  </svg>
-                </td>
-              </tr>
-              <tr>
-                <td>Jelling</td>
+              <tr v-for="location in locations" :key="location.location_id">
+                <td>{{ location.name }}</td>
                 <td></td>
                 <td>
                   <svg
@@ -241,7 +288,7 @@ export default {
           </table>
         </template>
         <template v-slot:tabPanel-4>
-            <div class="header">
+          <div class="header">
             <h2>Uddannelse</h2>
             <button>Tilføj ny uddannelse</button>
           </div>
@@ -254,40 +301,8 @@ export default {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Administrationsbachelor</td>
-                <td>Odense</td>
-                <td>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="59.825"
-                    height="20"
-                    viewBox="0 0 59.825 20"
-                  >
-                    <g
-                      id="Group_478"
-                      data-name="Group 478"
-                      transform="translate(-1218.442 -612)"
-                    >
-                      <path
-                        id="da086273b974cb595139babd4da17772"
-                        d="M21.015,10.466l-.328,9.75a3.245,3.245,0,0,1-3.281,3.106H11.172a3.245,3.245,0,0,1-3.281-3.1l-.328-9.753A.821.821,0,0,1,9.2,10.413l.328,9.752a1.627,1.627,0,0,0,1.641,1.549h6.234a1.627,1.627,0,0,0,1.641-1.552l.328-9.749a.821.821,0,0,1,1.641.053ZM22.1,7.221a.813.813,0,0,1-.82.805H7.3a.805.805,0,1,1,0-1.611H9.841a1.04,1.04,0,0,0,1.044-.925,2.437,2.437,0,0,1,2.448-2.17h1.911a2.437,2.437,0,0,1,2.448,2.17,1.04,1.04,0,0,0,1.044.925h2.543a.813.813,0,0,1,.82.805Zm-9.791-.805h3.96a2.619,2.619,0,0,1-.209-.76.815.815,0,0,0-.815-.725H13.334a.815.815,0,0,0-.815.725,2.62,2.62,0,0,1-.21.76Zm.826,12.2V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Zm3.949,0V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Z"
-                        transform="translate(1256.167 608.678)"
-                        fill="#eb0000"
-                      />
-                      <path
-                        id="b21743bd27446b402537e815c62aa968"
-                        d="M21.224,2.73a3.319,3.319,0,0,1,0,4.695L8.96,19.686a4.151,4.151,0,0,1-1.928,1.092l-3.8.951a.83.83,0,0,1-1.007-1.006l.951-3.8a4.15,4.15,0,0,1,1.092-1.928L16.528,2.73A3.321,3.321,0,0,1,21.224,2.73Zm-5.87,3.521L5.438,16.164a2.49,2.49,0,0,0-.655,1.157l-.615,2.461,2.461-.615a2.49,2.49,0,0,0,1.157-.655L17.7,8.6ZM17.7,3.9,16.528,5.077l2.348,2.347L20.05,6.251A1.66,1.66,0,0,0,17.7,3.9Z"
-                        transform="translate(1216.246 610.243)"
-                        fill="#153943"
-                      />
-                    </g>
-                  </svg>
-                </td>
-              </tr>
-              <tr>
-                <td>Automationsteknologi</td>
-                <td>Fredericia, Odense</td>
+              <tr v-for="education in educations" :key="education.edu_id">
+                <td>{{ education.name }}</td>
                 <td>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -353,6 +368,26 @@ export default {
       background: #ffffff;
       border-radius: 5px;
       color: $Midnight-Green;
+
+      tr {
+        th {
+          text-align: left;
+        }
+        .edit_save {
+          display: flex;
+          flex-direction: row;
+
+          button {
+            cursor: pointer;
+            background: none;
+            width: 30px !important;
+
+            .save {
+              display: none;
+            }
+          }
+        }
+      }
     }
   }
 }
