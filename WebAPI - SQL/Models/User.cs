@@ -13,6 +13,8 @@ namespace WebAPI___SQL.Models
         public string password { get; set; }
         public string title { get; set; }
         public int role_id { get; set; }
+        public string edu_id { get; set; }
+
     }
 }
 

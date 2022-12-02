@@ -19,7 +19,7 @@ namespace WebAPI___SQL.Controllers
         public async Task<ActionResult<List<User>>> GetAllUsers()
         {
             List<User> users = new List<User>();
-            string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title FROM users INNER JOIN role ON users.role_id = role.role_id";
+            string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title, STRING_AGG (edu_user.edu_id, ', ') AS edu_id FROM users INNER JOIN role ON users.role_id = role.role_id INNER JOIN edu_user ON users.user_id = edu_user.user_id GROUP BY users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title";
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -38,7 +38,8 @@ namespace WebAPI___SQL.Controllers
                                 email = Convert.ToString(sdr["email"]),
                                 password = Convert.ToString(sdr["password"]),
                                 title = Convert.ToString(sdr["title"]),
-                                role_id = Convert.ToInt32(sdr["role_id"])
+                                role_id = Convert.ToInt32(sdr["role_id"]),
+                                edu_id = Convert.ToString(sdr["edu_id"])
                             }) ;
                         }
                         con.Close();
@@ -55,7 +56,7 @@ namespace WebAPI___SQL.Controllers
         {
 
             User userObj = new User();
-            string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, users.password, role.title FROM users INNER JOIN role ON users.role_id = role.role_id WHERE user_id=" + id;
+            string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title, STRING_AGG (edu_user.edu_id, ', ') AS edu_id FROM users INNER JOIN role ON users.role_id = role.role_id INNER JOIN edu_user ON users.user_id = edu_user.user_id WHERE edu_user.user_id = " + id + "GROUP BY users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title";
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -73,7 +74,9 @@ namespace WebAPI___SQL.Controllers
                                 lastName = Convert.ToString(sdr["firstName"]),
                                 email = Convert.ToString(sdr["email"]),
                                 password = Convert.ToString(sdr["password"]),
-                                title = Convert.ToString(sdr["title"])
+                                title = Convert.ToString(sdr["title"]),
+                                role_id = Convert.ToInt32(sdr["role_id"]),
+                                edu_id = Convert.ToString(sdr["edu_id"])
                             };
                         }
                     }
