@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed, onBeforeMount } from 'vue';
+import { ref, computed, onBeforeMount } from 'vue';
 
 let step = ref(1);
 
