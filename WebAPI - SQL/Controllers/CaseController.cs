@@ -53,13 +53,14 @@ namespace WebAPI___SQL.Controllers
             return cases;
         }
 
-        // GET: api/Case/1
+
+        // GET: api/Case/2
         [HttpGet("{id}")]
-        public async Task<ActionResult<Case>> GetUsers(int id)
+        public async Task<ActionResult<List<Case>>> GetACases(int id)
         {
 
-            Case caseObj = new Case();
-            string query = " SELECT cases.case_id, month, CONCAT(users.firstName, ' ', users.lastName) AS supervisor, duration.length, type.name, sex.name AS sex, \r\n (select string_agg(value,', ') from (select distinct value from string_split(string_agg(edu.name, ','),',')) edu) AS  education,\r\n (select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.name, ','),',')) q) AS location, \r\n (select string_agg(value,', ') from (select distinct value from string_split(string_agg(subject.name, ','),',')) w) AS subject \r\n \r\nFROM  cases\r\nINNER JOIN users ON cases.user_id = users.user_id \r\nINNER JOIN duration ON cases.duration_id = duration.duration_id \r\nINNER JOIN sex ON cases.sex_id = sex.sex_id \r\nINNER JOIN type ON cases.type_id = type.type_id \r\nINNER JOIN subject_case ON cases.case_id = subject_case.case_id \r\nINNER JOIN subject ON subject_case.subject_id = subject.subject_id\r\nINNER JOIN location_case ON location_case.case_id = cases.case_id\r\nINNER JOIN locations ON locations.location_id = location_case.location_id\r\nINNER JOIN edu_case ON cases.case_id = edu_case.case_id\r\nINNER JOIN edu ON edu_case.edu_id = edu.edu_id\r\nWHERE cases.case_id = " + id + "\r\nGROUP BY cases.case_id, month, users.firstName, users.lastName, duration.length, type.name, sex.name";
+            List<Case> cases = new List<Case>();
+            string query = " SELECT cases.case_id, month, CONCAT(users.firstName, ' ', users.lastName) AS supervisor, duration.length, type.name, sex.name AS sex, \r\n (select string_agg(value,', ') from (select distinct value from string_split(string_agg(edu.name, ','),',')) edu) AS  education,\r\n (select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.name, ','),',')) q) AS location, \r\n (select string_agg(value,', ') from (select distinct value from string_split(string_agg(subject.name, ','),',')) w) AS subject \r\n \r\nFROM  cases\r\nINNER JOIN users ON cases.user_id = users.user_id \r\nINNER JOIN duration ON cases.duration_id = duration.duration_id \r\nINNER JOIN sex ON cases.sex_id = sex.sex_id \r\nINNER JOIN type ON cases.type_id = type.type_id \r\nINNER JOIN subject_case ON cases.case_id = subject_case.case_id \r\nINNER JOIN subject ON subject_case.subject_id = subject.subject_id\r\nINNER JOIN location_case ON location_case.case_id = cases.case_id\r\nINNER JOIN locations ON locations.location_id = location_case.location_id\r\nINNER JOIN edu_case ON cases.case_id = edu_case.case_id\r\nINNER JOIN edu ON edu_case.edu_id = edu.edu_id\r\nWHERE users.user_id = " + id + "\r\nGROUP BY cases.case_id, month, users.firstName, users.lastName, duration.length, type.name, sex.name";
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -70,7 +71,9 @@ namespace WebAPI___SQL.Controllers
                     {
                         while (sdr.Read())
                         {
-                            caseObj = new Case
+                        cases.Add(new Case
+
+                     
                             {
                                 case_id = Convert.ToInt32(sdr["case_id"]),
                                 month = Convert.ToDateTime(sdr["month"]),
@@ -81,17 +84,14 @@ namespace WebAPI___SQL.Controllers
                                 education = Convert.ToString(sdr["education"]),
                                 location = Convert.ToString(sdr["location"]),
                                 subject = Convert.ToString(sdr["subject"])
-                            };
+                            });
                         }
                     }
                     con.Close();
                 }
             }
-            if (caseObj == null)
-            {
-                return NotFound();
-            }
-            return caseObj;
+      
+            return cases;
         }
 
 

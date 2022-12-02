@@ -2479,11 +2479,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\code\\WebAPI - SQL\\WebAPI - SQL\\WebAPI - SQL.csproj",
+      "projectUniqueName": "C:\\laragon\\www\\thisisatest\\wp-content\\themes\\newtheme\\WebDev-1stSem-JIMB\\WebAPI - SQL\\WebAPI - SQL.csproj",
       "projectName": "WebAPI - SQL",
-      "projectPath": "D:\\code\\WebAPI - SQL\\WebAPI - SQL\\WebAPI - SQL.csproj",
+      "projectPath": "C:\\laragon\\www\\thisisatest\\wp-content\\themes\\newtheme\\WebDev-1stSem-JIMB\\WebAPI - SQL\\WebAPI - SQL.csproj",
       "packagesPath": "C:\\Users\\45257\\.nuget\\packages\\",
-      "outputPath": "D:\\code\\WebAPI - SQL\\WebAPI - SQL\\obj\\",
+      "outputPath": "C:\\laragon\\www\\thisisatest\\wp-content\\themes\\newtheme\\WebDev-1stSem-JIMB\\WebAPI - SQL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\45257\\AppData\\Roaming\\NuGet\\NuGet.Config",
