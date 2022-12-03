@@ -376,16 +376,16 @@ function done() {
             <div class="form-group-1">
 
                 <h2>{{ sp_1 }}</h2>
-                <div class="form-group-1-1 form-style">
+                <div class="form-group-1-1 form-style form-text">
                     <select @change="month($event)">
-                        <option v-for="date in select_month" :value="date.id"> {{ date.name }}</option>
+                        <option class="form-text" v-for="date in select_month" :value="date.id"> {{ date.name }}</option>
                     </select>
                     <!-- <button v-on:click="getText()">test</button> -->
                 </div>
                 <h2>{{ sp_2 }}</h2>
                 <p class="alert_text alert_1 ">* Vælg venligst type henvændelse</p>
-                <div class="form-group-1-2 form-style">
-                    <button v-for="type in types" @click="meeting(type.id)" :id="type.id"> {{ type.name }} </button>
+                <div class="form-group-1-2 form-style form-text">
+                    <button class="form-text" v-for="type in types" @click="meeting(type.id)" :id="type.id"> {{ type.name }} </button>
                 </div>
             </div>
 

@@ -34,11 +34,11 @@ document.getElementsByClassName("load")
               menu
             </span>
           </a>
-          <RouterLink class="navigation-link" to="/">Hjem</RouterLink>
-          <RouterLink class="navigation-link" to="/newcase">Ny sag</RouterLink>
-          <RouterLink class="navigation-link" to="/oldcases">Gamle sager</RouterLink>
-          <RouterLink class="navigation-link" to="/data">Data</RouterLink>
-          <RouterLink class="navigation-link" to="/settings">
+          <RouterLink class="navigation-link navigation-middle" to="/">Hjem</RouterLink>
+          <RouterLink class="navigation-link navigation-middle" to="/newcase">Ny sag</RouterLink>
+          <RouterLink class="navigation-link navigation-middle" to="/oldcases">Gamle sager</RouterLink>
+          <RouterLink class="navigation-link navigation-middle" to="/data">Data</RouterLink>
+          <RouterLink class="navigation-link navigation-right" to="/settings">
             <span class="material-symbols-outlined">
               settings
             </span>
@@ -64,17 +64,18 @@ header {
   justify-content: center;
   .wrapper {
     width: 100%;
+    max-width: 861px;
     nav {
       display: flex;
       align-items: baseline;
-      justify-content: space-evenly;
+      justify-content: space-between;
       padding-top: 2rem;
   
       .logo {
-        max-width: 143px;
+        max-width: 220px;
       }
       .main-navigation {
-        a {
+        .navigation-middle {
           color: $Midnight-Green;
           margin: 0 20px;
           text-decoration: none;
@@ -88,6 +89,21 @@ header {
             'opsz' 100
           }
         }
+        .navigation-right {
+          color: $Midnight-Green;
+          margin-left: 20px;
+          text-decoration: none;
+          .material-symbols-outlined {
+            position: relative;
+            top: 5px;
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 100
+          }
+        }
+        
         .toggleicon {
             display: none;
           }
@@ -116,7 +132,7 @@ header {
         background-color: $Midnight-Green;
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
+        justify-content: space-between;
         align-items: center;
         .toggleicon {
           position: absolute;
@@ -128,6 +144,9 @@ header {
           padding: 1rem 0;
           color: white;
           text-decoration: none;
+        }
+        .navigation-right {
+          margin-right: 0;
         }
       }
     }
