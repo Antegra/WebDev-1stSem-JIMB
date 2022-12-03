@@ -20,6 +20,7 @@ export default {
     };
   },
   methods: {
+    //GET, UPDATE, DELETE (POST)
     getUsers() {
       fetch("https://uclssapitest.azurewebsites.net/api/user")
         .then((response) => response.json())
@@ -27,8 +28,8 @@ export default {
     },
     toggleEditMode(user_id) {
       this.disabled = false
-      document.getElementsByClassName('edit')[0].style.display = 'none';
-      document.getElementsByClassName('save')[0].style.display = 'block';
+      document.getElementsByClassName('edit-editUser')[0].style.display = 'none';
+      document.getElementsByClassName('save-editUser')[0].style.display = 'block';
     },
     editUser(user_id, firstName, lastName, email, password, title, edu_id) {
       fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, {
@@ -49,14 +50,13 @@ export default {
         .then((response) => response.json())
         .then((data) => console.log(data));
         this.disabled = true
-        document.getElementsByClassName('edit')[0].style.display = 'block';
-        document.getElementsByClassName('save')[0].style.display = 'none';
+        document.getElementsByClassName('edit-editUser')[0].style.display = 'block';
+        document.getElementsByClassName('save-editUser')[0].style.display = 'none';
       },
     deleteUser(user_id) {
       fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, { method: 'DELETE' })
         .then(() => this.status = 'Delete successful');
     },
-    //post, delete, edit users
     getSubjects() {
       fetch("https://uclssapitest.azurewebsites.net/api/subject")
         .then((response) => response.json())
@@ -116,7 +116,7 @@ export default {
                 <td>{{ user.title }}</td>
                 <td class="edit_save">
                   <button
-                    class="save"
+                    class="save save-editUser"
                     @click="
                       editUser(
                         user.user_id,
@@ -152,7 +152,7 @@ export default {
                   </button>
 
                   <button 
-                    class="edit" 
+                    class="edit-editUser" 
                     @click="toggleEditMode(user.user_id,)"
                   >
                     <svg
