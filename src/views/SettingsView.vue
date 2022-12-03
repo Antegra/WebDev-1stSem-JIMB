@@ -457,7 +457,6 @@ export default {
 
 .settings {
   @include mainWrap;
-  margin-top: unset;
   .settings-container {
     @include flowDesign;
     padding: 40px;
