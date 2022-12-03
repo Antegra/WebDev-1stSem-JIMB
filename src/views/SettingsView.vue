@@ -1,6 +1,6 @@
 <script>
 import tab from "../components/tabs.vue";
-import { onBeforeMount } from "vue";
+import { onBeforeMount, ref } from "vue";
 export default {
   components: {
     tab,
@@ -16,7 +16,7 @@ export default {
         "Profil",
       ],
       users: [],
-      isActive: false
+      disabled: true,
     };
   },
   methods: {
@@ -25,42 +25,36 @@ export default {
         .then((response) => response.json())
         .then((data) => (this.users = data));
     },
-    editUser() {
-      const inputs = document.querySelectorAll('input[type="text"]');
-      if (!this.disabled) {
-        this.disabled = true;
-        for(var i = 0; i < inputs.length; i++) {
-          inputs[i].disabled = false;
-        }
-        document.getElementsByClassName('save')[0].style.display = "block"
-        document.getElementsByClassName('pen')[0].style.display = "none"
-      } else {
-        document.getElementsByClassName('save')[0].style.display = "none"
-        document.getElementsByClassName('pen')[0].style.display = "block"
-        for(var i = 0; i < inputs.length; i++) {
-          inputs[i].disabled = true;
-        }
-      }
-      
-    
-
-      // fetch("https://uclssapitest.azurewebsites.net/api/user/1", {
-      //   method: "PUT",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     user_id: 1,
-      //     firstName: "yyy",
-      //     lastName: "xxx",
-      //     email: "hanne@ucl.dk",
-      //     password: "1234",
-      //     title: "",
-      //     role_id: 0,
-      //   }),
-      // })
-      //   .then((response) => response.json())
-      //   .then((data) => console.log(data));
+    toggleEditMode(user_id) {
+      this.disabled = false
+      document.getElementsByClassName('edit')[0].style.display = 'none';
+      document.getElementsByClassName('save')[0].style.display = 'block';
+    },
+    editUser(user_id, firstName, lastName, email, password, title, edu_id) {
+      fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: user_id,
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password,
+          title: title,
+          edu_id: edu_id,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+        this.disabled = true
+        document.getElementsByClassName('edit')[0].style.display = 'block';
+        document.getElementsByClassName('save')[0].style.display = 'none';
+      },
+    deleteUser(user_id) {
+      fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, { method: 'DELETE' })
+        .then(() => this.status = 'Delete successful');
     },
     //post, delete, edit users
     getSubjects() {
@@ -111,37 +105,61 @@ export default {
             <tbody>
               <tr v-for="user in users" :key="user.user_id">
                 <td>
-                  <input
-                    disabled
-                    type="text"
-                    v-model="user.firstName"
-                  />
+                  <input type="text" v-model="user.firstName" :disabled="(disabled == true)"/>
                 </td>
                 <td>
-                  <input
-                    disabled
-                    type="text"
-                    v-model="user.lastName"
-                  />
+                  <input type="text" v-model="user.lastName" :disabled="(disabled == true)"/>
                 </td>
                 <td>
-                  <input
-                    disabled 
-                    type="text"
-                    v-model="user.email"
-                  />
+                  <input type="text" v-model="user.email" :disabled="(disabled == true)" />
                 </td>
                 <td>{{ user.title }}</td>
                 <td class="edit_save">
                   <button
-                    @click="editUser"
+                    class="save"
+                    @click="
+                      editUser(
+                        user.user_id,
+                        user.firstName,
+                        user.lastName,
+                        user.email,
+                        user.password,
+                        user.title,
+                        user.edu_id
+                      )
+                    "
                   >
-                    <svg 
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="19.996"
+                      height="19.996"
+                      viewBox="0 0 19.996 19.996"
+                    >
+                      <g
+                        id="Group_515"
+                        data-name="Group 515"
+                        transform="translate(-1210.069 -497.5)"
+                      >
+                        <path
+                          id="_2228276036f5689efb63c251f173c8b0"
+                          data-name="2228276036f5689efb63c251f173c8b0"
+                          d="M23.007,10.32,16.341,3.655a1.111,1.111,0,0,0-.355-.233,1.211,1.211,0,0,0-.433-.089H6.665A3.333,3.333,0,0,0,3.333,6.665V20a3.333,3.333,0,0,0,3.333,3.333H20A3.333,3.333,0,0,0,23.329,20V11.109A1.111,1.111,0,0,0,23.007,10.32ZM10,5.554h4.444V7.776H10Zm6.665,15.553H10V17.774a1.111,1.111,0,0,1,1.111-1.111h4.444a1.111,1.111,0,0,1,1.111,1.111ZM21.107,20A1.111,1.111,0,0,1,20,21.107H18.885V17.774a3.333,3.333,0,0,0-3.333-3.333H11.109a3.333,3.333,0,0,0-3.333,3.333v3.333H6.665A1.111,1.111,0,0,1,5.554,20V6.665A1.111,1.111,0,0,1,6.665,5.554H7.776V8.887A1.111,1.111,0,0,0,8.887,10h6.665a1.111,1.111,0,0,0,1.111-1.111V7.121l4.444,4.444Z"
+                          transform="translate(1206.736 494.167)"
+                          fill="#198754"
+                        />
+                      </g>
+                    </svg>
+                  </button>
+
+                  <button 
+                    class="edit" 
+                    @click="toggleEditMode(user.user_id,)"
+                  >
+                    <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="59.825"
                       height="20"
                       viewBox="0 0 59.825 20"
-                      
                     >
                       <g
                         id="Group_478"
@@ -153,19 +171,18 @@ export default {
                           d="M21.224,2.73a3.319,3.319,0,0,1,0,4.695L8.96,19.686a4.151,4.151,0,0,1-1.928,1.092l-3.8.951a.83.83,0,0,1-1.007-1.006l.951-3.8a4.15,4.15,0,0,1,1.092-1.928L16.528,2.73A3.321,3.321,0,0,1,21.224,2.73Zm-5.87,3.521L5.438,16.164a2.49,2.49,0,0,0-.655,1.157l-.615,2.461,2.461-.615a2.49,2.49,0,0,0,1.157-.655L17.7,8.6ZM17.7,3.9,16.528,5.077l2.348,2.347L20.05,6.251A1.66,1.66,0,0,0,17.7,3.9Z"
                           transform="translate(1216.246 610.243)"
                           fill="#153943"
-                          class="pen"
-                        />
-                        <path
-                          id="da086273b974cb595139babd4da17772"
-                          d="M21.015,10.466l-.328,9.75a3.245,3.245,0,0,1-3.281,3.106H11.172a3.245,3.245,0,0,1-3.281-3.1l-.328-9.753A.821.821,0,0,1,9.2,10.413l.328,9.752a1.627,1.627,0,0,0,1.641,1.549h6.234a1.627,1.627,0,0,0,1.641-1.552l.328-9.749a.821.821,0,0,1,1.641.053ZM22.1,7.221a.813.813,0,0,1-.82.805H7.3a.805.805,0,1,1,0-1.611H9.841a1.04,1.04,0,0,0,1.044-.925,2.437,2.437,0,0,1,2.448-2.17h1.911a2.437,2.437,0,0,1,2.448,2.17,1.04,1.04,0,0,0,1.044.925h2.543a.813.813,0,0,1,.82.805Zm-9.791-.805h3.96a2.619,2.619,0,0,1-.209-.76.815.815,0,0,0-.815-.725H13.334a.815.815,0,0,0-.815.725,2.62,2.62,0,0,1-.21.76Zm.826,12.2V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Zm3.949,0V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Z"
-                          transform="translate(1216.246 610.243)"
-                          fill="#eb0000"
-                          class="save"
                         />
                       </g>
                     </svg>
                   </button>
-                  <button>
+                  <button
+                  class="delete"
+                    @click="
+                      deleteUser(
+                        user.user_id
+                      )
+                    "
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="59.825"
@@ -381,10 +398,10 @@ export default {
             cursor: pointer;
             background: none;
             width: 30px !important;
+          }
 
-            .save {
-              display: none;
-            }
+          .save {
+            display: none;
           }
         }
       }
