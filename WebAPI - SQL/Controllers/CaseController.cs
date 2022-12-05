@@ -151,7 +151,7 @@ namespace WebAPI___SQL.Controllers
             using (SqlConnection con = new SqlConnection(constr))
             {
                 //string query = "INSERT INTO cases (month, niveau, nationality, user_id, sex_id, duration_id, type_id, primeEdu) VALUES (@month, @niveau, @nationality, @user_id, @sex_id, @duration_id, @type_id, @primeEdu); INSERT INTO edu_case(edu_id) VALUES (@edu_id) SELECT SCOPE_IDENTITY(); INSERT INTO location_case(location_id) VALUES (@location_id) SELECT SCOPE_IDENTITY(); INSERT INTO subject_case(subject_id) VALUES (@subject_id) SELECT SCOPE_IDENTITY()";
-                string query = "BEGIN TRANSACTION DECLARE @case_id int;INSERT INTO cases (month, niveau, nationality, user_id, sex_id, duration_id, type_id, primeEdu) VALUES (@month, @niveau, @nationality, @user_id, @sex_id, @duration_id, @type_id, @primeEdu); SELECT @case_id = scope_identity(); INSERT INTO edu_case(case_id, edu_id) VALUES (@case_id, @edu_id);INSERT INTO location_case(case_id, location_id) VALUES (@case_id, @location_id);\nINSERT INTO subject_case(case_id, subject_id) VALUES (@case_id, @subject_id); COMMIT";
+                string query = "INSERT INTO cases (month, niveau, nationality, user_id, sex_id, duration_id, type_id) VALUES (@month, @niveau, @nationality, @user_id, @sex_id, @duration_id, @type_id) SELECT SCOPE_IDENTITY();";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Connection = con;
@@ -167,10 +167,14 @@ namespace WebAPI___SQL.Controllers
                     cmd.Parameters.AddWithValue("@location_id", Case.location_id);
                     cmd.Parameters.AddWithValue("@subject_id", Case.subject_id);
                     con.Open();
-                    int i = cmd.ExecuteNonQuery();
-                    if (i > 0)
+
+
+                    int modified = Convert.ToInt32(cmd.ExecuteScalar());
+                    Case.case_id = modified;
+                    if (modified > 0)
                     {
-                        return Ok();
+                        //return Ok();
+                        return Ok(Case);
                     }
                     con.Close();
                 }
