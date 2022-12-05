@@ -11,7 +11,8 @@ let anwsers = {
     locations: 0,
     educations: [],
     subject: [],
-    duration: 0
+    duration: 0,
+    user_id: 1
 
 };
 
@@ -343,28 +344,43 @@ function previous(x) {
 
 async function done() {
     // step.value = 1;
-    console.log(anwsers)
-    const rawResponse = await fetch('https://uclssapitest.azurewebsites.net/api/Case', {
+    console.log(anwsers);
+
+    const params = {
+        "case_id": 0,
+        "month": "2022-12-05",
+        "name": "string",
+        "supervisor": "string",
+        "sex": "string",
+        "length": "string",
+        "education": "string",
+        "location": "string",
+        "subject": "string",
+        "user_id": anwsers.user_id,
+        "sex_id": anwsers.sex,
+        "duration_id": anwsers.duration,
+        "type_id": anwsers.type,
+        "edu_id": 0,
+        "location_id": 0,
+        "subject_id": 0,
+        "primeEdu": 0,
+        "niveau": false,
+        "nationality": false
+    };
+    console.log(params);
+    const options = {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            user_id: 1,
-            sex_id: 1,
-            duration_id: 1,
-            type_id: 1,
-            edu_id: 0,
-            location_id: 1,
-            subject_id: 1,
-            primeEdu: 1,
-            niveau: false,
-            nationality: false
-        })
-    });
-
-    console.log(rawResponse);
+        body: JSON.stringify(params)
+    };
+    fetch('https://uclssapitest.azurewebsites.net/api/Case', options)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response.case_id);
+        });
 
     // window.location.href = '/?succes=true';
 
