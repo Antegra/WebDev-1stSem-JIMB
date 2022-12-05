@@ -5,7 +5,7 @@ let cases = ref([]);
 
 onBeforeMount(async () => {
 
-  const fetchedCases = await fetch('https://localhost:7196/api/Case/1')
+  const fetchedCases = await fetch('https://uclssapitest.azurewebsites.net/api/Case')
     .then((fetchedCases) => fetchedCases.json())
   for (let i = 0; i < fetchedCases.length; i++) {
     cases.value.push(fetchedCases[i])
