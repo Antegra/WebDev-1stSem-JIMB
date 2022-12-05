@@ -16,6 +16,9 @@ export default {
         "Profil",
       ],
       users: [],
+      subjects: [],
+      locations: [],
+      educations: [],
       disabled: true,
     };
   },
