@@ -1,17 +1,17 @@
 <script setup>
 import { ref, computed, onBeforeMount } from 'vue';
 
-let step = ref(1);
+let step = ref(5);
 
 let anwsers = {
     month: "",
     type: 0,
     sex: 0,
     niveau: "",
-    locations: "",
+    locations: 0,
     educations: [],
     subject: [],
-    duration: ""
+    duration: 0
 
 };
 
@@ -29,7 +29,7 @@ let q = d.toISOString().substring(0, 10)
 let select_month = ref([]);
 
 anwsers.month = q;
-console.log(anwsers);
+
 
 select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() - 1], dates.value[d.getMonth() - 2]];
 
@@ -132,7 +132,7 @@ function filteredSubject() {
 function month(e) {
     d.setMonth(e.target.value);
     anwsers.month = d.toISOString().substring(0, 10);
-    console.log(anwsers);
+
 }
 
 function meeting(e) {
@@ -196,7 +196,7 @@ function educations_anwser(e) {
 
     }
     document.getElementById(e.name).classList.toggle("selected");
-    console.log(anwsers);
+
 
 }
 
@@ -228,7 +228,6 @@ function duration_anwser(e) {
 
 
 function next(e) {
-
     switch (e) {
         case 1:
             const boxes = document.querySelector('.alert_1')
@@ -342,9 +341,32 @@ function previous(x) {
     }
 }
 
-function done() {
+async function done() {
     // step.value = 1;
-    window.location.href = '/?succes=true';
+    console.log(anwsers)
+    const rawResponse = await fetch('https://uclssapitest.azurewebsites.net/api/Case', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            user_id: 1,
+            sex_id: 1,
+            duration_id: 1,
+            type_id: 1,
+            edu_id: 0,
+            location_id: 1,
+            subject_id: 1,
+            primeEdu: 1,
+            niveau: false,
+            nationality: false
+        })
+    });
+
+    console.log(rawResponse);
+
+    // window.location.href = '/?succes=true';
 
 }
 
