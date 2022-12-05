@@ -86,7 +86,7 @@ export default {
         document.getElementsByClassName('save-editsubject')[0].style.display = 'none';
     },
     deleteSubject(subject_id) {
-    fetch("https://uclssapitest.azurewebsites.net/api/user/" + subject_id, { method: 'DELETE' })
+    fetch("https://uclssapitest.azurewebsites.net/api/subject/" + subject_id, { method: 'DELETE' })
       .then(() => this.status = 'Delete successful');
     },
     //post, delete, edit subjects
