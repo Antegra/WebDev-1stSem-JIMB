@@ -1,9 +1,7 @@
 
-<script>
-
-
-import { ref, onMounted, computed, onBeforeMount } from 'vue';
+<script setup>
 import axios from 'axios';
+import { ref, onBeforeMount } from 'vue';
 
 let users = ref([]);
 
@@ -18,9 +16,22 @@ const fetchedUser = await fetch('https://uclssapitest.azurewebsites.net/api/user
 }    
 console.log(users.value[0].email + " " + users.value[0].password)
 
-
-
 })
+
+const myLoginRoutine = user => new Promise ((resolve, reject) => {
+  axios({url: 'auth', data: user, method: 'POST' })
+    .then(resp => {
+      const token = resp.data.token
+      localStorage.setItem('user-token', token) // store the token in localstorage
+      resolve(resp)
+    })
+  .catch(err => {
+    localStorage.removeItem('user-token') // if the request fails, remove any possible user token if possible
+    reject(err)
+  })
+})
+
+console.log(myLoginRoutine);
 
 
 let user = document.getElementById("email");
@@ -31,18 +42,18 @@ let password = document.getElementById("password");
 
 </script>
 <template>
-    <form class="login" @submit="handleSubmit()" >
+    <form class="login" @submit.prevent="login">
         <h1>Studieadministation</h1>
 
         <div class="form-group-wrapper">
             <div class="form-group">
             <label for="Email">Email</label>
-            <input required type="text" name="e-mail" id="email" v-model="email" class="form-control" placeholder="">
+            <input type="text" name="e-mail" id="email" class="form-control" placeholder="" value="dd">
             </div>
 
             <div class="form-group">
             <label for="Password">Password</label>
-            <input required type="password" name="password" id="password" v-model="password" class="form-control" placeholder="" >
+            <input type="password" name="password" id="password" class="form-control" placeholder="" value="">
             </div>
 
             <div class="form-group-essentiels">
