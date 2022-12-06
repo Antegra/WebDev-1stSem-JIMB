@@ -2,47 +2,85 @@
 <script>
 
 
-import { ref, onMounted, computed, onBeforeMount } from 'vue';
-import axios from 'axios';
 
-let users = ref([]);
 
-onBeforeMount(async () => {
+// import { ref, onBeforeMount } from 'vue';
+// import axios from 'axios';
 
-const fetchedUser = await fetch('https://uclssapitest.azurewebsites.net/api/user')
-    .then((fetchedUser) => fetchedUser.json())
+// let users = ref([]);
+
+// onBeforeMount(async () => {
+// const fetchedUser = await fetch('https://uclssapitest.azurewebsites.net/api/user')
+//     .then((fetchedUser) => fetchedUser.json())
     
-    for (let i = 0; i < fetchedUser.length; i++) {
-    users.value.push({ id: fetchedUser[i].user_id, email: fetchedUser[i].email, password: fetchedUser[i].password})
-    // console.log(users.value[i])
-}    
-console.log(users.value[0].email + " " + users.value[0].password)
+//     for (let i = 0; i < fetchedUser.length; i++) {
+//     users.value.push({ id: fetchedUser[i].user_id, email: fetchedUser[i].email, password: fetchedUser[i].password})
+//     }
+    
+// let email = users.value[1].email;
+// let password = users.value[1].password;
 
 
+// console.log(email)
+// })
 
-})
+// async created() {
+//   GET request using fetch with async/await
+//   const response = await fetch("https://uclssapitest.azurewebsites.net/api/user");
+//   const data = await response.json();
+//   this.totalVuePackages = data.total;
+// }
 
+import axios from 'axios'
+export default {
+    
+    name: 'Login',
+    data()
+    {
+        return {
+            email: "",
+            password: ""
+        }
+    },
 
-let user = document.getElementById("email");
-let password = document.getElementById("password");
-
-
+    methods:{
+        async login()
+        {
+            let result = await axios.get(
+                `https://uclssapitest.azurewebsites.net/api/user?email=${this.email}?password=${this.password}`
+            )
+            console.log(result)
+        }
+    }
+}
 
 
 </script>
+
+
 <template>
-    <form class="login" @submit="handleSubmit()" >
+
+    <div class="login">
+        <input type="text" v-model="email" placeholder="email">
+        <input type="password" v-model="password" placeholder="password">
+        <button v-on:click="login">Login</button>
+
+    </div>
+
+
+
+    <!-- <form class="loginform" action="/" >
         <h1>Studieadministation</h1>
 
         <div class="form-group-wrapper">
             <div class="form-group">
             <label for="Email">Email</label>
-            <input required type="text" name="e-mail" id="email" v-model="email" class="form-control" placeholder="">
+            <input  type="text" name="e-mail" id="email" class="form-control" placeholder="">
             </div>
 
             <div class="form-group">
             <label for="Password">Password</label>
-            <input required type="password" name="password" id="password" v-model="password" class="form-control" placeholder="" >
+            <input  type="password" name="password" id="password"  class="form-control" placeholder="" >
             </div>
 
             <div class="form-group-essentiels">
@@ -56,9 +94,9 @@ let password = document.getElementById("password");
                 
             </div>
 
-            <input class="button login" onclick="check(this.form)" type="submit" placeholder="login">
+            <button class="button login" type="submit" @click="validateOnSubmit()" placeholder="login">Loddin</button>
         </div>
-    </form>
+    </form> -->
 </template>
 
 
