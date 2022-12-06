@@ -37,70 +37,142 @@
 /Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.pdb
 /Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.genruntimeconfig.cache
 /Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/ref/WebAPI - SQL.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\appsettings.Development.json
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\appsettings.json
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\WebAPI - SQL.exe
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\WebAPI - SQL.deps.json
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\WebAPI - SQL.runtimeconfig.json
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\WebAPI - SQL.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\WebAPI - SQL.pdb
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Microsoft.OpenApi.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Newtonsoft.Json.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\System.Data.SqlClient.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\win-arm64\native\sni.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\win-x64\native\sni.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\win-x86\native\sni.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.csproj.AssemblyReference.cache
-D:\code\WebAPI - SQL\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.GeneratedMSBuildEditorConfig.editorconfig
-D:\code\WebAPI - SQL\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.AssemblyInfoInputs.cache
-D:\code\WebAPI - SQL\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.AssemblyInfo.cs
-D:\code\WebAPI - SQL\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.csproj.CoreCompileInputs.cache
-D:\code\WebAPI - SQL\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.MvcApplicationPartsAssemblyInfo.cs
-D:\code\WebAPI - SQL\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.MvcApplicationPartsAssemblyInfo.cache
-D:\code\WebAPI - SQL\WebAPI - SQL\obj\Debug\net6.0\staticwebassets.build.json
-D:\code\WebAPI - SQL\WebAPI - SQL\obj\Debug\net6.0\staticwebassets.development.json
-D:\code\WebAPI - SQL\WebAPI - SQL\obj\Debug\net6.0\scopedcss\bundle\WebAPI - SQL.styles.css
-D:\code\WebAPI - SQL\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.csproj.CopyComplete
-D:\code\WebAPI - SQL\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\obj\Debug\net6.0\refint\WebAPI - SQL.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.pdb
-D:\code\WebAPI - SQL\WebAPI - SQL\obj\Debug\net6.0\WebAPI - SQL.genruntimeconfig.cache
-D:\code\WebAPI - SQL\WebAPI - SQL\obj\Debug\net6.0\ref\WebAPI - SQL.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Humanizer.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Microsoft.Identity.Client.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\System.Drawing.Common.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\System.Runtime.Caching.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\System.Security.Permissions.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\System.Windows.Extensions.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\code\WebAPI - SQL\WebAPI - SQL\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/appsettings.Development.json
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/appsettings.json
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/WebAPI - SQL.exe
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/WebAPI - SQL.deps.json
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/WebAPI - SQL.runtimeconfig.json
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/WebAPI - SQL.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/WebAPI - SQL.pdb
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Microsoft.OpenApi.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Newtonsoft.Json.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Swashbuckle.AspNetCore.Swagger.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/System.Data.SqlClient.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-arm64/native/sni.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-x64/native/sni.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-x86/native/sni.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win/lib/netcoreapp2.1/System.Data.SqlClient.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.csproj.AssemblyReference.cache
+D:/code/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.GeneratedMSBuildEditorConfig.editorconfig
+D:/code/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.AssemblyInfoInputs.cache
+D:/code/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.AssemblyInfo.cs
+D:/code/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.csproj.CoreCompileInputs.cache
+D:/code/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.MvcApplicationPartsAssemblyInfo.cs
+D:/code/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.MvcApplicationPartsAssemblyInfo.cache
+D:/code/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/staticwebassets.build.json
+D:/code/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/staticwebassets.development.json
+D:/code/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/scopedcss/bundle/WebAPI - SQL.styles.css
+D:/code/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.csproj.CopyComplete
+D:/code/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/refint/WebAPI - SQL.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.pdb
+D:/code/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.genruntimeconfig.cache
+D:/code/WebAPI - SQL/WebAPI - SQL/obj/Debug/net6.0/ref/WebAPI - SQL.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Humanizer.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Microsoft.Data.SqlClient.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Design.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Relational.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.SqlServer.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Microsoft.Identity.Client.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Microsoft.IdentityModel.JsonWebTokens.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Microsoft.IdentityModel.Logging.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Microsoft.IdentityModel.Protocols.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Microsoft.IdentityModel.Tokens.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/Microsoft.Win32.SystemEvents.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/System.Configuration.ConfigurationManager.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/System.Drawing.Common.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/System.IdentityModel.Tokens.Jwt.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/System.Runtime.Caching.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/System.Security.Cryptography.ProtectedData.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/System.Security.Permissions.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/System.Windows.Extensions.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/unix/lib/netcoreapp3.1/Microsoft.Data.SqlClient.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win/lib/netcoreapp3.1/Microsoft.Data.SqlClient.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win/lib/netcoreapp3.0/Microsoft.Win32.SystemEvents.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/unix/lib/netcoreapp3.0/System.Drawing.Common.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win/lib/netstandard2.0/System.Runtime.Caching.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll
+D:/code/WebAPI - SQL/WebAPI - SQL/bin/Debug/net6.0/runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/appsettings.Development.json
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/appsettings.json
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/WebAPI - SQL
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/WebAPI - SQL.deps.json
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/WebAPI - SQL.runtimeconfig.json
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/WebAPI - SQL.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/WebAPI - SQL.pdb
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Humanizer.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Microsoft.Data.SqlClient.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Design.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Relational.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.SqlServer.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Microsoft.Identity.Client.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Microsoft.IdentityModel.Logging.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Microsoft.IdentityModel.Protocols.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Microsoft.IdentityModel.Tokens.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Microsoft.OpenApi.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Microsoft.Win32.SystemEvents.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Newtonsoft.Json.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/System.Configuration.ConfigurationManager.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/System.Data.SqlClient.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/System.Drawing.Common.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/System.Runtime.Caching.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/System.Security.Cryptography.ProtectedData.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/System.Security.Permissions.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/System.Windows.Extensions.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/unix/lib/netcoreapp3.1/Microsoft.Data.SqlClient.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/win/lib/netcoreapp3.1/Microsoft.Data.SqlClient.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/win/lib/netcoreapp3.0/Microsoft.Win32.SystemEvents.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-arm64/native/sni.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-x64/native/sni.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/win-x86/native/sni.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/win/lib/netcoreapp2.1/System.Data.SqlClient.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/unix/lib/netcoreapp3.0/System.Drawing.Common.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/win/lib/netstandard2.0/System.Runtime.Caching.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/bin/Debug/net6.0/runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.csproj.AssemblyReference.cache
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.GeneratedMSBuildEditorConfig.editorconfig
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.AssemblyInfoInputs.cache
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.AssemblyInfo.cs
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.csproj.CoreCompileInputs.cache
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.MvcApplicationPartsAssemblyInfo.cs
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.MvcApplicationPartsAssemblyInfo.cache
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/staticwebassets/msbuild.WebAPI - SQL.Microsoft.AspNetCore.StaticWebAssets.props
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/staticwebassets/msbuild.build.WebAPI - SQL.props
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/staticwebassets/msbuild.buildMultiTargeting.WebAPI - SQL.props
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/staticwebassets/msbuild.buildTransitive.WebAPI - SQL.props
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/staticwebassets.pack.json
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/staticwebassets.build.json
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/staticwebassets.development.json
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/scopedcss/bundle/WebAPI - SQL.styles.css
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.csproj.CopyComplete
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/refint/WebAPI - SQL.dll
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.pdb
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/WebAPI - SQL.genruntimeconfig.cache
+/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/Debug/net6.0/ref/WebAPI - SQL.dll

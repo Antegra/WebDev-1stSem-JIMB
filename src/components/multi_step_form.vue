@@ -344,11 +344,19 @@ function previous(x) {
 
 async function done() {
     // step.value = 1;
-    console.log(anwsers);
 
+    const spinner = document.querySelector('.lds-roller');
+    const spinner2 = document.querySelector('.tst');
+
+    spinner.style.display = 'inline-block';
+    spinner2.style.display = 'none';
+
+
+    let case_id = 0;
+    try{
     const params = {
         "case_id": 0,
-        "month": "2022-12-05",
+        "month": anwsers.month,
         "name": "string",
         "supervisor": "string",
         "sex": "string",
@@ -363,11 +371,11 @@ async function done() {
         "edu_id": 0,
         "location_id": 0,
         "subject_id": 0,
-        "primeEdu": 0,
-        "niveau": false,
-        "nationality": false
+        "primeEdu": 1,
+        "niveau": true,
+        "nationality": true
     };
-    console.log(params);
+
     const options = {
         method: 'POST',
         headers: {
@@ -376,13 +384,87 @@ async function done() {
         },
         body: JSON.stringify(params)
     };
-    fetch('https://uclssapitest.azurewebsites.net/api/Case', options)
+    await fetch('https://uclssapitest.azurewebsites.net/api/Case', options)
         .then(response => response.json())
         .then(response => {
-            console.log(response.case_id);
+            case_id = response.case_id;
         });
+    } catch (error) {
+            console.error("failed to post, case");
+        }
 
-    // window.location.href = '/?succes=true';
+    // sender education
+    for (let i = 0; i < anwsers.educations.length; i++) {
+        try {
+        const params = {
+            "edu_id": anwsers.educations[i],
+            "case_id": case_id
+        };
+
+        const options = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(params)
+        };
+        await fetch('https://uclssapitest.azurewebsites.net/api/EducationCase', options)
+            .then(response => response)
+        } catch (error) {
+            console.error("failed to post, subjects");
+        }
+    };
+
+try {
+    const params2 = {
+
+        "location_id": anwsers.locations,
+        "case_id": case_id
+    };
+
+    const options2 = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params2)
+    };
+    await fetch('https://uclssapitest.azurewebsites.net/api/LocationCase', options2)
+        .then(response => response)
+    } catch (error) {
+            console.error("failed to post, locations");
+        }
+
+
+    for (let i = 0; i < anwsers.subject.length; i++) {
+        try {
+            const params = {
+
+                "subject_id": anwsers.subject[i],
+                "case_id": case_id
+            };
+
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(params)
+            };
+            await fetch('https://uclssapitest.azurewebsites.net/api/SubjectCase', options)
+                .then(response => response)
+        } catch (error) {
+            console.error("failed to post, subjects");
+        }
+    };
+
+    spinner.style.display = 'none';
+    spinner2.style.display = 'flex';
+
+    window.location.href = '/?succes=true';
 
 }
 
@@ -603,6 +685,8 @@ async function done() {
 
         <!-- step 5 - result -->
         <section class="register" v-show="step === 5">
+            <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            <div class="tst">
             <h2>Dette er de information du har valgt</h2>
 
             <div class="anwsers">
@@ -626,7 +710,7 @@ async function done() {
                 <div class="next"><input class="form_btn button next" type="submit" value="Afslut"
                         @click.prevent="done"></div>
             </div>
-
+        </div>
         </section>
     </div>
 </template>
@@ -835,5 +919,90 @@ async function done() {
 
 
     }
+    .lds-roller {
+  display: none;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-roller div {
+  animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  transform-origin: 40px 40px;
+}
+.lds-roller div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  margin: -4px 0 0 -4px;
+}
+.lds-roller div:nth-child(1) {
+  animation-delay: -0.036s;
+}
+.lds-roller div:nth-child(1):after {
+  top: 63px;
+  left: 63px;
+}
+.lds-roller div:nth-child(2) {
+  animation-delay: -0.072s;
+}
+.lds-roller div:nth-child(2):after {
+  top: 68px;
+  left: 56px;
+}
+.lds-roller div:nth-child(3) {
+  animation-delay: -0.108s;
+}
+.lds-roller div:nth-child(3):after {
+  top: 71px;
+  left: 48px;
+}
+.lds-roller div:nth-child(4) {
+  animation-delay: -0.144s;
+}
+.lds-roller div:nth-child(4):after {
+  top: 72px;
+  left: 40px;
+}
+.lds-roller div:nth-child(5) {
+  animation-delay: -0.18s;
+}
+.lds-roller div:nth-child(5):after {
+  top: 71px;
+  left: 32px;
+}
+.lds-roller div:nth-child(6) {
+  animation-delay: -0.216s;
+}
+.lds-roller div:nth-child(6):after {
+  top: 68px;
+  left: 24px;
+}
+.lds-roller div:nth-child(7) {
+  animation-delay: -0.252s;
+}
+.lds-roller div:nth-child(7):after {
+  top: 63px;
+  left: 17px;
+}
+.lds-roller div:nth-child(8) {
+  animation-delay: -0.288s;
+}
+.lds-roller div:nth-child(8):after {
+  top: 56px;
+  left: 12px;
+}
+@keyframes lds-roller {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 }
 </style>
