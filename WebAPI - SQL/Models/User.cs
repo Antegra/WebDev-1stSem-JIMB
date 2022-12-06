@@ -16,6 +16,7 @@ namespace WebAPI___SQL.Models
         public string location_id { get; set; }
         public int role_id { get; set; }
         public string edu_id { get; set; }
+        public string edu_name { get; set; }
 
     }
 }

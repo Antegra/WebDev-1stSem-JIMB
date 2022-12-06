@@ -19,7 +19,7 @@ namespace WebAPI___SQL.Controllers
         public async Task<ActionResult<List<User>>> GetAllUsers()
         {
             List<User> users = new List<User>();
-            string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title,\r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.name, ','),',')) q) AS location, \r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.location_id, ','),',')) q) AS location_id, \r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(edu_user.edu_id, ','),',')) q) AS edu_id \r\n\r\nFROM users \r\nINNER JOIN role ON users.role_id = role.role_id \r\nINNER JOIN edu_user ON users.user_id = edu_user.user_id \r\nINNER JOIN location_user on users.user_id = location_user.user_id \r\nINNER JOIN locations ON location_user.location_id = locations.location_id\r\n\r\nGROUP BY users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title";
+            string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title, \r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.name, ','),',')) q) AS location, \r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.location_id, ','),',')) q) AS location_id,\r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(edu_user.edu_id, ','),',')) q) AS edu_id,\r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(edu.name, ','),',')) q) AS edu_name\r\nFROM users \r\nINNER JOIN role ON users.role_id = role.role_id \r\nINNER JOIN edu_user ON users.user_id = edu_user.user_id \r\nINNER JOIN edu ON edu.edu_id = edu_user.edu_id\r\nINNER JOIN location_user on users.user_id = location_user.user_id\r\nINNER JOIN locations ON location_user.location_id = locations.location_id\r\n\r\nGROUP BY users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title";
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -41,7 +41,8 @@ namespace WebAPI___SQL.Controllers
                                 location = Convert.ToString(sdr["location"]),
                                 location_id = Convert.ToString(sdr["location_id"]),
                                 role_id = Convert.ToInt32(sdr["role_id"]),
-                                edu_id = Convert.ToString(sdr["edu_id"])
+                                edu_id = Convert.ToString(sdr["edu_id"]),
+                                edu_name = Convert.ToString(sdr["edu_name"])
                             }) ;
                         }
                         con.Close();
