@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, onBeforeMount } from 'vue';
 
-let step = ref(5);
+let step = ref(1);
 
 let anwsers = {
     month: "",
@@ -343,62 +343,30 @@ function previous(x) {
 }
 
 async function done() {
-    // step.value = 1;
-
-    const spinner = document.querySelector('.lds-roller');
-    const spinner2 = document.querySelector('.tst');
-
-    spinner.style.display = 'inline-block';
-    spinner2.style.display = 'none';
-
+    step.value = 0;
 
     let case_id = 0;
-    try{
-    const params = {
-        "case_id": 0,
-        "month": anwsers.month,
-        "name": "string",
-        "supervisor": "string",
-        "sex": "string",
-        "length": "string",
-        "education": "string",
-        "location": "string",
-        "subject": "string",
-        "user_id": anwsers.user_id,
-        "sex_id": anwsers.sex,
-        "duration_id": anwsers.duration,
-        "type_id": anwsers.type,
-        "edu_id": 0,
-        "location_id": 0,
-        "subject_id": 0,
-        "primeEdu": 1,
-        "niveau": true,
-        "nationality": true
-    };
-
-    const options = {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(params)
-    };
-    await fetch('https://uclssapitest.azurewebsites.net/api/Case', options)
-        .then(response => response.json())
-        .then(response => {
-            case_id = response.case_id;
-        });
-    } catch (error) {
-            console.error("failed to post, case");
-        }
-
-    // sender education
-    for (let i = 0; i < anwsers.educations.length; i++) {
-        try {
+    try {
         const params = {
-            "edu_id": anwsers.educations[i],
-            "case_id": case_id
+            "case_id": 0,
+            "month": anwsers.month,
+            "name": "string",
+            "supervisor": "string",
+            "sex": "string",
+            "length": "string",
+            "education": "string",
+            "location": "string",
+            "subject": "string",
+            "user_id": anwsers.user_id,
+            "sex_id": anwsers.sex,
+            "duration_id": anwsers.duration,
+            "type_id": anwsers.type,
+            "edu_id": 0,
+            "location_id": 0,
+            "subject_id": 0,
+            "primeEdu": 1,
+            "niveau": true,
+            "nationality": true
         };
 
         const options = {
@@ -409,33 +377,58 @@ async function done() {
             },
             body: JSON.stringify(params)
         };
-        await fetch('https://uclssapitest.azurewebsites.net/api/EducationCase', options)
-            .then(response => response)
+        await fetch('https://uclssapitest.azurewebsites.net/api/Case', options)
+            .then(response => response.json())
+            .then(response => {
+                case_id = response.case_id;
+            });
+    } catch (error) {
+        console.error("failed to post, case");
+    }
+
+    // sender education
+    for (let i = 0; i < anwsers.educations.length; i++) {
+        try {
+            const params = {
+                "edu_id": anwsers.educations[i],
+                "case_id": case_id
+            };
+
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(params)
+            };
+            await fetch('https://uclssapitest.azurewebsites.net/api/EducationCase', options)
+                .then(response => response)
         } catch (error) {
             console.error("failed to post, subjects");
         }
     };
 
-try {
-    const params2 = {
+    try {
+        const params2 = {
 
-        "location_id": anwsers.locations,
-        "case_id": case_id
-    };
+            "location_id": anwsers.locations,
+            "case_id": case_id
+        };
 
-    const options2 = {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(params2)
-    };
-    await fetch('https://uclssapitest.azurewebsites.net/api/LocationCase', options2)
-        .then(response => response)
+        const options2 = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(params2)
+        };
+        await fetch('https://uclssapitest.azurewebsites.net/api/LocationCase', options2)
+            .then(response => response)
     } catch (error) {
-            console.error("failed to post, locations");
-        }
+        console.error("failed to post, locations");
+    }
 
 
     for (let i = 0; i < anwsers.subject.length; i++) {
@@ -461,8 +454,7 @@ try {
         }
     };
 
-    spinner.style.display = 'none';
-    spinner2.style.display = 'flex';
+    step.value = 1;
 
     window.location.href = '/?succes=true';
 
@@ -621,9 +613,21 @@ try {
             </div>
 
         </section>
-
+        <div class="spinner" v-show="(step === 0)">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
         <!-- step 4 - Hvad handler samtalen om -->
-        <section class="register form-group-4 " v-show="step === 4">
+        <section class="register gone form-group-4 " v-show="step === 4">
+
             <div class="progress_bar">
                 <div class="1 bobble active" @click.prevent="previous(3)">
                     <p>1</p>
@@ -678,15 +682,13 @@ try {
                         @click.prevent="previous(1)"></div>
                 <div class="seperatordiv"></div>
                 <div class="next"><input class="form_btn button next" type="submit" value="Næste"
-                        @click.prevent="next(4)"></div>
+                        @click.prevent="done()"></div>
             </div>
 
         </section>
 
         <!-- step 5 - result -->
-        <section class="register" v-show="step === 5">
-            <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-            <div class="tst">
+        <!--         <section class="register" v-show="step === 5">
             <h2>Dette er de information du har valgt</h2>
 
             <div class="anwsers">
@@ -710,8 +712,8 @@ try {
                 <div class="next"><input class="form_btn button next" type="submit" value="Afslut"
                         @click.prevent="done"></div>
             </div>
-        </div>
-        </section>
+
+        </section> -->
     </div>
 </template>
 
@@ -722,6 +724,8 @@ try {
 @import "../assets/scss/button.scss";
 @import "../assets/scss/mixins.scss";
 @import "../assets/scss/layout.scss";
+
+
 
 .progress_bar {
     display: flex;
@@ -915,94 +919,119 @@ try {
             }
         }
 
-
-
-
     }
-    .lds-roller {
-  display: none;
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-.lds-roller div {
-  animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  transform-origin: 40px 40px;
-}
-.lds-roller div:after {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #fff;
-  margin: -4px 0 0 -4px;
-}
-.lds-roller div:nth-child(1) {
-  animation-delay: -0.036s;
-}
-.lds-roller div:nth-child(1):after {
-  top: 63px;
-  left: 63px;
-}
-.lds-roller div:nth-child(2) {
-  animation-delay: -0.072s;
-}
-.lds-roller div:nth-child(2):after {
-  top: 68px;
-  left: 56px;
-}
-.lds-roller div:nth-child(3) {
-  animation-delay: -0.108s;
-}
-.lds-roller div:nth-child(3):after {
-  top: 71px;
-  left: 48px;
-}
-.lds-roller div:nth-child(4) {
-  animation-delay: -0.144s;
-}
-.lds-roller div:nth-child(4):after {
-  top: 72px;
-  left: 40px;
-}
-.lds-roller div:nth-child(5) {
-  animation-delay: -0.18s;
-}
-.lds-roller div:nth-child(5):after {
-  top: 71px;
-  left: 32px;
-}
-.lds-roller div:nth-child(6) {
-  animation-delay: -0.216s;
-}
-.lds-roller div:nth-child(6):after {
-  top: 68px;
-  left: 24px;
-}
-.lds-roller div:nth-child(7) {
-  animation-delay: -0.252s;
-}
-.lds-roller div:nth-child(7):after {
-  top: 63px;
-  left: 17px;
-}
-.lds-roller div:nth-child(8) {
-  animation-delay: -0.288s;
-}
-.lds-roller div:nth-child(8):after {
-  top: 56px;
-  left: 12px;
-}
-@keyframes lds-roller {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
 
+.spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    height: 50vh;
+
+    .lds-roller {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+    }
+
+    .lds-roller div {
+        animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        transform-origin: 40px 40px;
+    }
+
+    .lds-roller div:after {
+        content: " ";
+        display: block;
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: $Midnight-Green;
+        margin: -4px 0 0 -4px;
+    }
+
+    .lds-roller div:nth-child(1) {
+        animation-delay: -0.036s;
+    }
+
+    .lds-roller div:nth-child(1):after {
+        top: 63px;
+        left: 63px;
+    }
+
+    .lds-roller div:nth-child(2) {
+        animation-delay: -0.072s;
+    }
+
+    .lds-roller div:nth-child(2):after {
+        top: 68px;
+        left: 56px;
+    }
+
+    .lds-roller div:nth-child(3) {
+        animation-delay: -0.108s;
+    }
+
+    .lds-roller div:nth-child(3):after {
+        top: 71px;
+        left: 48px;
+    }
+
+    .lds-roller div:nth-child(4) {
+        animation-delay: -0.144s;
+    }
+
+    .lds-roller div:nth-child(4):after {
+        top: 72px;
+        left: 40px;
+    }
+
+    .lds-roller div:nth-child(5) {
+        animation-delay: -0.18s;
+    }
+
+    .lds-roller div:nth-child(5):after {
+        top: 71px;
+        left: 32px;
+    }
+
+    .lds-roller div:nth-child(6) {
+        animation-delay: -0.216s;
+    }
+
+    .lds-roller div:nth-child(6):after {
+        top: 68px;
+        left: 24px;
+    }
+
+    .lds-roller div:nth-child(7) {
+        animation-delay: -0.252s;
+    }
+
+    .lds-roller div:nth-child(7):after {
+        top: 63px;
+        left: 17px;
+    }
+
+    .lds-roller div:nth-child(8) {
+        animation-delay: -0.288s;
+    }
+
+    .lds-roller div:nth-child(8):after {
+        top: 56px;
+        left: 12px;
+    }
+
+    @keyframes lds-roller {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 }
 </style>
