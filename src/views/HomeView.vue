@@ -1,5 +1,5 @@
 <script>
-import buttons from "../components/buttons.vue"
+
 
 export default {
   data() {
