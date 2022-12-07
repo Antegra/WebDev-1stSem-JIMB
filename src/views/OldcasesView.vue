@@ -39,7 +39,8 @@ function showCase(e) {
         <p>sags: nr. {{ case1.case_id }} </p>
         <p>Oprettelse: {{ case1.month }} </p>
         <p>Køn: {{ case1.sex }} </p>
-
+        <img :class="case1.case_id"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAABmJLR0QA/wD/AP+gvaeTAAABq0lEQVRoge3YoU5cQRQG4CUIqGiCReBqkBWUN0DQgC4YXF+hFtu6vkBThcbxCKhKTBWEpUWRVDQ0gfRDdJvQze7eubMzezflfHoz5z97986cnV4vhBBCCCGEEEIITwt2cY3v2O86TxPsDbJeYydngW/+9QGLFbJOBYt4P5T1KmehUU6wUiF3FjzH8aigOYuN8xXrFfK3zfcCZ+NC5iw4yQ8570kh2MLNpIA5iza5x7sK/TTleou7pnA5C18kNA2fsVyht+E8S4NaKc5zCrzGbWKBU6xW6PNvltVBjRS32M4t9FL6k77Cq8K95mTYnLZgm2/3Fw4K9drDG/xMrP0Fa6UKL+FTYmH4aIohBQs4xO/Eekd4VqTZoSBJO+RA1pBiwjAxQv2TQsIZ+EirIUXDMDFkdrNAjWA1v8giFPzpmcGrUoQpNxcz3gyLkXF86PC4KwIb6Cc20G/52Y2u+xup5VNLUW6YqEX793KcOsNELdrtvI918rezCO3OVjq+WChC+pAyF1dHRWgeUubqcrAI44eU+RgmavHnwryPS+x1nSeEEEIIIYQQQgj/uQcuDJYDq5O5IgAAAABJRU5ErkJggg==">
       </div>
       <div class=" case_bottom" v-show="(caseNumber == case1.case_id)">
         <p> <span>sags: nr.</span> {{ case1.case_id }} </p>
@@ -50,7 +51,6 @@ function showCase(e) {
         <p><span>Sted:</span> {{ case1.location }} </p>
         <p><span>Uddannelser:</span> nr. {{ case1.education }} </p>
         <p><span>Emner:</span> {{ case1.subject }} </p>
-
       </div>
     </div>
 
@@ -87,6 +87,7 @@ function showCase(e) {
 
   .cases {
     width: 70%;
+    margin-bottom: 14px;
   }
 
   .case_top {
@@ -96,11 +97,22 @@ function showCase(e) {
     align-content: center;
     flex-wrap: wrap;
     padding: 20px 0 12px;
-
+    position: relative;
+    z-index: 999;
     border-radius: 12px;
     box-shadow: $stdDropshadow;
     transition: .5s;
+    background-color: $Midnight-Green;
 
+
+
+    img {
+      transform: scale(50%) rotate(0deg);
+    }
+
+    p {
+      margin-top: 16px;
+    }
 
   }
 
@@ -114,8 +126,11 @@ function showCase(e) {
     justify-content: flex-end;
     background-color: $Columbia-blue;
     color: $Midnight-Green;
-    padding: 12px;
+    padding: 50px 12px 12px 12px;
     border-radius: 12px;
+
+    transform: translatey(-20px);
+
 
     span {
       font-weight: bold;
