@@ -1,7 +1,6 @@
 <script>
 import Login from "../components/login.vue"
 
-
     export default {
         name: 'app',
         components: {
@@ -31,6 +30,7 @@ import Login from "../components/login.vue"
 
 .auth-wrapper {
    @include mainWrap;
+   margin-top: 80px;
     .auth-inner{
         @include flowDesign;
         h1 {
