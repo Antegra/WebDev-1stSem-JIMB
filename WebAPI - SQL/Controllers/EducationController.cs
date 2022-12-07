@@ -20,7 +20,7 @@ namespace WebAPI___SQL.Controllers
         public async Task<ActionResult<IEnumerable<Education>>> GetAllEducations()
         {
             List<Education> educations = new List<Education>();
-            string query = "SELECT * FROM edu";
+            string query = "SELECT edu.edu_id, edu.name,  \r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.name, ','),',')) q) AS location  FROM edu\r\nINNER JOIN edu_location ON edu.edu_id = edu_location.edu_id\r\nINNER JOIN locations ON edu_location.location_id = locations.location_id\r\nGROUP BY edu.edu_id, edu.name";
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -35,6 +35,7 @@ namespace WebAPI___SQL.Controllers
                             {
                                 edu_id = Convert.ToInt32(sdr["edu_id"]),
                                 name = Convert.ToString(sdr["name"]),
+                                location = Convert.ToString(sdr["location"])
                             });
                         }
                     }
@@ -51,7 +52,7 @@ namespace WebAPI___SQL.Controllers
         {
 
             Education educationObj = new Education();
-            string query = "SELECT * FROM edu WHERE edu_id=" + id;
+            string query = "SELECT edu.edu_id, edu.name,  \r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.name, ','),',')) q) AS location  FROM edu\r\nINNER JOIN edu_location ON edu.edu_id = edu_location.edu_id\r\nINNER JOIN locations ON edu_location.location_id = locations.location_id\r\nWHERE edu.edu_id =" + id + "\r\nGROUP BY edu.edu_id, edu.name" ;
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -66,6 +67,7 @@ namespace WebAPI___SQL.Controllers
                             {
                                 edu_id = Convert.ToInt32(sdr["edu_id"]),
                                 name = Convert.ToString(sdr["name"]),
+                                location = Convert.ToString(sdr["location"])
                             };
                         }
                     }

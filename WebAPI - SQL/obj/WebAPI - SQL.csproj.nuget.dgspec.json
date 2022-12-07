@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/WebAPI - SQL.csproj": {}
+    "C:\\Users\\45257\\Desktop\\backend - api\\WebAPI - SQL\\WebAPI - SQL.csproj": {}
   },
   "projects": {
-    "/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/WebAPI - SQL.csproj": {
+    "C:\\Users\\45257\\Desktop\\backend - api\\WebAPI - SQL\\WebAPI - SQL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/WebAPI - SQL.csproj",
+        "projectUniqueName": "C:\\Users\\45257\\Desktop\\backend - api\\WebAPI - SQL\\WebAPI - SQL.csproj",
         "projectName": "WebAPI - SQL",
-        "projectPath": "/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/WebAPI - SQL.csproj",
-        "packagesPath": "/Users/idahay/.nuget/packages/",
-        "outputPath": "/Users/idahay/Projects/WebAPI - SQL/WebAPI - SQL/obj/",
+        "projectPath": "C:\\Users\\45257\\Desktop\\backend - api\\WebAPI - SQL\\WebAPI - SQL.csproj",
+        "packagesPath": "C:\\Users\\45257\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\45257\\Desktop\\backend - api\\WebAPI - SQL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/idahay/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\45257\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,6 +40,16 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.1, )"
@@ -70,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.100/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

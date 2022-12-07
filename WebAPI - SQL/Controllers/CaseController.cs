@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.Metrics;
+using System.Reflection.Metadata;
 
 namespace WebAPI___SQL.Controllers
 {
@@ -19,7 +21,7 @@ namespace WebAPI___SQL.Controllers
         public async Task<ActionResult<List<Case>>> GetAllCases()
         {
             List<Case> cases = new List<Case>();
-            string query = "SELECT cases.case_id, month, CONCAT(users.firstName, ' ', users.lastName) AS supervisor, duration.length, type.name, sex.name AS sex, edu.name AS education, locations.name AS location, subject.name AS subject FROM cases INNER JOIN users ON cases.user_id = users.user_id INNER JOIN duration ON cases.duration_id = duration.duration_id INNER JOIN sex ON cases.sex_id = sex.sex_id INNER JOIN type ON cases.type_id = type.type_id INNER JOIN subject_case ON cases.case_id = subject_case.case_id INNER JOIN subject ON subject_case.subject_id = subject.subject_id\nINNER JOIN location_case ON location_case.case_id = cases.case_id\nINNER JOIN locations ON locations.location_id = location_case.location_id INNER JOIN edu_case ON cases.case_id = edu_case.case_id INNER JOIN edu ON edu_case.edu_id = edu.edu_id;";
+            string query = "SELECT cases.case_id, month, CONCAT(users.firstName, ' ', users.lastName) AS supervisor, duration.length, type.name, sex.name AS sex, \r\n (select string_agg(value,', ') from (select distinct value from string_split(string_agg(edu.name, ','),',')) edu) AS  education,\r\n (select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.name, ','),',')) q) AS location, \r\n (select string_agg(value,', ') from (select distinct value from string_split(string_agg(subject.name, ','),',')) w) AS subject \r\n \r\nFROM  cases\r\nINNER JOIN users ON cases.user_id = users.user_id \r\nINNER JOIN duration ON cases.duration_id = duration.duration_id \r\nINNER JOIN sex ON cases.sex_id = sex.sex_id \r\nINNER JOIN type ON cases.type_id = type.type_id \r\nINNER JOIN subject_case ON cases.case_id = subject_case.case_id \r\nINNER JOIN subject ON subject_case.subject_id = subject.subject_id\r\nINNER JOIN location_case ON location_case.case_id = cases.case_id\r\nINNER JOIN locations ON locations.location_id = location_case.location_id\r\nINNER JOIN edu_case ON cases.case_id = edu_case.case_id\r\nINNER JOIN edu ON edu_case.edu_id = edu.edu_id\r\nGROUP BY cases.case_id, month, users.firstName, users.lastName, duration.length, type.name, sex.name ";
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -38,7 +40,7 @@ namespace WebAPI___SQL.Controllers
                                 supervisor = Convert.ToString(sdr["supervisor"]),
                                 sex = Convert.ToString(sdr["sex"]),
                                 length = Convert.ToString(sdr["length"]),
-                                education= Convert.ToString(sdr["education"]),
+                                education = Convert.ToString(sdr["education"]),
                                 location = Convert.ToString(sdr["location"]),
                                 subject = Convert.ToString(sdr["subject"])
                             });
@@ -51,13 +53,14 @@ namespace WebAPI___SQL.Controllers
             return cases;
         }
 
-        // GET: api/Case/1
+
+        // GET: api/Case/2
         [HttpGet("{id}")]
-        public async Task<ActionResult<Case>> GetUsers(int id)
+        public async Task<ActionResult<List<Case>>> GetACases(int id)
         {
 
-            Case caseObj = new Case();
-            string query = "SELECT cases.case_id, month, CONCAT(users.firstName, ' ', users.lastName) AS Vejleder, duration.length, type.name, sex.name AS Køn, edu.name AS Uddannelse, locations.name AS Uddannelsested, subject.name AS Emne FROM cases INNER JOIN users ON cases.user_id = users.user_id INNER JOIN duration ON cases.duration_id = duration.duration_id INNER JOIN sex ON cases.sex_id = sex.sex_id INNER JOIN type ON cases.type_id = type.type_id INNER JOIN subject_case ON cases.case_id = subject_case.case_id INNER JOIN subject ON subject_case.subject_id = subject.subject_id\nINNER JOIN location_case ON location_case.case_id = cases.case_id\nINNER JOIN locations ON locations.location_id = location_case.location_id INNER JOIN edu_case ON cases.case_id = edu_case.case_id INNER JOIN edu ON edu_case.edu_id = edu.edu_id WHERE cases.case_id=" + id;
+            List<Case> cases = new List<Case>();
+            string query = " SELECT cases.case_id, month, CONCAT(users.firstName, ' ', users.lastName) AS supervisor, duration.length, type.name, sex.name AS sex, \r\n (select string_agg(value,', ') from (select distinct value from string_split(string_agg(edu.name, ','),',')) edu) AS  education,\r\n (select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.name, ','),',')) q) AS location, \r\n (select string_agg(value,', ') from (select distinct value from string_split(string_agg(subject.name, ','),',')) w) AS subject \r\n \r\nFROM  cases\r\nINNER JOIN users ON cases.user_id = users.user_id \r\nINNER JOIN duration ON cases.duration_id = duration.duration_id \r\nINNER JOIN sex ON cases.sex_id = sex.sex_id \r\nINNER JOIN type ON cases.type_id = type.type_id \r\nINNER JOIN subject_case ON cases.case_id = subject_case.case_id \r\nINNER JOIN subject ON subject_case.subject_id = subject.subject_id\r\nINNER JOIN location_case ON location_case.case_id = cases.case_id\r\nINNER JOIN locations ON locations.location_id = location_case.location_id\r\nINNER JOIN edu_case ON cases.case_id = edu_case.case_id\r\nINNER JOIN edu ON edu_case.edu_id = edu.edu_id\r\nWHERE users.user_id = " + id + "\r\nGROUP BY cases.case_id, month, users.firstName, users.lastName, duration.length, type.name, sex.name";
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -68,7 +71,9 @@ namespace WebAPI___SQL.Controllers
                     {
                         while (sdr.Read())
                         {
-                            caseObj = new Case
+                        cases.Add(new Case
+
+                     
                             {
                                 case_id = Convert.ToInt32(sdr["case_id"]),
                                 month = Convert.ToDateTime(sdr["month"]),
@@ -79,17 +84,14 @@ namespace WebAPI___SQL.Controllers
                                 education = Convert.ToString(sdr["education"]),
                                 location = Convert.ToString(sdr["location"]),
                                 subject = Convert.ToString(sdr["subject"])
-                            };
+                            });
                         }
                     }
                     con.Close();
                 }
             }
-            if (caseObj == null)
-            {
-                return NotFound();
-            }
-            return caseObj;
+      
+            return cases;
         }
 
 
@@ -104,7 +106,8 @@ namespace WebAPI___SQL.Controllers
             Case @case = new Case();
             if (ModelState.IsValid)
             {
-                string query = "UPDATE cases SET month = @month, user_id = @user_id, sex_id = @sex_id, duration_id = @duration_id, type_id = @type_id, primeEdu = @primeEdu, niveau = @niveau, nationality = @nationality, edu_id = @edu_id, location_id = @location_id, subject_id = @subject_id  WHERE case_id = @case_id";
+                //string query = "UPDATE cases SET month = @month, user_id = @user_id, sex_id = @sex_id, duration_id = @duration_id, type_id = @type_id, primeEdu = @primeEdu, niveau = @niveau, nationality = @nationality, edu_id = @edu_id, location_id = @location_id, subject_id = @subject_id  WHERE case_id = @case_id";
+                string query = "BEGIN TRANSACTION\n ALTER TABLE cases nocheck constraint all;\n DECLARE @caseid int;\n UPDATE cases SET month = @month, user_id = @user_id, sex_id = @sex_id, duration_id = @duration_id, type_id = @type_id, primeEdu = @primeEdu, niveau = @niveau, nationality = @nationality \n WHERE case_id = @case_id;\n ALTER TABLE cases check constraint all;\n SELECT @caseid = scope_identity(); \n UPDATE edu_case SET case_id = @caseid, edu_id = @edu_id\n WHERE case_id = @caseid;\n UPDATE location_case SET case_id = @caseid, location_id = @location_id\n WHERE case_id = @caseid;\n UPDATE subject_case SET case_id = @caseid, subject_id = @subject_id\n WHERE case_id = @caseid;\nCOMMIT;\n";
                 using (SqlConnection con = new SqlConnection(constr))
                 {
                     using (SqlCommand cmd = new SqlCommand(query))
@@ -147,7 +150,8 @@ namespace WebAPI___SQL.Controllers
             }
             using (SqlConnection con = new SqlConnection(constr))
             {
-                string query = "INSERT INTO cases (month, user_id, sex_id, duration_id, type_id, primeEdu, edu_id, location_id, subject_id, niveau, nationality) VALUES (@month, @user_id, @sex_id, @duration_id, @type_id, @primeEdu, @edu_id, @location_id, @subject_id, @niveau, @nationality) SELECT edu_id FROM edu_case  INNER JOIN cases ON  cases.case_id = edu_case.case_id SELECT location_id FROM location_case  INNER JOIN cases ON  cases.case_id = location_case.case_id SELECT subject_id FROM subject_case  INNER JOIN cases ON  cases.case_id = subject_case.case_id";
+                //string query = "INSERT INTO cases (month, niveau, nationality, user_id, sex_id, duration_id, type_id, primeEdu) VALUES (@month, @niveau, @nationality, @user_id, @sex_id, @duration_id, @type_id, @primeEdu); INSERT INTO edu_case(edu_id) VALUES (@edu_id) SELECT SCOPE_IDENTITY(); INSERT INTO location_case(location_id) VALUES (@location_id) SELECT SCOPE_IDENTITY(); INSERT INTO subject_case(subject_id) VALUES (@subject_id) SELECT SCOPE_IDENTITY()";
+                string query = "INSERT INTO cases (month, niveau, nationality, user_id, sex_id, duration_id, type_id) VALUES (@month, @niveau, @nationality, @user_id, @sex_id, @duration_id, @type_id) SELECT SCOPE_IDENTITY();";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Connection = con;
@@ -163,10 +167,14 @@ namespace WebAPI___SQL.Controllers
                     cmd.Parameters.AddWithValue("@location_id", Case.location_id);
                     cmd.Parameters.AddWithValue("@subject_id", Case.subject_id);
                     con.Open();
-                    int i = cmd.ExecuteNonQuery();
-                    if (i > 0)
+
+
+                    int modified = Convert.ToInt32(cmd.ExecuteScalar());
+                    Case.case_id = modified;
+                    if (modified > 0)
                     {
-                        return Ok();
+                        //return Ok();
+                        return Ok(Case);
                     }
                     con.Close();
                 }
@@ -181,7 +189,8 @@ namespace WebAPI___SQL.Controllers
 
             using (SqlConnection con = new SqlConnection(constr))
             {
-                string query = "DELETE FROM cases WHERE case_id='" + id + "'";
+                //string query = "DELETE FROM cases WHERE case_id='" + id + "'";
+                string query = "ALTER TABLE edu_case nocheck constraint all; ALTER TABLE location_case nocheck constraint all; ALTER TABLE subject_case nocheck constraint all; DELETE FROM cases WHERE case_id = '" + id + "'; DELETE FROM edu_case WHERE case_id = '" + id + "'; DELETE FROM location_case WHERE case_id = '" + id + "'; DELETE FROM subject_case WHERE case_id = '" + id + "';ALTER TABLE subject_case check constraint all; ALTER TABLE subject_case check constraint all; ALTER TABLE subject_case check constraint all";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     con.Open();
