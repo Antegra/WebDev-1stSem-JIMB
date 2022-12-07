@@ -42,16 +42,16 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem("user-token");
-  // If logged in, or going to the Login page.
-  if (token || to.name === "login") {
-    // Fortsæt til side
-    next();
-  } else {
-    // Hvis ikke loggede ind, redirect til login
-    next({ name: "login" });
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   const token = localStorage.getItem("user-token");
+//   // If logged in, or going to the Login page.
+//   if (token || to.name === "login") {
+//     // Fortsæt til side
+//     next();
+//   } else {
+//     // Hvis ikke loggede ind, redirect til login
+//     next({ name: "login" });
+//   }
+// });
 
 export default router;

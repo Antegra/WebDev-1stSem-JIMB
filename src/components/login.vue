@@ -16,7 +16,8 @@ export default {
         async login()
         {
             let result = await axios.get(
-                `http://localhost:3000/user?email=${this.email}&password=${this.password}`
+                // `http://localhost:3000/user?email=${this.email}&password=${this.password}`
+                `https://uclssapitest.azurewebsites.net/api/user?email=${this.email}&password=${this.password}`
             )
 
             console.log(result)
