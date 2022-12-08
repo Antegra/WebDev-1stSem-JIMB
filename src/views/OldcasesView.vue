@@ -2,6 +2,9 @@
 import { ref, computed, onBeforeMount } from 'vue';
 import { API_URL } from '../connection';
 
+let user = JSON.parse(localStorage.getItem('user-token'));
+
+
 
 let caseNumber = ref([0]);
 
@@ -10,7 +13,7 @@ let cases = ref([]);
 
 onBeforeMount(async () => {
 
-  const fetchedCases = await fetch(API_URL + "case/" + 1)
+  const fetchedCases = await fetch(API_URL + "case/" + user[0].user_id)
     .then((fetchedCases) => fetchedCases.json())
   for (let i = 0; i < fetchedCases.length; i++) {
     cases.value.push(fetchedCases[i])
@@ -51,7 +54,7 @@ function showCase(e) {
         <p><span>Type henvendelse:</span> {{ case1.name }} </p>
         <p><span>Samtalens Længde:</span> {{ case1.length }} </p>
         <p><span>Sted:</span> {{ case1.location }} </p>
-        <p><span>Uddannelser:</span> nr. {{ case1.education }} </p>
+        <p><span>Uddannelser:</span> {{ case1.education }} </p>
         <p><span>Emner:</span> {{ case1.subject }} </p>
         <p><span>Nuværende studerende:</span> {{ case1.niveau }} </p>
       </div>

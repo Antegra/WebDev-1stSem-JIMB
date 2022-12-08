@@ -2,6 +2,9 @@
 import { ref, computed, onBeforeMount } from 'vue';
 import { API_URL } from '../connection';
 
+let user = JSON.parse(localStorage.getItem('user-token'));
+
+
 let step = ref(1);
 
 let anwsers = {
@@ -13,7 +16,7 @@ let anwsers = {
     educations: [],
     subject: [],
     duration: 0,
-    user_id: 1
+    user_id: user[0].user_id
 
 };
 
