@@ -3,8 +3,11 @@
 
 export default {
   data() {
+    let user = localStorage.getItem('user-token');
+    let jsonUser = JSON.parse(user);
+    
     return {
-      SVName: 'Hanne'
+      SVName: jsonUser[0].firstName
     }
   }
 }
