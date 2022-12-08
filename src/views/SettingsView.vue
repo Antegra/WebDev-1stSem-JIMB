@@ -19,7 +19,19 @@ export default {
       subjects: [],
       locations: [],
       educations: [],
-      disabled: true,
+      modalShow: false,
+      modalTitle: "",
+      user_id: 0,
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      title: "",
+      location: "",
+      location_id: "",
+      edu_id: "",
+      role_id: 0,
+      edu_name: ""
     };
   },
   methods: {
@@ -28,68 +40,154 @@ export default {
         .then((response) => response.json())
         .then((data) => (this.users = data));
     },
-    toggleEditMode(user_id) {
-      this.disabled = false
-      document.getElementsByClassName('edit-edituser')[0].style.display = 'none';
-      document.getElementsByClassName('save-edituser')[0].style.display = 'block';
+    addClick(user) {
+      this.modalTitle = "Tilføj en ny bruger";
+      this.user_id = 0;
+      this.firstName = "";
+      this.lastName = "";
+      this.email = "";
+      this.password = "";
+      this.title = "";
+      this.location = "";
+      this.location_id = "";
+      this.role_id = 0;
+      this.edu_id = "";
+      this.edu_name= "";
     },
-    editUser(user_id, firstName, lastName, email, password, title, edu_id) {
+    editUser(user) {
+      this.modalTitle = "Rediger bruger";
+      this.user_id = user.user_id;
+      this.firstName = user.firstName;
+      this.lastName = user.lastName;
+      this.email = user.email;
+      this.password = user.password;
+      this.title = user.title;
+      this.location = user.location;
+      this.location_id = user.location_id;
+      this.role_id = user.role_id;
+      this.edu_id = user.edu_id;
+      this.edu_name= user.edu_name;
+    },
+    createClick() {
+      fetch("https://uclssapitest.azurewebsites.net/api/user/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: this.user_id,
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          password: this.email,
+          title: this.title,
+          location: this.location,
+          location_id: this.location_id,
+          role_id: this.role_id,
+          edu_id: this.edu_id,
+          edu_name: this.edu_name
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => alert(data));
+    },
+    updateClick(user_id) {
       fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_id: user_id,
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          password: password,
-          title: title,
-          edu_id: edu_id,
+          user_id: this.user_id,
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          password: this.email,
+          title: this.title,
+          location: this.location,
+          location_id: this.location_id,
+          role_id: this.role_id,
+          edu_id: this.edu_id,
+          edu_name: this.edu_name
         }),
       })
         .then((response) => response.json())
         .then((data) => console.log(data));
-        this.disabled = true
-        document.getElementsByClassName('edit-edituser')[0].style.display = 'block';
-        document.getElementsByClassName('save-edituser')[0].style.display = 'none';
-      },
-    deleteUser(user_id) {
-      fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, { method: 'DELETE' })
-        .then(() => this.status = 'Delete successful');
     },
+    // toggleEditMode(user_id) {
+    //   this.disabled = false;
+    //   document.getElementsByClassName("edit-edituser")[0].style.display =
+    //     "none";
+    //   document.getElementsByClassName("save-edituser")[0].style.display =
+    //     "block";
+    // },
+    // editUser(user_id, firstName, lastName, email, password, title, edu_id) {
+    //   fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       user_id: user_id,
+    //       firstName: firstName,
+    //       lastName: lastName,
+    //       email: email,
+    //       password: password,
+    //       title: title,
+    //       edu_id: edu_id,
+    //     }),
+    //   })
+    //     .then((response) => response.json())
+    //     .then((data) => console.log(data));
+    //     this.disabled = true
+    //     document.getElementsByClassName('edit-edituser')[0].style.display = 'block';
+    //     document.getElementsByClassName('save-edituser')[0].style.display = 'none';
+    //   },
+    // deleteUser(user_id) {
+    //   fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, {
+    //     method: "DELETE",
+    //   }).then(() => (this.status = "Delete successful"));
+    // },
     getSubjects() {
       fetch("https://uclssapitest.azurewebsites.net/api/subject")
         .then((response) => response.json())
         .then((data) => (this.subjects = data));
     },
     toggleEditMode(subject_id) {
-      this.disabled = false
-      document.getElementsByClassName('edit-editsubject')[0].style.display = 'none';
-      document.getElementsByClassName('save-editsubject')[0].style.display = 'block';
+      this.disabled = false;
+      document.getElementsByClassName("edit-editsubject")[0].style.display =
+        "none";
+      document.getElementsByClassName("save-editsubject")[0].style.display =
+        "block";
     },
     editSubject(subject_id, name, description) {
-      fetch("https://uclssapitest.azurewebsites.net/api/subject/" + subject_id, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          subject_id: subject_id,
-          name: name,
-          description: description
-        }),
-      })
+      fetch(
+        "https://uclssapitest.azurewebsites.net/api/subject/" + subject_id,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            subject_id: subject_id,
+            name: name,
+            description: description,
+          }),
+        }
+      )
         .then((response) => response.json())
         .then((data) => console.log(data));
-        this.disabled = true
-        document.getElementsByClassName('edit-editsubject')[0].style.display = 'block';
-        document.getElementsByClassName('save-editsubject')[0].style.display = 'none';
+      this.disabled = true;
+      document.getElementsByClassName("edit-editsubject")[0].style.display =
+        "block";
+      document.getElementsByClassName("save-editsubject")[0].style.display =
+        "none";
     },
     deleteSubject(subject_id) {
-    fetch("https://uclssapitest.azurewebsites.net/api/subject/" + subject_id, { method: 'DELETE' })
-      .then(() => this.status = 'Delete successful');
+      fetch(
+        "https://uclssapitest.azurewebsites.net/api/subject/" + subject_id,
+        { method: "DELETE" }
+      ).then(() => (this.status = "Delete successful"));
     },
     getLocations() {
       fetch("https://uclssapitest.azurewebsites.net/api/location")
@@ -97,30 +195,39 @@ export default {
         .then((data) => (this.locations = data));
     },
     toggleEditMode(location_id) {
-      this.disabled = false
-      document.getElementsByClassName('edit-editlocation')[0].style.display = 'none';
-      document.getElementsByClassName('save-editlocation')[0].style.display = 'block';
+      this.disabled = false;
+      document.getElementsByClassName("edit-editlocation")[0].style.display =
+        "none";
+      document.getElementsByClassName("save-editlocation")[0].style.display =
+        "block";
     },
     editLocation(location_id, name) {
-      fetch("https://uclssapitest.azurewebsites.net/api/location/" + location_id, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          location_id: location_id,
-          name: name
-        }),
-      })
+      fetch(
+        "https://uclssapitest.azurewebsites.net/api/location/" + location_id,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            location_id: location_id,
+            name: name,
+          }),
+        }
+      )
         .then((response) => response.json())
         .then((data) => console.log(data));
-        this.disabled = true
-        document.getElementsByClassName('edit-editlocation')[0].style.display = 'block';
-        document.getElementsByClassName('save-editlocation')[0].style.display = 'none';
+      this.disabled = true;
+      document.getElementsByClassName("edit-editlocation")[0].style.display =
+        "block";
+      document.getElementsByClassName("save-editlocation")[0].style.display =
+        "none";
     },
     deleteLocation(location_id) {
-    fetch("https://uclssapitest.azurewebsites.net/api/location/" + location_id, { method: 'DELETE' })
-      .then(() => this.status = 'Delete successful');
+      fetch(
+        "https://uclssapitest.azurewebsites.net/api/location/" + location_id,
+        { method: "DELETE" }
+      ).then(() => (this.status = "Delete successful"));
     },
     //post, delete, edit locations
     getEducations() {
@@ -129,9 +236,11 @@ export default {
         .then((data) => (this.educations = data));
     },
     toggleEditMode(edu_id) {
-      this.disabled = false
-      document.getElementsByClassName('edit-editeducation')[0].style.display = 'none';
-      document.getElementsByClassName('save-editeducation')[0].style.display = 'block';
+      this.disabled = false;
+      document.getElementsByClassName("edit-editeducation")[0].style.display =
+        "none";
+      document.getElementsByClassName("save-editeducation")[0].style.display =
+        "block";
     },
     editEducation(edu_id, name) {
       fetch("https://uclssapitest.azurewebsites.net/api/education/" + edu_id, {
@@ -142,14 +251,16 @@ export default {
         body: JSON.stringify({
           edu_id: edu_id,
           name: name,
-          location: location
+          location: location,
         }),
       })
         .then((response) => response.json())
         .then((data) => console.log(data));
-        this.disabled = true
-        document.getElementsByClassName('edit-editeducation')[0].style.display = 'block';
-        document.getElementsByClassName('save-editeducation')[0].style.display = 'none';
+      this.disabled = true;
+      document.getElementsByClassName("edit-editeducation")[0].style.display =
+        "block";
+      document.getElementsByClassName("save-editeducation")[0].style.display =
+        "none";
     },
   },
   beforeMount() {
@@ -162,12 +273,32 @@ export default {
 </script>
 <template>
   <div class="settings">
+    <div class="modal" v-if="modalShow">
+      <div class="modal-header">
+        <h2 class="modal-title">{{ modalTitle }}</h2>
+        <button
+          @click="(modalShow = false)"
+        >Luk</button>
+      </div>
+      <div class="modal-content">
+        <span>Fornavn</span>
+        <input type="text" v-model="firstName" />
+        <span>Efternavn</span>
+        <input type="text" v-model="lastName" />
+        <span>Email</span>
+        <input type="text" v-model="email" />
+        <span>Role_id</span>
+        <input type="text" v-model="role_id" />
+      </div>
+      <button v-if="user_id == 0" @click="(createClick(), modalShow = true)" >Opret</button>
+      <button v-if="user_id != 0" @click="updateClick(user_id)">Opdater</button>
+    </div>
     <div class="settings-container">
       <tab :tabList="tabList">
         <template v-slot:tabPanel-1>
           <div class="header">
             <h2>Brugere</h2>
-            <button>Tilføj ny bruger</button>
+            <button @click="(addClick(user), modalShow = true)">Tilføj ny bruger</button>
           </div>
           <table>
             <thead>
@@ -182,27 +313,17 @@ export default {
             <tbody>
               <tr v-for="user in users" :key="user.user_id">
                 <td>
-                  <input type="text" v-model="user.firstName" :disabled="(disabled == true)"/>
+                  <p>{{user.firstName}}</p>
                 </td>
                 <td>
-                  <input type="text" v-model="user.lastName" :disabled="(disabled == true)"/>
+                  <p>{{user.lastName}}</p>
                 </td>
                 <td>
-                  <input type="text" v-model="user.email" :disabled="(disabled == true)" />
+                  <p>{{user.email}}</p>
                 </td>
                 <td>{{ user.title }}</td>
                 <td class="edit_save">
-                  <button
-                    class="save save-edituser"
-                    @click="
-                      editUser(
-                        user.user_id,
-                        user.firstName,
-                        user.lastName,
-                        user.email
-                      )
-                    "
-                  >
+                  <button class="save save-edituser" @click="editUser(user), modalShow = true">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="19.996"
@@ -224,10 +345,7 @@ export default {
                       </g>
                     </svg>
                   </button>
-                  <button 
-                    class="edit-edituser" 
-                    @click="toggleEditMode(user.user_id)"
-                  >
+                  <button class="edit-edituser" @click="(editUser(user), modalShow = true)">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="59.825"
@@ -248,14 +366,7 @@ export default {
                       </g>
                     </svg>
                   </button>
-                  <button
-                  class="delete"
-                    @click="
-                      deleteUser(
-                        user.user_id
-                      )
-                    "
-                  >
+                  <button class="delete" @click="deleteUser(user.user_id)">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="59.825"
@@ -297,10 +408,18 @@ export default {
             <tbody>
               <tr v-for="subject in subjects" :key="subject.subject_id">
                 <td>
-                  <input type="text" v-model="subject.name" :disabled="(disabled == true)"/>
+                  <input
+                    type="text"
+                    v-model="subject.name"
+                    :disabled="disabled == true"
+                  />
                 </td>
                 <td>
-                  <textarea type="text" v-model="subject.description" :disabled="(disabled == true)"/>
+                  <textarea
+                    type="text"
+                    v-model="subject.description"
+                    :disabled="disabled == true"
+                  />
                 </td>
                 <td class="edit_save">
                   <button
@@ -334,9 +453,9 @@ export default {
                       </g>
                     </svg>
                   </button>
-                  <button 
-                    class="edit-editsubject" 
-                    @click="toggleEditMode(subject.subject_id,)"
+                  <button
+                    class="edit-editsubject"
+                    @click="toggleEditMode(subject.subject_id)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -359,12 +478,8 @@ export default {
                     </svg>
                   </button>
                   <button
-                  class="delete"
-                    @click="
-                      deleteSubject(
-                        subject.subject_id
-                      )
-                    "
+                    class="delete"
+                    @click="deleteSubject(subject.subject_id)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -406,17 +521,16 @@ export default {
             <tbody>
               <tr v-for="location in locations" :key="location.location_id">
                 <td colspan="2">
-                  <input type="text" v-model="location.name " :disabled="(disabled == true)"/>
+                  <input
+                    type="text"
+                    v-model="location.name"
+                    :disabled="disabled == true"
+                  />
                 </td>
                 <td class="edit_save">
                   <button
                     class="save save-editlocation"
-                    @click="
-                      editLocation(
-                        location.location_id,
-                        location.name,
-                      )
-                    "
+                    @click="editLocation(location.location_id, location.name)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -439,8 +553,8 @@ export default {
                       </g>
                     </svg>
                   </button>
-                  <button 
-                    class="edit-editlocation" 
+                  <button
+                    class="edit-editlocation"
                     @click="toggleEditMode(location.location_id)"
                   >
                     <svg
@@ -464,12 +578,8 @@ export default {
                     </svg>
                   </button>
                   <button
-                  class="delete"
-                    @click="
-                      deleteLocation(
-                        location.location_id
-                      )
-                    "
+                    class="delete"
+                    @click="deleteLocation(location.location_id)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -512,10 +622,18 @@ export default {
             <tbody>
               <tr v-for="education in educations" :key="education.edu_id">
                 <td>
-                  <input type="text" v-model="education.name " :disabled="(disabled == true)" />
+                  <input
+                    type="text"
+                    v-model="education.name"
+                    :disabled="disabled == true"
+                  />
                 </td>
                 <td>
-                  <input type="text" v-model="education.location " :disabled="(disabled == true)" />
+                  <input
+                    type="text"
+                    v-model="education.location"
+                    :disabled="disabled == true"
+                  />
                 </td>
                 <td class="edit_save">
                   <button
@@ -549,8 +667,8 @@ export default {
                       </g>
                     </svg>
                   </button>
-                  <button 
-                    class="edit-editeducation" 
+                  <button
+                    class="edit-editeducation"
                     @click="toggleEditMode(education.edu_id)"
                   >
                     <svg
@@ -574,12 +692,8 @@ export default {
                     </svg>
                   </button>
                   <button
-                  class="delete"
-                    @click="
-                      deleteEducation(
-                        education.edu_id
-                      )
-                    "
+                    class="delete"
+                    @click="deleteEducation(education.edu_id)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -624,6 +738,27 @@ export default {
 
 .settings {
   @include mainWrap;
+
+  .modal {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba($color: #000000, $alpha: 0.2);
+    position: absolute;
+    top:0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    &-header {
+      display: flex;
+      flex-direction: row;
+    }
+    &-content {
+      display: flex;
+      flex-direction: row;
+    }
+  }
   .settings-container {
     @include flowDesign;
     padding: 40px;
@@ -655,8 +790,8 @@ export default {
 
         td {
           padding: 0 16px;
-          
-          input{
+
+          input {
             color: $Midnight-Green;
             font-size: 16px;
             border: solid 1px $Midnight-Green;
