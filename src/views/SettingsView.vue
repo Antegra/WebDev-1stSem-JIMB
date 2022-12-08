@@ -15,9 +15,10 @@ export default {
         "Eksport",
         "Profil",
       ],
-      users: [],
-      modalShow: false,
       modalTitle: "",
+      //user tab
+      users: [],
+      userModalShow: false,
       user_id: 0,
       firstName: "",
       lastName: "",
@@ -29,7 +30,12 @@ export default {
       edu_id: "",
       role_id: 0,
       edu_name: "",
+      description: "",
+      //subject tab
       subjects: [],
+      subjectModalShow: false,
+      subject_id: "",
+      name: "",
       locations: [],
       educations: []
     };
@@ -89,8 +95,10 @@ export default {
           edu_name: this.edu_name,
         }),
       })
-        .then((response) => response.json())
-        .then((data) => alert(data));
+      .then((response) => {
+            response.json()
+            this.getUsers();
+        });
     },
     updateClick(user_id) {
       fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, {
@@ -129,40 +137,40 @@ export default {
             this.getUsers();
         });
     },
+    //Methodes for the subject tab
     getSubjects() {
       fetch("https://uclssapitest.azurewebsites.net/api/subject")
         .then((response) => response.json())
         .then((data) => (this.subjects = data));
     },
-    toggleEditMode(subject_id) {
-      this.disabled = false;
-      document.getElementsByClassName("edit-editsubject")[0].style.display =
-        "none";
-      document.getElementsByClassName("save-editsubject")[0].style.display =
-        "block";
+    addClick() {
+      this.modalTitle = "Tilføj et nyt emne";
+      this.subject_id = 0;
+      this.name = "";
+      this.description = "";
     },
-    editSubject(subject_id, name, description) {
-      fetch(
-        "https://uclssapitest.azurewebsites.net/api/subject/" + subject_id,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            subject_id: subject_id,
-            name: name,
-            description: description,
-          }),
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => console.log(data));
-      this.disabled = true;
-      document.getElementsByClassName("edit-editsubject")[0].style.display =
-        "block";
-      document.getElementsByClassName("save-editsubject")[0].style.display =
-        "none";
+    editSubject(subject) {
+      this.modalTitle = "Rediger emne";
+      this.subject_id = subject.subject_id;
+      this.name = subject.name;
+      this.description = subject.description;
+    },
+    createClick() {
+      fetch("https://uclssapitest.azurewebsites.net/api/subject/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          subject_id: this.subject_id,
+          name: this.name,
+          description: this.description
+        }),
+      })
+      .then((response) => {
+            response.json()
+            this.getSubjects();
+        });
     },
     deleteSubject(subject_id) {
       fetch(
@@ -254,7 +262,7 @@ export default {
 </script>
 <template>
   <div class="settings">
-    <div class="modal" v-if="modalShow">
+    <div class="modal" v-if="userModalShow">
       <div class="modal-container">
         <h2 class="modal-title">{{ modalTitle }}</h2>
         <div class="modal-content">
@@ -274,23 +282,59 @@ export default {
             <span>Role_id</span>
             <input type="text" v-model="role_id" />
           </div>
+          <div class="input-container">
+            <span>Edu_id</span>
+            <input type="text" v-model="edu_id" />
+          </div>
         </div>
         <div class="action-container">
           <button
             class="yellow-button"
             v-if="user_id == 0"
-            @click="createClick(), (modalShow = true)"
+            @click="createClick(), (userModalShow = false)"
           >
             Opret
           </button>
           <button 
             class="yellow-button"
             v-if="user_id != 0" 
-            @click="updateClick(user_id), (modalShow = false)"
+            @click="updateClick(user_id), (userModalShow = false)"
           >
             Opdater
           </button>
-          <button @click="modalShow = false">Luk</button>
+          <button @click="userModalShow = false">Luk</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal" v-if="subjectModalShow">
+      <div class="modal-container">
+        <h2 class="modal-title">{{ modalTitle }}</h2>
+        <div class="modal-content">
+          <div class="input-container">
+            <span>Name</span>
+            <input type="text" v-model="name" />
+          </div>
+          <div class="input-container">
+            <span>Hjælpebeskrivelse</span>
+            <input type="text" v-model="description" />
+          </div>
+        </div>
+        <div class="action-container">
+          <button
+            class="yellow-button"
+            v-if="user_id == 0"
+            @click="createClick(), (subjectModalShow = false)"
+          >
+            Opret
+          </button>
+          <button 
+            class="yellow-button"
+            v-if="subject_id != 0" 
+            @click="updateClick(subject_id), (subjectModalShow = false)"
+          >
+            Opdater
+          </button>
+          <button @click="subjectModalShow = false">Luk</button>
         </div>
       </div>
     </div>
@@ -299,7 +343,7 @@ export default {
         <template v-slot:tabPanel-1>
           <div class="header">
             <h2>Brugere</h2>
-            <button @click="addClick(user), (modalShow = true)">
+            <button @click="addClick(user), (userModalShow = true)">
               Tilføj ny bruger
             </button>
           </div>
@@ -327,33 +371,7 @@ export default {
                 <td>{{ user.title }}</td>
                 <td class="edit_save">
                   <button
-                    class="save save-edituser"
-                    @click="editUser(user), (modalShow = true)"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="19.996"
-                      height="19.996"
-                      viewBox="0 0 19.996 19.996"
-                    >
-                      <g
-                        id="Group_515"
-                        data-name="Group 515"
-                        transform="translate(-1210.069 -497.5)"
-                      >
-                        <path
-                          id="_2228276036f5689efb63c251f173c8b0"
-                          data-name="2228276036f5689efb63c251f173c8b0"
-                          d="M23.007,10.32,16.341,3.655a1.111,1.111,0,0,0-.355-.233,1.211,1.211,0,0,0-.433-.089H6.665A3.333,3.333,0,0,0,3.333,6.665V20a3.333,3.333,0,0,0,3.333,3.333H20A3.333,3.333,0,0,0,23.329,20V11.109A1.111,1.111,0,0,0,23.007,10.32ZM10,5.554h4.444V7.776H10Zm6.665,15.553H10V17.774a1.111,1.111,0,0,1,1.111-1.111h4.444a1.111,1.111,0,0,1,1.111,1.111ZM21.107,20A1.111,1.111,0,0,1,20,21.107H18.885V17.774a3.333,3.333,0,0,0-3.333-3.333H11.109a3.333,3.333,0,0,0-3.333,3.333v3.333H6.665A1.111,1.111,0,0,1,5.554,20V6.665A1.111,1.111,0,0,1,6.665,5.554H7.776V8.887A1.111,1.111,0,0,0,8.887,10h6.665a1.111,1.111,0,0,0,1.111-1.111V7.121l4.444,4.444Z"
-                          transform="translate(1206.736 494.167)"
-                          fill="#00454e"
-                        />
-                      </g>
-                    </svg>
-                  </button>
-                  <button
-                    class="edit-edituser"
-                    @click="editUser(user), (modalShow = true)"
+                    @click="editUser(user), (userModalShow = true)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -404,7 +422,9 @@ export default {
         <template v-slot:tabPanel-2>
           <div class="header">
             <h2>Emner</h2>
-            <button>Tilføj nyt emne</button>
+            <button @click="addClick(subject), (subjectModalShow = true)">
+              Tilføj nyt emne
+            </button>
           </div>
           <table>
             <thead>
@@ -417,54 +437,14 @@ export default {
             <tbody>
               <tr v-for="subject in subjects" :key="subject.subject_id">
                 <td>
-                  <input
-                    type="text"
-                    v-model="subject.name"
-                    :disabled="disabled == true"
-                  />
+                  <p>{{ subject.name }}</p>
                 </td>
                 <td>
-                  <textarea
-                    type="text"
-                    v-model="subject.description"
-                    :disabled="disabled == true"
-                  />
+                  <p>{{ subject.description }}</p>
                 </td>
                 <td class="edit_save">
                   <button
-                    class="save save-editsubject"
-                    @click="
-                      editSubject(
-                        subject.subject_id,
-                        subject.name,
-                        subject.description
-                      )
-                    "
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="19.996"
-                      height="19.996"
-                      viewBox="0 0 19.996 19.996"
-                    >
-                      <g
-                        id="Group_515"
-                        data-name="Group 515"
-                        transform="translate(-1210.069 -497.5)"
-                      >
-                        <path
-                          id="_2228276036f5689efb63c251f173c8b0"
-                          data-name="2228276036f5689efb63c251f173c8b0"
-                          d="M23.007,10.32,16.341,3.655a1.111,1.111,0,0,0-.355-.233,1.211,1.211,0,0,0-.433-.089H6.665A3.333,3.333,0,0,0,3.333,6.665V20a3.333,3.333,0,0,0,3.333,3.333H20A3.333,3.333,0,0,0,23.329,20V11.109A1.111,1.111,0,0,0,23.007,10.32ZM10,5.554h4.444V7.776H10Zm6.665,15.553H10V17.774a1.111,1.111,0,0,1,1.111-1.111h4.444a1.111,1.111,0,0,1,1.111,1.111ZM21.107,20A1.111,1.111,0,0,1,20,21.107H18.885V17.774a3.333,3.333,0,0,0-3.333-3.333H11.109a3.333,3.333,0,0,0-3.333,3.333v3.333H6.665A1.111,1.111,0,0,1,5.554,20V6.665A1.111,1.111,0,0,1,6.665,5.554H7.776V8.887A1.111,1.111,0,0,0,8.887,10h6.665a1.111,1.111,0,0,0,1.111-1.111V7.121l4.444,4.444Z"
-                          transform="translate(1206.736 494.167)"
-                          fill="#198754"
-                        />
-                      </g>
-                    </svg>
-                  </button>
-                  <button
-                    class="edit-editsubject"
-                    @click="toggleEditMode(subject.subject_id)"
+                    @click="editSubject(subject), (subjectModalShow = true)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -486,10 +466,7 @@ export default {
                       </g>
                     </svg>
                   </button>
-                  <button
-                    class="delete"
-                    @click="deleteSubject(subject.subject_id)"
-                  >
+                  <button class="delete" @click="deleteUser(subject.subject_id)">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="59.825"
@@ -523,18 +500,14 @@ export default {
           <table>
             <thead>
               <tr>
-                <th colspan="2">Navn</th>
+                <th>Navn</th>
                 <th>Rediger/slet</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="location in locations" :key="location.location_id">
-                <td colspan="2">
-                  <input
-                    type="text"
-                    v-model="location.name"
-                    :disabled="disabled == true"
-                  />
+                <td>
+                  <p>{{ location.name }}</p>
                 </td>
                 <td class="edit_save">
                   <button
@@ -631,18 +604,10 @@ export default {
             <tbody>
               <tr v-for="education in educations" :key="education.edu_id">
                 <td>
-                  <input
-                    type="text"
-                    v-model="education.name"
-                    :disabled="disabled == true"
-                  />
+                  <p>{{ education.name }}</p>
                 </td>
                 <td>
-                  <input
-                    type="text"
-                    v-model="education.location"
-                    :disabled="disabled == true"
-                  />
+                  <p>{{ education.location }}</p>
                 </td>
                 <td class="edit_save">
                   <button
