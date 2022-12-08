@@ -11,7 +11,7 @@ let anwsers = {
     month: "",
     type: 0,
     sex: 0,
-    niveau: "",
+    niveau: 0,
     locations: 0,
     educations: [],
     subject: [],
@@ -46,7 +46,7 @@ let sp_3 = ref("Hvem blev vejledt?");
 let persons = ref([]);
 
 let sp_4 = ref("Niveau");
-let niveaus = ref([{id: true, name: "Nuværende studerende" }, {id: false, name: "Potentielle studerende"}]);
+let niveaus = ref([{id: 10, name: "Nuværende studerende" }, {id: 20, name: "Potentielle studerende"}]);
 
 // step 3 - Uddannelsested
 let sp_5 = ref("Uddannelsested");
@@ -167,9 +167,10 @@ function sex(e) {
 
 function level(e) {
     anwsers.niveau = e.id;
-    console.log(e.id)
+    console.log(anwsers)
     const boxes = document.querySelectorAll('.form-group-2-2 .selected');
 
+    console.log(e.id);
     boxes.forEach(box => {
         box.classList.remove('selected');
     });
@@ -348,9 +349,10 @@ function previous(x) {
 
 async function done() {
     step.value = 0;
-
+    var c = ((15 < anwsers.niveau) ? false : true);
     let case_id = 0;
-    try {
+    console.log(c);
+   try {
         const params = {
             "case_id": 0,
             "month": anwsers.month,
@@ -369,7 +371,7 @@ async function done() {
             "location_id": 0,
             "subject_id": 0,
             "primeEdu": 1,
-            "niveau": anwsers.niveau,
+            "niveau": c,
             "nationality": true
         };
 
@@ -460,7 +462,7 @@ async function done() {
 
     step.value = 1;
 
-    window.location.href = '/?succes=true';
+    window.location.href = '/?succes=true'; 
 
 }
 
