@@ -1,14 +1,16 @@
 <script>
 import Login from "../components/login.vue"
 
-
     export default {
         name: 'app',
         components: {
             Login
         }
+        
     }
 
+    
+    
 
 </script>
 
@@ -18,6 +20,10 @@ import Login from "../components/login.vue"
         <Login />
     </div>
   </div>
+
+  <div class="logo-place">
+        <img class="logo" src="../assets/img/ucl-logo.png" alt="UCLs logo" />
+    </div>
 </template>
 
 <style lang="scss">
@@ -29,8 +35,27 @@ import Login from "../components/login.vue"
 @import "../assets/scss/mixins.scss";
 @import "../assets/scss/layout.scss";
 
+
+
+.logo-place {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    .logo {
+        width: 300px;
+    }
+}
+
+.login {
+    nav {
+        display: none!important;
+    }
+}
+
 .auth-wrapper {
    @include mainWrap;
+   margin-top: 80px;
     .auth-inner{
         @include flowDesign;
         h1 {
