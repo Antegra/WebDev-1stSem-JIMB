@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onBeforeMount } from 'vue';
+import { API_URL } from '../connection';
 
 let step = ref(1);
 
@@ -60,37 +61,37 @@ let durations = ref([]);
 
 onBeforeMount(async () => {
 
-    const fetchedTypes = await fetch('https://uclssapitest.azurewebsites.net/api/type')
+    const fetchedTypes = await fetch(API_URL + 'type')
         .then((fetchedTypes) => fetchedTypes.json())
     for (let i = 0; i < fetchedTypes.length; i++) {
         types.value.push({ name: fetchedTypes[i].name, id: fetchedTypes[i].type_id })
     }
-    const fetchedGender = await fetch('https://uclssapitest.azurewebsites.net/api/sex')
+    const fetchedGender = await fetch(API_URL + 'sex')
         .then((fetchedGender) => fetchedGender.json())
     for (let i = 0; i < fetchedGender.length; i++) {
         persons.value.push({ name: fetchedGender[i].name, id: fetchedGender[i].sex_id })
     }
 
-    const fetchedLocation = await fetch('https://uclssapitest.azurewebsites.net/api/location')
+    const fetchedLocation = await fetch(API_URL + 'location')
         .then((fetchedLocation) => fetchedLocation.json())
     for (let i = 0; i < fetchedLocation.length; i++) {
         locations.value.push({ id: fetchedLocation[i].location_id, name: fetchedLocation[i].name })
     }
 
     // SKAL KIGGES PÅ
-    const fetchedEducation = await fetch('https://uclssapitest.azurewebsites.net/api/Education')
+    const fetchedEducation = await fetch(API_URL + 'Education')
         .then((fetchedEducation) => fetchedEducation.json())
     for (let i = 0; i < fetchedEducation.length; i++) {
         educations.value.push({ id: fetchedEducation[i].edu_id, name: fetchedEducation[i].name })
     }
 
-    const fetchedSubject = await fetch('https://uclssapitest.azurewebsites.net/api/Subject')
+    const fetchedSubject = await fetch(API_URL + 'Subject')
         .then((fetchedSubject) => fetchedSubject.json())
     for (let i = 0; i < fetchedSubject.length; i++) {
         subjects.value.push({ id: fetchedSubject[i].subject_id, name: fetchedSubject[i].name, description: fetchedSubject[i].description })
     }
 
-    const fetchedDuration = await fetch('https://uclssapitest.azurewebsites.net/api/Duration')
+    const fetchedDuration = await fetch(API_URL + 'Duration')
         .then((fetchedDuration) => fetchedDuration.json())
     for (let i = 0; i < fetchedDuration.length; i++) {
         durations.value.push({ id: fetchedDuration[i].duration_id, name: fetchedDuration[i].length })
@@ -402,10 +403,10 @@ async function done() {
                 },
                 body: JSON.stringify(params)
             };
-            await fetch('https://uclssapitest.azurewebsites.net/api/EducationCase', options)
+            await fetch(API_URL + 'EducationCase', options)
                 .then(response => response)
         } catch (error) {
-            console.error("failed to post, subjects");
+            console.error("failed to post, Educations");
         }
     };
 
@@ -424,7 +425,7 @@ async function done() {
             },
             body: JSON.stringify(params2)
         };
-        await fetch('https://uclssapitest.azurewebsites.net/api/LocationCase', options2)
+        await fetch(API_URL + 'LocationCase', options2)
             .then(response => response)
     } catch (error) {
         console.error("failed to post, locations");
@@ -447,7 +448,7 @@ async function done() {
                 },
                 body: JSON.stringify(params)
             };
-            await fetch('https://uclssapitest.azurewebsites.net/api/SubjectCase', options)
+            await fetch(API_URL + 'SubjectCase', options)
                 .then(response => response)
         } catch (error) {
             console.error("failed to post, subjects");
@@ -624,6 +625,7 @@ async function done() {
                 <div></div>
                 <div></div>
             </div>
+            <p>Opretter sagen</p>
         </div>
         <!-- step 4 - Hvad handler samtalen om -->
         <section class="register gone form-group-4 " v-show="step === 4">
@@ -924,10 +926,16 @@ async function done() {
 
 .spinner {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 50vw;
     height: 50vh;
+
+    p {
+        padding-top: 14px;
+        color: $Midnight-Green;
+    }
 
     .lds-roller {
         display: inline-block;
@@ -937,7 +945,7 @@ async function done() {
     }
 
     .lds-roller div {
-        animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        animation: lds-roller 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite;
         transform-origin: 40px 40px;
     }
 
