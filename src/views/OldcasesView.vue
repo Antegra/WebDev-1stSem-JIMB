@@ -21,6 +21,7 @@ onBeforeMount(async () => {
 function showCase(e) {
   if (caseNumber.value != e.case_id) {
     caseNumber.value = e.case_id;
+
   } else {
     caseNumber.value = 0;
   }
@@ -92,6 +93,17 @@ function showCase(e) {
   .cases {
     width: 70%;
     margin-bottom: 14px;
+
+    &:nth-child(even) {
+      .case_top {
+        background: #f2f2f2;
+
+        &:hover {
+          background-color: $Verdigris;
+        }
+      }
+    }
+
   }
 
   .case_top {
@@ -106,7 +118,10 @@ function showCase(e) {
     border-radius: 12px;
     box-shadow: $stdDropshadow;
     transition: .5s;
-    background-color: $Midnight-Green;
+    background: #ffffff;
+    color: black;
+
+
 
 
 
@@ -128,7 +143,7 @@ function showCase(e) {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    background-color: $Columbia-blue;
+    background-color: #ffffff;
     color: $Midnight-Green;
     padding: 50px 12px 12px 12px;
     border-radius: 12px;
