@@ -64,7 +64,7 @@ header {
   justify-content: center;
   .wrapper {
     width: 100%;
-    max-width: 861px;
+    max-width: 1057px;
     nav {
       display: flex;
       align-items: baseline;
@@ -79,6 +79,7 @@ header {
           color: $Midnight-Green;
           margin: 0 20px;
           text-decoration: none;
+          font-weight: bold;
           .material-symbols-outlined {
             position: relative;
             top: 5px;

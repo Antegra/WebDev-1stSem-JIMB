@@ -16,13 +16,13 @@ button {
 
 .educations {
     button {
-        &:nth-child(n + 16) {
+        &:nth-child(n + 10) {
             display: none;
         }
     }
     &.loaded {
         button {
-            &:nth-child(n + 16) {
+            &:nth-child(n + 10) {
                 display: block;
             }
         }

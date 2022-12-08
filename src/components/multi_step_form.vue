@@ -376,7 +376,7 @@ function done() {
             <div class="form-group-1">
 
                 <h2>{{ sp_1 }}</h2>
-                <div class="form-group-1-1 form-style form-text">
+                <div class="form-group-1-1 form-style">
                     <select @change="month($event)">
                         <option class="form-text" v-for="date in select_month" :value="date.id"> {{ date.name }}</option>
                     </select>
@@ -384,7 +384,7 @@ function done() {
                 </div>
                 <h2>{{ sp_2 }}</h2>
                 <p class="alert_text alert_1 ">* Vælg venligst type henvændelse</p>
-                <div class="form-group-1-2 form-style form-text">
+                <div class="form-group-1-2 form-style">
                     <button class="form-text" v-for="type in types" @click="meeting(type.id)" :id="type.id"> {{ type.name }} </button>
                 </div>
             </div>
@@ -420,18 +420,18 @@ function done() {
             <h2>{{ sp_3 }}</h2>
             <p class="alert_text alert_2">* Du mangler noget her </p>
             <div class="form-group-2-1 form-style">
-                <button v-for="person in persons" @click="sex(person)" :id="person.name"> {{ person.name }}
+                <button class="form-text" v-for="person in persons" @click="sex(person)" :id="person.name"> {{ person.name }}
                 </button>
             </div>
 
             <h2 class="seperator">{{ sp_4 }}</h2>
             <p class="alert_text alert_3">* Du mangler at udfylde niveau.</p>
             <div class="form-group-2-2 form-style">
-                <button v-for="niveau in niveaus" @click="level(niveau)" :id="niveau"> {{ niveau }}</button>
+                <button class="form-text" v-for="niveau in niveaus" @click="level(niveau)" :id="niveau"> {{ niveau }}</button>
             </div>
 
             <div class="navigation-group">
-                <div class="back"><input class="form_btn button back" type="submit" value="Tilbage"
+                <div class="back "><input class="form_btn button back" type="submit" value="Tilbage"
                         @click.prevent="previous(1)"></div>
                 <div class="seperatordiv"></div>
                 <div class="next"><input class="form_btn button next" type="submit" value="Næste"
@@ -462,7 +462,7 @@ function done() {
             <h2>{{ sp_5 }}</h2>
             <p class="alert_text alert_4">* Du mangler noget her...</p>
             <div class="form-group-3-1 form-style">
-                <button v-for="location in locations" :id="location.name" @click="location_anwser(location)"> {{
+                <button class="form-text" v-for="location in locations" :id="location.name" @click="location_anwser(location)"> {{
                         location.name
                 }}
                 </button>
@@ -472,18 +472,18 @@ function done() {
             <p class="alert_text alert_5">* Du mangler noget her...</p>
             <div class="educations form-group-3-2 form-style">
                 <div v-for="educations in f_educations" :key="educations">
-                    <button @click="educations_anwser(educations)" :id="educations.name"> {{ educations.name }}
+                    <button class="form-text" @click="educations_anwser(educations)" :id="educations.name"> {{ educations.name }}
                     </button>
                     <span>Fast</span>
                 </div>
             </div>
 
             <div class="search-box position-fix">
-                <input type="text" v-model="input_educations" placeholder="Søg..." />
+                <input class="form-text" type="text" v-model="input_educations" placeholder="Søg..." />
             </div>
 
             <div class="educations loadbtn">
-                <button v-for="educations in filteredEducations" :id="educations.name" :key="educations"
+                <button class="form-text" v-for="educations in filteredEducations" :id="educations.name" :key="educations"
                     @click="educations_anwser(educations)"> {{
                             educations.name
                     }}
@@ -525,7 +525,7 @@ function done() {
             <h2>{{ sp_6 }}</h2>
 
             <div class="search-box">
-                <input type="text" v-model="input_subjects" placeholder="Søg..." />
+                <input class="form-text" type="text" v-model="input_subjects" placeholder="Søg..." />
             </div>
             <p class="alert_text alert_6">* Du mangler noget her...</p>
             <div class="educations form-group-4-1 form-style">
@@ -535,7 +535,7 @@ function done() {
                     <p v-show="subject.description" id="subject_icon">i<span id="subject_test"> {{ subject.description
                     }}</span></p>
 
-                    <button :id="subject.name" :class="{ 'selected': subject.isSelected }" :key="subject"
+                    <button class="form-text" :id="subject.name" :class="{ 'selected': subject.isSelected }" :key="subject"
                         @click="subject_anwser({ ...subject, index: index })"> {{
                                 subject.name
                         }}
@@ -548,7 +548,7 @@ function done() {
             <h2 class="seperator"> Hvor lang tid tog det?</h2>
             <p class="alert_text alert_7">* Du mangler noget her...</p>
             <div class="form-group-4-2 form-style">
-                <button v-for="duration in durations" :id="duration.name" @click="duration_anwser(duration)"> {{
+                <button class="form-text" v-for="duration in durations" :id="duration.name" @click="duration_anwser(duration)"> {{
                         duration.name
                 }}</button>
             </div>
@@ -605,7 +605,7 @@ function done() {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    max-width: 861px;
+    max-width: 801px;
     position: absolute;
     top: -120px;
 
@@ -769,7 +769,7 @@ function done() {
         #subject_icon {
             font-style: italic;
             font-size: 14px;
-            color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
             background-color: $Verdigris;
 
             border-radius: 50%;
