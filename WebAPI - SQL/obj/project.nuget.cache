@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FKHJ+fqEbOLNjhH87vvKFt1WQRG5MIzLFnZQEZpsKTc0XD/21ifTc8TSfjK9/b6yG5VNqbpkgqLOaXxLuNHFAA==",
+  "dgSpecHash": "upjJxUGZ0AiesX1moludQz1jTFOFCkvmzC0ubFrWbCL8Zyg3zbtqFSmlFCTeceh5jbjzO5xeKJXkWp9H2FGXhQ==",
   "success": true,
-  "projectFilePath": "/Users/welander/Desktop/WebAPI - SQL/WebAPI - SQL.csproj",
+  "projectFilePath": "/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/WebAPI - SQL.csproj",
   "expectedPackageFiles": [
     "/Users/welander/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/Users/welander/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",

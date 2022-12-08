@@ -2479,11 +2479,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/welander/Desktop/WebAPI - SQL/WebAPI - SQL.csproj",
+      "projectUniqueName": "/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/WebAPI - SQL.csproj",
       "projectName": "WebAPI - SQL",
-      "projectPath": "/Users/welander/Desktop/WebAPI - SQL/WebAPI - SQL.csproj",
+      "projectPath": "/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/WebAPI - SQL.csproj",
       "packagesPath": "/Users/welander/.nuget/packages/",
-      "outputPath": "/Users/welander/Desktop/WebAPI - SQL/obj/",
+      "outputPath": "/Users/welander/Documents/GitHub/WebDev-1stSem-JIMB/WebAPI - SQL/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/welander/.nuget/NuGet/NuGet.Config"
