@@ -38,17 +38,17 @@ function showCase(e) {
       Gamle sager
     </h1>
 
-    <div class="cases" v-for="case1 in cases">
+    <div class="cases" v-for="case1 in cases.slice().reverse() ">
       <div class="case_top" v-on:click="showCase(case1)">
 
-        <p>sags: nr. {{ case1.case_id }} </p>
+        <p>Sags: nr. {{ case1.case_id }} </p>
         <p>Oprettelse: {{ case1.month }} </p>
         <p>Køn: {{ case1.sex }} </p>
         <img :class="case1.case_id"
           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAABmJLR0QA/wD/AP+gvaeTAAABq0lEQVRoge3YoU5cQRQG4CUIqGiCReBqkBWUN0DQgC4YXF+hFtu6vkBThcbxCKhKTBWEpUWRVDQ0gfRDdJvQze7eubMzezflfHoz5z97986cnV4vhBBCCCGEEEIITwt2cY3v2O86TxPsDbJeYydngW/+9QGLFbJOBYt4P5T1KmehUU6wUiF3FjzH8aigOYuN8xXrFfK3zfcCZ+NC5iw4yQ8570kh2MLNpIA5iza5x7sK/TTleou7pnA5C18kNA2fsVyht+E8S4NaKc5zCrzGbWKBU6xW6PNvltVBjRS32M4t9FL6k77Cq8K95mTYnLZgm2/3Fw4K9drDG/xMrP0Fa6UKL+FTYmH4aIohBQs4xO/Eekd4VqTZoSBJO+RA1pBiwjAxQv2TQsIZ+EirIUXDMDFkdrNAjWA1v8giFPzpmcGrUoQpNxcz3gyLkXF86PC4KwIb6Cc20G/52Y2u+xup5VNLUW6YqEX793KcOsNELdrtvI918rezCO3OVjq+WChC+pAyF1dHRWgeUubqcrAI44eU+RgmavHnwryPS+x1nSeEEEIIIYQQQgj/uQcuDJYDq5O5IgAAAABJRU5ErkJggg==">
       </div>
       <div class=" case_bottom" v-show="(caseNumber == case1.case_id)">
-        <p> <span>sags: nr.</span> {{ case1.case_id }} </p>
+        <p> <span>Sags: nr.</span> {{ case1.case_id }} </p>
         <p><span>Oprettelse:</span> {{ case1.month }} </p>
         <p><span>Køn:</span> {{ case1.sex }} </p>
         <p><span>Type henvendelse:</span> {{ case1.name }} </p>
@@ -79,6 +79,7 @@ function showCase(e) {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   max-width: 1080px;
   width: 100%;
   margin: 10%;
@@ -98,15 +99,15 @@ function showCase(e) {
 
     &:nth-child(even) {
       .case_top {
-      background-color: #f2f2f2;
+        background-color: #f2f2f2;
 
 
-    }
       }
+    }
 
 
- 
-    
+
+
   }
 
   .case_top {
