@@ -16,9 +16,6 @@ export default {
         "Profil",
       ],
       users: [],
-      subjects: [],
-      locations: [],
-      educations: [],
       modalShow: false,
       modalTitle: "",
       user_id: 0,
@@ -31,16 +28,20 @@ export default {
       location_id: "",
       edu_id: "",
       role_id: 0,
-      edu_name: ""
+      edu_name: "",
+      subjects: [],
+      locations: [],
+      educations: []
     };
   },
   methods: {
+    //Methodes for the user tab
     getUsers() {
       fetch("https://uclssapitest.azurewebsites.net/api/user")
         .then((response) => response.json())
         .then((data) => (this.users = data));
     },
-    addClick(user) {
+    addClick() {
       this.modalTitle = "Tilføj en ny bruger";
       this.user_id = 0;
       this.firstName = "";
@@ -52,10 +53,10 @@ export default {
       this.location_id = "";
       this.role_id = 0;
       this.edu_id = "";
-      this.edu_name= "";
+      this.edu_name = "";
     },
     editUser(user) {
-      this.modalTitle = "Rediger bruger";
+      this.modalTitle = "Rediger "+ user.firstName + "s profil";
       this.user_id = user.user_id;
       this.firstName = user.firstName;
       this.lastName = user.lastName;
@@ -66,7 +67,7 @@ export default {
       this.location_id = user.location_id;
       this.role_id = user.role_id;
       this.edu_id = user.edu_id;
-      this.edu_name= user.edu_name;
+      this.edu_name = user.edu_name;
     },
     createClick() {
       fetch("https://uclssapitest.azurewebsites.net/api/user/", {
@@ -85,7 +86,7 @@ export default {
           location_id: this.location_id,
           role_id: this.role_id,
           edu_id: this.edu_id,
-          edu_name: this.edu_name
+          edu_name: this.edu_name,
         }),
       })
         .then((response) => response.json())
@@ -108,46 +109,26 @@ export default {
           location_id: this.location_id,
           role_id: this.role_id,
           edu_id: this.edu_id,
-          edu_name: this.edu_name
+          edu_name: this.edu_name,
         }),
       })
-        .then((response) => response.json())
-        .then((data) => console.log(data));
+        .then((response) => {
+            response.json()
+            this.getUsers();
+        });
     },
-    // toggleEditMode(user_id) {
-    //   this.disabled = false;
-    //   document.getElementsByClassName("edit-edituser")[0].style.display =
-    //     "none";
-    //   document.getElementsByClassName("save-edituser")[0].style.display =
-    //     "block";
-    // },
-    // editUser(user_id, firstName, lastName, email, password, title, edu_id) {
-    //   fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       user_id: user_id,
-    //       firstName: firstName,
-    //       lastName: lastName,
-    //       email: email,
-    //       password: password,
-    //       title: title,
-    //       edu_id: edu_id,
-    //     }),
-    //   })
-    //     .then((response) => response.json())
-    //     .then((data) => console.log(data));
-    //     this.disabled = true
-    //     document.getElementsByClassName('edit-edituser')[0].style.display = 'block';
-    //     document.getElementsByClassName('save-edituser')[0].style.display = 'none';
-    //   },
-    // deleteUser(user_id) {
-    //   fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, {
-    //     method: "DELETE",
-    //   }).then(() => (this.status = "Delete successful"));
-    // },
+    deleteUser(user_id) {
+      if(!confirm("Er du sikker på at du vil slette brugeren?")){
+            return;
+        }
+      fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, {
+        method: "DELETE",
+      })
+      .then((response)=>{
+            response.json()
+            this.getUsers();
+        });
+    },
     getSubjects() {
       fetch("https://uclssapitest.azurewebsites.net/api/subject")
         .then((response) => response.json())
@@ -274,31 +255,53 @@ export default {
 <template>
   <div class="settings">
     <div class="modal" v-if="modalShow">
-      <div class="modal-header">
+      <div class="modal-container">
         <h2 class="modal-title">{{ modalTitle }}</h2>
-        <button
-          @click="(modalShow = false)"
-        >Luk</button>
+        <div class="modal-content">
+          <div class="input-container">
+            <span>Fornavn</span>
+            <input type="text" v-model="firstName" />
+          </div>
+          <div class="input-container">
+            <span>Efternavn</span>
+            <input type="text" v-model="lastName" />
+          </div>
+          <div class="input-container">
+            <span>Email</span>
+            <input type="text" v-model="email" />
+          </div>
+          <div class="input-container">
+            <span>Role_id</span>
+            <input type="text" v-model="role_id" />
+          </div>
+        </div>
+        <div class="action-container">
+          <button
+            class="yellow-button"
+            v-if="user_id == 0"
+            @click="createClick(), (modalShow = true)"
+          >
+            Opret
+          </button>
+          <button 
+            class="yellow-button"
+            v-if="user_id != 0" 
+            @click="updateClick(user_id), (modalShow = false)"
+          >
+            Opdater
+          </button>
+          <button @click="modalShow = false">Luk</button>
+        </div>
       </div>
-      <div class="modal-content">
-        <span>Fornavn</span>
-        <input type="text" v-model="firstName" />
-        <span>Efternavn</span>
-        <input type="text" v-model="lastName" />
-        <span>Email</span>
-        <input type="text" v-model="email" />
-        <span>Role_id</span>
-        <input type="text" v-model="role_id" />
-      </div>
-      <button v-if="user_id == 0" @click="(createClick(), modalShow = true)" >Opret</button>
-      <button v-if="user_id != 0" @click="updateClick(user_id)">Opdater</button>
     </div>
     <div class="settings-container">
       <tab :tabList="tabList">
         <template v-slot:tabPanel-1>
           <div class="header">
             <h2>Brugere</h2>
-            <button @click="(addClick(user), modalShow = true)">Tilføj ny bruger</button>
+            <button @click="addClick(user), (modalShow = true)">
+              Tilføj ny bruger
+            </button>
           </div>
           <table>
             <thead>
@@ -313,17 +316,20 @@ export default {
             <tbody>
               <tr v-for="user in users" :key="user.user_id">
                 <td>
-                  <p>{{user.firstName}}</p>
+                  <p>{{ user.firstName }}</p>
                 </td>
                 <td>
-                  <p>{{user.lastName}}</p>
+                  <p>{{ user.lastName }}</p>
                 </td>
                 <td>
-                  <p>{{user.email}}</p>
+                  <p>{{ user.email }}</p>
                 </td>
                 <td>{{ user.title }}</td>
                 <td class="edit_save">
-                  <button class="save save-edituser" @click="editUser(user), modalShow = true">
+                  <button
+                    class="save save-edituser"
+                    @click="editUser(user), (modalShow = true)"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="19.996"
@@ -340,12 +346,15 @@ export default {
                           data-name="2228276036f5689efb63c251f173c8b0"
                           d="M23.007,10.32,16.341,3.655a1.111,1.111,0,0,0-.355-.233,1.211,1.211,0,0,0-.433-.089H6.665A3.333,3.333,0,0,0,3.333,6.665V20a3.333,3.333,0,0,0,3.333,3.333H20A3.333,3.333,0,0,0,23.329,20V11.109A1.111,1.111,0,0,0,23.007,10.32ZM10,5.554h4.444V7.776H10Zm6.665,15.553H10V17.774a1.111,1.111,0,0,1,1.111-1.111h4.444a1.111,1.111,0,0,1,1.111,1.111ZM21.107,20A1.111,1.111,0,0,1,20,21.107H18.885V17.774a3.333,3.333,0,0,0-3.333-3.333H11.109a3.333,3.333,0,0,0-3.333,3.333v3.333H6.665A1.111,1.111,0,0,1,5.554,20V6.665A1.111,1.111,0,0,1,6.665,5.554H7.776V8.887A1.111,1.111,0,0,0,8.887,10h6.665a1.111,1.111,0,0,0,1.111-1.111V7.121l4.444,4.444Z"
                           transform="translate(1206.736 494.167)"
-                          fill="#198754"
+                          fill="#00454e"
                         />
                       </g>
                     </svg>
                   </button>
-                  <button class="edit-edituser" @click="(editUser(user), modalShow = true)">
+                  <button
+                    class="edit-edituser"
+                    @click="editUser(user), (modalShow = true)"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="59.825"
@@ -740,23 +749,62 @@ export default {
   @include mainWrap;
 
   .modal {
-    height: 100vh;
-    width: 100vw;
-    background-color: rgba($color: #000000, $alpha: 0.2);
-    position: absolute;
-    top:0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: $Midnight-Green;
     
-    &-header {
+    &-container {
+      background-color: #ffffff;
+      padding: 24px;
       display: flex;
-      flex-direction: row;
-    }
-    &-content {
-      display: flex;
-      flex-direction: row;
+      flex-direction: column;
+      border-radius: 10px;
+      .modal-title {
+        margin: 0;
+        padding-bottom: 32px;
+      }
+
+      .modal-content {
+        display: flex;
+        flex-direction: row;
+        .input-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+          
+          span {
+            font-weight: bold;
+            font-size: 16px;
+          }
+          input {
+            color: $Midnight-Green;
+            font-size: 16px;
+            padding: 8px;
+            margin-right:32px;
+            border: 1px solid $Midnight-Green;
+            &:focus-visible {
+              padding: 7px;
+              outline: none;
+              border: 2px solid $Midnight-Green;
+            }
+          }
+        }
+      }
+      .action-container {
+        display: flex;
+        flex-direction: row;
+        padding-top: 32px;
+        justify-content: space-between
+      }
     }
   }
   .settings-container {

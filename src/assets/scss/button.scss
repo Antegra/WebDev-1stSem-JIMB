@@ -1,5 +1,6 @@
 .button,
 button {
+    color: $Midnight-Green;
     height: 50px !important;
     max-width: 224px !important;
     width: 100% !important;
@@ -12,6 +13,10 @@ button {
         background: $Maize;
         font-weight: bold;
     }
+}
+
+.yellow-button {
+    background-color: $Maize;
 }
 
 .educations {
