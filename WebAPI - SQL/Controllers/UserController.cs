@@ -101,7 +101,7 @@ namespace WebAPI___SQL.Controllers
         {
 
             User userObj = new User();
-            string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title,\r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.name, ','),',')) q) AS location, \r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.location_id, ','),',')) q) AS location_id,\r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(edu_user.edu_id, ','),',')) q) AS edu_id\r\nFROM users\r\nINNER JOIN role ON users.role_id = role.role_id\r\nINNER JOIN edu_user ON users.user_id = edu_user.user_id\r\nINNER JOIN location_user on users.user_id = location_user.user_id\r\nINNER JOIN locations ON location_user.location_id = locations.location_id\r\nWHERE users.email = '" + email + "' AND users.password = '" + password + "'\r\nGROUP BY users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title";
+            string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title,\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.name, ','),',')) q) AS location,\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.location_id, ','),',')) q) AS location_id,\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(edu_user.edu_id, ','),',')) q) AS edu_id,\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(edu.name, ','),',')) q) AS edu_name\nFROM users\nINNER JOIN role ON users.role_id = role.role_id\nINNER JOIN edu_user ON users.user_id = edu_user.user_id\nINNER JOIN location_user on users.user_id = location_user.user_id\nINNER JOIN locations ON location_user.location_id = locations.location_id\nINNER JOIN edu ON edu.edu_id = edu_user.edu_id\nWHERE users.email = 'Mads' AND users.password = '123'\nGROUP BY users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title\n            ";
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -123,7 +123,8 @@ namespace WebAPI___SQL.Controllers
                                 location = Convert.ToString(sdr["location"]),
                                 location_id = Convert.ToString(sdr["location_id"]),
                                 role_id = Convert.ToInt32(sdr["role_id"]),
-                                edu_id = Convert.ToString(sdr["edu_id"])
+                                edu_id = Convert.ToString(sdr["edu_id"]),
+                                edu_name = Convert.ToString(sdr["edu_name"])
                             };
                         }
                     }
