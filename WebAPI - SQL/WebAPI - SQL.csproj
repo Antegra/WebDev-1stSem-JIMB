@@ -24,8 +24,4 @@
     <None Remove="System.Data.SqlClient" />
     <None Remove="Newtonsoft.Json" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
 </Project>
