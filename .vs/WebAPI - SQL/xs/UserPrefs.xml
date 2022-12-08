@@ -1,8 +1,16 @@
 ﻿<Properties StartupConfiguration="{FDC0890D-78D6-416A-A7A8-B9D8FDEBE4D3}|Default">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.WebAPI_220-_220SQL PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workbench ActiveDocument="WebAPI - SQL/Controllers/UserController.cs">
     <Files>
-      <File FileName="WebAPI - SQL/Controllers/UserController.cs" Line="76" Column="74" />
-      <File FileName="WebAPI - SQL/Controllers/CaseController.cs" Line="1" Column="1" />
+      <File FileName="WebAPI - SQL/Controllers/UserController.cs" Line="76" Column="67" />
+      <File FileName="WebAPI - SQL/Controllers/CaseController.cs" />
+      <File FileName="WebAPI - SQL/Models/User.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -10,17 +18,11 @@
           <Node name="WebAPI - SQL" expanded="True">
             <Node name="WebAPI - SQL" expanded="True">
               <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.WebAPI_220-_220SQL PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

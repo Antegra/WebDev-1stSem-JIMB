@@ -73,7 +73,7 @@ namespace WebAPI___SQL.Controllers
                             {
                                 user_id = Convert.ToInt32(sdr["user_id"]),
                                 firstName = Convert.ToString(sdr["firstName"]),
-                                lastName = Convert.ToString(sdr["LastName"]),
+                                lastName = Convert.ToString(sdr["lastName"]),
                                 email = Convert.ToString(sdr["email"]),
                                 password = Convert.ToString(sdr["password"]),
                                 title = Convert.ToString(sdr["title"]),
