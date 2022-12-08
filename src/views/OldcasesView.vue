@@ -1,5 +1,7 @@
 <script setup>
 import { ref, computed, onBeforeMount } from 'vue';
+import { API_URL } from '../connection';
+
 
 let caseNumber = ref([0]);
 
@@ -8,7 +10,7 @@ let cases = ref([]);
 
 onBeforeMount(async () => {
 
-  const fetchedCases = await fetch('https://uclssapitest.azurewebsites.net/api/Case/' + 1)
+  const fetchedCases = await fetch(API_URL + "case/" + 1)
     .then((fetchedCases) => fetchedCases.json())
   for (let i = 0; i < fetchedCases.length; i++) {
     cases.value.push(fetchedCases[i])
@@ -68,13 +70,14 @@ function showCase(e) {
 
 
 .box {
+
   padding: 60px 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   max-width: 1080px;
   width: 100%;
-  margin: auto;
+  margin: 10%;
   align-items: center;
   background: $Midnight-Green;
   border-radius: 13px;
