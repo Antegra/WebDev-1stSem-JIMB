@@ -34,7 +34,7 @@ namespace WebAPI___SQL.Controllers
                             {
                                 user_id = Convert.ToInt32(sdr["user_id"]),
                                 firstName = Convert.ToString(sdr["firstName"]),
-                                lastName = Convert.ToString(sdr["firstName"]),
+                                lastName = Convert.ToString(sdr["lastName"]),
                                 email = Convert.ToString(sdr["email"]),
                                 password = Convert.ToString(sdr["password"]),
                                 title = Convert.ToString(sdr["title"]),
@@ -74,7 +74,7 @@ namespace WebAPI___SQL.Controllers
                             {
                                 user_id = Convert.ToInt32(sdr["user_id"]),
                                 firstName = Convert.ToString(sdr["firstName"]),
-                                lastName = Convert.ToString(sdr["firstName"]),
+                                lastName = Convert.ToString(sdr["lastName"]),
                                 email = Convert.ToString(sdr["email"]),
                                 password = Convert.ToString(sdr["password"]),
                                 title = Convert.ToString(sdr["title"]),
@@ -116,7 +116,7 @@ namespace WebAPI___SQL.Controllers
                             {
                                 user_id = Convert.ToInt32(sdr["user_id"]),
                                 firstName = Convert.ToString(sdr["firstName"]),
-                                lastName = Convert.ToString(sdr["firstName"]),
+                                lastName = Convert.ToString(sdr["lastName"]),
                                 email = Convert.ToString(sdr["email"]),
                                 password = Convert.ToString(sdr["password"]),
                                 title = Convert.ToString(sdr["title"]),
@@ -184,7 +184,7 @@ namespace WebAPI___SQL.Controllers
             }
             using (SqlConnection con = new SqlConnection(constr))
             {
-                string query = "INSERT INTO users (firstName, lastName, email, password, role_id) VALUES (@firstName, @lastName, @email, @password, @roleId)";
+                string query = "INSERT INTO users (firstName, lastName, email, password, role_id) VALUES (@firstName, @lastName, @email, @password, @roleId) SELECT SCOPE_IDENTITY();";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Connection = con;
@@ -193,15 +193,19 @@ namespace WebAPI___SQL.Controllers
                     cmd.Parameters.AddWithValue("@email", User.email);
                     cmd.Parameters.AddWithValue("@password", User.password);
                     cmd.Parameters.AddWithValue("@roleId", User.role_id);
+
                     con.Open();
-                    int i = cmd.ExecuteNonQuery();
-                    if (i > 0)
+                    int modified = Convert.ToInt32(cmd.ExecuteScalar());
+                    User.user_id = modified;
+                    if (modified > 0)
                     {
-                        return Ok();
+                        //return Ok();
+                        return Ok(User);
                     }
                     con.Close();
                 }
             }
+            
             return BadRequest();
 
         }

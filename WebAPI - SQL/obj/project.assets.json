@@ -2474,26 +2474,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\45257\\.nuget\\packages\\": {}
+    "/Users/welander/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\45257\\Desktop\\backend - api\\WebAPI - SQL\\WebAPI - SQL.csproj",
+      "projectUniqueName": "/Users/welander/Desktop/WebAPI - SQL/WebAPI - SQL.csproj",
       "projectName": "WebAPI - SQL",
-      "projectPath": "C:\\Users\\45257\\Desktop\\backend - api\\WebAPI - SQL\\WebAPI - SQL.csproj",
-      "packagesPath": "C:\\Users\\45257\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\45257\\Desktop\\backend - api\\WebAPI - SQL\\obj\\",
+      "projectPath": "/Users/welander/Desktop/WebAPI - SQL/WebAPI - SQL.csproj",
+      "packagesPath": "/Users/welander/.nuget/packages/",
+      "outputPath": "/Users/welander/Desktop/WebAPI - SQL/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\45257\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/welander/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2554,7 +2552,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.100/RuntimeIdentifierGraph.json"
       }
     }
   }
