@@ -53,6 +53,7 @@ function showCase(e) {
         <p><span>Sted:</span> {{ case1.location }} </p>
         <p><span>Uddannelser:</span> nr. {{ case1.education }} </p>
         <p><span>Emner:</span> {{ case1.subject }} </p>
+        <p><span>Nuværende studerende:</span> {{ case1.niveau }} </p>
       </div>
     </div>
 

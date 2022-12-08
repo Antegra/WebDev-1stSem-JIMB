@@ -43,7 +43,7 @@ let sp_3 = ref("Hvem blev vejledt?");
 let persons = ref([]);
 
 let sp_4 = ref("Niveau");
-let niveaus = ref(["Nuværende studerende", "Potentielle studerende"]);
+let niveaus = ref([{id: true, name: "Nuværende studerende" }, {id: false, name: "Potentielle studerende"}]);
 
 // step 3 - Uddannelsested
 let sp_5 = ref("Uddannelsested");
@@ -163,15 +163,15 @@ function sex(e) {
 }
 
 function level(e) {
-    anwsers.niveau = e;
-
+    anwsers.niveau = e.id;
+    console.log(e.id)
     const boxes = document.querySelectorAll('.form-group-2-2 .selected');
 
     boxes.forEach(box => {
         box.classList.remove('selected');
     });
 
-    document.getElementById(e).classList.toggle("selected");
+    document.getElementById(e.id).classList.toggle("selected");
 
 }
 
@@ -366,7 +366,7 @@ async function done() {
             "location_id": 0,
             "subject_id": 0,
             "primeEdu": 1,
-            "niveau": true,
+            "niveau": anwsers.niveau,
             "nationality": true
         };
 
@@ -540,7 +540,7 @@ async function done() {
             <h2 class="seperator">{{ sp_4 }}</h2>
             <p class="alert_text alert_3">* Du mangler at udfylde niveau.</p>
             <div class="form-group-2-2 form-style">
-                <button v-for="niveau in niveaus" @click="level(niveau)" :id="niveau"> {{ niveau }}</button>
+                <button v-for="niveau in niveaus" @click="level(niveau)" :id="niveau.id"> {{ niveau.name }}</button>
             </div>
 
             <div class="navigation-group">
