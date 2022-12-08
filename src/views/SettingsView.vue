@@ -15,7 +15,6 @@ export default {
         "Eksport",
         "Profil",
       ],
-      modalTitle: "",
       //user tab
       users: [],
       userModalShow: false,
@@ -48,7 +47,6 @@ export default {
         .then((data) => (this.users = data));
     },
     addClick() {
-      this.modalTitle = "Tilføj en ny bruger";
       this.user_id = 0;
       this.firstName = "";
       this.lastName = "";
@@ -144,7 +142,6 @@ export default {
         .then((data) => (this.subjects = data));
     },
     addClick() {
-      this.modalTitle = "Tilføj et nyt emne";
       this.subject_id = 0;
       this.name = "";
       this.description = "";
@@ -172,11 +169,34 @@ export default {
             this.getSubjects();
         });
     },
+    updateClick(subject_id) {
+      fetch("https://uclssapitest.azurewebsites.net/api/subject/" + subject_id, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          subject_id: this.subject_id,
+          name: this.name,
+          description: this.description
+        }),
+      })
+        .then((response) => {
+            response.json()
+            this.getSubjects();
+        });
+    },
     deleteSubject(subject_id) {
-      fetch(
-        "https://uclssapitest.azurewebsites.net/api/subject/" + subject_id,
-        { method: "DELETE" }
-      ).then(() => (this.status = "Delete successful"));
+      if(!confirm("Er du sikker på at du vil slette emnet?")){
+            return;
+        }
+      fetch("https://uclssapitest.azurewebsites.net/api/subject/" + subject_id, {
+        method: "DELETE",
+      })
+      .then((response)=>{
+            response.json()
+            this.getSubjects();
+        });
     },
     getLocations() {
       fetch("https://uclssapitest.azurewebsites.net/api/location")
@@ -264,7 +284,7 @@ export default {
   <div class="settings">
     <div class="modal" v-if="userModalShow">
       <div class="modal-container">
-        <h2 class="modal-title">{{ modalTitle }}</h2>
+        <h2 class="modal-title">Tilføj en ny bruger</h2>
         <div class="modal-content">
           <div class="input-container">
             <span>Fornavn</span>
@@ -308,7 +328,7 @@ export default {
     </div>
     <div class="modal" v-if="subjectModalShow">
       <div class="modal-container">
-        <h2 class="modal-title">{{ modalTitle }}</h2>
+        <h2 class="modal-title">Tilføj et nyt emne</h2>
         <div class="modal-content">
           <div class="input-container">
             <span>Name</span>
@@ -322,7 +342,7 @@ export default {
         <div class="action-container">
           <button
             class="yellow-button"
-            v-if="user_id == 0"
+            v-if="subject_id == 0"
             @click="createClick(), (subjectModalShow = false)"
           >
             Opret
@@ -466,7 +486,7 @@ export default {
                       </g>
                     </svg>
                   </button>
-                  <button class="delete" @click="deleteUser(subject.subject_id)">
+                  <button class="delete" @click="deleteSubject(subject.subject_id)">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="59.825"
