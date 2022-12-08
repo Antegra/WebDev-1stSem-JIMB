@@ -4,7 +4,6 @@ import { API_URL } from '../connection';
 
 let user = JSON.parse(localStorage.getItem('user-token'));
 
-
 let step = ref(1);
 
 let anwsers = {
@@ -53,7 +52,33 @@ let sp_5 = ref("Uddannelsested");
 let input_educations = ref("");
 let locations = ref([]);
 let educations = ref([]);
-let f_educations = ref([{ "id": 1, "name": "Administrationsbachelor" }, { "id": 2, "name": "Autoteknolog" }]);
+let f_educations = ref([]);
+
+if(user[0].edu_id.length > 1) {
+    let user_edu_name = user[0].edu_name.split(",");
+    let user_edu_id = user[0].edu_id.split(",");
+    let user_edu_real_id = [];
+    for(let i = 0; i < user_edu_id.length; i++) {
+        user_edu_real_id.push(Number(user_edu_id[i])); 
+    }
+
+let user_edu_id_sorted = user_edu_real_id.sort(function(a, b){return a-b});
+
+for(let i = 0; i < user_edu_id_sorted.length; i++) {
+
+        f_educations.value.push({id: user_edu_id_sorted[i], name: user_edu_name[i]})
+    }
+
+} else {
+    let user_edu_name = user[0].edu_name;
+    let user_edu_id = user[0].edu_id;
+
+
+    for(let i = 0; i < user_edu_id.length; i++) {
+        f_educations.value.push({id: user_edu_id, name: user_edu_name})
+    }
+}
+
 
 // step 4 - Hvad handlede samtalen om ?
 let sp_6 = ref("Hvad handlede samtalen om ?");
@@ -61,7 +86,7 @@ let input_subjects = ref("");
 let subjects = ref([]);
 let durations = ref([]);
 
-
+let testt = [];
 onBeforeMount(async () => {
 
     const fetchedTypes = await fetch(API_URL + 'type')
@@ -167,10 +192,10 @@ function sex(e) {
 
 function level(e) {
     anwsers.niveau = e.id;
-    console.log(anwsers)
+
     const boxes = document.querySelectorAll('.form-group-2-2 .selected');
 
-    console.log(e.id);
+
     boxes.forEach(box => {
         box.classList.remove('selected');
     });
@@ -351,7 +376,7 @@ async function done() {
     step.value = 0;
     var c = ((15 < anwsers.niveau) ? false : true);
     let case_id = 0;
-    console.log(c);
+
    try {
         const params = {
             "case_id": 0,

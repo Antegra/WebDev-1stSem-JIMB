@@ -22,7 +22,7 @@ export default {
             )
 
             let relevantData = [];
-            relevantData.push({firstName: result.data.firstName, location_id: result.data.location_id, role_id: result.data.role_id, edu_id: result.data.edu_id, user_id: result.data.user_id});
+            relevantData.push({firstName: result.data.firstName, location_id: result.data.location_id, role_id: result.data.role_id, edu_id: result.data.edu_id, edu_name: result.data.edu_name, user_id: result.data.user_id});
             
             console.log(relevantData);
             
