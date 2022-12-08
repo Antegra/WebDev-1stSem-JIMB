@@ -92,6 +92,18 @@ function showCase(e) {
   .cases {
     width: 70%;
     margin-bottom: 14px;
+
+    &:nth-child(even) {
+      .case_top {
+      background-color: #f2f2f2;
+
+
+    }
+      }
+
+
+ 
+    
   }
 
   .case_top {
@@ -106,7 +118,8 @@ function showCase(e) {
     border-radius: 12px;
     box-shadow: $stdDropshadow;
     transition: .5s;
-    background-color: $Midnight-Green;
+    background-color: #ffffff;
+    color: $Midnight-Green;
 
 
 
@@ -128,7 +141,7 @@ function showCase(e) {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    background-color: $Columbia-blue;
+    background-color: #ffffff;
     color: $Midnight-Green;
     padding: 50px 12px 12px 12px;
     border-radius: 12px;
