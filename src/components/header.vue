@@ -15,7 +15,14 @@ function toggleNav() {
 
 
 
-document.getElementsByClassName("load")
+
+
+
+
+function logOut() {
+  localStorage.removeItem("user-token");
+  window.location.href = '/login';
+}
 
 
 
@@ -38,6 +45,7 @@ document.getElementsByClassName("load")
           <RouterLink class="navigation-link" to="/newcase">Ny sag</RouterLink>
           <RouterLink class="navigation-link" to="/oldcases">Gamle sager</RouterLink>
           <RouterLink class="navigation-link" to="/data">Data</RouterLink>
+          <a class="navigation-link logout" @click="logOut()">Log out</a>
           <RouterLink class="navigation-link" to="/settings">
             <span class="material-symbols-outlined">
               settings
@@ -70,6 +78,9 @@ header {
       justify-content: space-evenly;
       padding-top: 2rem;
   
+      .navigation-link {
+        cursor: pointer;
+      }
       .logo {
         max-width: 143px;
       }
@@ -102,6 +113,7 @@ header {
         .main-navigation {
           .navigation-link {
             display: none;
+
           }
           .toggleicon {
             display: inline;

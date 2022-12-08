@@ -6,8 +6,11 @@ import Login from "../components/login.vue"
         components: {
             Login
         }
+        
     }
 
+    
+    
 
 </script>
 
@@ -17,6 +20,10 @@ import Login from "../components/login.vue"
         <Login />
     </div>
   </div>
+
+  <div class="logo-place">
+        <img class="logo" src="../assets/img/ucl-logo.png" alt="UCLs logo" />
+    </div>
 </template>
 
 <style lang="scss">
@@ -27,6 +34,24 @@ import Login from "../components/login.vue"
 @import "../assets/scss/button.scss";
 @import "../assets/scss/mixins.scss";
 @import "../assets/scss/layout.scss";
+
+
+
+.logo-place {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    .logo {
+        width: 300px;
+    }
+}
+
+.login {
+    nav {
+        display: none!important;
+    }
+}
 
 .auth-wrapper {
    @include mainWrap;
