@@ -82,7 +82,7 @@ function showCase(e) {
 
   max-width: 1080px;
   width: 100%;
-  margin: 10%;
+  margin: 5% 20vw;
   align-items: center;
   background: $Midnight-Green;
   border-radius: 13px;
@@ -97,11 +97,14 @@ function showCase(e) {
     width: 70%;
     margin-bottom: 14px;
 
+
     &:nth-child(even) {
       .case_top {
         background-color: #f2f2f2;
 
-
+        &:hover {
+          background-color: $Tea-Rose;
+        }
       }
     }
 
@@ -125,7 +128,9 @@ function showCase(e) {
     background-color: #ffffff;
     color: $Midnight-Green;
 
-
+    &:hover {
+      background-color: $Tea-Rose;
+    }
 
     img {
       transform: scale(50%) rotate(0deg);
@@ -137,9 +142,7 @@ function showCase(e) {
 
   }
 
-  .case_top:hover {
-    background-color: $Verdigris;
-  }
+
 
   .case_bottom {
     display: flex;
