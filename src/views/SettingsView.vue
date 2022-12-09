@@ -184,6 +184,9 @@ export default {
         }
       fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
       .then((response)=>{
             response.json()
@@ -248,6 +251,9 @@ export default {
         }
       fetch("https://uclssapitest.azurewebsites.net/api/subject/" + subject_id, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
       .then((response)=>{
             response.json()
@@ -308,6 +314,9 @@ export default {
         }
       fetch("https://uclssapitest.azurewebsites.net/api/location/" + location_id, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
       .then((response)=>{
             response.json()
@@ -372,6 +381,9 @@ export default {
         }
       fetch("https://uclssapitest.azurewebsites.net/api/education/" + edu_id, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
       .then((response)=>{
             response.json()
@@ -570,32 +582,8 @@ export default {
                 </td>
                 <td>{{ u.title }}</td>
                 <td class="edit_save">
-                  <button
-                    @click="editUser(u), (user.userModalShow = true)"
-                  >
-                    
-                  </button>
-                  <button class="delete" @click="deleteUser(user.user_id)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="59.825"
-                      height="20"
-                      viewBox="0 0 59.825 20"
-                    >
-                      <g
-                        id="Group_478"
-                        data-name="Group 478"
-                        transform="translate(-1218.442 -612)"
-                      >
-                        <path
-                          id="da086273b974cb595139babd4da17772"
-                          d="M21.015,10.466l-.328,9.75a3.245,3.245,0,0,1-3.281,3.106H11.172a3.245,3.245,0,0,1-3.281-3.1l-.328-9.753A.821.821,0,0,1,9.2,10.413l.328,9.752a1.627,1.627,0,0,0,1.641,1.549h6.234a1.627,1.627,0,0,0,1.641-1.552l.328-9.749a.821.821,0,0,1,1.641.053ZM22.1,7.221a.813.813,0,0,1-.82.805H7.3a.805.805,0,1,1,0-1.611H9.841a1.04,1.04,0,0,0,1.044-.925,2.437,2.437,0,0,1,2.448-2.17h1.911a2.437,2.437,0,0,1,2.448,2.17,1.04,1.04,0,0,0,1.044.925h2.543a.813.813,0,0,1,.82.805Zm-9.791-.805h3.96a2.619,2.619,0,0,1-.209-.76.815.815,0,0,0-.815-.725H13.334a.815.815,0,0,0-.815.725,2.62,2.62,0,0,1-.21.76Zm.826,12.2V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Zm3.949,0V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Z"
-                          transform="translate(1256.167 608.678)"
-                          fill="#eb0000"
-                        />
-                      </g>
-                    </svg>
-                  </button>
+                  <button class="edit-btn" @click="editUser(u), (user.userModalShow = true)"></button>
+                  <button class="delete" @click="deleteUser(user.user_id)"></button>
                 </td>
               </tr>
             </tbody>
@@ -626,32 +614,8 @@ export default {
                   <p>{{ s.description }}</p>
                 </td>
                 <td class="edit_save">
-                  <button
-                    @click="editSubject(s), (subject.subjectModalShow = true)"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="59.825"
-                      height="20"
-                      viewBox="0 0 59.825 20"
-                    >
-                      <g
-                        id="Group_478"
-                        data-name="Group 478"
-                        transform="translate(-1218.442 -612)"
-                      >
-                        <path
-                          id="b21743bd27446b402537e815c62aa968"
-                          d="M21.224,2.73a3.319,3.319,0,0,1,0,4.695L8.96,19.686a4.151,4.151,0,0,1-1.928,1.092l-3.8.951a.83.83,0,0,1-1.007-1.006l.951-3.8a4.15,4.15,0,0,1,1.092-1.928L16.528,2.73A3.321,3.321,0,0,1,21.224,2.73Zm-5.87,3.521L5.438,16.164a2.49,2.49,0,0,0-.655,1.157l-.615,2.461,2.461-.615a2.49,2.49,0,0,0,1.157-.655L17.7,8.6ZM17.7,3.9,16.528,5.077l2.348,2.347L20.05,6.251A1.66,1.66,0,0,0,17.7,3.9Z"
-                          transform="translate(1216.246 610.243)"
-                          fill="#153943"
-                        />
-                      </g>
-                    </svg>
-                  </button>
-                  <button class="delete" @click="deleteSubject(subject.subject_id)">
-               
-                  </button>
+                  <button class="edit-btn" @click="editSubject(s), (subject.subjectModalShow = true)"></button>
+                  <button class="delete" @click="deleteSubject(subject.subject_id)"></button>
                 </td>
               </tr>
             </tbody>
@@ -678,32 +642,8 @@ export default {
                   <p>{{ l.name }}</p>
                 </td>
                 <td class="edit_save">
-                  <button
-                    @click="editLocation(l), (location.locationModalShow = true)"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="59.825"
-                      height="20"
-                      viewBox="0 0 59.825 20"
-                    >
-                      <g
-                        id="Group_478"
-                        data-name="Group 478"
-                        transform="translate(-1218.442 -612)"
-                      >
-                        <path
-                          id="b21743bd27446b402537e815c62aa968"
-                          d="M21.224,2.73a3.319,3.319,0,0,1,0,4.695L8.96,19.686a4.151,4.151,0,0,1-1.928,1.092l-3.8.951a.83.83,0,0,1-1.007-1.006l.951-3.8a4.15,4.15,0,0,1,1.092-1.928L16.528,2.73A3.321,3.321,0,0,1,21.224,2.73Zm-5.87,3.521L5.438,16.164a2.49,2.49,0,0,0-.655,1.157l-.615,2.461,2.461-.615a2.49,2.49,0,0,0,1.157-.655L17.7,8.6ZM17.7,3.9,16.528,5.077l2.348,2.347L20.05,6.251A1.66,1.66,0,0,0,17.7,3.9Z"
-                          transform="translate(1216.246 610.243)"
-                          fill="#153943"
-                        />
-                      </g>
-                    </svg>
-                  </button>
-                  <button class="delete" @click="deleteLocation(location.location_id)">
-                
-                  </button>
+                  <button class="edit-btn" @click="editLocation(l), (location.locationModalShow = true)"></button>
+                  <button class="delete" @click="deleteLocation(location.location_id)"></button>
                 </td>
               </tr>
             </tbody>
@@ -734,13 +674,8 @@ export default {
                   <p>{{ e.location }}</p>
                 </td>
                 <td class="edit_save">
-                  <button
-                    @click="editEducation(e), (education.educationModalShow = true)" class="edit-btn">
-         
-                  </button>
-                  <button class="delete" @click="deleteEducation(education.edu_id)">
-                   
-                  </button>
+                  <button class="edit-btn" @click="editEducation(e), (education.educationModalShow = true)"></button>
+                  <button class="delete" @click="deleteEducation(education.edu_id)"></button>
                 </td>
               </tr>
             </tbody>
@@ -832,6 +767,7 @@ export default {
             &:focus-visible {
               height: 32px;
               outline: none;
+              height: 64px;
             }
           }
         }
@@ -896,16 +832,20 @@ export default {
           padding: 0 16px;
           height: 50px;
           text-align: left;
+
+          &:last-child {
+            text-align: right;
+          }
         }
         .edit_save {
           display: flex;
           flex-direction: row;
-
+          justify-content: flex-end;
+          gap: 16px;
 
           .delete {
             position:relative;
             &:after {
-              
               content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15.622' height='20' viewBox='0 0 15.622 20'%3E%3Cpath id='da086273b974cb595139babd4da17772' d='M21.015,10.466l-.328,9.75a3.245,3.245,0,0,1-3.281,3.106H11.172a3.245,3.245,0,0,1-3.281-3.1l-.328-9.753A.821.821,0,0,1,9.2,10.413l.328,9.752a1.627,1.627,0,0,0,1.641,1.549h6.234a1.627,1.627,0,0,0,1.641-1.552l.328-9.749a.821.821,0,0,1,1.641.053ZM22.1,7.221a.813.813,0,0,1-.82.805H7.3a.805.805,0,1,1,0-1.611H9.841a1.04,1.04,0,0,0,1.044-.925,2.437,2.437,0,0,1,2.448-2.17h1.911a2.437,2.437,0,0,1,2.448,2.17,1.04,1.04,0,0,0,1.044.925h2.543a.813.813,0,0,1,.82.805Zm-9.791-.805h3.96a2.619,2.619,0,0,1-.209-.76.815.815,0,0,0-.815-.725H13.334a.815.815,0,0,0-.815.725,2.62,2.62,0,0,1-.21.76Zm.826,12.2V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Zm3.949,0V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Z' transform='translate(-6.478 -3.322)' fill='%23eb0000'/%3E%3C/svg%3E%0A");
             }
           }
@@ -913,19 +853,13 @@ export default {
             position:relative;
             &:after {
               content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='19.996' viewBox='0 0 20 19.996'%3E%3Cpath id='b21743bd27446b402537e815c62aa968' d='M21.224,2.73a3.319,3.319,0,0,1,0,4.695L8.96,19.686a4.151,4.151,0,0,1-1.928,1.092l-3.8.951a.83.83,0,0,1-1.007-1.006l.951-3.8a4.15,4.15,0,0,1,1.092-1.928L16.528,2.73A3.321,3.321,0,0,1,21.224,2.73Zm-5.87,3.521L5.438,16.164a2.49,2.49,0,0,0-.655,1.157l-.615,2.461,2.461-.615a2.49,2.49,0,0,0,1.157-.655L17.7,8.6ZM17.7,3.9,16.528,5.077l2.348,2.347L20.05,6.251A1.66,1.66,0,0,0,17.7,3.9Z' transform='translate(-2.196 -1.757)' fill='%23153943'/%3E%3C/svg%3E%0A");
-
             }
           }
-
 
           button {
             cursor: pointer;
             background: none;
             width: 30px !important;
-
-            svg {
-              
-            }
           }
         }
 
