@@ -17,26 +17,47 @@ export default {
       ],
       //user tab
       users: [],
-      userModalShow: false,
-      user_id: 0,
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      title: "",
-      location: "",
-      location_id: "",
-      edu_id: "",
-      role_id: 0,
-      edu_name: "",
-      description: "",
+      user: {
+        userModalShow: false,
+        modalTitle: "",
+        user_id: 0,
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        title: "",
+        location: "",
+        location_id: 0,
+        edu_id: "",
+        role_id: 0,
+        edu_name: ""
+      },
       //subject tab
       subjects: [],
-      subjectModalShow: false,
-      subject_id: "",
-      name: "",
+      subject: {
+        subjectModalShow: false,
+        modalTitle: "",
+        subject_id: "",
+        name: "",
+        description: ""
+      },
+      //location tab
       locations: [],
-      educations: []
+      location: {
+        locationModalShow: false,
+        modalTitle: "",
+        location_id: 0,
+        name: ""
+      },
+       //education tab
+       educations: [],
+       education: {
+        educationModalShow: false,
+        modalTitle: "",
+        edu_id: 0,
+        name: "", 
+        location: "",
+       }
     };
   },
   methods: {
@@ -46,76 +67,110 @@ export default {
         .then((response) => response.json())
         .then((data) => (this.users = data));
     },
-    addClick() {
-      this.user_id = 0;
-      this.firstName = "";
-      this.lastName = "";
-      this.email = "";
-      this.password = "";
-      this.title = "";
-      this.location = "";
-      this.location_id = "";
-      this.role_id = 0;
-      this.edu_id = "";
-      this.edu_name = "";
+    addUser() {
+      this.user.modalTitle = "Tilføj en ny bruger";
+      this.user.user_id = 0;
+      this.user.firstName = "";
+      this.user.lastName = "";
+      this.user.email = "";
+      this.user.password = "";
+      this.user.title = "";
+      this.user.location = "";
+      this.user.location_id = 0;
+      this.user.role_id = 0;
+      this.user.edu_id = "";
+      this.user.edu_name = "";
     },
-    editUser(user) {
-      this.modalTitle = "Rediger "+ user.firstName + "s profil";
-      this.user_id = user.user_id;
-      this.firstName = user.firstName;
-      this.lastName = user.lastName;
-      this.email = user.email;
-      this.password = user.password;
-      this.title = user.title;
-      this.location = user.location;
-      this.location_id = user.location_id;
-      this.role_id = user.role_id;
-      this.edu_id = user.edu_id;
-      this.edu_name = user.edu_name;
+    editUser(u) {
+      this.user.modalTitle = "Rediger bruger";
+      this.user.user_id = u.user_id;
+      this.user.firstName = u.firstName;
+      this.user.lastName = u.lastName;
+      this.user.email = u.email;
+      this.user.password = u.password;
+      this.user.title = u.title;
+      this.user.location = u.location;
+      this.user.location_id = u.location_id;
+      this.user.role_id = u.role_id;
+      this.user.edu_id = u.edu_id;
+      this.user.edu_name = u.edu_name;
     },
-    createClick() {
-      fetch("https://uclssapitest.azurewebsites.net/api/user/", {
+    async createUser() {
+      let id = 0;
+      let educationList = this.user.edu_id.split(",");
+      let realEducationList = [];
+      for (let i = 0; i < educationList.length; i++) {
+        realEducationList.push(Number(educationList[i]))
+      }
+      await fetch("https://uclssapitest.azurewebsites.net/api/User/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_id: this.user_id,
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          password: this.email,
-          title: this.title,
-          location: this.location,
-          location_id: this.location_id,
-          role_id: this.role_id,
-          edu_id: this.edu_id,
-          edu_name: this.edu_name,
+          user_id: this.user.user_id,
+          firstName: this.user.firstName,
+          lastName: this.user.lastName,
+          email: this.user.email,
+          password: this.user.email,
+          title: this.user.title,
+          location: "string",
+          location_id: "string",
+          role_id: this.user.role_id,
+          edu_id: "string",
+          edu_name: "string"
         }),
       })
-      .then((response) => {
-            response.json()
-            this.getUsers();
-        });
+      .then(response => response.json())
+      .then(response => {
+        id = response.user_id;
+        console.log(id);
+      });
+      //EduUser
+      for (let i = 0; i < educationList.length; i++) {
+        fetch("https://uclssapitest.azurewebsites.net/api/EduUser/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: id,
+            edu_id: realEducationList[i]
+          }),
+        })
+        .then(response => response.json());
+      };
+      //LocationUser
+      fetch("https://uclssapitest.azurewebsites.net/api/LocationUser/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: id,
+            location_id: this.user.location_id
+          }),
+        })
+        .then(response => response.json());
     },
-    updateClick(user_id) {
+    updateUser(user_id) {
       fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_id: this.user_id,
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          password: this.email,
-          title: this.title,
-          location: this.location,
-          location_id: this.location_id,
-          role_id: this.role_id,
-          edu_id: this.edu_id,
-          edu_name: this.edu_name,
+          user_id: this.user.user_id,
+          firstName: this.user.firstName,
+          lastName: this.user.lastName,
+          email: this.user.email,
+          password: this.user.email,
+          title: this.user.title,
+          location: this.user.location,
+          location_id: this.user.location_id,
+          role_id: this.user.role_id,
+          edu_id: this.user.edu_id,
+          edu_name: this.user.edu_name,
         }),
       })
         .then((response) => {
@@ -141,27 +196,28 @@ export default {
         .then((response) => response.json())
         .then((data) => (this.subjects = data));
     },
-    addClick() {
-      this.subject_id = 0;
-      this.name = "";
-      this.description = "";
+    addSubject() {
+      this.subject.modalTitle = "Tilføj et nyt emne";
+      this.subject.subject_id = 0;
+      this.subject.name = "";
+      this.subject.description = "";
     },
-    editSubject(subject) {
-      this.modalTitle = "Rediger emne";
-      this.subject_id = subject.subject_id;
-      this.name = subject.name;
-      this.description = subject.description;
+    editSubject(s) {
+      this.subject.modalTitle = "Rediger emne";
+      this.subject.subject_id = s.subject_id;
+      this.subject.name = s.name;
+      this.subject.description = s.description;
     },
-    createClick() {
+    createSubject() {
       fetch("https://uclssapitest.azurewebsites.net/api/subject/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          subject_id: this.subject_id,
-          name: this.name,
-          description: this.description
+          subject_id: this.subject.subject_id,
+          name: this.subject.name,
+          description: this.subject.description
         }),
       })
       .then((response) => {
@@ -169,16 +225,16 @@ export default {
             this.getSubjects();
         });
     },
-    updateClick(subject_id) {
+    updateSubject(subject_id) {
       fetch("https://uclssapitest.azurewebsites.net/api/subject/" + subject_id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          subject_id: this.subject_id,
-          name: this.name,
-          description: this.description
+          subject_id: this.subject.subject_id,
+          name: this.subject.name,
+          description: this.subject.description
         }),
       })
         .then((response) => {
@@ -198,78 +254,129 @@ export default {
             this.getSubjects();
         });
     },
+    //Methodes for the location tab
     getLocations() {
       fetch("https://uclssapitest.azurewebsites.net/api/location")
         .then((response) => response.json())
         .then((data) => (this.locations = data));
     },
-    toggleEditMode(location_id) {
-      this.disabled = false;
-      document.getElementsByClassName("edit-editlocation")[0].style.display =
-        "none";
-      document.getElementsByClassName("save-editlocation")[0].style.display =
-        "block";
+    addLocation() {
+      this.location.modalTitle = "Tilføj en ny lokation";
+      this.location.location_id = 0;
+      this.location.name = "";
     },
-    editLocation(location_id, name) {
-      fetch(
-        "https://uclssapitest.azurewebsites.net/api/location/" + location_id,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            location_id: location_id,
-            name: name,
-          }),
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => console.log(data));
-      this.disabled = true;
-      document.getElementsByClassName("edit-editlocation")[0].style.display =
-        "block";
-      document.getElementsByClassName("save-editlocation")[0].style.display =
-        "none";
+    editLocation(l) {
+      this.location.modalTitle = "Rediger lokation";
+      this.location.location_id = l.location_id;
+      this.location.name = l.name;
+    },
+    createLocation() {
+      fetch("https://uclssapitest.azurewebsites.net/api/location/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          location_id: this.location.location_id,
+          name: this.location.name
+        }),
+      })
+      .then((response) => {
+            response.json()
+            this.getLocations();
+        });
+    },
+    updateLocation(location_id) {
+      fetch("https://uclssapitest.azurewebsites.net/api/location/" + location_id, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          location_id: this.location.location_id,
+          name: this.location.name
+        }),
+      })
+        .then((response) => {
+            response.json()
+            this.getLocations();
+        });
     },
     deleteLocation(location_id) {
-      fetch(
-        "https://uclssapitest.azurewebsites.net/api/location/" + location_id,
-        { method: "DELETE" }
-      ).then(() => (this.status = "Delete successful"));
+      if(!confirm("Er du sikker på at du vil slette lokationen?")){
+            return;
+        }
+      fetch("https://uclssapitest.azurewebsites.net/api/location/" + location_id, {
+        method: "DELETE",
+      })
+      .then((response)=>{
+            response.json()
+            this.getLocations();
+        });
     },
-    //post, delete, edit locations
+    //Methodes for the education tab
     getEducations() {
       fetch("https://uclssapitest.azurewebsites.net/api/education")
         .then((response) => response.json())
         .then((data) => (this.educations = data));
     },
-    toggleEditMode(edu_id) {
-      this.disabled = false;
-      document.getElementsByClassName("edit-editeducation")[0].style.display =
-        "none";
-      document.getElementsByClassName("save-editeducation")[0].style.display =
-        "block";
+    addEducation() {
+      this.education.modalTitle = "Tilføj en ny uddannelse";
+      this.education.edu_id = 0;
+      this.education.name = "";
+      this.education.location = "";
     },
-    editEducation(edu_id, name) {
+    editEducation(e) {
+      this.education.modalTitle = "Rediger uddannelse";
+      this.education.edu_id = e.edu_id;
+      this.education.name = e.name;
+      this.education.location = e.location;
+    },
+    createEducation() {
+      fetch("https://uclssapitest.azurewebsites.net/api/education/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          edu_id: this.education.edu_id,
+          name: this.education.name,
+          location: this.education.location
+        }),
+      })
+      .then((response) => {
+            response.json()
+            this.getEducations();
+        });
+    },
+    updateEducation(edu_id) {
       fetch("https://uclssapitest.azurewebsites.net/api/education/" + edu_id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          edu_id: edu_id,
-          name: name,
-          location: location,
+          edu_id: this.education.edu_id,
+          name: this.education.name,
+          location: this.education.location
         }),
       })
-        .then((response) => response.json())
-        .then((data) => console.log(data));
-      this.disabled = true;
-      document.getElementsByClassName("edit-editeducation")[0].style.display =
-        "block";
-      document.getElementsByClassName("save-editeducation")[0].style.display =
-        "none";
+        .then((response) => {
+            response.json()
+            this.getEducations();
+        });
+    },
+    deleteEducation(edu_id) {
+      if(!confirm("Er du sikker på at du vil slette uddannelsen?")){
+            return;
+        }
+      fetch("https://uclssapitest.azurewebsites.net/api/education/" + edu_id, {
+        method: "DELETE",
+      })
+      .then((response)=>{
+            response.json()
+            this.getEducations();
+        });
     },
   },
   beforeMount() {
@@ -282,89 +389,162 @@ export default {
 </script>
 <template>
   <div class="settings">
-    <div class="modal" v-if="userModalShow">
+    <!--Modal for the users-->
+    <div class="modal" v-if="user.userModalShow">
       <div class="modal-container">
-        <h2 class="modal-title">Tilføj en ny bruger</h2>
+        <h2 class="modal-title">{{user.modalTitle}}</h2>
         <div class="modal-content">
           <div class="input-container">
             <span>Fornavn</span>
-            <input type="text" v-model="firstName" />
+            <input type="text" v-model="user.firstName" />
           </div>
           <div class="input-container">
             <span>Efternavn</span>
-            <input type="text" v-model="lastName" />
+            <input type="text" v-model="user.lastName" />
           </div>
           <div class="input-container">
             <span>Email</span>
-            <input type="text" v-model="email" />
+            <input type="text" v-model="user.email" />
           </div>
           <div class="input-container">
-            <span>Role_id</span>
-            <input type="text" v-model="role_id" />
+            <span>Role id</span>
+            <input type="text" v-model="user.role_id" />
           </div>
           <div class="input-container">
-            <span>Edu_id</span>
-            <input type="text" v-model="edu_id" />
+            <span>Password</span>
+            <input type="text" v-model="user.password" />
+          </div>
+          <div class="input-container">
+            <span>Education id</span>
+            <input type="text" v-model="user.edu_id" />
+          </div>
+          <div class="input-container">
+            <span>Location id</span>
+            <input type="number" v-model="user.location_id" />
           </div>
         </div>
         <div class="action-container">
           <button
             class="yellow-button"
-            v-if="user_id == 0"
-            @click="createClick(), (userModalShow = false)"
+            v-if="user.user_id == 0"
+            @click="createUser(), (user.userModalShow = false)"
           >
             Opret
           </button>
           <button 
             class="yellow-button"
-            v-if="user_id != 0" 
-            @click="updateClick(user_id), (userModalShow = false)"
+            v-if="user.user_id != 0" 
+            @click="updateUser(user.user_id), (user.userModalShow = false)"
           >
             Opdater
           </button>
-          <button @click="userModalShow = false">Luk</button>
+          <button @click="user.userModalShow = false">Luk</button>
         </div>
       </div>
     </div>
-    <div class="modal" v-if="subjectModalShow">
+    <!--Modal for the subjects-->
+    <div class="modal" v-if="subject.subjectModalShow">
       <div class="modal-container">
-        <h2 class="modal-title">Tilføj et nyt emne</h2>
+        <h2 class="modal-title">{{subject.modalTitle}}</h2>
         <div class="modal-content">
           <div class="input-container">
             <span>Name</span>
-            <input type="text" v-model="name" />
+            <input type="text" v-model="subject.name" />
           </div>
           <div class="input-container">
             <span>Hjælpebeskrivelse</span>
-            <input type="text" v-model="description" />
+            <input type="text" v-model="subject.description" />
           </div>
         </div>
         <div class="action-container">
           <button
             class="yellow-button"
-            v-if="subject_id == 0"
-            @click="createClick(), (subjectModalShow = false)"
+            v-if="subject.subject_id == 0"
+            @click="createSubject(), (subject.subjectModalShow = false)"
           >
             Opret
           </button>
           <button 
             class="yellow-button"
-            v-if="subject_id != 0" 
-            @click="updateClick(subject_id), (subjectModalShow = false)"
+            v-if="subject.subject_id != 0" 
+            @click="updateSubject(subject.subject_id), (subject.subjectModalShow = false)"
           >
             Opdater
           </button>
-          <button @click="subjectModalShow = false">Luk</button>
+          <button @click="subject.subjectModalShow = false">Luk</button>
+        </div>
+      </div>
+    </div>
+    <!--Modal for the locations-->
+    <div class="modal" v-if="location.locationModalShow">
+      <div class="modal-container">
+        <h2 class="modal-title">{{location.modalTitle}}</h2>
+        <div class="modal-content">
+          <div class="input-container">
+            <span>Name</span>
+            <input type="text" v-model="location.name" />
+          </div>
+        </div>
+        <div class="action-container">
+          <button
+            class="yellow-button"
+            v-if="location.location_id == 0"
+            @click="createLocation(), (location.locationModalShow = false)"
+          >
+            Opret
+          </button>
+          <button 
+            class="yellow-button"
+            v-if="location.location_id != 0" 
+            @click="updateLocation(location.location_id), (location.locationModalShow = false)"
+          >
+            Opdater
+          </button>
+          <button @click="location.locationModalShow = false">Luk</button>
+        </div>
+      </div>
+    </div>
+    <!--Modal for the educations-->
+    <div class="modal" v-if="education.educationModalShow">
+      <div class="modal-container">
+        <h2 class="modal-title">{{education.modalTitle}}</h2>
+        <div class="modal-content">
+          <div class="input-container">
+            <span>Name</span>
+            <input type="text" v-model="education.name" />
+          </div>
+          <div class="input-container">
+            <span>Sted</span>
+            <input type="text" v-model="education.location" />
+          </div>
+        </div>
+        <div class="action-container">
+          <button
+            class="yellow-button"
+            v-if="education.edu_id == 0"
+            @click="createEducation(), (education.educationModalShow = false)"
+          >
+            Opret
+          </button>
+          <button 
+            class="yellow-button"
+            v-if="education.edu_id != 0" 
+            @click="updateEducation(education.edu_id), (education.educationModalShow = false)"
+          >
+            Opdater
+          </button>
+          <button @click="education.educationModalShow = false">Luk</button>
         </div>
       </div>
     </div>
     <div class="settings-container">
+      <!--Tab for the users-->
       <tab :tabList="tabList">
         <template v-slot:tabPanel-1>
           <div class="header">
             <h2>Brugere</h2>
-            <button @click="addClick(user), (userModalShow = true)">
-              Tilføj ny bruger
+            <button class="yellow-button-tab" @click="addUser(user), (user.userModalShow = true)">
+              Tilføj en ny bruger
             </button>
           </div>
           <table>
@@ -378,20 +558,20 @@ export default {
               </tr>
             </thead>
             <tbody>
-              <tr v-for="user in users" :key="user.user_id">
+              <tr v-for="u in users" :key="u.user_id">
                 <td>
-                  <p>{{ user.firstName }}</p>
+                  <p>{{ u.firstName }}</p>
                 </td>
                 <td>
-                  <p>{{ user.lastName }}</p>
+                  <p>{{ u.lastName }}</p>
                 </td>
                 <td>
-                  <p>{{ user.email }}</p>
+                  <p>{{ u.email }}</p>
                 </td>
-                <td>{{ user.title }}</td>
+                <td>{{ u.title }}</td>
                 <td class="edit_save">
                   <button
-                    @click="editUser(user), (userModalShow = true)"
+                    @click="editUser(u), (user.userModalShow = true)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -439,11 +619,12 @@ export default {
             </tbody>
           </table>
         </template>
+        <!--Tab for the subjects-->
         <template v-slot:tabPanel-2>
           <div class="header">
             <h2>Emner</h2>
-            <button @click="addClick(subject), (subjectModalShow = true)">
-              Tilføj nyt emne
+            <button class="yellow-button-tab" @click="addSubject(s), (subject.subjectModalShow = true)">
+              Tilføj et nyt emne
             </button>
           </div>
           <table>
@@ -455,16 +636,16 @@ export default {
               </tr>
             </thead>
             <tbody>
-              <tr v-for="subject in subjects" :key="subject.subject_id">
+              <tr v-for="s in subjects" :key="s.subject_id">
                 <td>
-                  <p>{{ subject.name }}</p>
+                  <p>{{ s.name }}</p>
                 </td>
                 <td>
-                  <p>{{ subject.description }}</p>
+                  <p>{{ s.description }}</p>
                 </td>
                 <td class="edit_save">
                   <button
-                    @click="editSubject(subject), (subjectModalShow = true)"
+                    @click="editSubject(s), (subject.subjectModalShow = true)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -512,10 +693,13 @@ export default {
             </tbody>
           </table>
         </template>
+        <!--Tab for the locations-->
         <template v-slot:tabPanel-3>
           <div class="header">
             <h2>Lokationer</h2>
-            <button>Tilføj ny lokation</button>
+            <button class="yellow-button-tab" @click="addLocation(location), (location.locationModalShow = true)">
+              Tilføj en ny lokation
+            </button>
           </div>
           <table>
             <thead>
@@ -525,39 +709,13 @@ export default {
               </tr>
             </thead>
             <tbody>
-              <tr v-for="location in locations" :key="location.location_id">
+              <tr v-for="l in locations" :key="l.location_id">
                 <td>
-                  <p>{{ location.name }}</p>
+                  <p>{{ l.name }}</p>
                 </td>
                 <td class="edit_save">
                   <button
-                    class="save save-editlocation"
-                    @click="editLocation(location.location_id, location.name)"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="19.996"
-                      height="19.996"
-                      viewBox="0 0 19.996 19.996"
-                    >
-                      <g
-                        id="Group_515"
-                        data-name="Group 515"
-                        transform="translate(-1210.069 -497.5)"
-                      >
-                        <path
-                          id="_2228276036f5689efb63c251f173c8b0"
-                          data-name="2228276036f5689efb63c251f173c8b0"
-                          d="M23.007,10.32,16.341,3.655a1.111,1.111,0,0,0-.355-.233,1.211,1.211,0,0,0-.433-.089H6.665A3.333,3.333,0,0,0,3.333,6.665V20a3.333,3.333,0,0,0,3.333,3.333H20A3.333,3.333,0,0,0,23.329,20V11.109A1.111,1.111,0,0,0,23.007,10.32ZM10,5.554h4.444V7.776H10Zm6.665,15.553H10V17.774a1.111,1.111,0,0,1,1.111-1.111h4.444a1.111,1.111,0,0,1,1.111,1.111ZM21.107,20A1.111,1.111,0,0,1,20,21.107H18.885V17.774a3.333,3.333,0,0,0-3.333-3.333H11.109a3.333,3.333,0,0,0-3.333,3.333v3.333H6.665A1.111,1.111,0,0,1,5.554,20V6.665A1.111,1.111,0,0,1,6.665,5.554H7.776V8.887A1.111,1.111,0,0,0,8.887,10h6.665a1.111,1.111,0,0,0,1.111-1.111V7.121l4.444,4.444Z"
-                          transform="translate(1206.736 494.167)"
-                          fill="#198754"
-                        />
-                      </g>
-                    </svg>
-                  </button>
-                  <button
-                    class="edit-editlocation"
-                    @click="toggleEditMode(location.location_id)"
+                    @click="editLocation(l), (location.locationModalShow = true)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -579,10 +737,7 @@ export default {
                       </g>
                     </svg>
                   </button>
-                  <button
-                    class="delete"
-                    @click="deleteLocation(location.location_id)"
-                  >
+                  <button class="delete" @click="deleteLocation(location.location_id)">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="59.825"
@@ -608,10 +763,13 @@ export default {
             </tbody>
           </table>
         </template>
-        <template v-slot:tabPanel-4>
+       <!--Tab for the educations-->
+       <template v-slot:tabPanel-4>
           <div class="header">
-            <h2>Uddannelse</h2>
-            <button>Tilføj ny uddannelse</button>
+            <h2>Uddannelser</h2>
+            <button class="yellow-button-tab" @click="addEducation(education), (education.educationModalShow = true)">
+              Tilføj en ny uddannelse
+            </button>
           </div>
           <table>
             <thead>
@@ -622,48 +780,16 @@ export default {
               </tr>
             </thead>
             <tbody>
-              <tr v-for="education in educations" :key="education.edu_id">
+              <tr v-for="e in educations" :key="e.edu_id">
                 <td>
-                  <p>{{ education.name }}</p>
+                  <p>{{ e.name }}</p>
                 </td>
                 <td>
-                  <p>{{ education.location }}</p>
+                  <p>{{ e.location }}</p>
                 </td>
                 <td class="edit_save">
                   <button
-                    class="save save-editeducation"
-                    @click="
-                      editEducation(
-                        education.edu_id,
-                        education.name,
-                        education.location
-                      )
-                    "
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="19.996"
-                      height="19.996"
-                      viewBox="0 0 19.996 19.996"
-                    >
-                      <g
-                        id="Group_515"
-                        data-name="Group 515"
-                        transform="translate(-1210.069 -497.5)"
-                      >
-                        <path
-                          id="_2228276036f5689efb63c251f173c8b0"
-                          data-name="2228276036f5689efb63c251f173c8b0"
-                          d="M23.007,10.32,16.341,3.655a1.111,1.111,0,0,0-.355-.233,1.211,1.211,0,0,0-.433-.089H6.665A3.333,3.333,0,0,0,3.333,6.665V20a3.333,3.333,0,0,0,3.333,3.333H20A3.333,3.333,0,0,0,23.329,20V11.109A1.111,1.111,0,0,0,23.007,10.32ZM10,5.554h4.444V7.776H10Zm6.665,15.553H10V17.774a1.111,1.111,0,0,1,1.111-1.111h4.444a1.111,1.111,0,0,1,1.111,1.111ZM21.107,20A1.111,1.111,0,0,1,20,21.107H18.885V17.774a3.333,3.333,0,0,0-3.333-3.333H11.109a3.333,3.333,0,0,0-3.333,3.333v3.333H6.665A1.111,1.111,0,0,1,5.554,20V6.665A1.111,1.111,0,0,1,6.665,5.554H7.776V8.887A1.111,1.111,0,0,0,8.887,10h6.665a1.111,1.111,0,0,0,1.111-1.111V7.121l4.444,4.444Z"
-                          transform="translate(1206.736 494.167)"
-                          fill="#198754"
-                        />
-                      </g>
-                    </svg>
-                  </button>
-                  <button
-                    class="edit-editeducation"
-                    @click="toggleEditMode(education.edu_id)"
+                    @click="editEducation(e), (education.educationModalShow = true)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -685,10 +811,7 @@ export default {
                       </g>
                     </svg>
                   </button>
-                  <button
-                    class="delete"
-                    @click="deleteEducation(education.edu_id)"
-                  >
+                  <button class="delete" @click="deleteEducation(education.edu_id)">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="59.825"
@@ -759,8 +882,9 @@ export default {
 
       .modal-content {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         .input-container {
+          min-width: 300px;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -774,7 +898,8 @@ export default {
             color: $Midnight-Green;
             font-size: 16px;
             padding: 8px;
-            margin-right:32px;
+            margin-bottom:24px;
+            width: 100%;
             border: 1px solid $Midnight-Green;
             &:focus-visible {
               padding: 7px;
