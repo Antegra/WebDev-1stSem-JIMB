@@ -167,6 +167,7 @@ function showCase(e) {
     border-radius: 12px;
 
     transform: translatey(-20px);
+    margin-bottom: -18px;
 
 
     span {
