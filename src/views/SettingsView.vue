@@ -942,11 +942,14 @@ export default {
   }
   .settings-container {
     @include flowDesign;
-    width: unset;
+    
     padding: 40px;
+    flex-direction: unset;
+    justify-content: unset;
 
     .tab {
       max-width: 1080px;
+      width: 100%;
     }
 
     .header {
