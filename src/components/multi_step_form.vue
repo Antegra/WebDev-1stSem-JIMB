@@ -920,7 +920,7 @@ async function done() {
     }
 
     .subjects {
-        width: 240px;
+        width: 224px;
         height: 50px;
         position: relative;
 
@@ -949,7 +949,7 @@ async function done() {
 
             position: absolute;
             top: -8px;
-            right: 8px;
+            right: -10px;
 
             &:hover {
                 span {
