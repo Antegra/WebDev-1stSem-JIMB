@@ -45,7 +45,7 @@ let sp_3 = ref("Hvem blev vejledt?");
 let persons = ref([]);
 
 let sp_4 = ref("Niveau");
-let niveaus = ref([{id: 10, name: "Nuværende studerende" }, {id: 20, name: "Potentielle studerende"}]);
+let niveaus = ref([{ id: 10, name: "Nuværende studerende" }, { id: 20, name: "Potentielle studerende" }]);
 
 // step 3 - Uddannelsested
 let sp_5 = ref("Uddannelsested");
@@ -54,19 +54,19 @@ let locations = ref([]);
 let educations = ref([]);
 let f_educations = ref([]);
 
-if(user[0].edu_id.length > 1) {
+if (user[0].edu_id.length > 1) {
     let user_edu_name = user[0].edu_name.split(",");
     let user_edu_id = user[0].edu_id.split(",");
     let user_edu_real_id = [];
-    for(let i = 0; i < user_edu_id.length; i++) {
-        user_edu_real_id.push(Number(user_edu_id[i])); 
+    for (let i = 0; i < user_edu_id.length; i++) {
+        user_edu_real_id.push(Number(user_edu_id[i]));
     }
 
-let user_edu_id_sorted = user_edu_real_id.sort(function(a, b){return a-b});
+    let user_edu_id_sorted = user_edu_real_id.sort(function (a, b) { return a - b });
 
-for(let i = 0; i < user_edu_id_sorted.length; i++) {
+    for (let i = 0; i < user_edu_id_sorted.length; i++) {
 
-        f_educations.value.push({id: user_edu_id_sorted[i], name: user_edu_name[i]})
+        f_educations.value.push({ id: user_edu_id_sorted[i], name: user_edu_name[i] })
     }
 
 } else {
@@ -74,8 +74,8 @@ for(let i = 0; i < user_edu_id_sorted.length; i++) {
     let user_edu_id = user[0].edu_id;
 
 
-    for(let i = 0; i < user_edu_id.length; i++) {
-        f_educations.value.push({id: user_edu_id, name: user_edu_name})
+    for (let i = 0; i < user_edu_id.length; i++) {
+        f_educations.value.push({ id: user_edu_id, name: user_edu_name })
     }
 }
 
@@ -377,7 +377,7 @@ async function done() {
     var c = ((15 < anwsers.niveau) ? false : true);
     let case_id = 0;
 
-   try {
+    try {
         const params = {
             "case_id": 0,
             "month": anwsers.month,
@@ -487,7 +487,7 @@ async function done() {
 
     step.value = 1;
 
-    window.location.href = '/?succes=true'; 
+    window.location.href = '/?succes=true';
 
 }
 
@@ -521,14 +521,17 @@ async function done() {
                 <h2>{{ sp_1 }}</h2>
                 <div class="form-group-1-1 form-style">
                     <select @change="month($event)">
-                        <option v-for="date in select_month" :value="date.id"> {{ date.name }}</option>
+                        <option class="form-text" v-for="date in select_month" :value="date.id"> {{ date.name }}
+                        </option>
                     </select>
                     <!-- <button v-on:click="getText()">test</button> -->
                 </div>
                 <h2>{{ sp_2 }}</h2>
                 <p class="alert_text alert_1 ">* Vælg venligst type henvændelse</p>
                 <div class="form-group-1-2 form-style">
-                    <button v-for="type in types" @click="meeting(type.id)" :id="type.id"> {{ type.name }} </button>
+                    <button class="form-text" v-for="type in types" @click="meeting(type.id)" :id="type.id"> {{
+                            type.name
+                    }} </button>
                 </div>
             </div>
 
@@ -563,7 +566,9 @@ async function done() {
             <h2>{{ sp_3 }}</h2>
             <p class="alert_text alert_2">* Du mangler noget her </p>
             <div class="form-group-2-1 form-style">
-                <button v-for="person in persons" @click="sex(person)" :id="person.name"> {{ person.name }}
+                <button class="form-text" v-for="person in persons" @click="sex(person)" :id="person.name"> {{
+                        person.name
+                }}
                 </button>
             </div>
 
@@ -574,7 +579,7 @@ async function done() {
             </div>
 
             <div class="navigation-group">
-                <div class="back"><input class="form_btn button back" type="submit" value="Tilbage"
+                <div class="back "><input class="form_btn button back" type="submit" value="Tilbage"
                         @click.prevent="previous(1)"></div>
                 <div class="seperatordiv"></div>
                 <div class="next"><input class="form_btn button next" type="submit" value="Næste"
@@ -605,9 +610,10 @@ async function done() {
             <h2>{{ sp_5 }}</h2>
             <p class="alert_text alert_4">* Du mangler noget her...</p>
             <div class="form-group-3-1 form-style">
-                <button v-for="location in locations" :id="location.name" @click="location_anwser(location)"> {{
-                        location.name
-                }}
+                <button class="form-text" v-for="location in locations" :id="location.name"
+                    @click="location_anwser(location)"> {{
+                            location.name
+                    }}
                 </button>
             </div>
 
@@ -615,19 +621,21 @@ async function done() {
             <p class="alert_text alert_5">* Du mangler noget her...</p>
             <div class="educations form-group-3-2 form-style">
                 <div v-for="educations in f_educations" :key="educations">
-                    <button @click="educations_anwser(educations)" :id="educations.name"> {{ educations.name }}
+                    <button class="form-text" @click="educations_anwser(educations)" :id="educations.name"> {{
+                            educations.name
+                    }}
                     </button>
                     <span>Fast</span>
                 </div>
             </div>
 
             <div class="search-box position-fix">
-                <input type="text" v-model="input_educations" placeholder="Søg..." />
+                <input class="form-text" type="text" v-model="input_educations" placeholder="Søg..." />
             </div>
 
             <div class="educations loadbtn">
-                <button v-for="educations in filteredEducations" :id="educations.name" :key="educations"
-                    @click="educations_anwser(educations)"> {{
+                <button class="form-text" v-for="educations in filteredEducations" :id="educations.name"
+                    :key="educations" @click="educations_anwser(educations)"> {{
                             educations.name
                     }}
                 </button>
@@ -681,7 +689,7 @@ async function done() {
             <h2>{{ sp_6 }}</h2>
 
             <div class="search-box">
-                <input type="text" v-model="input_subjects" placeholder="Søg..." />
+                <input class="form-text" type="text" v-model="input_subjects" placeholder="Søg..." />
             </div>
             <p class="alert_text alert_6">* Du mangler noget her...</p>
             <div class="educations form-group-4-1 form-style">
@@ -691,8 +699,8 @@ async function done() {
                     <p v-show="subject.description" id="subject_icon">i<span id="subject_test"> {{ subject.description
                     }}</span></p>
 
-                    <button :id="subject.name" :class="{ 'selected': subject.isSelected }" :key="subject"
-                        @click="subject_anwser({ ...subject, index: index })"> {{
+                    <button class="form-text" :id="subject.name" :class="{ 'selected': subject.isSelected }"
+                        :key="subject" @click="subject_anwser({ ...subject, index: index })"> {{
                                 subject.name
                         }}
                     </button>
@@ -704,9 +712,10 @@ async function done() {
             <h2 class="seperator"> Hvor lang tid tog det?</h2>
             <p class="alert_text alert_7">* Du mangler noget her...</p>
             <div class="form-group-4-2 form-style">
-                <button v-for="duration in durations" :id="duration.name" @click="duration_anwser(duration)"> {{
-                        duration.name
-                }}</button>
+                <button class="form-text" v-for="duration in durations" :id="duration.name"
+                    @click="duration_anwser(duration)"> {{
+                            duration.name
+                    }}</button>
             </div>
 
             <div class="navigation-group">
@@ -763,7 +772,7 @@ async function done() {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    max-width: 861px;
+    max-width: 801px;
     position: absolute;
     top: -120px;
 
@@ -927,7 +936,7 @@ async function done() {
         #subject_icon {
             font-style: italic;
             font-size: 14px;
-            color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
             background-color: $Verdigris;
 
             border-radius: 50%;
