@@ -48,7 +48,7 @@ export default {
 
   .button-container {
     min-width: 600px;
-    min-height: 300px;
+    min-height: 150px;
     display: flex;
     justify-content: space-around;
     align-items: center;

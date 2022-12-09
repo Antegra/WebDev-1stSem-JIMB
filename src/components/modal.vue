@@ -29,7 +29,7 @@ function CloseModel() {
 <template>
     <div id="succes-modal" class="modal-wrap">
         <div class="modal">
-            <h3>SUCCES!</h3>
+            <h3>Succes!</h3>
             <p>Du har nu oprettet en ny sag!</p>
             <button @click="CloseModel">Luk</button>
 
@@ -221,21 +221,30 @@ function CloseModel() {
     transition: 1s ease;
 
     .modal {
-        max-width: 502px;
+      h3 {
+        font-size: 32px;
+        
+      }
+        max-width: 861px;
         width: 100%;
-        height: 250px;
+        height: 333px;
         border-radius: 10px;
         box-shadow: $stdDropshadow;
-        background: green;
-        padding: 20px;
+        background: $Midnight-Green;
+  
         text-align: center;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         display:flex;
         color: #fff;
+        margin-top: 43px;
         button {
             margin-top: 20px;
+            color: $Midnight-Green;
+            background: $Maize;
+            font-size: 16px;
+            font-weight: bold;
             z-index: 5;
             &:hover {
                 opacity: 1;

@@ -75,17 +75,35 @@ header {
   .wrapper {
     width: 100%;
     max-width: 1057px;
+    
 
     nav {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
       padding-top: 2rem;
+      
 
       .navigation-link {
+        color: #000;
+        text-decoration: none;
+        margin-right: 40px;
+        font-weight: 600;
+        color: $Midnight-Green;
+        padding: 1rem 0;
         cursor: pointer;
+        .material-symbols-outlined {
+            position: relative;
+            top: 5px;
+            font-variation-settings:
+              'FILL' 0,
+              'wght' 400,
+              'GRAD' 0,
+              'opsz' 100
+          }
       }
 
+      
       .logo {
         max-width: 220px;
       }
@@ -168,7 +186,8 @@ header {
 
           .navigation-link {
             padding: 1rem 0;
-            color: white;
+            color: white!important;
+            
             text-decoration: none;
           }
 
