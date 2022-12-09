@@ -575,7 +575,7 @@ export default {
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="59.825"
+                      width="59.20"
                       height="20"
                       viewBox="0 0 59.825 20"
                     >
@@ -855,7 +855,6 @@ export default {
 
 .settings {
   @include mainWrap;
-  max-width: unset;
 
   .modal {
     height: 100%;
@@ -948,9 +947,8 @@ export default {
     justify-content: unset;
 
     .tab {
-      max-width: 1080px;
+      max-width: 861px;
       width: 100%;
-      
     }
 
     .header {
@@ -983,7 +981,6 @@ export default {
 
           p {
             margin: 0;
-            width: 150px;
           }
         }
         th {
@@ -1001,7 +998,7 @@ export default {
             width: 30px !important;
 
             svg {
-              widows: 100%;
+              
             }
           }
         }
