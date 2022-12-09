@@ -19,7 +19,7 @@ namespace WebAPI___SQL.Controllers
         public async Task<ActionResult<List<User>>> GetAllUsers()
         {
             List<User> users = new List<User>();
-            string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title, STRING_AGG (edu_user.edu_id, ', ') AS edu_id FROM users INNER JOIN role ON users.role_id = role.role_id INNER JOIN edu_user ON users.user_id = edu_user.user_id GROUP BY users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title";
+            string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title, \r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.name, ','),',')) q) AS location, \r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.location_id, ','),',')) q) AS location_id,\r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(edu_user.edu_id, ','),',')) q) AS edu_id,\r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(edu.name, ','),',')) q) AS edu_name\r\nFROM users \r\nINNER JOIN role ON users.role_id = role.role_id \r\nINNER JOIN edu_user ON users.user_id = edu_user.user_id \r\nINNER JOIN edu ON edu.edu_id = edu_user.edu_id\r\nINNER JOIN location_user on users.user_id = location_user.user_id\r\nINNER JOIN locations ON location_user.location_id = locations.location_id\r\n\r\nGROUP BY users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title";
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -34,12 +34,15 @@ namespace WebAPI___SQL.Controllers
                             {
                                 user_id = Convert.ToInt32(sdr["user_id"]),
                                 firstName = Convert.ToString(sdr["firstName"]),
-                                lastName = Convert.ToString(sdr["firstName"]),
+                                lastName = Convert.ToString(sdr["lastName"]),
                                 email = Convert.ToString(sdr["email"]),
                                 password = Convert.ToString(sdr["password"]),
                                 title = Convert.ToString(sdr["title"]),
+                                location = Convert.ToString(sdr["location"]),
+                                location_id = Convert.ToString(sdr["location_id"]),
                                 role_id = Convert.ToInt32(sdr["role_id"]),
-                                edu_id = Convert.ToString(sdr["edu_id"])
+                                edu_id = Convert.ToString(sdr["edu_id"]),
+                                edu_name = Convert.ToString(sdr["edu_name"])
                             }) ;
                         }
                         con.Close();
@@ -56,7 +59,7 @@ namespace WebAPI___SQL.Controllers
         {
 
             User userObj = new User();
-            string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title, STRING_AGG (edu_user.edu_id, ', ') AS edu_id FROM users INNER JOIN role ON users.role_id = role.role_id INNER JOIN edu_user ON users.user_id = edu_user.user_id WHERE edu_user.user_id = " + id + "GROUP BY users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title";
+            string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title,\r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.name, ','),',')) q) AS location, \r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.location_id, ','),',')) q) AS location_id, \r\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(edu_user.edu_id, ','),',')) q) AS edu_id \r\nFROM users \r\nINNER JOIN role ON users.role_id = role.role_id \r\nINNER JOIN edu_user ON users.user_id = edu_user.user_id \r\nINNER JOIN location_user on users.user_id = location_user.user_id \r\nINNER JOIN locations ON location_user.location_id = locations.location_id\r\nWHERE users.user_id = " + id + "\r\nGROUP BY users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title";
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -71,12 +74,57 @@ namespace WebAPI___SQL.Controllers
                             {
                                 user_id = Convert.ToInt32(sdr["user_id"]),
                                 firstName = Convert.ToString(sdr["firstName"]),
-                                lastName = Convert.ToString(sdr["firstName"]),
+                                lastName = Convert.ToString(sdr["lastName"]),
                                 email = Convert.ToString(sdr["email"]),
                                 password = Convert.ToString(sdr["password"]),
                                 title = Convert.ToString(sdr["title"]),
+                                location = Convert.ToString(sdr["location"]),
+                                location_id = Convert.ToString(sdr["location_id"]),
                                 role_id = Convert.ToInt32(sdr["role_id"]),
                                 edu_id = Convert.ToString(sdr["edu_id"])
+                            };
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            if (userObj == null)
+            {
+                return NotFound();
+            }
+            return userObj;
+        }
+
+        // GET: api/User/login
+        [HttpGet("{email}, {password}")]
+        public async Task<ActionResult<User>> GetUsersByEmail(string email, string password)
+        {
+
+            User userObj = new User();
+            string query = "SELECT users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title,\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.name, ','),',')) q) AS location,\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(locations.location_id, ','),',')) q) AS location_id,\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(edu_user.edu_id, ','),',')) q) AS edu_id,\n(select string_agg(value,', ') from (select distinct value from string_split(string_agg(edu.name, ','),',')) q) AS edu_name\nFROM users\nINNER JOIN role ON users.role_id = role.role_id\nINNER JOIN edu_user ON users.user_id = edu_user.user_id\nINNER JOIN location_user on users.user_id = location_user.user_id\nINNER JOIN locations ON location_user.location_id = locations.location_id\nINNER JOIN edu ON edu.edu_id = edu_user.edu_id\nWHERE users.email = 'Mads' AND users.password = '123'\nGROUP BY users.user_id, users.firstName, users.lastName, users.email, users.role_id, users.password, role.title\n            ";
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            userObj = new User
+                            {
+                                user_id = Convert.ToInt32(sdr["user_id"]),
+                                firstName = Convert.ToString(sdr["firstName"]),
+                                lastName = Convert.ToString(sdr["lastName"]),
+                                email = Convert.ToString(sdr["email"]),
+                                password = Convert.ToString(sdr["password"]),
+                                title = Convert.ToString(sdr["title"]),
+                                location = Convert.ToString(sdr["location"]),
+                                location_id = Convert.ToString(sdr["location_id"]),
+                                role_id = Convert.ToInt32(sdr["role_id"]),
+                                edu_id = Convert.ToString(sdr["edu_id"]),
+                                edu_name = Convert.ToString(sdr["edu_name"])
                             };
                         }
                     }
@@ -137,7 +185,7 @@ namespace WebAPI___SQL.Controllers
             }
             using (SqlConnection con = new SqlConnection(constr))
             {
-                string query = "INSERT INTO users (firstName, lastName, email, password, role_id) VALUES (@firstName, @lastName, @email, @password, @roleId)";
+                string query = "INSERT INTO users (firstName, lastName, email, password, role_id) VALUES (@firstName, @lastName, @email, @password, @roleId) SELECT SCOPE_IDENTITY();";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Connection = con;
@@ -146,15 +194,19 @@ namespace WebAPI___SQL.Controllers
                     cmd.Parameters.AddWithValue("@email", User.email);
                     cmd.Parameters.AddWithValue("@password", User.password);
                     cmd.Parameters.AddWithValue("@roleId", User.role_id);
+
                     con.Open();
-                    int i = cmd.ExecuteNonQuery();
-                    if (i > 0)
+                    int modified = Convert.ToInt32(cmd.ExecuteScalar());
+                    User.user_id = modified;
+                    if (modified > 0)
                     {
-                        return Ok();
+                        //return Ok();
+                        return Ok(User);
                     }
                     con.Close();
                 }
             }
+            
             return BadRequest();
 
         }

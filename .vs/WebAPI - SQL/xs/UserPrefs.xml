@@ -1,0 +1,27 @@
+﻿<Properties StartupConfiguration="{FDC0890D-78D6-416A-A7A8-B9D8FDEBE4D3}|Default">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.WebAPI_220-_220SQL PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="WebAPI - SQL/Controllers/UserController.cs">
+    <Files>
+      <File FileName="WebAPI - SQL/Controllers/UserController.cs" Line="105" Column="13" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="WebAPI - SQL" expanded="True">
+            <Node name="WebAPI - SQL" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="UserController.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+</Properties>

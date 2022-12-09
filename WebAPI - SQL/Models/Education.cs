@@ -5,6 +5,7 @@ namespace WebAPI___SQL.Models
 	{
         public int edu_id { get; set; }
         public string name { get; set; }
+        public string location { get; set; }
     }
 }
 
