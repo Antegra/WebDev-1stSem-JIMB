@@ -37,14 +37,14 @@ anwsers.month = q;
 
 select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() - 1], dates.value[d.getMonth() - 2]];
 
-let sp_2 = ref("Vælge type henvendelse")
+let sp_2 = ref("Type henvendelse")
 let types = ref([]);
 
 // step 2 - Hvem blev vejledt?
 let sp_3 = ref("Hvem blev vejledt?");
 let persons = ref([]);
 
-let sp_4 = ref("Niveau");
+let sp_4 = ref("Studie status");
 let niveaus = ref([{ id: 10, name: "Nuværende studerende" }, { id: 20, name: "Potentielle studerende" }]);
 
 // step 3 - Uddannelsested
@@ -81,7 +81,7 @@ if (user[0].edu_id.length > 1) {
 
 
 // step 4 - Hvad handlede samtalen om ?
-let sp_6 = ref("Hvad handlede samtalen om ?");
+let sp_6 = ref("Samtaleemne");
 let input_subjects = ref("");
 let subjects = ref([]);
 let durations = ref([]);
@@ -536,13 +536,13 @@ async function done() {
             </div>
 
             <div class="navigation-group">
-                <div class="next"><input class="form_btn button" type="submit" value="Næste" @click.prevent="next(1)">
+                <div class="next"><input href="#sec-step" class="form_btn button" type="submit" value="Næste" @click.prevent="next(1)">
                 </div>
             </div>
         </section>
 
         <!-- step 2 - Hvem er det med -->
-        <section class="register" v-show="step === 2">
+        <section class="register" id="sec-step" v-show="step === 2">
             <div class="progress_bar">
                 <div class="1 bobble active" @click.prevent="previous(1)">
                     <p>1</p>
@@ -564,7 +564,7 @@ async function done() {
             </div>
 
             <h2>{{ sp_3 }}</h2>
-            <p class="alert_text alert_2">* Du mangler noget her </p>
+            <p class="alert_text alert_2">Du mangler noget her</p>
             <div class="form-group-2-1 form-style">
                 <button class="form-text" v-for="person in persons" @click="sex(person)" :id="person.name"> {{
                         person.name
@@ -575,7 +575,7 @@ async function done() {
             <h2 class="seperator">{{ sp_4 }}</h2>
             <p class="alert_text alert_3">* Du mangler at udfylde niveau.</p>
             <div class="form-group-2-2 form-style">
-                <button v-for="niveau in niveaus" @click="level(niveau)" :id="niveau.id"> {{ niveau.name }}</button>
+                <button class="form-text" v-for="niveau in niveaus" @click="level(niveau)" :id="niveau.id"> {{ niveau.name }}</button>
             </div>
 
             <div class="navigation-group">
@@ -608,7 +608,7 @@ async function done() {
                 </div>
             </div>
             <h2>{{ sp_5 }}</h2>
-            <p class="alert_text alert_4">* Du mangler noget her...</p>
+            <p class="alert_text alert_4">Du mangler noget her</p>
             <div class="form-group-3-1 form-style">
                 <button class="form-text" v-for="location in locations" :id="location.name"
                     @click="location_anwser(location)"> {{
@@ -617,8 +617,8 @@ async function done() {
                 </button>
             </div>
 
-            <h2 class="seperator">Vælg uddannelse(r)</h2>
-            <p class="alert_text alert_5">* Du mangler noget her...</p>
+            <h2 class="seperator">Uddannelser</h2>
+            <p class="alert_text alert_5">Du mangler noget her</p>
             <div class="educations form-group-3-2 form-style">
                 <div v-for="educations in f_educations" :key="educations">
                     <button class="form-text" @click="educations_anwser(educations)" :id="educations.name"> {{
@@ -630,7 +630,7 @@ async function done() {
             </div>
 
             <div class="search-box position-fix">
-                <input class="form-text" type="text" v-model="input_educations" placeholder="Søg..." />
+                <input class="form-text" type="text" v-model="input_educations" placeholder="Søg efter uddannelser..." />
             </div>
 
             <div class="educations loadbtn">
@@ -689,9 +689,9 @@ async function done() {
             <h2>{{ sp_6 }}</h2>
 
             <div class="search-box">
-                <input class="form-text" type="text" v-model="input_subjects" placeholder="Søg..." />
+                <input class="form-text" type="text" v-model="input_subjects" placeholder="Søg efter emner..." />
             </div>
-            <p class="alert_text alert_6">* Du mangler noget her...</p>
+            <p class="alert_text alert_6">Du mangler noget her</p>
             <div class="educations form-group-4-1 form-style">
 
                 <div class="subjects" v-for="(subject, index) in filteredSubject()">
@@ -709,8 +709,8 @@ async function done() {
 
             </div>
 
-            <h2 class="seperator"> Hvor lang tid tog det?</h2>
-            <p class="alert_text alert_7">* Du mangler noget her...</p>
+            <h2 class="seperator">Samtalens længde</h2>
+            <p class="alert_text alert_7">Du mangler noget her</p>
             <div class="form-group-4-2 form-style">
                 <button class="form-text" v-for="duration in durations" :id="duration.name"
                     @click="duration_anwser(duration)"> {{
@@ -860,11 +860,18 @@ async function done() {
 
 .alert {
     display: flex;
-    justify-content: center;
-    padding-bottom: 15px;
-    font-size: 12px;
+    padding: 13px;
+    font-size: 16px;
     color: rgb(255, 255, 255);
-    text-decoration: underline dotted red 5px;
+    border-radius: 5px;
+    background: red;
+    max-width: 300px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 20px;
+    
 }
 
 
@@ -879,12 +886,12 @@ async function done() {
 
     .form_btn {
         border: none;
-        text-transform: uppercase;
+        
         color: white;
         padding: 15px 32px;
         text-align: center;
         text-decoration: none;
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .educations {
@@ -893,12 +900,15 @@ async function done() {
         justify-content: center;
         gap: 16px;
         width: 100%;
-
+        .subjects {
+            display:flex;
+        }
 
 
         button {
             width: 170px;
             height: 40px;
+         
         }
 
         span {
@@ -928,15 +938,21 @@ async function done() {
             position: absolute;
             top: -10px;
             display: none;
-            padding: 10px 10px;
+            padding: 20px;
             min-width: 200px;
             text-align: center;
+            color: $Midnight-Green;
+            font-weight: 400;
+            font-style: initial;
+            font-size: 16px;
+            background: #fff;
+            border: 1px solid $Midnight-Green;
         }
 
         #subject_icon {
             font-style: italic;
             font-size: 14px;
-            color: rgb(0, 0, 0);
+            color:fff;
             background-color: $Verdigris;
 
             border-radius: 50%;
