@@ -453,7 +453,7 @@ export default {
           </div>
           <div class="input-container">
             <span>Hjælpebeskrivelse</span>
-            <input type="text" v-model="subject.description" />
+            <textarea v-model="subject.description" />
           </div>
         </div>
         <div class="action-container">
@@ -855,6 +855,7 @@ export default {
 
 .settings {
   @include mainWrap;
+  max-width: unset;
 
   .modal {
     height: 100%;
@@ -870,7 +871,8 @@ export default {
     color: $Midnight-Green;
     
     &-container {
-      background-color: #ffffff;
+      width: 600px;
+      background-color: $Midnight-Green;;
       padding: 24px;
       display: flex;
       flex-direction: column;
@@ -878,33 +880,50 @@ export default {
       .modal-title {
         margin: 0;
         padding-bottom: 32px;
+        color: #ffffff;
       }
 
       .modal-content {
+        width: 100%;
         display: flex;
         flex-direction: column;
+        justify-content: center;
+
         .input-container {
-          min-width: 300px;
           display: flex;
           flex-direction: column;
-          justify-content: center;
-          align-items: flex-start;
-          
+
           span {
             font-weight: bold;
             font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 2px;
           }
           input {
             color: $Midnight-Green;
             font-size: 16px;
+            height: 32px;
             padding: 8px;
             margin-bottom:24px;
-            width: 100%;
-            border: 1px solid $Midnight-Green;
+
             &:focus-visible {
-              padding: 7px;
+              height: 32px;
               outline: none;
-              border: 2px solid $Midnight-Green;
+            }
+          }
+
+          textarea {
+
+            height: 64px;
+            font-size: 16px;
+            font-family: inherit;
+            color: inherit;
+            padding: 8px 0 0 8px;
+            resize: none;
+
+            &:focus-visible {
+              height: 32px;
+              outline: none;
             }
           }
         }
@@ -913,13 +932,22 @@ export default {
         display: flex;
         flex-direction: row;
         padding-top: 32px;
-        justify-content: space-between
+        justify-content: space-between;
+        
+        button {
+          font-weight: bold;
+        }
       }
     }
   }
   .settings-container {
     @include flowDesign;
+    width: unset;
     padding: 40px;
+
+    .tab {
+      max-width: 1080px;
+    }
 
     .header {
       display: flex;
@@ -949,38 +977,9 @@ export default {
         td {
           padding: 0 16px;
 
-          input {
-            color: $Midnight-Green;
-            font-size: 16px;
-            border: solid 1px $Midnight-Green;
-            border-radius: 5px;
-            background-color: transparent;
-
-            &:focus-visible {
-              outline: none;
-            }
-
-            &:disabled {
-              border: none;
-              background-color: transparent;
-            }
-          }
-
-          textarea {
-            width: 350px;
-            resize: none;
-            font-size: 16px;
-            font-family: inherit;
-            color: inherit;
-            border: solid 1px $Midnight-Green;
-            border-radius: 5px;
-            background-color: transparent;
-            vertical-align: middle;
-
-            &:disabled {
-              border: none;
-              background: transparent;
-            }
+          p {
+            margin: 0;
+            width: 150px;
           }
         }
         th {
@@ -996,10 +995,10 @@ export default {
             cursor: pointer;
             background: none;
             width: 30px !important;
-          }
 
-          .save {
-            display: none;
+            svg {
+              widows: 100%;
+            }
           }
         }
       }
