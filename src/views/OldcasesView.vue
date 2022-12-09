@@ -75,6 +75,10 @@ function showCase(e) {
 
 .box {
 
+  h1 {
+    margin-bottom: 40px;
+  }
+
   padding: 60px 0px;
   display: flex;
   flex-direction: column;
@@ -94,7 +98,7 @@ function showCase(e) {
 
 
   .cases {
-    width: 90%;
+    width: 100%;
     margin-bottom: 14px;
 
 
@@ -103,7 +107,7 @@ function showCase(e) {
         background-color: #f2f2f2;
 
         &:hover {
-          background-color: $Tea-Rose;
+          background-color: $Maize;
         }
       }
     }
@@ -115,6 +119,8 @@ function showCase(e) {
 
   .case_top {
     display: flex;
+    margin-left: 40px;
+    margin-right: 40px;
     flex-direction: row;
     justify-content: space-around;
     align-content: center;
@@ -122,7 +128,7 @@ function showCase(e) {
     padding: 20px 0 12px;
     position: relative;
     z-index: 999;
-    border-radius: 12px;
+    border-radius: 5px;
     box-shadow: $stdDropshadow;
     transition: .5s;
     background-color: #ffffff;
@@ -135,7 +141,7 @@ function showCase(e) {
     }
 
     &:hover {
-      background-color: $Tea-Rose;
+      background-color: $Maize;
     }
 
     img {
@@ -151,6 +157,7 @@ function showCase(e) {
 
 
   .case_bottom {
+    margin: 0 40px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
