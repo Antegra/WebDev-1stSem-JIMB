@@ -950,6 +950,7 @@ export default {
     .tab {
       max-width: 1080px;
       width: 100%;
+      
     }
 
     .header {
