@@ -127,6 +127,8 @@ function showCase(e) {
     transition: .5s;
     background-color: #ffffff;
     color: $Midnight-Green;
+    cursor: pointer;
+    user-select: none;
 
     &:hover {
       background-color: $Tea-Rose;
