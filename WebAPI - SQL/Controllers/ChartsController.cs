@@ -15,6 +15,39 @@ namespace WebAPI___SQL.Controllers
             return new string[] { "value1", "value2" };
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ChartCasesPerMont>> GetChartCasesPerMonth(int id)
+        {
+
+            ChartCasesPerMonth ChartCasesPerMonthObj = new ChartCasesPerMonth();
+            string query = "SELECT COUNT(*) AS 'CasesPerMonth' FROM cases WHERE month LIKE '2022-" + id "%'; ";
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            ChartCasesPerMonthObj = new ChartCasesPerMonth
+                            {
+                                duration_id = Convert.ToInt32(sdr["duration_id"]),
+                                length = Convert.ToString(sdr["length"]),
+                            };
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            if (ChartCasesPerMonthObj == null)
+            {
+                return NotFound();
+            }
+            return ChartCasesPerMonthObj;
+        }
+
         // GET api/<ChartsController>/5
         [HttpGet("{id}")]
         public string Get(int id)
