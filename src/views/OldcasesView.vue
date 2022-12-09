@@ -79,22 +79,22 @@ function showCase(e) {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  max-width: 1080px;
+  margin: auto;
+  max-width: 861px;
   width: 100%;
-  margin: 5% 20vw;
+  margin-top: 170px;
   align-items: center;
   background: $Midnight-Green;
   border-radius: 13px;
   color: #fff;
-  box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+  box-shadow: $stdDropshadow;
   position: relative;
   background-color: $Midnight-Green;
 
 
 
   .cases {
-    width: 70%;
+    width: 90%;
     margin-bottom: 14px;
 
 
@@ -129,6 +129,10 @@ function showCase(e) {
     color: $Midnight-Green;
     cursor: pointer;
     user-select: none;
+    img {
+      filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);
+
+    }
 
     &:hover {
       background-color: $Tea-Rose;
