@@ -6,6 +6,9 @@ export default {
     tab,
   },
   data() {
+    let user = localStorage.getItem('user-token');
+    let jsonUser = JSON.parse(user);
+
     return {
       tabList: [
         "Brugere",
@@ -57,7 +60,15 @@ export default {
         edu_id: 0,
         name: "",
         location: "",
-      }
+      },
+      //profil tab
+      profileUsers: [],
+      SVUserid: jsonUser[0].user_id,
+      SVEduid: jsonUser[0].edu_id,
+      SVEduname: jsonUser[0].edu_name,
+      SVLocationid: jsonUser[0].location_id,
+      SVLocation: jsonUser[0].location,
+      SVPassword: jsonUser[0].password,
     };
   },
   methods: {
@@ -397,6 +408,17 @@ export default {
       } else {
         password.type = "password";
       }
+    },
+    setFavEdu() {
+      let educationList = this.SVEduid.split(",");
+      let realEducationList = [];
+      for (let i = 0; i < educationList.length; i++) {
+        realEducationList.push(Number(educationList[i]))
+      }
+    
+      console.log(this.educations);
+      if(this.educations.edu_id.includes(realEducationList))
+        console.log("test"); 
     }
   },
   beforeMount() {
@@ -404,6 +426,7 @@ export default {
     this.getSubjects();
     this.getLocations();
     this.getEducations();
+    this.setFavEdu();
   },
 };
 </script>
@@ -665,21 +688,24 @@ export default {
           </table>
         </template>
         <template v-slot:tabPanel-5> Eksporter data </template>
-        <template v-slot:tabPanel-6>
+        <!--Tab for the profil-->
+        <template v-slot:tabPanel-6 >
           <div class="header">
             <h2>Profil</h2>
           </div>
           <div class="educations">
             <h3>Vælg faste uddannelser</h3>
             <div class="education-grid">
-              <button v-for="education in educations" :key="education.edu_id">
-                {{ education.name }}
+              <button class="yellow-button" :key="SVEduid"> {{SVEduid}} </button>
+              <button v-for="e in educations" :key="e.edu_id">
+                {{ e.name }}
               </button>
             </div>
           </div>
           <div class="locations">
             <h3>Vælg primære uddannelsesteder</h3>
             <div class="location-grid">
+              <button class="yellow-button" :key="SVLocationid"> {{SVLocationid}} </button>
               <button v-for="location in locations" :key="location.location_id">
                 {{ location.name }}
               </button>
@@ -688,7 +714,7 @@ export default {
           <div class="password">
             <h3>Ændre din adgangskode</h3>
             <div class="password-wrapper">
-              <input type="password" value="1234" id="passwordField" >
+              <input type="password" v-model="SVPassword" id="passwordField"/>
               <button class="password-icon" @click="editPassword()"></button>
             </div>
           </div>
@@ -893,6 +919,12 @@ export default {
         justify-content: flex-start;
         gap: 16px;
         flex-wrap: wrap;
+
+        button {
+          &:nth-child(n + 10) {
+            display: block;
+          }
+        }
       }
     }
     .locations {
@@ -914,7 +946,6 @@ export default {
           font-size: 16px;
 
           &:focus-visible {
-              height: 32px;
               outline: none;
               border: none;
             }
