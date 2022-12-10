@@ -54,6 +54,9 @@ export default {
       },
       //education tab
       educations: [],
+      test: {
+        edu_id: []
+      },
       education: {
         educationModalShow: false,
         modalTitle: "",
@@ -411,14 +414,16 @@ export default {
     },
     setFavEdu() {
       let educationList = this.SVEduid.split(",");
-      let realEducationList = [];
+      var realEducationList2 = [];
       for (let i = 0; i < educationList.length; i++) {
-        realEducationList.push(Number(educationList[i]))
+        this.test.edu_id.push(Number(educationList[i]))
       }
-    
-      console.log(this.educations);
-      if(this.educations.edu_id.includes(realEducationList))
-        console.log("test"); 
+
+      console.log();
+
+
+
+
     }
   },
   beforeMount() {
@@ -689,15 +694,15 @@ export default {
         </template>
         <template v-slot:tabPanel-5> Eksporter data </template>
         <!--Tab for the profil-->
-        <template v-slot:tabPanel-6 >
+        <template v-slot:tabPanel-6>
           <div class="header">
             <h2>Profil</h2>
           </div>
           <div class="educations">
             <h3>Vælg faste uddannelser</h3>
             <div class="education-grid">
-              <button class="yellow-button" :key="SVEduid"> {{SVEduid}} </button>
-              <button v-for="e in educations" :key="e.edu_id">
+              <button v-for="e in educations" :id="e.edu_id"
+                :class="{ 'selected': this.test.edu_id.includes(e.edu_id) }" :key="e.edu_id">
                 {{ e.name }}
               </button>
             </div>
@@ -705,7 +710,7 @@ export default {
           <div class="locations">
             <h3>Vælg primære uddannelsesteder</h3>
             <div class="location-grid">
-              <button class="yellow-button" :key="SVLocationid"> {{SVLocationid}} </button>
+              <button class="yellow-button" :key="SVLocationid"> {{ SVLocationid }} </button>
               <button v-for="location in locations" :key="location.location_id">
                 {{ location.name }}
               </button>
@@ -714,7 +719,7 @@ export default {
           <div class="password">
             <h3>Ændre din adgangskode</h3>
             <div class="password-wrapper">
-              <input type="password" v-model="SVPassword" id="passwordField"/>
+              <input type="password" v-model="SVPassword" id="passwordField" />
               <button class="password-icon" @click="editPassword()"></button>
             </div>
           </div>
@@ -841,7 +846,7 @@ export default {
       display: flex;
       justify-content: space-between;
     }
-    
+
     table {
       border-collapse: collapse;
       padding: 40px;
@@ -927,6 +932,7 @@ export default {
         }
       }
     }
+
     .locations {
       .location-grid {
         width: 100%;
@@ -936,6 +942,16 @@ export default {
         flex-wrap: wrap;
       }
     }
+
+    .selected {
+      background-color: $Maize !important;
+      color: $Midnight-Green;
+      border: none;
+      font-weight: bold;
+      transition: 0.5s;
+      box-shadow: $stdDropshadow;
+    }
+
     .password {
       .password-wrapper {
         display: flex;
@@ -946,10 +962,11 @@ export default {
           font-size: 16px;
 
           &:focus-visible {
-              outline: none;
-              border: none;
-            }
+            outline: none;
+            border: none;
+          }
         }
+
         .password-icon {
           position: relative;
 
