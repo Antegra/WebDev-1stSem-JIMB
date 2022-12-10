@@ -54,9 +54,6 @@ export default {
       },
       //education tab
       educations: [],
-      test: {
-        edu_id: []
-      },
       education: {
         educationModalShow: false,
         modalTitle: "",
@@ -66,6 +63,10 @@ export default {
       },
       //profil tab
       profileUsers: [],
+      profileUser: {
+        edu_id: [],
+        location_id: []
+      },
       SVUserid: jsonUser[0].user_id,
       SVEduid: jsonUser[0].edu_id,
       SVEduname: jsonUser[0].edu_name,
@@ -412,18 +413,19 @@ export default {
         password.type = "password";
       }
     },
-    setFavEdu() {
+    setFavEducation() {
+      //split the string and pushs the values to the profilUser 
       let educationList = this.SVEduid.split(",");
-      var realEducationList2 = [];
       for (let i = 0; i < educationList.length; i++) {
-        this.test.edu_id.push(Number(educationList[i]))
+        this.profileUser.edu_id.push(Number(educationList[i]))
       }
-
-      console.log();
-
-
-
-
+    },
+    setFavLocation() {
+      //split the string and pushs the values to the profilUser 
+      let locationList = this.SVLocationid.split(",");
+      for (let i = 0; i < locationList.length; i++) {
+        this.profileUser.location_id.push(Number(locationList[i]))
+      }
     }
   },
   beforeMount() {
@@ -431,7 +433,8 @@ export default {
     this.getSubjects();
     this.getLocations();
     this.getEducations();
-    this.setFavEdu();
+    this.setFavEducation();
+    this.setFavLocation();
   },
 };
 </script>
@@ -701,18 +704,22 @@ export default {
           <div class="educations">
             <h3>Vælg faste uddannelser</h3>
             <div class="education-grid">
-              <button v-for="e in educations" :id="e.edu_id"
-                :class="{ 'selected': this.test.edu_id.includes(e.edu_id) }" :key="e.edu_id">
-                {{ e.name }}
+              <button 
+                v-for="e in educations" :id="e.edu_id"
+                :class="{ 'selected': this.profileUser.edu_id.includes(e.edu_id) }" 
+                :key="e.edu_id">
+                  {{ e.name }}
               </button>
             </div>
           </div>
           <div class="locations">
             <h3>Vælg primære uddannelsesteder</h3>
             <div class="location-grid">
-              <button class="yellow-button" :key="SVLocationid"> {{ SVLocationid }} </button>
-              <button v-for="location in locations" :key="location.location_id">
-                {{ location.name }}
+              <button 
+                v-for="l in locations" 
+                :key="location.location_id"
+                :class="{ 'selected': this.profileUser.location_id.includes(l.location_id) }">
+                  {{ l.name }}
               </button>
             </div>
           </div>
