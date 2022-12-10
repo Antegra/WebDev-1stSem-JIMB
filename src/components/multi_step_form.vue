@@ -4,20 +4,24 @@ import { API_URL } from '../connection';
 
 let user = JSON.parse(localStorage.getItem('user-token'));
 
-let step = ref(1);
+
+let step = ref(3);
 
 let anwsers = {
     month: "",
     type: 0,
     sex: 0,
     niveau: 0,
-    locations: 0,
+    locations: user[0].location_id,
     educations: [],
     subject: [],
     duration: 0,
     user_id: user[0].user_id
 
 };
+
+
+
 
 let bub1 = "Måned & type";
 let bub2 = "Køn & studiestatus";
@@ -610,7 +614,7 @@ async function done() {
             <h2>{{ sp_5 }}</h2>
             <p class="alert_text alert_4">Du mangler noget her</p>
             <div class="form-group-3-1 form-style">
-                <button class="form-text" v-for="location in locations" :id="location.name"
+                <button class="form-text" :class="{ 'selected': location.id == anwsers.locations }" v-for="location in locations" :id="location.name"
                     @click="location_anwser(location)"> {{
                             location.name
                     }}
