@@ -65,14 +65,19 @@ export default {
       profileUsers: [],
       profileUser: {
         edu_id: [],
+        selectedEducations: [],
         location_id: []
       },
       SVUserid: jsonUser[0].user_id,
+      SVFirstName:  jsonUser[0].firstName,
+      SVLastName:  jsonUser[0].lastName,
+      SVEmail:  jsonUser[0].email,
+      SVPassword: jsonUser[0].password,
+      SVRoleId:  jsonUser[0].role_id,
       SVEduid: jsonUser[0].edu_id,
       SVEduname: jsonUser[0].edu_name,
       SVLocationid: jsonUser[0].location_id,
       SVLocation: jsonUser[0].location,
-      SVPassword: jsonUser[0].password,
     };
   },
   methods: {
@@ -413,28 +418,51 @@ export default {
         password.type = "password";
       }
     },
-    setFavEducation() {
+    getFavEducation() {
       //split the string and pushs the values to the profilUser 
       let educationList = this.SVEduid.split(",");
       for (let i = 0; i < educationList.length; i++) {
         this.profileUser.edu_id.push(Number(educationList[i]))
       }
     },
-    setFavLocation() {
+    setFavEducation(edu_id) {
+      let selectedEdu = this.profileUser.selectedEducations;
+      selectedEdu.push(edu_id);
+      let id = this.SVUserid;
+      console.log(selectedEdu[0]);
+      console.log(id);
+
+      for (let i = 0; i < selectedEdu.length; i++) {
+        fetch("https://uclssapitest.azurewebsites.net/api/EduUser/" + id, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: id,
+            edu_id: selectedEdu[0]
+          }),
+        })
+          .then((response) => {
+            response.json()
+          });
+      }
+    },
+    getFavLocation() {
       //split the string and pushs the values to the profilUser 
       let locationList = this.SVLocationid.split(",");
       for (let i = 0; i < locationList.length; i++) {
         this.profileUser.location_id.push(Number(locationList[i]))
       }
-    }
+    },
   },
   beforeMount() {
     this.getUsers();
     this.getSubjects();
     this.getLocations();
     this.getEducations();
-    this.setFavEducation();
-    this.setFavLocation();
+    this.getFavEducation();
+    this.getFavLocation();
   },
 };
 </script>
@@ -706,6 +734,7 @@ export default {
             <div class="education-grid">
               <button 
                 v-for="e in educations" :id="e.edu_id"
+                @click="setFavEducation(e.edu_id)"
                 :class="{ 'selected': this.profileUser.edu_id.includes(e.edu_id) }" 
                 :key="e.edu_id">
                   {{ e.name }}
