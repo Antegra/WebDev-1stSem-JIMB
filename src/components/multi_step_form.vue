@@ -4,6 +4,7 @@ import { API_URL } from '../connection';
 
 let user = JSON.parse(localStorage.getItem('user-token'));
 
+console.log(user[0]);
 
 let step = ref(3);
 
@@ -540,7 +541,8 @@ async function done() {
             </div>
 
             <div class="navigation-group">
-                <div class="next"><input href="#sec-step" class="form_btn button" type="submit" value="Næste" @click.prevent="next(1)">
+                <div class="next"><input href="#sec-step" class="form_btn button" type="submit" value="Næste"
+                        @click.prevent="next(1)">
                 </div>
             </div>
         </section>
@@ -579,7 +581,9 @@ async function done() {
             <h2 class="seperator">{{ sp_4 }}</h2>
             <p class="alert_text alert_3">* Du mangler at udfylde niveau.</p>
             <div class="form-group-2-2 form-style">
-                <button class="form-text" v-for="niveau in niveaus" @click="level(niveau)" :id="niveau.id"> {{ niveau.name }}</button>
+                <button class="form-text" v-for="niveau in niveaus" @click="level(niveau)" :id="niveau.id"> {{
+                        niveau.name
+                }}</button>
             </div>
 
             <div class="navigation-group">
@@ -614,8 +618,8 @@ async function done() {
             <h2>{{ sp_5 }}</h2>
             <p class="alert_text alert_4">Du mangler noget her</p>
             <div class="form-group-3-1 form-style">
-                <button class="form-text" :class="{ 'selected': location.id == anwsers.locations }" v-for="location in locations" :id="location.name"
-                    @click="location_anwser(location)"> {{
+                <button class="form-text" :class="{ 'selected': location.id == anwsers.locations }"
+                    v-for="location in locations" :id="location.name" @click="location_anwser(location)"> {{
                             location.name
                     }}
                 </button>
@@ -634,7 +638,8 @@ async function done() {
             </div>
 
             <div class="search-box position-fix">
-                <input class="form-text" type="text" v-model="input_educations" placeholder="Søg efter uddannelser..." />
+                <input class="form-text" type="text" v-model="input_educations"
+                    placeholder="Søg efter uddannelser..." />
             </div>
 
             <div class="educations loadbtn">
@@ -875,7 +880,7 @@ async function done() {
     text-align: center;
     margin: auto;
     margin-bottom: 20px;
-    
+
 }
 
 
@@ -890,7 +895,7 @@ async function done() {
 
     .form_btn {
         border: none;
-        
+
         color: white;
         padding: 15px 32px;
         text-align: center;
@@ -904,15 +909,16 @@ async function done() {
         justify-content: center;
         gap: 16px;
         width: 100%;
+
         .subjects {
-            display:flex;
+            display: flex;
         }
 
 
         button {
             width: 170px;
             height: 40px;
-         
+
         }
 
         span {
@@ -956,7 +962,7 @@ async function done() {
         #subject_icon {
             font-style: italic;
             font-size: 14px;
-            color:fff;
+            color: fff;
             background-color: $Verdigris;
 
             border-radius: 50%;
