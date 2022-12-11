@@ -9,13 +9,14 @@ export default {
   data() {
     return {
       activeTab: 1,
+      _uid: null,
     };
   },
 };
 </script>
 
 <template>
-  <div>
+  <div class="tab">
     <ul>
       <li
         v-for="(tab, index) in tabList"
@@ -53,6 +54,11 @@ export default {
 
 ul {
   display: flex;
+  justify-content: flex-start;
+  margin-top: -64px;
+  margin-bottom: 64px;
+  margin-left: -40px;
+  padding: 0;
 
   li {
     list-style: none;

@@ -22,10 +22,7 @@ export default {
             )
 
             let relevantData = [];
-            relevantData.push({firstName: result.data.firstName, location_id: result.data.location_id, role_id: result.data.role_id, edu_id: result.data.edu_id, edu_name: result.data.edu_name, user_id: result.data.user_id});
-            
-            console.log(relevantData);
-            
+            relevantData.push({firstName: result.data.firstName, lastName: result.data.lastName, email: result.data.email, location: result.data.location, location_id: result.data.location_id, role_id: result.data.role_id, edu_id: result.data.edu_id, edu_name: result.data.edu_name, user_id: result.data.user_id});
             if(result.status == 200 && result.data.user_id > 0) {
                 localStorage.setItem("user-token", JSON.stringify(relevantData))
                 
