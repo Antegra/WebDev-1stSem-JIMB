@@ -71,10 +71,9 @@ export default {
         newPassword: ""
       },
       SVUserid: jsonUser[0].user_id,
-      SVFirstName:  jsonUser[0].firstName,
-      SVLastName:  jsonUser[0].lastName,
-      SVEmail:  jsonUser[0].email,
-      SVPassword: jsonUser[0].password,
+      SVFirstName: jsonUser[0].firstName,
+      SVLastName: jsonUser[0].lastName,
+      SVEmail: jsonUser[0].email,
       SVRoleId:  jsonUser[0].role_id,
       SVEduid: jsonUser[0].edu_id,
       SVEduname: jsonUser[0].edu_name,
@@ -186,7 +185,7 @@ export default {
           firstName: this.user.firstName,
           lastName: this.user.lastName,
           email: this.user.email,
-          password: this.user.email,
+          password: this.user.password,
           title: this.user.title,
           location: this.user.location,
           location_id: this.user.location_id,
@@ -412,14 +411,6 @@ export default {
           this.getEducations();
         });
     },
-    editPassword() {
-      var password = document.getElementById("passwordField");
-      if (password.type === "password") {
-        password.type = "text";
-      } else {
-        password.type = "password";
-      }
-    },
     getFavEducation() {
       //split the string and pushs the values to the profilUser 
       let educationList = this.SVEduid.split(",");
@@ -435,7 +426,7 @@ export default {
         selectedEdu.push(edu_id);
         let id = this.SVUserid;
         let urlparams = edu_id + ", " + id
-
+        
         for (let i = 0; i < selectedEdu.length; i++) {
           fetch("https://uclssapitest.azurewebsites.net/api/EduUser/" + urlparams, {
             method: "DELETE",
@@ -453,7 +444,7 @@ export default {
         let selectedEdu = this.profileUser.selectedEducations;
         selectedEdu.push(edu_id);
         let id = this.SVUserid;
-  
+        
         for (let i = 0; i < selectedEdu.length; i++) {
           fetch("https://uclssapitest.azurewebsites.net/api/EduUser", {
             method: "POST",
@@ -480,75 +471,84 @@ export default {
       }
     },
     // setFavLocation(location_id) {
-    //   let profilLocation = document.getElementById("profilLocation");
-
-    //   if(profilLocation.classList.contains("selected")) {
-    //     let selectedLoca = this.profileUser.selectedLocations;
-    //     selectedLoca.push(location_id);
-    //     let id = this.SVUserid;
-    //     let urlparams = location_id + ", " + id
-
-    //     for (let i = 0; i < selectedLoca.length; i++) {
-    //       fetch("https://uclssapitest.azurewebsites.net/api/LocationUser/" + urlparams, {
-    //         method: "DELETE",
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //       })
-    //       .then((response) => {
-    //         response.json()
-    //         this.getLocations();
-    //       });
-    //     }
-    //   } else 
-    //   {
-    //     let selectedLoca = this.profileUser.selectedLocations;
-    //     selectedLoca.push(location_id);
-    //     let id = this.SVUserid;
-  
-    //     for (let i = 0; i < selectedLoca.length; i++) {
-    //       fetch("https://uclssapitest.azurewebsites.net/api/LocationUser", {
-    //         method: "POST",
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //           user_id: id,
-    //           location_id: selectedLoca[0]
-    //         }),
-    //       })
-    //       .then((response) => {
-    //         response.json()
-    //         this.getLocations();
-    //       });
-    //     }
-    //   }
-    // }
-    updatePassword(user_id) {
-      console.log(this.profileUser.newPassword);
-      // fetch("https://uclssapitest.azurewebsites.net/api/User/" + user_id, {
-      //   method: "PUT",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     user_id: this.SVUserid,
-      //     firstName: this.SVFirstName,
-      //     lastName: this.SVLastName,
-      //     email: this.SVEmail,
-      //     password: this.profileUser.newPassword,
-      //     title: "string",
-      //     location: this.SVLocation,
-      //     location_id: this.SVLocationid,
-      //     role_id:  this.SVRoleId,
-      //     edu_id:  this.SVEduid,
-      //     edu_name: this.SVEduname
-      //   }),
-      // })
-      //   .then((response) => {
-      //     response.json()
-      //   });
-    }
+      //   let profilLocation = document.getElementById("profilLocation");
+      
+      //   if(profilLocation.classList.contains("selected")) {
+        //     let selectedLoca = this.profileUser.selectedLocations;
+        //     selectedLoca.push(location_id);
+        //     let id = this.SVUserid;
+        //     let urlparams = location_id + ", " + id
+        
+        //     for (let i = 0; i < selectedLoca.length; i++) {
+          //       fetch("https://uclssapitest.azurewebsites.net/api/LocationUser/" + urlparams, {
+            //         method: "DELETE",
+            //         headers: {
+              //           "Content-Type": "application/json",
+              //         },
+              //       })
+              //       .then((response) => {
+                //         response.json()
+                //         this.getLocations();
+                //       });
+                //     }
+                //   } else 
+                //   {
+                  //     let selectedLoca = this.profileUser.selectedLocations;
+                  //     selectedLoca.push(location_id);
+                  //     let id = this.SVUserid;
+                  
+                  //     for (let i = 0; i < selectedLoca.length; i++) {
+                    //       fetch("https://uclssapitest.azurewebsites.net/api/LocationUser", {
+                      //         method: "POST",
+                      //         headers: {
+                        //           "Content-Type": "application/json",
+                        //         },
+                        //         body: JSON.stringify({
+                          //           user_id: id,
+                          //           location_id: selectedLoca[0]
+                          //         }),
+                          //       })
+                          //       .then((response) => {
+                            //         response.json()
+                            //         this.getLocations();
+                            //       });
+                            //     }
+                            //   }
+                            // }
+      editPassword() {
+        var password = document.getElementById("passwordField");
+        if (password.type === "password") {
+          password.type = "text";
+        } else {
+          password.type = "password";
+        }
+      },
+      updatePassword(id) {
+        console.log(id);
+        fetch("https://uclssapitest.azurewebsites.net/api/user/" + id, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: id,
+          firstName: this.SVFirstName,
+          lastName: this.SVLastName,
+          email: this.SVEmail,
+          password: this.newPassword,
+          title: "",
+          location: this.SVLocation,
+          location_id: this.SVLocationid,
+          role_id: this.SVRoleId,
+          edu_id:  this.SVEduid,
+          edu_name: this.SVEduname,
+        }),
+      })
+        .then((response) => {
+          response.json()
+          this.getUsers();
+        });
+      }
   },
   beforeMount() {
     this.getUsers();
