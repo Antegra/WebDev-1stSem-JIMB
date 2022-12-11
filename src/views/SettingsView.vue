@@ -66,7 +66,9 @@ export default {
       profileUser: {
         edu_id: [],
         selectedEducations: [],
-        location_id: []
+        location_id: [],
+        selectedLocations: [],
+        newPassword: ""
       },
       SVUserid: jsonUser[0].user_id,
       SVFirstName:  jsonUser[0].firstName,
@@ -132,7 +134,7 @@ export default {
           firstName: this.user.firstName,
           lastName: this.user.lastName,
           email: this.user.email,
-          password: this.user.email,
+          password: this.user.password,
           title: this.user.title,
           location: "string",
           location_id: "string",
@@ -426,26 +428,48 @@ export default {
       }
     },
     setFavEducation(edu_id) {
-      let selectedEdu = this.profileUser.selectedEducations;
-      selectedEdu.push(edu_id);
-      let id = this.SVUserid;
-      console.log(selectedEdu[0]);
-      console.log(id);
+      let profilEducation = document.getElementById("profilEducation");
+      
+      if(profilEducation.classList.contains("selected")) {
+        let selectedEdu = this.profileUser.selectedEducations;
+        selectedEdu.push(edu_id);
+        let id = this.SVUserid;
+        let urlparams = edu_id + ", " + id
 
-      for (let i = 0; i < selectedEdu.length; i++) {
-        fetch("https://uclssapitest.azurewebsites.net/api/EduUser/" + id, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            user_id: id,
-            edu_id: selectedEdu[0]
-          }),
-        })
+        for (let i = 0; i < selectedEdu.length; i++) {
+          fetch("https://uclssapitest.azurewebsites.net/api/EduUser/" + urlparams, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
           .then((response) => {
             response.json()
+            this.getEducations();
           });
+        }
+      } else 
+      {
+        let selectedEdu = this.profileUser.selectedEducations;
+        selectedEdu.push(edu_id);
+        let id = this.SVUserid;
+  
+        for (let i = 0; i < selectedEdu.length; i++) {
+          fetch("https://uclssapitest.azurewebsites.net/api/EduUser", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              user_id: id,
+              edu_id: selectedEdu[0]
+            }),
+          })
+          .then((response) => {
+            response.json()
+            this.getEducations();
+          });
+        }
       }
     },
     getFavLocation() {
@@ -455,6 +479,76 @@ export default {
         this.profileUser.location_id.push(Number(locationList[i]))
       }
     },
+    // setFavLocation(location_id) {
+    //   let profilLocation = document.getElementById("profilLocation");
+
+    //   if(profilLocation.classList.contains("selected")) {
+    //     let selectedLoca = this.profileUser.selectedLocations;
+    //     selectedLoca.push(location_id);
+    //     let id = this.SVUserid;
+    //     let urlparams = location_id + ", " + id
+
+    //     for (let i = 0; i < selectedLoca.length; i++) {
+    //       fetch("https://uclssapitest.azurewebsites.net/api/LocationUser/" + urlparams, {
+    //         method: "DELETE",
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //         },
+    //       })
+    //       .then((response) => {
+    //         response.json()
+    //         this.getLocations();
+    //       });
+    //     }
+    //   } else 
+    //   {
+    //     let selectedLoca = this.profileUser.selectedLocations;
+    //     selectedLoca.push(location_id);
+    //     let id = this.SVUserid;
+  
+    //     for (let i = 0; i < selectedLoca.length; i++) {
+    //       fetch("https://uclssapitest.azurewebsites.net/api/LocationUser", {
+    //         method: "POST",
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //           user_id: id,
+    //           location_id: selectedLoca[0]
+    //         }),
+    //       })
+    //       .then((response) => {
+    //         response.json()
+    //         this.getLocations();
+    //       });
+    //     }
+    //   }
+    // }
+    updatePassword(user_id) {
+      console.log(this.profileUser.newPassword);
+      // fetch("https://uclssapitest.azurewebsites.net/api/User/" + user_id, {
+      //   method: "PUT",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     user_id: this.SVUserid,
+      //     firstName: this.SVFirstName,
+      //     lastName: this.SVLastName,
+      //     email: this.SVEmail,
+      //     password: this.profileUser.newPassword,
+      //     title: "string",
+      //     location: this.SVLocation,
+      //     location_id: this.SVLocationid,
+      //     role_id:  this.SVRoleId,
+      //     edu_id:  this.SVEduid,
+      //     edu_name: this.SVEduname
+      //   }),
+      // })
+      //   .then((response) => {
+      //     response.json()
+      //   });
+    }
   },
   beforeMount() {
     this.getUsers();
@@ -733,10 +827,11 @@ export default {
             <h3>Vælg faste uddannelser</h3>
             <div class="education-grid">
               <button 
-                v-for="e in educations" :id="e.edu_id"
+                v-for="e in educations" 
+                id="profilEducation"
+                :key="e.edu_id"
                 @click="setFavEducation(e.edu_id)"
-                :class="{ 'selected': this.profileUser.edu_id.includes(e.edu_id) }" 
-                :key="e.edu_id">
+                :class="{ 'selected': this.profileUser.edu_id.includes(e.edu_id) }">
                   {{ e.name }}
               </button>
             </div>
@@ -745,7 +840,8 @@ export default {
             <h3>Vælg primære uddannelsesteder</h3>
             <div class="location-grid">
               <button 
-                v-for="l in locations" 
+                v-for="l in locations"
+                id="profilLocation" 
                 :key="location.location_id"
                 :class="{ 'selected': this.profileUser.location_id.includes(l.location_id) }">
                   {{ l.name }}
@@ -755,8 +851,10 @@ export default {
           <div class="password">
             <h3>Ændre din adgangskode</h3>
             <div class="password-wrapper">
-              <input type="password" v-model="SVPassword" id="passwordField" />
+              <input type="password" v-model="newPassword" id="passwordField" />
               <button class="password-icon" @click="editPassword()"></button>
+              <button @click="updatePassword(this.SVUserid)"> Update password</button>
+              <p>Value: {{ newPassword }}</p>
             </div>
           </div>
         </template>

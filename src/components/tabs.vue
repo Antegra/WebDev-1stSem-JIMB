@@ -9,6 +9,7 @@ export default {
   data() {
     return {
       activeTab: 1,
+      _uid: null
     };
   },
 };
