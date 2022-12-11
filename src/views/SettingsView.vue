@@ -420,8 +420,9 @@ export default {
     },
     setFavEducation(edu_id) {
       let profilEducation = document.getElementById("profilEducation");
+      let isprofilEducationPresent = profilEducation.classList.contains("selected");
       
-      if(profilEducation.classList.contains("selected")) {
+      if(isprofilEducationPresent) {
         let selectedEdu = this.profileUser.selectedEducations;
         selectedEdu.push(edu_id);
         let id = this.SVUserid;
@@ -515,16 +516,11 @@ export default {
                             //     }
                             //   }
                             // }
-      editPassword() {
-        var password = document.getElementById("passwordField");
-        if (password.type === "password") {
-          password.type = "text";
-        } else {
-          password.type = "password";
-        }
+      logOut() {
+        localStorage.removeItem("user-token");
+        window.location.href = '/login';
       },
       updatePassword(id) {
-        console.log(id);
         fetch("https://uclssapitest.azurewebsites.net/api/user/" + id, {
         method: "PUT",
         headers: {
@@ -543,12 +539,14 @@ export default {
           edu_id:  this.SVEduid,
           edu_name: this.SVEduname,
         }),
-      })
+        })
         .then((response) => {
           response.json()
-          this.getUsers();
+          this.getUsers()
+          if (confirm("Du har nu ændret din adgangskode og skal logge ind igen."))
+            this.logOut();
         });
-      }
+    },
   },
   beforeMount() {
     this.getUsers();
@@ -851,10 +849,8 @@ export default {
           <div class="password">
             <h3>Ændre din adgangskode</h3>
             <div class="password-wrapper">
-              <input type="password" v-model="newPassword" id="passwordField" />
-              <button class="password-icon" @click="editPassword()"></button>
-              <button @click="updatePassword(this.SVUserid)"> Update password</button>
-              <p>Value: {{ newPassword }}</p>
+              <input type="text" v-model="newPassword" id="passwordField" />
+              <button class="yellow-button-tab" @click="updatePassword(this.SVUserid)">Gem adgangskode</button>
             </div>
           </div>
         </template>
@@ -1058,6 +1054,7 @@ export default {
         justify-content: flex-start;
         gap: 16px;
         flex-wrap: wrap;
+        margin-bottom: 64px;
 
         button {
           &:nth-child(n + 10) {
@@ -1074,6 +1071,7 @@ export default {
         justify-content: flex-start;
         gap: 16px;
         flex-wrap: wrap;
+        margin-bottom: 64px;
       }
     }
 
@@ -1092,20 +1090,15 @@ export default {
         gap: 16px;
 
         input {
+          color: $Midnight-Green;
           padding: 8px;
+          min-width: 300px ;
           font-size: 16px;
+          border: none;
 
           &:focus-visible {
             outline: none;
             border: none;
-          }
-        }
-
-        .password-icon {
-          position: relative;
-
-          &:after {
-            content: url("data:image/svg+xml,%3Csvg id='Hide' xmlns='http://www.w3.org/2000/svg' width='16' height='14.546' viewBox='0 0 16 14.546'%3E%3Cpath id='Path_81' data-name='Path 81' d='M19.964 24.861a4.233 4.233 0 0 1-3.877-2.737 4.839 4.839 0 0 1 .774-4.928.5.5 0 0 1 .775.014l4.851 6a.591.591 0 0 1 .125.435.57.57 0 0 1-.218.393A4 4 0 0 1 19.964 24.861Zm-2.7-6.4a3.659 3.659 0 0 0 .3 4.1 3.038 3.038 0 0 0 3.726.873Zm6.136 3.91a.5.5 0 0 1-.2-.042.577.577 0 0 1-.284-.732 3.618 3.618 0 0 0 .234-1.3 3.326 3.326 0 0 0-3.191-3.442 2.944 2.944 0 0 0-.78.107.519.519 0 0 1-.635-.4.567.567 0 0 1 .375-.684 4 4 0 0 1 3.637.824A4.705 4.705 0 0 1 24.2 20.3a4.817 4.817 0 0 1-.312 1.722A.522.522 0 0 1 23.4 22.368Z' transform='translate(-11.96 -13.002)' fill='%23222'/%3E%3Cpath id='Path_82' data-name='Path 82' d='M11.171 21.208a.516.516 0 0 1-.449-.328A1.693 1.693 0 0 0 9.593 19.9a.662.662 0 0 1-.411-.754.551.551 0 0 1 .588-.537 2.754 2.754 0 0 1 1.849 1.605.8.8 0 0 1 0 .654.516.516 0 0 1-.45.329ZM1.81 22.581a.533.533 0 0 1-.48-.395.785.785 0 0 1 .1-.709c.086-.111.175-.236.261-.367A15.521 15.521 0 0 1 5.6 17.1a.433.433 0 0 1 .531.024.718.718 0 0 1 .239.6.672.672 0 0 1-.3.55A14.433 14.433 0 0 0 2.468 22l-.277.377a.48.48 0 0 1-.381.206Z' transform='translate(-1.287 -14.324)' fill='%23222'/%3E%3Cpath id='Path_83' data-name='Path 83' d='M16.8 19.594a.5.5 0 0 1-.38-.18l-.279-.331c-1.29-1.533-3.435-4.1-6.823-4.1a6.324 6.324 0 0 0-1.248.123.526.526 0 0 1-.607-.454.57.57 0 0 1 .414-.668 7.181 7.181 0 0 1 1.441-.143c3.834 0 6.278 2.9 7.591 4.469.094.117.185.223.261.322a.612.612 0 0 1 .1.613A.524.524 0 0 1 16.8 19.594ZM9.321 24.205c-3.834 0-6.278-2.9-7.591-4.469-.094-.117-.185-.223-.261-.322a.61.61 0 0 1 .023-.808.49.49 0 0 1 .738.026l.279.331c1.28 1.533 3.424 4.1 6.812 4.1a6.426 6.426 0 0 0 2.523-.517.485.485 0 0 1 .525.079.6.6 0 0 1 .191.541.56.56 0 0 1-.341.445 7.377 7.377 0 0 1-2.9.594Z' transform='translate(-1.317 -11.727)' fill='%23222'/%3E%3Cpath id='Path_84' data-name='Path 84' d='M19.039 18.354a.533.533 0 0 1-.5-.416.638.638 0 0 1 .2-.663 16.524 16.524 0 0 0 2.548-2.667l.261-.332a.478.478 0 0 1 .737-.027.652.652 0 0 1 .023.839c-.083.1-.169.207-.261.323a17.346 17.346 0 0 1-2.715 2.83A.481.481 0 0 1 19.039 18.354Zm0 3.583a.5.5 0 0 1-.393-.2L8.441 8.413a.649.649 0 0 1-.139-.6.548.548 0 0 1 .413-.41.494.494 0 0 1 .507.238L19.435 20.956a.658.658 0 0 1 .08.634A.522.522 0 0 1 19.042 21.937Z' transform='translate(-6.453 -7.391)' fill='%23222'/%3E%3C/svg%3E");
           }
         }
       }
