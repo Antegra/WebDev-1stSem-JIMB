@@ -1,6 +1,7 @@
 
 <script>
 import axios from 'axios'
+import { API_URL } from '../connection'
 export default {
 
     name: 'login',
@@ -16,7 +17,7 @@ export default {
 
             e.preventDefault()
             let result = await axios.get(
-                `https://uclssapitest.azurewebsites.net/api/User/${this.email}, ${this.password}`
+                API_URL + `User/${this.email}, ${this.password}`
             )
 
             let relevantData = [];

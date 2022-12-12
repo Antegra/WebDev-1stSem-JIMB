@@ -1,6 +1,8 @@
 <script>
 import tab from "../components/tabs.vue";
 import { onBeforeMount, ref } from "vue";
+import { API_URL } from '../connection';
+
 export default {
   components: {
     tab,
@@ -84,7 +86,7 @@ export default {
   methods: {
     //Methodes for the user tab
     getUsers() {
-      fetch("https://uclssapitest.azurewebsites.net/api/user")
+      fetch(API_URL + "user")
         .then((response) => response.json())
         .then((data) => (this.users = data));
     },
@@ -123,7 +125,7 @@ export default {
       for (let i = 0; i < educationList.length; i++) {
         realEducationList.push(Number(educationList[i]))
       }
-      await fetch("https://uclssapitest.azurewebsites.net/api/User/", {
+      await fetch(API_URL + "User/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -148,7 +150,7 @@ export default {
         });
       //EduUser
       for (let i = 0; i < educationList.length; i++) {
-        fetch("https://uclssapitest.azurewebsites.net/api/EduUser/", {
+        fetch(API_URL + "EduUser/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -161,7 +163,7 @@ export default {
           .then(response => response.json());
       };
       //LocationUser
-      fetch("https://uclssapitest.azurewebsites.net/api/LocationUser/", {
+      fetch(API_URL + "LocationUser/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -174,7 +176,7 @@ export default {
         .then(response => response.json());
     },
     updateUser(user_id) {
-      fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, {
+      fetch(API_URL + "user/" + user_id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -202,7 +204,7 @@ export default {
       if (!confirm("Er du sikker på at du vil slette brugeren?")) {
         return;
       }
-      fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, {
+      fetch(API_URL + "user/" + user_id, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -215,7 +217,7 @@ export default {
     },
     //Methodes for the subject tab
     getSubjects() {
-      fetch("https://uclssapitest.azurewebsites.net/api/subject")
+      fetch(API_URL + "subject")
         .then((response) => response.json())
         .then((data) => (this.subjects = data));
     },
@@ -232,7 +234,7 @@ export default {
       this.subject.description = s.description;
     },
     createSubject() {
-      fetch("https://uclssapitest.azurewebsites.net/api/subject/", {
+      fetch(API_URL + "subject/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -249,7 +251,7 @@ export default {
         });
     },
     updateSubject(subject_id) {
-      fetch("https://uclssapitest.azurewebsites.net/api/subject/" + subject_id, {
+      fetch(API_URL + "subject/" + subject_id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -269,7 +271,7 @@ export default {
       if (!confirm("Er du sikker på at du vil slette emnet?")) {
         return;
       }
-      fetch("https://uclssapitest.azurewebsites.net/api/subject/" + subject_id, {
+      fetch(API_URL + "subject/" + subject_id, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -282,7 +284,7 @@ export default {
     },
     //Methodes for the location tab
     getLocations() {
-      fetch("https://uclssapitest.azurewebsites.net/api/location")
+      fetch(API_URL + "location")
         .then((response) => response.json())
         .then((data) => (this.locations = data));
     },
@@ -297,7 +299,7 @@ export default {
       this.location.name = l.name;
     },
     createLocation() {
-      fetch("https://uclssapitest.azurewebsites.net/api/location/", {
+      fetch(API_URL + "location/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -313,7 +315,7 @@ export default {
         });
     },
     updateLocation(location_id) {
-      fetch("https://uclssapitest.azurewebsites.net/api/location/" + location_id, {
+      fetch(API_URL + "location/" + location_id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -332,7 +334,7 @@ export default {
       if (!confirm("Er du sikker på at du vil slette lokationen?")) {
         return;
       }
-      fetch("https://uclssapitest.azurewebsites.net/api/location/" + location_id, {
+      fetch(API_URL + "location/" + location_id, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -345,7 +347,7 @@ export default {
     },
     //Methodes for the education tab
     getEducations() {
-      fetch("https://uclssapitest.azurewebsites.net/api/education")
+      fetch(API_URL + "education")
         .then((response) => response.json())
         .then((data) => (this.educations = data));
     },
@@ -362,7 +364,7 @@ export default {
       this.education.location = e.location;
     },
     createEducation() {
-      fetch("https://uclssapitest.azurewebsites.net/api/education/", {
+      fetch(API_URL + "education/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -379,7 +381,7 @@ export default {
         });
     },
     updateEducation(edu_id) {
-      fetch("https://uclssapitest.azurewebsites.net/api/education/" + edu_id, {
+      fetch(API_URL + "education/" + edu_id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -399,7 +401,7 @@ export default {
       if (!confirm("Er du sikker på at du vil slette uddannelsen?")) {
         return;
       }
-      fetch("https://uclssapitest.azurewebsites.net/api/education/" + edu_id, {
+      fetch(API_URL + "education/" + edu_id, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -432,7 +434,7 @@ export default {
         let urlEducationParams = edu_id + ", " + id
 
         for (let i = 0; i < selectedEdu.length; i++) {
-          fetch("https://uclssapitest.azurewebsites.net/api/EduUser/" + urlEducationParams, {
+          fetch(API_URL + "EduUser/" + urlEducationParams, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -451,7 +453,7 @@ export default {
         let id = this.SVUserid;
 
         for (let i = 0; i < selectedEdu.length; i++) {
-          fetch("https://uclssapitest.azurewebsites.net/api/EduUser", {
+          fetch(API_URL + "EduUser", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -488,7 +490,7 @@ export default {
         let urlLocationParams = location_id + ", " + id;
 
         for (let i = 0; i < selectedLocation.length; i++) {
-          fetch("https://uclssapitest.azurewebsites.net/api/LocationUser/" + urlLocationParams, {
+          fetch(API_URL + "LocationUser/" + urlLocationParams, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -507,7 +509,7 @@ export default {
         let id = this.SVUserid;
 
         for (let i = 0; i < selectedLocation.length; i++) {
-          fetch("https://uclssapitest.azurewebsites.net/api/LocationUser", {
+          fetch(API_URL + "api/LocationUser", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -527,7 +529,7 @@ export default {
       }
     },
     updatePassword(id) {
-      fetch("https://uclssapitest.azurewebsites.net/api/user/" + id, {
+      fetch(API_URL + "user/" + id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
