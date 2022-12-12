@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using WebAPI___SQL.Models;
 
 namespace WebAPI___SQL.Controllers
 {
@@ -8,19 +12,16 @@ namespace WebAPI___SQL.Controllers
     [ApiController]
     public class ChartsController : ControllerBase
     {
-        // GET: api/<ChartsController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        string constr = "Server=tcp:uclssdemo.database.windows.net,1433;Initial Catalog=studieservice;Persist Security Info=False;User ID=awesomegroupx;Password=t4prSlX1JCZ0Ujv;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
+        
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ChartCasesPerMont>> GetChartCasesPerMonth(int id)
+        public async Task<ActionResult<Chart>> GetChartCasesPerMonth(int id)
         {
 
-            ChartCasesPerMonth ChartCasesPerMonthObj = new ChartCasesPerMonth();
-            string query = "SELECT COUNT(*) AS 'CasesPerMonth' FROM cases WHERE month LIKE '2022-" + id "%'; ";
+            Chart ChartCasesPerMonthObj = new Chart();
+            string query = "SELECT COUNT(*) AS 'CasesPerMonth' FROM cases WHERE month LIKE '2022-" + id + "%'; ";
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(query))
@@ -31,10 +32,9 @@ namespace WebAPI___SQL.Controllers
                     {
                         while (sdr.Read())
                         {
-                            ChartCasesPerMonthObj = new ChartCasesPerMonth
+                            ChartCasesPerMonthObj = new Chart
                             {
-                                duration_id = Convert.ToInt32(sdr["duration_id"]),
-                                length = Convert.ToString(sdr["length"]),
+                                ChartCasesPerMonth = Convert.ToInt32(sdr["CasesPerMonth"])
                             };
                         }
                     }
@@ -48,12 +48,7 @@ namespace WebAPI___SQL.Controllers
             return ChartCasesPerMonthObj;
         }
 
-        // GET api/<ChartsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        
 
         // POST api/<ChartsController>
         [HttpPost]
