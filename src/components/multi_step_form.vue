@@ -499,7 +499,7 @@ async function done() {
                     </select>
                 </div>
                 <h2>{{ sp_2 }}</h2>
-                <p class="alert_text alert_1 ">* Vælg venligst type henvændelse</p>
+                <p class="alert_text alert_1 ">* Du mangler at udfylde noget her.</p>
                 <div class="form-group-1-2 form-style">
                     <button class="form-text" v-for="type in types" @click="meeting(type.id)" :id="type.id"> {{
                             type.name
@@ -536,7 +536,7 @@ async function done() {
                 </div>
             </div>
             <h2>{{ sp_3 }}</h2>
-            <p class="alert_text alert_2">Du mangler noget her</p>
+            <p class="alert_text alert_2">* Du mangler at udfylde noget her.</p>
             <div class="form-group-2-1 form-style">
                 <button class="form-text" v-for="person in persons" @click="sex(person)" :id="person.name"> {{
                         person.name
@@ -544,7 +544,7 @@ async function done() {
                 </button>
             </div>
             <h2 class="seperator">{{ sp_4 }}</h2>
-            <p class="alert_text alert_3">* Du mangler at udfylde niveau.</p>
+            <p class="alert_text alert_3">* Du mangler at udfylde noget her.</p>
             <div class="form-group-2-2 form-style">
                 <button class="form-text" v-for="niveau in niveaus" @click="level(niveau)" :id="niveau.id"> {{
                         niveau.name
@@ -580,7 +580,7 @@ async function done() {
                 </div>
             </div>
             <h2>{{ sp_5 }}</h2>
-            <p class="alert_text alert_4">Du mangler noget her</p>
+            <p class="alert_text alert_4">* Du mangler at udfylde noget her.</p>
             <div class="form-group-3-1 form-style">
                 <button class="form-text" :class="{ 'selected': location.id == anwsers.locations }"
                     v-for="location in locations" :id="location.name" @click="location_anwser(location)"> {{
@@ -589,7 +589,7 @@ async function done() {
                 </button>
             </div>
             <h2 class="seperator">Uddannelser</h2>
-            <p class="alert_text alert_5">Du mangler noget her</p>
+            <p class="alert_text alert_5">* Du mangler at udfylde noget her.</p>
             <div class="educations form-group-3-2 form-style">
                 <div v-for="educations in f_educations" :key="educations">
                     <button class="form-text" @click="educations_anwser(educations)" :id="educations.name"> {{
@@ -658,7 +658,7 @@ async function done() {
             <div class="search-box">
                 <input class="form-text" type="text" v-model="input_subjects" placeholder="Søg efter emner..." />
             </div>
-            <p class="alert_text alert_6">Du mangler noget her</p>
+            <p class="alert_text alert_6">* Du mangler at udfylde noget her.</p>
             <div class="educations form-group-4-1 form-style">
                 <div class="subjects" v-for="(subject, index) in filteredSubject()">
                     <p v-show="subject.description" id="subject_icon">i<span id="subject_test"> {{ subject.description
@@ -672,7 +672,7 @@ async function done() {
                 </div>
             </div>
             <h2 class="seperator">Samtalens længde</h2>
-            <p class="alert_text alert_7">Du mangler noget her</p>
+            <p class="alert_text alert_7">* Du mangler at udfylde noget her.</p>
             <div class="form-group-4-2 form-style">
                 <button class="form-text" v-for="duration in durations" :id="duration.name"
                     @click="duration_anwser(duration)"> {{
