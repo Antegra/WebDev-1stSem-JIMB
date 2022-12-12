@@ -3,16 +3,10 @@ import { ref, computed, onBeforeMount } from 'vue';
 import { API_URL } from '../connection';
 
 let user = JSON.parse(localStorage.getItem('user-token'));
-
-
-
 let caseNumber = ref([0]);
-
 let cases = ref([]);
 
-
 onBeforeMount(async () => {
-
   const fetchedCases = await fetch(API_URL + "case/" + user[0].user_id)
     .then((fetchedCases) => fetchedCases.json())
   for (let i = 0; i < fetchedCases.length; i++) {
@@ -20,27 +14,22 @@ onBeforeMount(async () => {
   }
 })
 
-
 function showCase(e) {
   if (caseNumber.value != e.case_id) {
     caseNumber.value = e.case_id;
   } else {
     caseNumber.value = 0;
   }
-
 }
 </script>
 
 <template>
-
   <div class="box">
     <h1>
       Gamle sager
     </h1>
-
     <div class="cases" v-for="case1 in cases.slice().reverse() ">
       <div class="case_top" v-on:click="showCase(case1)">
-
         <p>Sags: nr. {{ case1.case_id }} </p>
         <p>Oprettelse: {{ case1.month }} </p>
         <p>Køn: {{ case1.sex }} </p>
@@ -59,7 +48,6 @@ function showCase(e) {
         <p><span>Nuværende studerende:</span> {{ case1.niveau }} </p>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -71,15 +59,11 @@ function showCase(e) {
 @import "../assets/scss/mixins.scss";
 @import "../assets/scss/layout.scss";
 
-
-
 .box {
-
   padding: 60px 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   max-width: 1080px;
   width: 100%;
   margin: 5% 20vw;
@@ -91,26 +75,17 @@ function showCase(e) {
   position: relative;
   background-color: $Midnight-Green;
 
-
-
   .cases {
     width: 70%;
     margin-bottom: 14px;
-
-
     &:nth-child(even) {
       .case_top {
         background-color: #f2f2f2;
-
         &:hover {
           background-color: $Tea-Rose;
         }
       }
     }
-
-
-
-
   }
 
   .case_top {
@@ -141,10 +116,7 @@ function showCase(e) {
     p {
       margin-top: 16px;
     }
-
   }
-
-
 
   .case_bottom {
     display: flex;
@@ -154,17 +126,11 @@ function showCase(e) {
     color: $Midnight-Green;
     padding: 50px 12px 12px 12px;
     border-radius: 12px;
-
     transform: translatey(-20px);
-
-
     span {
       font-weight: bold;
       padding-right: 5px;
     }
   }
-
-
 }
-</style>
-  
+</style>  
