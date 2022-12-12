@@ -1,27 +1,21 @@
 <script>
 import Login from "../components/login.vue"
 
-    export default {
-        name: 'app',
-        components: {
-            Login
-        }
-        
+export default {
+    name: 'app',
+    components: {
+        Login
     }
-
-    
-    
-
+}
 </script>
 
 <template>
-  <div class="auth-wrapper">
-    <div class="auth-inner">
-        <Login />
+    <div class="auth-wrapper">
+        <div class="auth-inner">
+            <Login />
+        </div>
     </div>
-  </div>
-
-  <div class="logo-place">
+    <div class="logo-place">
         <img class="logo" src="../assets/img/ucl-logo.png" alt="UCLs logo" />
     </div>
 </template>
@@ -29,19 +23,17 @@ import Login from "../components/login.vue"
 <style lang="scss">
 @import "../assets/scss/colors.scss";
 @import "../assets/scss/typography.scss";
-
 @import "../assets/scss/variabler.scss";
 @import "../assets/scss/button.scss";
 @import "../assets/scss/mixins.scss";
 @import "../assets/scss/layout.scss";
-
-
 
 .logo-place {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 120px;
+
     .logo {
         width: 300px;
     }
@@ -49,32 +41,38 @@ import Login from "../components/login.vue"
 
 .login {
     nav {
-        display: none!important;
+        display: none !important;
     }
 }
 
 .auth-wrapper {
-   @include mainWrap;
-   margin-top: 80px;
-    .auth-inner{
+    @include mainWrap;
+    margin-top: 80px;
+
+    .auth-inner {
         @include flowDesign;
+
         h1 {
             margin-bottom: 54px;
         }
+
         .form-group-wrapper {
             max-width: 304px;
             margin: auto;
         }
+
         .form-group {
-            display:flex;
+            display: flex;
             flex-direction: column;
-            
-            
+
+
             margin: auto;
             margin-bottom: 24px;
+
             label {
                 margin-bottom: 5px;
             }
+
             input {
                 height: 50px;
                 border-radius: 10px;
@@ -86,7 +84,6 @@ import Login from "../components/login.vue"
         }
 
         .form-group-essentiels {
-            
             margin: auto;
             margin-top: 24px;
             display: flex;
@@ -94,21 +91,20 @@ import Login from "../components/login.vue"
             justify-content: space-between;
             align-items: center;
             margin-bottom: 32px;
+
             .inner-form-group {
-                display:flex;
-                align-items:center;
+                display: flex;
+                align-items: center;
             }
+
             a {
-                
+
                 color: #fff;
-            
+
                 font-style: italic;
                 text-decoration: none;
             }
-
         }
     }
 }
-
-</style>
-  
+</style> 

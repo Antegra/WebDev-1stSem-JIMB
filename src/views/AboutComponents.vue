@@ -1,33 +1,21 @@
 <template>
     <div>
         <div class="buttons">
-
         </div>
     </div>
-  </template>
+</template>
   
-  <script setup>
+<script setup>
+function handleNext() {
+    console.log("Next");
+}
+function handleBack() {
+    console.log("Back");
+}
+</script>
 
-  
-  function handleNext() {
-            console.log("Next");
-        }
-    function handleBack() {
-            console.log("Back");
-        }
-  
-  </script>
-
-
-
-
-  
-  
-  <style lang="scss" scoped>
-    .buttons {
-        display:flex;
-    }
-
-
-  </style>
-  
+<style lang="scss" scoped>
+.buttons {
+    display: flex;
+}
+</style>

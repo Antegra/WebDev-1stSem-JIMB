@@ -74,7 +74,7 @@ export default {
       SVFirstName: jsonUser[0].firstName,
       SVLastName: jsonUser[0].lastName,
       SVEmail: jsonUser[0].email,
-      SVRoleId:  jsonUser[0].role_id,
+      SVRoleId: jsonUser[0].role_id,
       SVEduid: jsonUser[0].edu_id,
       SVEduname: jsonUser[0].edu_name,
       SVLocationid: jsonUser[0].location_id,
@@ -145,7 +145,6 @@ export default {
         .then(response => response.json())
         .then(response => {
           id = response.user_id;
-          console.log(id);
         });
       //EduUser
       for (let i = 0; i < educationList.length; i++) {
@@ -411,6 +410,10 @@ export default {
           this.getEducations();
         });
     },
+    logOut() {
+      localStorage.removeItem("user-token");
+      window.location.href = '/login';
+    },
     getFavEducation() {
       //split the string and pushs the values to the profilUser 
       let educationList = this.SVEduid.split(",");
@@ -421,31 +424,32 @@ export default {
     setFavEducation(edu_id) {
       let profilEducation = document.getElementById("profilEducation");
       let isprofilEducationPresent = profilEducation.classList.contains("selected");
-      
-      if(isprofilEducationPresent) {
+
+      if (isprofilEducationPresent) {
         let selectedEdu = this.profileUser.selectedEducations;
         selectedEdu.push(edu_id);
         let id = this.SVUserid;
-        let urlparams = edu_id + ", " + id
-        
+        let urlEducationParams = edu_id + ", " + id
+
         for (let i = 0; i < selectedEdu.length; i++) {
-          fetch("https://uclssapitest.azurewebsites.net/api/EduUser/" + urlparams, {
+          fetch("https://uclssapitest.azurewebsites.net/api/EduUser/" + urlEducationParams, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
             },
           })
-          .then((response) => {
-            response.json()
-            this.getEducations();
-          });
+            .then((response) => {
+              response.json();
+              this.getEducations();
+              if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
+                this.logOut();
+            });
         }
-      } else 
-      {
+      } else {
         let selectedEdu = this.profileUser.selectedEducations;
         selectedEdu.push(edu_id);
         let id = this.SVUserid;
-        
+
         for (let i = 0; i < selectedEdu.length; i++) {
           fetch("https://uclssapitest.azurewebsites.net/api/EduUser", {
             method: "POST",
@@ -457,10 +461,12 @@ export default {
               edu_id: selectedEdu[0]
             }),
           })
-          .then((response) => {
-            response.json()
-            this.getEducations();
-          });
+            .then((response) => {
+              response.json();
+              this.getEducations();
+              if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
+                this.logOut();
+            });
         }
       }
     },
@@ -474,13 +480,13 @@ export default {
     setFavLocation(location_id) {
       let profilLocation = document.getElementById("profilLocation");
       let isprofilLocationPresent = profilLocation.classList.contains("selected");
-      
-      if(isprofilLocationPresent) {
+
+      if (isprofilLocationPresent) {
         let selectedLocation = this.profileUser.selectedLocations;
         selectedLocation.push(location_id);
         let id = this.SVUserid;
-        let urlLocationParams = location_id + "," + " " + id
-        
+        let urlLocationParams = location_id + ", " + id;
+
         for (let i = 0; i < selectedLocation.length; i++) {
           fetch("https://uclssapitest.azurewebsites.net/api/LocationUser/" + urlLocationParams, {
             method: "DELETE",
@@ -488,17 +494,18 @@ export default {
               "Content-Type": "application/json",
             },
           })
-          .then((response) => {
-            response.json()
-            this.getLocations();
-          });
+            .then((response) => {
+              response.json();
+              this.getLocations();
+              if (confirm("Du har nu ændret din din lokation og skal logge ind igen."))
+                this.logOut();
+            });
         }
-      } else 
-      {
+      } else {
         let selectedLocation = this.profileUser.selectedLocations;
         selectedLocation.push(location_id);
         let id = this.SVUserid;
-        
+
         for (let i = 0; i < selectedLocation.length; i++) {
           fetch("https://uclssapitest.azurewebsites.net/api/LocationUser", {
             method: "POST",
@@ -510,43 +517,41 @@ export default {
               location_id: selectedLocation[0]
             }),
           })
-          .then((response) => {
-            response.json()
-            this.getLocations();
-          });
+            .then((response) => {
+              response.json();
+              this.getLocations();
+              if (confirm("Du har nu ændret din lokation og skal logge ind igen."))
+                this.logOut();
+            });
         }
       }
     },
-    logOut() {
-      localStorage.removeItem("user-token");
-      window.location.href = '/login';
-    },
     updatePassword(id) {
       fetch("https://uclssapitest.azurewebsites.net/api/user/" + id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        user_id: id,
-        firstName: this.SVFirstName,
-        lastName: this.SVLastName,
-        email: this.SVEmail,
-        password: this.newPassword,
-        title: "",
-        location: this.SVLocation,
-        location_id: this.SVLocationid,
-        role_id: this.SVRoleId,
-        edu_id:  this.SVEduid,
-        edu_name: this.SVEduname,
-      }),
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: id,
+          firstName: this.SVFirstName,
+          lastName: this.SVLastName,
+          email: this.SVEmail,
+          password: this.newPassword,
+          title: "",
+          location: this.SVLocation,
+          location_id: this.SVLocationid,
+          role_id: this.SVRoleId,
+          edu_id: this.SVEduid,
+          edu_name: this.SVEduname,
+        }),
       })
-      .then((response) => {
-        response.json()
-        this.getUsers()
-        if (confirm("Du har nu ændret din adgangskode og skal logge ind igen."))
-          this.logOut();
-      });
+        .then((response) => {
+          response.json();
+          this.getUsers();
+          if (confirm("Du har nu ændret din adgangskode og skal logge ind igen."))
+            this.logOut();
+        });
     },
   },
   beforeMount() {
@@ -825,26 +830,19 @@ export default {
           <div class="educations">
             <h3>Vælg faste uddannelser</h3>
             <div class="education-grid">
-              <button 
-                v-for="e in educations" 
-                id="profilEducation"
-                :key="e.edu_id"
-                @click="setFavEducation(e.edu_id)"
+              <button v-for="e in educations" id="profilEducation" :key="e.edu_id" @click="setFavEducation(e.edu_id)"
                 :class="{ 'selected': this.profileUser.edu_id.includes(e.edu_id) }">
-                  {{ e.name }}
+                {{ e.name }}
               </button>
             </div>
           </div>
           <div class="locations">
             <h3>Vælg primære uddannelsesteder</h3>
             <div class="location-grid">
-              <button 
-                v-for="l in locations"
-                id="profilLocation"
-                :key="location.location_id"
+              <button v-for="l in locations" id="profilLocation" :key="location.location_id"
                 @click="setFavLocation(l.location_id)"
                 :class="{ 'selected': this.profileUser.location_id.includes(l.location_id) }">
-                  {{ l.name }}
+                {{ l.name }}
               </button>
             </div>
           </div>
@@ -932,7 +930,6 @@ export default {
           }
 
           textarea {
-
             height: 64px;
             font-size: 16px;
             font-family: inherit;
@@ -1094,7 +1091,7 @@ export default {
         input {
           color: $Midnight-Green;
           padding: 8px;
-          min-width: 300px ;
+          min-width: 300px;
           font-size: 16px;
           border: none;
 

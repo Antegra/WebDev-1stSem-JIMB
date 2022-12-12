@@ -2,20 +2,13 @@
 import { RouterLink, RouterView } from 'vue-router'
 import Header from './components/header.vue';
 import Modal from './components/modal.vue';
-
-
 </script>
-
-
-
 
 <template>
   <div class="system-container">
-    <Header/>
-    <Modal/>
+    <Header />
+    <Modal />
   </div>
-
-
 </template>
 
 <style lang="scss" scoped>
