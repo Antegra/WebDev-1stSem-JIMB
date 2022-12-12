@@ -6,6 +6,9 @@ export default {
     tab,
   },
   data() {
+    let user = localStorage.getItem('user-token');
+    let jsonUser = JSON.parse(user);
+
     return {
       tabList: [
         "Brugere",
@@ -49,15 +52,33 @@ export default {
         location_id: 0,
         name: ""
       },
-       //education tab
-       educations: [],
-       education: {
+      //education tab
+      educations: [],
+      education: {
         educationModalShow: false,
         modalTitle: "",
         edu_id: 0,
-        name: "", 
+        name: "",
         location: "",
-       }
+      },
+      //profil tab
+      profileUsers: [],
+      profileUser: {
+        edu_id: [],
+        selectedEducations: [],
+        location_id: [],
+        selectedLocations: [],
+        newPassword: ""
+      },
+      SVUserid: jsonUser[0].user_id,
+      SVFirstName: jsonUser[0].firstName,
+      SVLastName: jsonUser[0].lastName,
+      SVEmail: jsonUser[0].email,
+      SVRoleId: jsonUser[0].role_id,
+      SVEduid: jsonUser[0].edu_id,
+      SVEduname: jsonUser[0].edu_name,
+      SVLocationid: jsonUser[0].location_id,
+      SVLocation: jsonUser[0].location,
     };
   },
   methods: {
@@ -112,7 +133,7 @@ export default {
           firstName: this.user.firstName,
           lastName: this.user.lastName,
           email: this.user.email,
-          password: this.user.email,
+          password: this.user.password,
           title: this.user.title,
           location: "string",
           location_id: "string",
@@ -121,11 +142,10 @@ export default {
           edu_name: "string"
         }),
       })
-      .then(response => response.json())
-      .then(response => {
-        id = response.user_id;
-        console.log(id);
-      });
+        .then(response => response.json())
+        .then(response => {
+          id = response.user_id;
+        });
       //EduUser
       for (let i = 0; i < educationList.length; i++) {
         fetch("https://uclssapitest.azurewebsites.net/api/EduUser/", {
@@ -138,19 +158,19 @@ export default {
             edu_id: realEducationList[i]
           }),
         })
-        .then(response => response.json());
+          .then(response => response.json());
       };
       //LocationUser
       fetch("https://uclssapitest.azurewebsites.net/api/LocationUser/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            user_id: id,
-            location_id: this.user.location_id
-          }),
-        })
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: id,
+          location_id: this.user.location_id
+        }),
+      })
         .then(response => response.json());
     },
     updateUser(user_id) {
@@ -164,7 +184,7 @@ export default {
           firstName: this.user.firstName,
           lastName: this.user.lastName,
           email: this.user.email,
-          password: this.user.email,
+          password: this.user.password,
           title: this.user.title,
           location: this.user.location,
           location_id: this.user.location_id,
@@ -174,20 +194,23 @@ export default {
         }),
       })
         .then((response) => {
-            response.json()
-            this.getUsers();
+          response.json()
+          this.getUsers();
         });
     },
     deleteUser(user_id) {
-      if(!confirm("Er du sikker på at du vil slette brugeren?")){
-            return;
-        }
+      if (!confirm("Er du sikker på at du vil slette brugeren?")) {
+        return;
+      }
       fetch("https://uclssapitest.azurewebsites.net/api/user/" + user_id, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .then((response)=>{
-            response.json()
-            this.getUsers();
+        .then((response) => {
+          response.json()
+          this.getUsers();
         });
     },
     //Methodes for the subject tab
@@ -220,9 +243,9 @@ export default {
           description: this.subject.description
         }),
       })
-      .then((response) => {
-            response.json()
-            this.getSubjects();
+        .then((response) => {
+          response.json()
+          this.getSubjects();
         });
     },
     updateSubject(subject_id) {
@@ -238,20 +261,23 @@ export default {
         }),
       })
         .then((response) => {
-            response.json()
-            this.getSubjects();
+          response.json()
+          this.getSubjects();
         });
     },
     deleteSubject(subject_id) {
-      if(!confirm("Er du sikker på at du vil slette emnet?")){
-            return;
-        }
+      if (!confirm("Er du sikker på at du vil slette emnet?")) {
+        return;
+      }
       fetch("https://uclssapitest.azurewebsites.net/api/subject/" + subject_id, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .then((response)=>{
-            response.json()
-            this.getSubjects();
+        .then((response) => {
+          response.json()
+          this.getSubjects();
         });
     },
     //Methodes for the location tab
@@ -281,9 +307,9 @@ export default {
           name: this.location.name
         }),
       })
-      .then((response) => {
-            response.json()
-            this.getLocations();
+        .then((response) => {
+          response.json()
+          this.getLocations();
         });
     },
     updateLocation(location_id) {
@@ -298,20 +324,23 @@ export default {
         }),
       })
         .then((response) => {
-            response.json()
-            this.getLocations();
+          response.json()
+          this.getLocations();
         });
     },
     deleteLocation(location_id) {
-      if(!confirm("Er du sikker på at du vil slette lokationen?")){
-            return;
-        }
+      if (!confirm("Er du sikker på at du vil slette lokationen?")) {
+        return;
+      }
       fetch("https://uclssapitest.azurewebsites.net/api/location/" + location_id, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .then((response)=>{
-            response.json()
-            this.getLocations();
+        .then((response) => {
+          response.json()
+          this.getLocations();
         });
     },
     //Methodes for the education tab
@@ -344,9 +373,9 @@ export default {
           location: this.education.location
         }),
       })
-      .then((response) => {
-            response.json()
-            this.getEducations();
+        .then((response) => {
+          response.json()
+          this.getEducations();
         });
     },
     updateEducation(edu_id) {
@@ -362,20 +391,166 @@ export default {
         }),
       })
         .then((response) => {
-            response.json()
-            this.getEducations();
+          response.json()
+          this.getEducations();
         });
     },
     deleteEducation(edu_id) {
-      if(!confirm("Er du sikker på at du vil slette uddannelsen?")){
-            return;
-        }
+      if (!confirm("Er du sikker på at du vil slette uddannelsen?")) {
+        return;
+      }
       fetch("https://uclssapitest.azurewebsites.net/api/education/" + edu_id, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .then((response)=>{
-            response.json()
-            this.getEducations();
+        .then((response) => {
+          response.json()
+          this.getEducations();
+        });
+    },
+    logOut() {
+      localStorage.removeItem("user-token");
+      window.location.href = '/login';
+    },
+    getFavEducation() {
+      //split the string and pushs the values to the profilUser 
+      let educationList = this.SVEduid.split(",");
+      for (let i = 0; i < educationList.length; i++) {
+        this.profileUser.edu_id.push(Number(educationList[i]))
+      }
+    },
+    setFavEducation(edu_id) {
+      let profilEducation = document.getElementById("profilEducation");
+      let isprofilEducationPresent = profilEducation.classList.contains("selected");
+
+      if (isprofilEducationPresent) {
+        let selectedEdu = this.profileUser.selectedEducations;
+        selectedEdu.push(edu_id);
+        let id = this.SVUserid;
+        let urlEducationParams = edu_id + ", " + id
+
+        for (let i = 0; i < selectedEdu.length; i++) {
+          fetch("https://uclssapitest.azurewebsites.net/api/EduUser/" + urlEducationParams, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => {
+              response.json();
+              this.getEducations();
+              if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
+                this.logOut();
+            });
+        }
+      } else {
+        let selectedEdu = this.profileUser.selectedEducations;
+        selectedEdu.push(edu_id);
+        let id = this.SVUserid;
+
+        for (let i = 0; i < selectedEdu.length; i++) {
+          fetch("https://uclssapitest.azurewebsites.net/api/EduUser", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              user_id: id,
+              edu_id: selectedEdu[0]
+            }),
+          })
+            .then((response) => {
+              response.json();
+              this.getEducations();
+              if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
+                this.logOut();
+            });
+        }
+      }
+    },
+    getFavLocation() {
+      //split the string and pushs the values to the profilUser 
+      let locationList = this.SVLocationid.split(",");
+      for (let i = 0; i < locationList.length; i++) {
+        this.profileUser.location_id.push(Number(locationList[i]))
+      }
+    },
+    setFavLocation(location_id) {
+      let profilLocation = document.getElementById("profilLocation");
+      let isprofilLocationPresent = profilLocation.classList.contains("selected");
+
+      if (isprofilLocationPresent) {
+        let selectedLocation = this.profileUser.selectedLocations;
+        selectedLocation.push(location_id);
+        let id = this.SVUserid;
+        let urlLocationParams = location_id + ", " + id;
+
+        for (let i = 0; i < selectedLocation.length; i++) {
+          fetch("https://uclssapitest.azurewebsites.net/api/LocationUser/" + urlLocationParams, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => {
+              response.json();
+              this.getLocations();
+              if (confirm("Du har nu ændret din din lokation og skal logge ind igen."))
+                this.logOut();
+            });
+        }
+      } else {
+        let selectedLocation = this.profileUser.selectedLocations;
+        selectedLocation.push(location_id);
+        let id = this.SVUserid;
+
+        for (let i = 0; i < selectedLocation.length; i++) {
+          fetch("https://uclssapitest.azurewebsites.net/api/LocationUser", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              user_id: id,
+              location_id: selectedLocation[0]
+            }),
+          })
+            .then((response) => {
+              response.json();
+              this.getLocations();
+              if (confirm("Du har nu ændret din lokation og skal logge ind igen."))
+                this.logOut();
+            });
+        }
+      }
+    },
+    updatePassword(id) {
+      fetch("https://uclssapitest.azurewebsites.net/api/user/" + id, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: id,
+          firstName: this.SVFirstName,
+          lastName: this.SVLastName,
+          email: this.SVEmail,
+          password: this.newPassword,
+          title: "",
+          location: this.SVLocation,
+          location_id: this.SVLocationid,
+          role_id: this.SVRoleId,
+          edu_id: this.SVEduid,
+          edu_name: this.SVEduname,
+        }),
+      })
+        .then((response) => {
+          response.json();
+          this.getUsers();
+          if (confirm("Du har nu ændret din adgangskode og skal logge ind igen."))
+            this.logOut();
         });
     },
   },
@@ -384,6 +559,8 @@ export default {
     this.getSubjects();
     this.getLocations();
     this.getEducations();
+    this.getFavEducation();
+    this.getFavLocation();
   },
 };
 </script>
@@ -392,7 +569,7 @@ export default {
     <!--Modal for the users-->
     <div class="modal" v-if="user.userModalShow">
       <div class="modal-container">
-        <h2 class="modal-title">{{user.modalTitle}}</h2>
+        <h2 class="modal-title">{{ user.modalTitle }}</h2>
         <div class="modal-content">
           <div class="input-container">
             <span>Fornavn</span>
@@ -424,18 +601,11 @@ export default {
           </div>
         </div>
         <div class="action-container">
-          <button
-            class="yellow-button"
-            v-if="user.user_id == 0"
-            @click="createUser(), (user.userModalShow = false)"
-          >
+          <button class="yellow-button" v-if="user.user_id == 0" @click="createUser(), (user.userModalShow = false)">
             Opret
           </button>
-          <button 
-            class="yellow-button"
-            v-if="user.user_id != 0" 
-            @click="updateUser(user.user_id), (user.userModalShow = false)"
-          >
+          <button class="yellow-button" v-if="user.user_id != 0"
+            @click="updateUser(user.user_id), (user.userModalShow = false)">
             Opdater
           </button>
           <button @click="user.userModalShow = false">Luk</button>
@@ -445,7 +615,7 @@ export default {
     <!--Modal for the subjects-->
     <div class="modal" v-if="subject.subjectModalShow">
       <div class="modal-container">
-        <h2 class="modal-title">{{subject.modalTitle}}</h2>
+        <h2 class="modal-title">{{ subject.modalTitle }}</h2>
         <div class="modal-content">
           <div class="input-container">
             <span>Name</span>
@@ -453,22 +623,16 @@ export default {
           </div>
           <div class="input-container">
             <span>Hjælpebeskrivelse</span>
-            <input type="text" v-model="subject.description" />
+            <textarea v-model="subject.description" />
           </div>
         </div>
         <div class="action-container">
-          <button
-            class="yellow-button"
-            v-if="subject.subject_id == 0"
-            @click="createSubject(), (subject.subjectModalShow = false)"
-          >
+          <button class="yellow-button" v-if="subject.subject_id == 0"
+            @click="createSubject(), (subject.subjectModalShow = false)">
             Opret
           </button>
-          <button 
-            class="yellow-button"
-            v-if="subject.subject_id != 0" 
-            @click="updateSubject(subject.subject_id), (subject.subjectModalShow = false)"
-          >
+          <button class="yellow-button" v-if="subject.subject_id != 0"
+            @click="updateSubject(subject.subject_id), (subject.subjectModalShow = false)">
             Opdater
           </button>
           <button @click="subject.subjectModalShow = false">Luk</button>
@@ -478,7 +642,7 @@ export default {
     <!--Modal for the locations-->
     <div class="modal" v-if="location.locationModalShow">
       <div class="modal-container">
-        <h2 class="modal-title">{{location.modalTitle}}</h2>
+        <h2 class="modal-title">{{ location.modalTitle }}</h2>
         <div class="modal-content">
           <div class="input-container">
             <span>Name</span>
@@ -486,18 +650,12 @@ export default {
           </div>
         </div>
         <div class="action-container">
-          <button
-            class="yellow-button"
-            v-if="location.location_id == 0"
-            @click="createLocation(), (location.locationModalShow = false)"
-          >
+          <button class="yellow-button" v-if="location.location_id == 0"
+            @click="createLocation(), (location.locationModalShow = false)">
             Opret
           </button>
-          <button 
-            class="yellow-button"
-            v-if="location.location_id != 0" 
-            @click="updateLocation(location.location_id), (location.locationModalShow = false)"
-          >
+          <button class="yellow-button" v-if="location.location_id != 0"
+            @click="updateLocation(location.location_id), (location.locationModalShow = false)">
             Opdater
           </button>
           <button @click="location.locationModalShow = false">Luk</button>
@@ -507,7 +665,7 @@ export default {
     <!--Modal for the educations-->
     <div class="modal" v-if="education.educationModalShow">
       <div class="modal-container">
-        <h2 class="modal-title">{{education.modalTitle}}</h2>
+        <h2 class="modal-title">{{ education.modalTitle }}</h2>
         <div class="modal-content">
           <div class="input-container">
             <span>Name</span>
@@ -519,18 +677,12 @@ export default {
           </div>
         </div>
         <div class="action-container">
-          <button
-            class="yellow-button"
-            v-if="education.edu_id == 0"
-            @click="createEducation(), (education.educationModalShow = false)"
-          >
+          <button class="yellow-button" v-if="education.edu_id == 0"
+            @click="createEducation(), (education.educationModalShow = false)">
             Opret
           </button>
-          <button 
-            class="yellow-button"
-            v-if="education.edu_id != 0" 
-            @click="updateEducation(education.edu_id), (education.educationModalShow = false)"
-          >
+          <button class="yellow-button" v-if="education.edu_id != 0"
+            @click="updateEducation(education.edu_id), (education.educationModalShow = false)">
             Opdater
           </button>
           <button @click="education.educationModalShow = false">Luk</button>
@@ -570,50 +722,8 @@ export default {
                 </td>
                 <td>{{ u.title }}</td>
                 <td class="edit_save">
-                  <button
-                    @click="editUser(u), (user.userModalShow = true)"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="59.825"
-                      height="20"
-                      viewBox="0 0 59.825 20"
-                    >
-                      <g
-                        id="Group_478"
-                        data-name="Group 478"
-                        transform="translate(-1218.442 -612)"
-                      >
-                        <path
-                          id="b21743bd27446b402537e815c62aa968"
-                          d="M21.224,2.73a3.319,3.319,0,0,1,0,4.695L8.96,19.686a4.151,4.151,0,0,1-1.928,1.092l-3.8.951a.83.83,0,0,1-1.007-1.006l.951-3.8a4.15,4.15,0,0,1,1.092-1.928L16.528,2.73A3.321,3.321,0,0,1,21.224,2.73Zm-5.87,3.521L5.438,16.164a2.49,2.49,0,0,0-.655,1.157l-.615,2.461,2.461-.615a2.49,2.49,0,0,0,1.157-.655L17.7,8.6ZM17.7,3.9,16.528,5.077l2.348,2.347L20.05,6.251A1.66,1.66,0,0,0,17.7,3.9Z"
-                          transform="translate(1216.246 610.243)"
-                          fill="#153943"
-                        />
-                      </g>
-                    </svg>
-                  </button>
-                  <button class="delete" @click="deleteUser(user.user_id)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="59.825"
-                      height="20"
-                      viewBox="0 0 59.825 20"
-                    >
-                      <g
-                        id="Group_478"
-                        data-name="Group 478"
-                        transform="translate(-1218.442 -612)"
-                      >
-                        <path
-                          id="da086273b974cb595139babd4da17772"
-                          d="M21.015,10.466l-.328,9.75a3.245,3.245,0,0,1-3.281,3.106H11.172a3.245,3.245,0,0,1-3.281-3.1l-.328-9.753A.821.821,0,0,1,9.2,10.413l.328,9.752a1.627,1.627,0,0,0,1.641,1.549h6.234a1.627,1.627,0,0,0,1.641-1.552l.328-9.749a.821.821,0,0,1,1.641.053ZM22.1,7.221a.813.813,0,0,1-.82.805H7.3a.805.805,0,1,1,0-1.611H9.841a1.04,1.04,0,0,0,1.044-.925,2.437,2.437,0,0,1,2.448-2.17h1.911a2.437,2.437,0,0,1,2.448,2.17,1.04,1.04,0,0,0,1.044.925h2.543a.813.813,0,0,1,.82.805Zm-9.791-.805h3.96a2.619,2.619,0,0,1-.209-.76.815.815,0,0,0-.815-.725H13.334a.815.815,0,0,0-.815.725,2.62,2.62,0,0,1-.21.76Zm.826,12.2V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Zm3.949,0V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Z"
-                          transform="translate(1256.167 608.678)"
-                          fill="#eb0000"
-                        />
-                      </g>
-                    </svg>
-                  </button>
+                  <button class="edit-btn" @click="editUser(u), (user.userModalShow = true)"></button>
+                  <button class="delete" @click="deleteUser(user.user_id)"></button>
                 </td>
               </tr>
             </tbody>
@@ -644,50 +754,8 @@ export default {
                   <p>{{ s.description }}</p>
                 </td>
                 <td class="edit_save">
-                  <button
-                    @click="editSubject(s), (subject.subjectModalShow = true)"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="59.825"
-                      height="20"
-                      viewBox="0 0 59.825 20"
-                    >
-                      <g
-                        id="Group_478"
-                        data-name="Group 478"
-                        transform="translate(-1218.442 -612)"
-                      >
-                        <path
-                          id="b21743bd27446b402537e815c62aa968"
-                          d="M21.224,2.73a3.319,3.319,0,0,1,0,4.695L8.96,19.686a4.151,4.151,0,0,1-1.928,1.092l-3.8.951a.83.83,0,0,1-1.007-1.006l.951-3.8a4.15,4.15,0,0,1,1.092-1.928L16.528,2.73A3.321,3.321,0,0,1,21.224,2.73Zm-5.87,3.521L5.438,16.164a2.49,2.49,0,0,0-.655,1.157l-.615,2.461,2.461-.615a2.49,2.49,0,0,0,1.157-.655L17.7,8.6ZM17.7,3.9,16.528,5.077l2.348,2.347L20.05,6.251A1.66,1.66,0,0,0,17.7,3.9Z"
-                          transform="translate(1216.246 610.243)"
-                          fill="#153943"
-                        />
-                      </g>
-                    </svg>
-                  </button>
-                  <button class="delete" @click="deleteSubject(subject.subject_id)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="59.825"
-                      height="20"
-                      viewBox="0 0 59.825 20"
-                    >
-                      <g
-                        id="Group_478"
-                        data-name="Group 478"
-                        transform="translate(-1218.442 -612)"
-                      >
-                        <path
-                          id="da086273b974cb595139babd4da17772"
-                          d="M21.015,10.466l-.328,9.75a3.245,3.245,0,0,1-3.281,3.106H11.172a3.245,3.245,0,0,1-3.281-3.1l-.328-9.753A.821.821,0,0,1,9.2,10.413l.328,9.752a1.627,1.627,0,0,0,1.641,1.549h6.234a1.627,1.627,0,0,0,1.641-1.552l.328-9.749a.821.821,0,0,1,1.641.053ZM22.1,7.221a.813.813,0,0,1-.82.805H7.3a.805.805,0,1,1,0-1.611H9.841a1.04,1.04,0,0,0,1.044-.925,2.437,2.437,0,0,1,2.448-2.17h1.911a2.437,2.437,0,0,1,2.448,2.17,1.04,1.04,0,0,0,1.044.925h2.543a.813.813,0,0,1,.82.805Zm-9.791-.805h3.96a2.619,2.619,0,0,1-.209-.76.815.815,0,0,0-.815-.725H13.334a.815.815,0,0,0-.815.725,2.62,2.62,0,0,1-.21.76Zm.826,12.2V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Zm3.949,0V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Z"
-                          transform="translate(1256.167 608.678)"
-                          fill="#eb0000"
-                        />
-                      </g>
-                    </svg>
-                  </button>
+                  <button class="edit-btn" @click="editSubject(s), (subject.subjectModalShow = true)"></button>
+                  <button class="delete" @click="deleteSubject(subject.subject_id)"></button>
                 </td>
               </tr>
             </tbody>
@@ -714,57 +782,15 @@ export default {
                   <p>{{ l.name }}</p>
                 </td>
                 <td class="edit_save">
-                  <button
-                    @click="editLocation(l), (location.locationModalShow = true)"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="59.825"
-                      height="20"
-                      viewBox="0 0 59.825 20"
-                    >
-                      <g
-                        id="Group_478"
-                        data-name="Group 478"
-                        transform="translate(-1218.442 -612)"
-                      >
-                        <path
-                          id="b21743bd27446b402537e815c62aa968"
-                          d="M21.224,2.73a3.319,3.319,0,0,1,0,4.695L8.96,19.686a4.151,4.151,0,0,1-1.928,1.092l-3.8.951a.83.83,0,0,1-1.007-1.006l.951-3.8a4.15,4.15,0,0,1,1.092-1.928L16.528,2.73A3.321,3.321,0,0,1,21.224,2.73Zm-5.87,3.521L5.438,16.164a2.49,2.49,0,0,0-.655,1.157l-.615,2.461,2.461-.615a2.49,2.49,0,0,0,1.157-.655L17.7,8.6ZM17.7,3.9,16.528,5.077l2.348,2.347L20.05,6.251A1.66,1.66,0,0,0,17.7,3.9Z"
-                          transform="translate(1216.246 610.243)"
-                          fill="#153943"
-                        />
-                      </g>
-                    </svg>
-                  </button>
-                  <button class="delete" @click="deleteLocation(location.location_id)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="59.825"
-                      height="20"
-                      viewBox="0 0 59.825 20"
-                    >
-                      <g
-                        id="Group_478"
-                        data-name="Group 478"
-                        transform="translate(-1218.442 -612)"
-                      >
-                        <path
-                          id="da086273b974cb595139babd4da17772"
-                          d="M21.015,10.466l-.328,9.75a3.245,3.245,0,0,1-3.281,3.106H11.172a3.245,3.245,0,0,1-3.281-3.1l-.328-9.753A.821.821,0,0,1,9.2,10.413l.328,9.752a1.627,1.627,0,0,0,1.641,1.549h6.234a1.627,1.627,0,0,0,1.641-1.552l.328-9.749a.821.821,0,0,1,1.641.053ZM22.1,7.221a.813.813,0,0,1-.82.805H7.3a.805.805,0,1,1,0-1.611H9.841a1.04,1.04,0,0,0,1.044-.925,2.437,2.437,0,0,1,2.448-2.17h1.911a2.437,2.437,0,0,1,2.448,2.17,1.04,1.04,0,0,0,1.044.925h2.543a.813.813,0,0,1,.82.805Zm-9.791-.805h3.96a2.619,2.619,0,0,1-.209-.76.815.815,0,0,0-.815-.725H13.334a.815.815,0,0,0-.815.725,2.62,2.62,0,0,1-.21.76Zm.826,12.2V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Zm3.949,0V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Z"
-                          transform="translate(1256.167 608.678)"
-                          fill="#eb0000"
-                        />
-                      </g>
-                    </svg>
-                  </button>
+                  <button class="edit-btn" @click="editLocation(l), (location.locationModalShow = true)"></button>
+                  <button class="delete" @click="deleteLocation(location.location_id)"></button>
                 </td>
               </tr>
             </tbody>
           </table>
         </template>
-       <!--Tab for the educations-->
-       <template v-slot:tabPanel-4>
+        <!--Tab for the educations-->
+        <template v-slot:tabPanel-4>
           <div class="header">
             <h2>Uddannelser</h2>
             <button class="yellow-button-tab" @click="addEducation(education), (education.educationModalShow = true)">
@@ -788,57 +814,46 @@ export default {
                   <p>{{ e.location }}</p>
                 </td>
                 <td class="edit_save">
-                  <button
-                    @click="editEducation(e), (education.educationModalShow = true)"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="59.825"
-                      height="20"
-                      viewBox="0 0 59.825 20"
-                    >
-                      <g
-                        id="Group_478"
-                        data-name="Group 478"
-                        transform="translate(-1218.442 -612)"
-                      >
-                        <path
-                          id="b21743bd27446b402537e815c62aa968"
-                          d="M21.224,2.73a3.319,3.319,0,0,1,0,4.695L8.96,19.686a4.151,4.151,0,0,1-1.928,1.092l-3.8.951a.83.83,0,0,1-1.007-1.006l.951-3.8a4.15,4.15,0,0,1,1.092-1.928L16.528,2.73A3.321,3.321,0,0,1,21.224,2.73Zm-5.87,3.521L5.438,16.164a2.49,2.49,0,0,0-.655,1.157l-.615,2.461,2.461-.615a2.49,2.49,0,0,0,1.157-.655L17.7,8.6ZM17.7,3.9,16.528,5.077l2.348,2.347L20.05,6.251A1.66,1.66,0,0,0,17.7,3.9Z"
-                          transform="translate(1216.246 610.243)"
-                          fill="#153943"
-                        />
-                      </g>
-                    </svg>
-                  </button>
-                  <button class="delete" @click="deleteEducation(education.edu_id)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="59.825"
-                      height="20"
-                      viewBox="0 0 59.825 20"
-                    >
-                      <g
-                        id="Group_478"
-                        data-name="Group 478"
-                        transform="translate(-1218.442 -612)"
-                      >
-                        <path
-                          id="da086273b974cb595139babd4da17772"
-                          d="M21.015,10.466l-.328,9.75a3.245,3.245,0,0,1-3.281,3.106H11.172a3.245,3.245,0,0,1-3.281-3.1l-.328-9.753A.821.821,0,0,1,9.2,10.413l.328,9.752a1.627,1.627,0,0,0,1.641,1.549h6.234a1.627,1.627,0,0,0,1.641-1.552l.328-9.749a.821.821,0,0,1,1.641.053ZM22.1,7.221a.813.813,0,0,1-.82.805H7.3a.805.805,0,1,1,0-1.611H9.841a1.04,1.04,0,0,0,1.044-.925,2.437,2.437,0,0,1,2.448-2.17h1.911a2.437,2.437,0,0,1,2.448,2.17,1.04,1.04,0,0,0,1.044.925h2.543a.813.813,0,0,1,.82.805Zm-9.791-.805h3.96a2.619,2.619,0,0,1-.209-.76.815.815,0,0,0-.815-.725H13.334a.815.815,0,0,0-.815.725,2.62,2.62,0,0,1-.21.76Zm.826,12.2V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Zm3.949,0V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Z"
-                          transform="translate(1256.167 608.678)"
-                          fill="#eb0000"
-                        />
-                      </g>
-                    </svg>
-                  </button>
+                  <button class="edit-btn" @click="editEducation(e), (education.educationModalShow = true)"></button>
+                  <button class="delete" @click="deleteEducation(education.edu_id)"></button>
                 </td>
               </tr>
             </tbody>
           </table>
         </template>
-        <template v-slot:tabPanel-5> Content 5 </template>
-        <template v-slot:tabPanel-6> Content 6 </template>
+        <template v-slot:tabPanel-5> Eksporter data </template>
+        <!--Tab for the profil-->
+        <template v-slot:tabPanel-6>
+          <div class="header">
+            <h2>Profil</h2>
+          </div>
+          <div class="educations">
+            <h3>Vælg faste uddannelser</h3>
+            <div class="education-grid">
+              <button v-for="e in educations" id="profilEducation" :key="e.edu_id" @click="setFavEducation(e.edu_id)"
+                :class="{ 'selected': this.profileUser.edu_id.includes(e.edu_id) }">
+                {{ e.name }}
+              </button>
+            </div>
+          </div>
+          <div class="locations">
+            <h3>Vælg primære uddannelsesteder</h3>
+            <div class="location-grid">
+              <button v-for="l in locations" id="profilLocation" :key="location.location_id"
+                @click="setFavLocation(l.location_id)"
+                :class="{ 'selected': this.profileUser.location_id.includes(l.location_id) }">
+                {{ l.name }}
+              </button>
+            </div>
+          </div>
+          <div class="password">
+            <h3>Ændre din adgangskode</h3>
+            <div class="password-wrapper">
+              <input type="text" v-model="newPassword" id="passwordField" />
+              <button class="yellow-button-tab" @click="updatePassword(this.SVUserid)">Gem adgangskode</button>
+            </div>
+          </div>
+        </template>
       </tab>
     </div>
   </div>
@@ -868,58 +883,93 @@ export default {
     justify-content: center;
     align-items: center;
     color: $Midnight-Green;
-    
+
     &-container {
-      background-color: #ffffff;
+      width: 600px;
+      background-color: $Midnight-Green;
+      ;
       padding: 24px;
       display: flex;
       flex-direction: column;
       border-radius: 10px;
+
       .modal-title {
         margin: 0;
         padding-bottom: 32px;
+        color: #ffffff;
       }
 
       .modal-content {
+        width: 100%;
         display: flex;
         flex-direction: column;
+        justify-content: center;
+
         .input-container {
-          min-width: 300px;
           display: flex;
           flex-direction: column;
-          justify-content: center;
-          align-items: flex-start;
-          
+
           span {
             font-weight: bold;
             font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 2px;
           }
+
           input {
             color: $Midnight-Green;
             font-size: 16px;
+            height: 32px;
             padding: 8px;
-            margin-bottom:24px;
-            width: 100%;
-            border: 1px solid $Midnight-Green;
+            margin-bottom: 24px;
+
             &:focus-visible {
-              padding: 7px;
+              height: 32px;
               outline: none;
-              border: 2px solid $Midnight-Green;
+            }
+          }
+
+          textarea {
+            height: 64px;
+            font-size: 16px;
+            font-family: inherit;
+            color: inherit;
+            padding: 8px 0 0 8px;
+            resize: none;
+
+            &:focus-visible {
+              height: 32px;
+              outline: none;
+              height: 64px;
             }
           }
         }
       }
+
       .action-container {
         display: flex;
         flex-direction: row;
         padding-top: 32px;
-        justify-content: space-between
+        justify-content: space-between;
+
+        button {
+          font-weight: bold;
+        }
       }
     }
   }
+
   .settings-container {
     @include flowDesign;
+
     padding: 40px;
+    flex-direction: unset;
+    justify-content: unset;
+
+    .tab {
+      max-width: 861px;
+      width: 100%;
+    }
 
     .header {
       display: flex;
@@ -949,57 +999,105 @@ export default {
         td {
           padding: 0 16px;
 
-          input {
-            color: $Midnight-Green;
-            font-size: 16px;
-            border: solid 1px $Midnight-Green;
-            border-radius: 5px;
-            background-color: transparent;
-
-            &:focus-visible {
-              outline: none;
-            }
-
-            &:disabled {
-              border: none;
-              background-color: transparent;
-            }
-          }
-
-          textarea {
-            width: 350px;
-            resize: none;
-            font-size: 16px;
-            font-family: inherit;
-            color: inherit;
-            border: solid 1px $Midnight-Green;
-            border-radius: 5px;
-            background-color: transparent;
-            vertical-align: middle;
-
-            &:disabled {
-              border: none;
-              background: transparent;
-            }
+          p {
+            margin: 0;
           }
         }
+
         th {
           padding: 0 16px;
           height: 50px;
           text-align: left;
+
+          &:last-child {
+            text-align: right;
+          }
         }
+
         .edit_save {
           display: flex;
           flex-direction: row;
+          justify-content: flex-end;
+          gap: 16px;
+
+          .delete {
+            position: relative;
+
+            &:after {
+              content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15.622' height='20' viewBox='0 0 15.622 20'%3E%3Cpath id='da086273b974cb595139babd4da17772' d='M21.015,10.466l-.328,9.75a3.245,3.245,0,0,1-3.281,3.106H11.172a3.245,3.245,0,0,1-3.281-3.1l-.328-9.753A.821.821,0,0,1,9.2,10.413l.328,9.752a1.627,1.627,0,0,0,1.641,1.549h6.234a1.627,1.627,0,0,0,1.641-1.552l.328-9.749a.821.821,0,0,1,1.641.053ZM22.1,7.221a.813.813,0,0,1-.82.805H7.3a.805.805,0,1,1,0-1.611H9.841a1.04,1.04,0,0,0,1.044-.925,2.437,2.437,0,0,1,2.448-2.17h1.911a2.437,2.437,0,0,1,2.448,2.17,1.04,1.04,0,0,0,1.044.925h2.543a.813.813,0,0,1,.82.805Zm-9.791-.805h3.96a2.619,2.619,0,0,1-.209-.76.815.815,0,0,0-.815-.725H13.334a.815.815,0,0,0-.815.725,2.62,2.62,0,0,1-.21.76Zm.826,12.2V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Zm3.949,0V11.76a.82.82,0,0,0-1.641,0v6.86a.82.82,0,0,0,1.641,0Z' transform='translate(-6.478 -3.322)' fill='%23eb0000'/%3E%3C/svg%3E%0A");
+            }
+          }
+
+          .edit-btn {
+            position: relative;
+
+            &:after {
+              content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='19.996' viewBox='0 0 20 19.996'%3E%3Cpath id='b21743bd27446b402537e815c62aa968' d='M21.224,2.73a3.319,3.319,0,0,1,0,4.695L8.96,19.686a4.151,4.151,0,0,1-1.928,1.092l-3.8.951a.83.83,0,0,1-1.007-1.006l.951-3.8a4.15,4.15,0,0,1,1.092-1.928L16.528,2.73A3.321,3.321,0,0,1,21.224,2.73Zm-5.87,3.521L5.438,16.164a2.49,2.49,0,0,0-.655,1.157l-.615,2.461,2.461-.615a2.49,2.49,0,0,0,1.157-.655L17.7,8.6ZM17.7,3.9,16.528,5.077l2.348,2.347L20.05,6.251A1.66,1.66,0,0,0,17.7,3.9Z' transform='translate(-2.196 -1.757)' fill='%23153943'/%3E%3C/svg%3E%0A");
+            }
+          }
 
           button {
             cursor: pointer;
             background: none;
             width: 30px !important;
           }
+        }
 
-          .save {
-            display: none;
+      }
+    }
+
+    .educations {
+      .education-grid {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-bottom: 64px;
+
+        button {
+          &:nth-child(n + 10) {
+            display: block;
+          }
+        }
+      }
+    }
+
+    .locations {
+      .location-grid {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-bottom: 64px;
+      }
+    }
+
+    .selected {
+      background-color: $Maize !important;
+      color: $Midnight-Green;
+      border: none;
+      font-weight: bold;
+      transition: 0.5s;
+      box-shadow: $stdDropshadow;
+    }
+
+    .password {
+      .password-wrapper {
+        display: flex;
+        gap: 16px;
+
+        input {
+          color: $Midnight-Green;
+          padding: 8px;
+          min-width: 300px;
+          font-size: 16px;
+          border: none;
+
+          &:focus-visible {
+            outline: none;
+            border: none;
           }
         }
       }
