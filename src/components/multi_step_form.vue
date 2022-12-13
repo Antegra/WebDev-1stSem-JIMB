@@ -2,8 +2,13 @@
 import { ref, computed, onBeforeMount } from 'vue';
 import { API_URL } from '../connection';
 
+// henter informantion om bruger som er logget ind
 let user = JSON.parse(localStorage.getItem('user-token'));
+
+// Step bruges til at holde styr på hvilket step i flowet brugen er noget til
 let step = ref(1);
+
+// Anwsers holder de informationer som bruger ønsker at indsætter i deres sag
 let anwsers = {
     month: "",
     type: 0,
@@ -15,6 +20,8 @@ let anwsers = {
     duration: 0,
     user_id: user[0].user_id
 };
+
+// Tekst til progressbaren
 let bub1 = "Måned & type";
 let bub2 = "Køn & studiestatus";
 let bub3 = "Lokation & uddannelser";
@@ -22,13 +29,18 @@ let bub4 = "Emner & tid";
 
 // step 1 - Om mødet 
 let sp_1 = ref("Angiv måned");
+
+// Her oprettes der datoer, de har navn og id. Navet bruges til at vise frem til bruger og id bruges til at det skal gemmes i databasen
 let dates = ref([{ name: "Januar", id: 0 }, { name: "Februar", id: 1 }, { name: "Marts", id: 2 }, { namae: "April", id: 3 }, { name: "Maj", id: 4 }, { name: "Juni", id: 5 }, { name: "Juli", id: 6 }, { name: "August", id: 7 }, { name: "September", id: 8 }, { name: "Oktober", id: 9 }, { name: "November", id: 10 }, { name: "December", id: 11 }]);
 const d = new Date();
 
 let q = d.toISOString().substring(0, 10)
 let select_month = ref([]);
 
+// Her bliver dagens dato sat automatisk som det, de gerne vil sende med.
 anwsers.month = q;
+
+// Her fortælles hvor mange månede tilbage de har mulighed for at vælge
 select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() - 1], dates.value[d.getMonth() - 2]];
 
 let sp_2 = ref("Type henvendelse")
@@ -43,11 +55,20 @@ let niveaus = ref([{ id: 10, name: "Nuværende studerende" }, { id: 20, name: "P
 
 // step 3 - Uddannelsested
 let sp_5 = ref("Uddannelsested");
+
+// Holder "string" af hvad bruger tasker ind i søgefeltet
 let input_educations = ref("");
+
+// Holder alle lokationer
 let locations = ref([]);
+
+// Holder alle uddannelser
 let educations = ref([]);
+
+// Holder brugernes faste uddannelser
 let f_educations = ref([]);
 
+// Tjekke hvilker faste uddannelser som den bruger som er logget ind har, og sætte dem ind i f_educations
 if (user[0].edu_id.length > 1) {
     let user_edu_name = user[0].edu_name.split(",");
     let user_edu_id = user[0].edu_id.split(",");
@@ -75,49 +96,61 @@ if (user[0].edu_id.length > 1) {
 
 // step 4 - Hvad handlede samtalen om ?
 let sp_6 = ref("Samtaleemne");
+
+// Holder "string" af hvad bruger tasker ind i søgefeltet
 let input_subjects = ref("");
+
+// Holder alle emner
 let subjects = ref([]);
+
+// Holder længerne 
 let durations = ref([]);
 
-let testt = [];
+// Disse functioner bliver kørt som det første når siden bliver loaded
 onBeforeMount(async () => {
-
+    // Henter types fra api og gemmen ned i types variablen 
     const fetchedTypes = await fetch(API_URL + 'type')
         .then((fetchedTypes) => fetchedTypes.json())
     for (let i = 0; i < fetchedTypes.length; i++) {
         types.value.push({ name: fetchedTypes[i].name, id: fetchedTypes[i].type_id })
     }
+
+    // Henter gender fra api og gemmen ned i gender variablen 
     const fetchedGender = await fetch(API_URL + 'sex')
         .then((fetchedGender) => fetchedGender.json())
     for (let i = 0; i < fetchedGender.length; i++) {
         persons.value.push({ name: fetchedGender[i].name, id: fetchedGender[i].sex_id })
     }
 
+    // Henter locations fra api og gemmen ned i location variablen 
     const fetchedLocation = await fetch(API_URL + 'location')
         .then((fetchedLocation) => fetchedLocation.json())
     for (let i = 0; i < fetchedLocation.length; i++) {
         locations.value.push({ id: fetchedLocation[i].location_id, name: fetchedLocation[i].name })
     }
 
-    // SKAL KIGGES PÅ
+    // Henter locations fra api og gemmen ned i location variablen 
     const fetchedEducation = await fetch(API_URL + 'Education')
         .then((fetchedEducation) => fetchedEducation.json())
     for (let i = 0; i < fetchedEducation.length; i++) {
         educations.value.push({ id: fetchedEducation[i].edu_id, name: fetchedEducation[i].name })
     }
 
+    // Henter Subjects fra api og gemmen ned i Subjects variablen 
     const fetchedSubject = await fetch(API_URL + 'Subject')
         .then((fetchedSubject) => fetchedSubject.json())
     for (let i = 0; i < fetchedSubject.length; i++) {
         subjects.value.push({ id: fetchedSubject[i].subject_id, name: fetchedSubject[i].name, description: fetchedSubject[i].description })
     }
-
+    // Henter Duration fra api og gemmen ned i Duration variablen 
     const fetchedDuration = await fetch(API_URL + 'Duration')
         .then((fetchedDuration) => fetchedDuration.json())
     for (let i = 0; i < fetchedDuration.length; i++) {
         durations.value.push({ id: fetchedDuration[i].duration_id, name: fetchedDuration[i].length })
     }
 })
+
+// her bliver bliver f_educations filtere fra alle uddannelser
 const educations_minus_fav2 = computed(() => {
     return educations.value.filter((obj) => {
         for (let i = 0; i < f_educations.value.length; i++) {
@@ -132,6 +165,7 @@ const educations_minus_fav2 = computed(() => {
 
 })
 
+// Dette er et søge felt som søge på de uddannelser som ikke er faste på brugeren
 const filteredEducations = computed(() => {
     return educations_minus_fav2.value.filter((edu) =>
         edu.name.toLowerCase().includes(input_educations.value.toLowerCase())
@@ -139,17 +173,19 @@ const filteredEducations = computed(() => {
 
 })
 
+// Dette er et søge felt som søge på emner
 function filteredSubject() {
-
     return subjects.value.filter(subject_title =>
         subject_title.description.toLowerCase().includes(input_subjects.value.toLowerCase()) || subject_title.name.toLowerCase().includes(input_subjects.value.toLowerCase()));
 }
 
+// Sætter den valgte månede id i anwsers
 function month(e) {
     d.setMonth(e.target.value);
     anwsers.month = d.toISOString().substring(0, 10);
 }
 
+// Sætter den valgte type id i anwsers, som sætter styling på den valgte type
 function meeting(e) {
     anwsers.type = e;
     const boxes = document.querySelectorAll('.form-group-1-2 .selected');
@@ -162,6 +198,7 @@ function meeting(e) {
 
 }
 
+// Sætter den valgte gender id i anwsers, som sætter styling på den valgte gender
 function sex(e) {
     anwsers.sex = e.id;
 
@@ -175,6 +212,7 @@ function sex(e) {
 
 }
 
+// Sætter den nivuea type id i anwsers, som sætter styling på den valgte nivea
 function level(e) {
     anwsers.niveau = e.id;
 
@@ -188,6 +226,7 @@ function level(e) {
 
 }
 
+// Sætter den valgte type id i anwsers, som sætter styling på den valgte type
 function location_anwser(e) {
 
     anwsers.locations = e.id;
@@ -200,6 +239,7 @@ function location_anwser(e) {
     document.getElementById(e.name).classList.toggle("selected");
 }
 
+// Sætter de valgte uddannelser id i anwsers, som sætter styling på den valgte uddannelser
 function educations_anwser(e) {
     if (anwsers.educations.includes(e.id)) {
         anwsers.educations = anwsers.educations.filter(function (item) {
@@ -212,6 +252,7 @@ function educations_anwser(e) {
     document.getElementById(e.name).classList.toggle("selected");
 }
 
+// Sætter de valgte emner id i anwsers, som sætter styling på den valgte emner
 function subject_anwser(e) {
     if (anwsers.subject.includes(e.id)) {
         anwsers.subject = anwsers.subject.filter(function (item) {
@@ -226,6 +267,7 @@ function subject_anwser(e) {
     document.getElementById(e.name).classList.toggle("selected");
 }
 
+// Sætter den valgte længe id i anwsers, som sætter styling på den valgte længe
 function duration_anwser(e) {
     anwsers.duration = e.id;
     const boxes = document.querySelectorAll('.form-group-4-2 .selected');
@@ -237,6 +279,7 @@ function duration_anwser(e) {
     document.getElementById(e.name).classList.toggle("selected");
 }
 
+// Sætter ændre vi step, for bringe burger videre til næste step i flowet, samt tjekker om alt er blevet udfyldt
 function next(e) {
     switch (e) {
         case 1:
@@ -323,11 +366,13 @@ function next(e) {
     }
 }
 
+// Denne function loader flere emner eller uddannelser
 function loadMore() {
     document.querySelector(".loadbtn").classList.toggle("loaded");
     document.querySelector(".load").classList.toggle("displaynone");
 }
 
+// bringer bruger tilbage
 function previous(x) {
     const boxes = document.querySelectorAll('button')
     boxes.forEach(box => {
@@ -349,6 +394,7 @@ function previous(x) {
     }
 }
 
+// Her sender vi anwsers til database og oprette en ny sag
 async function done() {
     step.value = 0;
     var c = ((15 < anwsers.niveau) ? false : true);
@@ -385,6 +431,7 @@ async function done() {
             },
             body: JSON.stringify(params)
         };
+        // Grund sagen bliver oprettet og sender case_id tilbage som bliver gemt i et variable
         await fetch('https://uclssapitest.azurewebsites.net/api/Case', options)
             .then(response => response.json())
             .then(response => {
@@ -394,7 +441,7 @@ async function done() {
         console.error("failed to post, case");
     }
 
-    // sender education
+    // Sender educations til database, her bruges case_id fra grund sagen for at kunne oprette combine tablerne
     for (let i = 0; i < anwsers.educations.length; i++) {
         try {
             const params = {
@@ -416,7 +463,7 @@ async function done() {
             console.error("failed to post, Educations");
         }
     };
-
+    // Sender lokation til database, her bruges case_id fra grund sagen for at kunne oprette combine tablerne
     try {
         const params2 = {
 
@@ -437,7 +484,7 @@ async function done() {
     } catch (error) {
         console.error("failed to post, locations");
     }
-
+    // Sender emner til database, her bruges case_id fra grund sagen for at kunne oprette combine tablerne
     for (let i = 0; i < anwsers.subject.length; i++) {
         try {
             const params = {
@@ -461,8 +508,10 @@ async function done() {
         }
     };
 
+    // Step bliver sat til 1 igen, så flowet er klar til at bliver gået igennem igen
     step.value = 1;
 
+    // Sender brugen tilbage til forsiden
     window.location.href = '/?succes=true';
 }
 </script>
