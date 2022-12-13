@@ -1,12 +1,20 @@
 <script setup>
 import { ref, computed, onBeforeMount } from 'vue';
+// Holder connection URL til API
 import { API_URL } from '../connection';
 
+// Henter informantion om bruger som er logget ind
 let user = JSON.parse(localStorage.getItem('user-token'));
+
+// Bruges til at display mere info om den case som er blevet valgt
 let caseNumber = ref([0]);
+
+// Her gemmes alt information som bliver hente om cases
 let cases = ref([]);
 
+// Denne function bliver kørt som det første når siden bliver loaded
 onBeforeMount(async () => {
+  // Henter alle cases som den bruger som er logget ind har lavet, og gemmer det ned i cases variablen
   const fetchedCases = await fetch(API_URL + "case/" + user[0].user_id)
     .then((fetchedCases) => fetchedCases.json())
   for (let i = 0; i < fetchedCases.length; i++) {
@@ -14,6 +22,7 @@ onBeforeMount(async () => {
   }
 })
 
+// Bruges til at vise mere information om en valgt case
 function showCase(e) {
   if (caseNumber.value != e.case_id) {
     caseNumber.value = e.case_id;
@@ -78,9 +87,11 @@ function showCase(e) {
   .cases {
     width: 90%;
     margin-bottom: 14px;
+
     &:nth-child(even) {
       .case_top {
         background-color: #f2f2f2;
+
         &:hover {
           background-color: $Maize;
         }
@@ -110,7 +121,7 @@ function showCase(e) {
     }
 
     img {
-      filter:  invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);
+      filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);
       transform: scale(50%) rotate(0deg);
     }
 
@@ -128,6 +139,7 @@ function showCase(e) {
     padding: 50px 12px 12px 12px;
     border-radius: 12px;
     transform: translatey(-20px);
+
     span {
       font-weight: bold;
       padding-right: 5px;
