@@ -17,5 +17,12 @@ import Modal from './components/modal.vue';
 .system-container {
   font-family: 'Proixma Nova Alt', sans-serif;
 }
+
+
+@media (max-width: 920px) {
+.system-container {
+    margin: 20px;
+}
+}
 </style>
 

@@ -64,9 +64,9 @@ function showCase(e) {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 1080px;
+  max-width: 861px;
   width: 100%;
-  margin: 5% 20vw;
+  margin: 150px auto 0 auto;
   align-items: center;
   background: $Midnight-Green;
   border-radius: 13px;
@@ -76,13 +76,13 @@ function showCase(e) {
   background-color: $Midnight-Green;
 
   .cases {
-    width: 70%;
+    width: 90%;
     margin-bottom: 14px;
     &:nth-child(even) {
       .case_top {
         background-color: #f2f2f2;
         &:hover {
-          background-color: $Tea-Rose;
+          background-color: $Maize;
         }
       }
     }
@@ -106,10 +106,11 @@ function showCase(e) {
     user-select: none;
 
     &:hover {
-      background-color: $Tea-Rose;
+      background-color: $Maize;
     }
 
     img {
+      filter:  invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);
       transform: scale(50%) rotate(0deg);
     }
 
