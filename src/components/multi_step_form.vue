@@ -2,6 +2,8 @@
 import { ref, computed, onBeforeMount } from 'vue';
 import { API_URL } from '../connection';
 
+
+
 // henter informantion om bruger som er logget ind
 let user = JSON.parse(localStorage.getItem('user-token'));
 var user_edu = 0;
@@ -525,11 +527,11 @@ async function done() {
                 console.error("failed to post, subjects");
             }
         };
-            // Step bliver sat til 1 igen, så flowet er klar til at bliver gået igennem igen
-    step.value = 1;
+        // Step bliver sat til 1 igen, så flowet er klar til at bliver gået igennem igen
+        step.value = 1;
 
-// Sender brugen tilbage til forsiden
-window.location.href = '/?succes=true';
+        // Sender brugen tilbage til forsiden
+        window.location.href = '/?succes=true';
     }
 
 
@@ -939,7 +941,7 @@ window.location.href = '/?succes=true';
             font-size: 16px;
             background: #fff;
             border: 1px solid $Midnight-Green;
-        } 
+        }
 
         #subject_icon {
             font-style: italic;
