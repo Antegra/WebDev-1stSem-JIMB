@@ -1,3 +1,5 @@
+
+
 <script setup>
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
@@ -6,6 +8,18 @@ import { API_URL } from '../connection'
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
+let allCases = ref([]);
+
+onBeforeMount(async () => {
+  let allCases = await fetch(API_URL + '/case')
+    .then((test) => test.json())
+  
+console.log(allCases)
+
+
+
+});
+download(JSON.stringify(allCases), "apidata.json", "text/plain");
 let myArray = [1];
 console.log("1. ", myArray)
 
@@ -74,7 +88,8 @@ const config = {
 </script>
 
 <template>
-
+  <button type="button" v-on:click="saveFile()">saveFile</button>
+  <button @click="allCases(JSON.stringify(allCases), 'allCases.json', 'text/plain')">Add 1</button>
   <Bar id="my-chart-id" :options="chartOptions" :data="data" />
 </template>
   
