@@ -281,6 +281,11 @@ function duration_anwser(e) {
 
 // Sætter ændre vi step, for bringe burger videre til næste step i flowet, samt tjekker om alt er blevet udfyldt
 function next(e) {
+    const boxes = document.querySelectorAll('p')
+    boxes.forEach(box => {
+        box.classList.remove("alert")
+    });
+
     switch (e) {
         case 1:
             const boxes = document.querySelector('.alert_1')
@@ -353,10 +358,12 @@ function loadMore() {
 
 // bringer bruger tilbage
 function previous(x) {
-    const boxes = document.querySelectorAll('button')
+    const boxes = document.querySelectorAll('p')
     boxes.forEach(box => {
         box.classList.remove("alert")
     });
+
+
     // step.value = step.value - 1;
     switch (x) {
         case 1:
