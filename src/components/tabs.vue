@@ -50,10 +50,13 @@ ul {
   margin-left: -40px;
   padding: 0;
 
+
+
   li {
     list-style: none;
     border-radius: 5px;
-    background: $Midnight-Green;
+    background-color: #f2f2f2;
+    color: $Midnight-Green;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,10 +65,10 @@ ul {
   }
 
   .li_active {
-    background: $Maize;
-    color: $Midnight-Green;
+    background: $Midnight-Green;;
+    color: #ffffff;
     font-weight: bold;
-    box-shadow: $stdDropshadow;
+
   }
 
   label {
