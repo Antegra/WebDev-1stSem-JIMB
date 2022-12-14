@@ -6,7 +6,11 @@ import { API_URL } from '../connection';
 
 // henter informantion om bruger som er logget ind
 let user = JSON.parse(localStorage.getItem('user-token'));
+var user_edu = 0;
 
+
+console.log(user);
+console.log(user_edu);
 // Step bruges til at holde styr på hvilket step i flowet brugen er noget til
 let step = ref(1);
 
@@ -70,6 +74,7 @@ let educations = ref([]);
 // Holder brugernes faste uddannelser
 let f_educations = ref([]);
 
+
 // Tjekke hvilker faste uddannelser som den bruger som er logget ind har, og sætte dem ind i f_educations
 if (user[0].edu_id.length > 1) {
     let user_edu_name = user[0].edu_name.split(",");
@@ -110,6 +115,13 @@ let durations = ref([]);
 
 // Disse functioner bliver kørt som det første når siden bliver loaded
 onBeforeMount(async () => {
+    const fetchedUser = await fetch(API_URL + 'User/' + user[0].email + ', ' + user[0].passwrod)
+        .then((fetchedUser) => fetchedUser.json())
+    user_edu = fetchedUser.edu_id;
+
+    console.log(user_edu);
+
+
     // Henter types fra api og gemmen ned i types variablen 
     const fetchedTypes = await fetch(API_URL + 'type')
         .then((fetchedTypes) => fetchedTypes.json())
