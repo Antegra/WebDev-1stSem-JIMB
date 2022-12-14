@@ -44,7 +44,6 @@ function logOut() {
           <RouterLink class="navigation-link" to="/">Hjem</RouterLink>
           <RouterLink class="navigation-link" to="/newcase">Ny sag</RouterLink>
           <RouterLink class="navigation-link" to="/oldcases">Gamle sager</RouterLink>
-          <RouterLink class="navigation-link" to="/data">Data</RouterLink>
           <a class="navigation-link logout" @click="logOut()">Log out</a>
           <RouterLink class="navigation-link" to="/settings">
             <span class="material-symbols-outlined">
