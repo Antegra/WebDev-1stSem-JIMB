@@ -1,18 +1,20 @@
 <script setup>
 import { ref, computed, onBeforeMount } from 'vue';
+// Holder connection URL til API
 import { API_URL } from '../connection';
 
+// Henter informantion om bruger som er logget ind
 let user = JSON.parse(localStorage.getItem('user-token'));
 
-
-
+// Bruges til at display mere info om den case som er blevet valgt
 let caseNumber = ref([0]);
 
+// Her gemmes alt information som bliver hente om cases
 let cases = ref([]);
 
-
+// Denne function bliver kørt som det første når siden bliver loaded
 onBeforeMount(async () => {
-
+  // Henter alle cases som den bruger som er logget ind har lavet, og gemmer det ned i cases variablen
   const fetchedCases = await fetch(API_URL + "case/" + user[0].user_id)
     .then((fetchedCases) => fetchedCases.json())
   for (let i = 0; i < fetchedCases.length; i++) {
@@ -20,27 +22,23 @@ onBeforeMount(async () => {
   }
 })
 
-
+// Bruges til at vise mere information om en valgt case
 function showCase(e) {
   if (caseNumber.value != e.case_id) {
     caseNumber.value = e.case_id;
   } else {
     caseNumber.value = 0;
   }
-
 }
 </script>
 
 <template>
-
   <div class="box">
     <h1>
       Gamle sager
     </h1>
-
     <div class="cases" v-for="case1 in cases.slice().reverse() ">
       <div class="case_top" v-on:click="showCase(case1)">
-
         <p>Sags: nr. {{ case1.case_id }} </p>
         <p>Oprettelse: {{ case1.month }} </p>
         <p>Køn: {{ case1.sex }} </p>
@@ -59,7 +57,6 @@ function showCase(e) {
         <p><span>Nuværende studerende:</span> {{ case1.niveau }} </p>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -71,18 +68,14 @@ function showCase(e) {
 @import "../assets/scss/mixins.scss";
 @import "../assets/scss/layout.scss";
 
-
-
 .box {
-
   padding: 60px 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  max-width: 1080px;
+  max-width: 861px;
   width: 100%;
-  margin: 5% 20vw;
+  margin: 150px auto 0 auto;
   align-items: center;
   background: $Midnight-Green;
   border-radius: 13px;
@@ -91,26 +84,19 @@ function showCase(e) {
   position: relative;
   background-color: $Midnight-Green;
 
-
-
   .cases {
-    width: 70%;
+    width: 90%;
     margin-bottom: 14px;
-
 
     &:nth-child(even) {
       .case_top {
         background-color: #f2f2f2;
 
         &:hover {
-          background-color: $Tea-Rose;
+          background-color: $Maize;
         }
       }
     }
-
-
-
-
   }
 
   .case_top {
@@ -131,20 +117,18 @@ function showCase(e) {
     user-select: none;
 
     &:hover {
-      background-color: $Tea-Rose;
+      background-color: $Maize;
     }
 
     img {
+      filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);
       transform: scale(50%) rotate(0deg);
     }
 
     p {
       margin-top: 16px;
     }
-
   }
-
-
 
   .case_bottom {
     display: flex;
@@ -154,17 +138,12 @@ function showCase(e) {
     color: $Midnight-Green;
     padding: 50px 12px 12px 12px;
     border-radius: 12px;
-
     transform: translatey(-20px);
-
 
     span {
       font-weight: bold;
       padding-right: 5px;
     }
   }
-
-
 }
-</style>
-  
+</style>  

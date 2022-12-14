@@ -1,7 +1,5 @@
 <script setup>
 import Multi_step_form from '../components/multi_step_form.vue';
-
-
 </script>
 
 <template>
@@ -11,8 +9,3 @@ import Multi_step_form from '../components/multi_step_form.vue';
     </h1>
   </div>
 </template>
-
-<style lang="scss" scoped>
-
-</style>
-  

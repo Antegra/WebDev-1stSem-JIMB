@@ -2,12 +2,13 @@
 import { ref, computed, onBeforeMount } from 'vue';
 import { API_URL } from '../connection';
 
+// henter informantion om bruger som er logget ind
 let user = JSON.parse(localStorage.getItem('user-token'));
 
-console.log(user[0]);
+// Step bruges til at holde styr på hvilket step i flowet brugen er noget til
+let step = ref(1);
 
-let step = ref(3);
-
+// Anwsers holder de informationer som bruger ønsker at indsætter i deres sag
 let anwsers = {
     month: "",
     type: 0,
@@ -18,12 +19,9 @@ let anwsers = {
     subject: [],
     duration: 0,
     user_id: user[0].user_id
-
 };
 
-
-
-
+// Tekst til progressbaren
 let bub1 = "Måned & type";
 let bub2 = "Køn & studiestatus";
 let bub3 = "Lokation & uddannelser";
@@ -31,15 +29,18 @@ let bub4 = "Emner & tid";
 
 // step 1 - Om mødet 
 let sp_1 = ref("Angiv måned");
+
+// Her oprettes der datoer, de har navn og id. Navet bruges til at vise frem til bruger og id bruges til at det skal gemmes i databasen
 let dates = ref([{ name: "Januar", id: 0 }, { name: "Februar", id: 1 }, { name: "Marts", id: 2 }, { namae: "April", id: 3 }, { name: "Maj", id: 4 }, { name: "Juni", id: 5 }, { name: "Juli", id: 6 }, { name: "August", id: 7 }, { name: "September", id: 8 }, { name: "Oktober", id: 9 }, { name: "November", id: 10 }, { name: "December", id: 11 }]);
 const d = new Date();
 
 let q = d.toISOString().substring(0, 10)
 let select_month = ref([]);
 
+// Her bliver dagens dato sat automatisk som det, de gerne vil sende med.
 anwsers.month = q;
 
-
+// Her fortælles hvor mange månede tilbage de har mulighed for at vælge
 select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() - 1], dates.value[d.getMonth() - 2]];
 
 let sp_2 = ref("Type henvendelse")
@@ -54,11 +55,20 @@ let niveaus = ref([{ id: 10, name: "Nuværende studerende" }, { id: 20, name: "P
 
 // step 3 - Uddannelsested
 let sp_5 = ref("Uddannelsested");
+
+// Holder "string" af hvad bruger tasker ind i søgefeltet
 let input_educations = ref("");
+
+// Holder alle lokationer
 let locations = ref([]);
+
+// Holder alle uddannelser
 let educations = ref([]);
+
+// Holder brugernes faste uddannelser
 let f_educations = ref([]);
 
+// Tjekke hvilker faste uddannelser som den bruger som er logget ind har, og sætte dem ind i f_educations
 if (user[0].edu_id.length > 1) {
     let user_edu_name = user[0].edu_name.split(",");
     let user_edu_id = user[0].edu_id.split(",");
@@ -84,60 +94,68 @@ if (user[0].edu_id.length > 1) {
     }
 }
 
-
 // step 4 - Hvad handlede samtalen om ?
 let sp_6 = ref("Samtaleemne");
+
+// Holder "string" af hvad bruger tasker ind i søgefeltet
 let input_subjects = ref("");
+
+// Holder alle emner
 let subjects = ref([]);
+
+// Holder længerne 
 let durations = ref([]);
 
-let testt = [];
+// Disse functioner bliver kørt som det første når siden bliver loaded
 onBeforeMount(async () => {
-
+    // Henter types fra api og gemmen ned i types variablen 
     const fetchedTypes = await fetch(API_URL + 'type')
         .then((fetchedTypes) => fetchedTypes.json())
     for (let i = 0; i < fetchedTypes.length; i++) {
         types.value.push({ name: fetchedTypes[i].name, id: fetchedTypes[i].type_id })
     }
+
+    // Henter gender fra api og gemmen ned i gender variablen 
     const fetchedGender = await fetch(API_URL + 'sex')
         .then((fetchedGender) => fetchedGender.json())
     for (let i = 0; i < fetchedGender.length; i++) {
         persons.value.push({ name: fetchedGender[i].name, id: fetchedGender[i].sex_id })
     }
 
+    // Henter locations fra api og gemmen ned i location variablen 
     const fetchedLocation = await fetch(API_URL + 'location')
         .then((fetchedLocation) => fetchedLocation.json())
     for (let i = 0; i < fetchedLocation.length; i++) {
         locations.value.push({ id: fetchedLocation[i].location_id, name: fetchedLocation[i].name })
     }
 
-    // SKAL KIGGES PÅ
+    // Henter locations fra api og gemmen ned i location variablen 
     const fetchedEducation = await fetch(API_URL + 'Education')
         .then((fetchedEducation) => fetchedEducation.json())
     for (let i = 0; i < fetchedEducation.length; i++) {
         educations.value.push({ id: fetchedEducation[i].edu_id, name: fetchedEducation[i].name })
     }
 
+    // Henter Subjects fra api og gemmen ned i Subjects variablen 
     const fetchedSubject = await fetch(API_URL + 'Subject')
         .then((fetchedSubject) => fetchedSubject.json())
     for (let i = 0; i < fetchedSubject.length; i++) {
         subjects.value.push({ id: fetchedSubject[i].subject_id, name: fetchedSubject[i].name, description: fetchedSubject[i].description })
     }
-
+    // Henter Duration fra api og gemmen ned i Duration variablen 
     const fetchedDuration = await fetch(API_URL + 'Duration')
         .then((fetchedDuration) => fetchedDuration.json())
     for (let i = 0; i < fetchedDuration.length; i++) {
         durations.value.push({ id: fetchedDuration[i].duration_id, name: fetchedDuration[i].length })
     }
-
-
 })
+
+// her bliver bliver f_educations filtere fra alle uddannelser
 const educations_minus_fav2 = computed(() => {
     return educations.value.filter((obj) => {
         for (let i = 0; i < f_educations.value.length; i++) {
             if (f_educations.value[i].id == obj.id) {
                 return false;
-
             }
         }
 
@@ -147,6 +165,7 @@ const educations_minus_fav2 = computed(() => {
 
 })
 
+// Dette er et søge felt som søge på de uddannelser som ikke er faste på brugeren
 const filteredEducations = computed(() => {
     return educations_minus_fav2.value.filter((edu) =>
         edu.name.toLowerCase().includes(input_educations.value.toLowerCase())
@@ -154,22 +173,19 @@ const filteredEducations = computed(() => {
 
 })
 
+// Dette er et søge felt som søge på emner
 function filteredSubject() {
-
     return subjects.value.filter(subject_title =>
         subject_title.description.toLowerCase().includes(input_subjects.value.toLowerCase()) || subject_title.name.toLowerCase().includes(input_subjects.value.toLowerCase()));
-
 }
 
-
-
-
+// Sætter den valgte månede id i anwsers
 function month(e) {
     d.setMonth(e.target.value);
     anwsers.month = d.toISOString().substring(0, 10);
-
 }
 
+// Sætter den valgte type id i anwsers, som sætter styling på den valgte type
 function meeting(e) {
     anwsers.type = e;
     const boxes = document.querySelectorAll('.form-group-1-2 .selected');
@@ -182,6 +198,7 @@ function meeting(e) {
 
 }
 
+// Sætter den valgte gender id i anwsers, som sætter styling på den valgte gender
 function sex(e) {
     anwsers.sex = e.id;
 
@@ -195,11 +212,11 @@ function sex(e) {
 
 }
 
+// Sætter den nivuea type id i anwsers, som sætter styling på den valgte nivea
 function level(e) {
     anwsers.niveau = e.id;
 
     const boxes = document.querySelectorAll('.form-group-2-2 .selected');
-
 
     boxes.forEach(box => {
         box.classList.remove('selected');
@@ -209,10 +226,10 @@ function level(e) {
 
 }
 
+// Sætter den valgte type id i anwsers, som sætter styling på den valgte type
 function location_anwser(e) {
 
     anwsers.locations = e.id;
-
 
     const boxes = document.querySelectorAll('.form-group-3-1 .selected');
 
@@ -222,6 +239,7 @@ function location_anwser(e) {
     document.getElementById(e.name).classList.toggle("selected");
 }
 
+// Sætter de valgte uddannelser id i anwsers, som sætter styling på den valgte uddannelser
 function educations_anwser(e) {
     if (anwsers.educations.includes(e.id)) {
         anwsers.educations = anwsers.educations.filter(function (item) {
@@ -232,10 +250,9 @@ function educations_anwser(e) {
 
     }
     document.getElementById(e.name).classList.toggle("selected");
-
-
 }
 
+// Sætter de valgte emner id i anwsers, som sætter styling på den valgte emner
 function subject_anwser(e) {
     if (anwsers.subject.includes(e.id)) {
         anwsers.subject = anwsers.subject.filter(function (item) {
@@ -246,10 +263,11 @@ function subject_anwser(e) {
         anwsers.subject.push(e.id);
         subjects.value[e.index].isSelected = true;
     }
-    document.getElementById(e.name).classList.toggle("selected");
 
+    document.getElementById(e.name).classList.toggle("selected");
 }
 
+// Sætter den valgte længe id i anwsers, som sætter styling på den valgte længe
 function duration_anwser(e) {
     anwsers.duration = e.id;
     const boxes = document.querySelectorAll('.form-group-4-2 .selected');
@@ -259,11 +277,15 @@ function duration_anwser(e) {
     });
 
     document.getElementById(e.name).classList.toggle("selected");
-
 }
 
-
+// Sætter ændre vi step, for bringe burger videre til næste step i flowet, samt tjekker om alt er blevet udfyldt
 function next(e) {
+    const boxes = document.querySelectorAll('p')
+    boxes.forEach(box => {
+        box.classList.remove("alert")
+    });
+
     switch (e) {
         case 1:
             const boxes = document.querySelector('.alert_1')
@@ -325,42 +347,24 @@ function next(e) {
             }
             break;
 
-        case 4:
-            if (anwsers.subject == "" || anwsers.duration == "") {
-                if (anwsers.subject == "") {
-                    const boxes = document.querySelector('.alert_6')
-
-                    boxes.classList.add("alert")
-                    location.href = "#";
-                    location.href = "#alert_6";
-
-                } else if (anwsers.duration == "") {
-                    const boxes = document.querySelector('.alert_7')
-                    boxes.classList.add("alert")
-                }
-            } else {
-                step.value += 1;
-                const boxes = document.querySelectorAll('alert')
-                boxes.forEach(box => {
-                    box.classList.remove("alert");
-                });
-            }
-            break;
     }
 }
 
+// Denne function loader flere emner eller uddannelser
 function loadMore() {
     document.querySelector(".loadbtn").classList.toggle("loaded");
     document.querySelector(".load").classList.toggle("displaynone");
 }
 
+// bringer bruger tilbage
 function previous(x) {
-    const boxes = document.querySelectorAll('button')
+    const boxes = document.querySelectorAll('p')
     boxes.forEach(box => {
         box.classList.remove("alert")
     });
-    // step.value = step.value - 1;
 
+
+    // step.value = step.value - 1;
     switch (x) {
         case 1:
             step.value = step.value - 1;
@@ -373,61 +377,56 @@ function previous(x) {
         case 3:
             step.value = step.value - 3;
             break;
-
     }
 }
 
+// Her sender vi anwsers til database og oprette en ny sag
 async function done() {
-    step.value = 0;
     var c = ((15 < anwsers.niveau) ? false : true);
     let case_id = 0;
 
-    try {
-        const params = {
-            "case_id": 0,
-            "month": anwsers.month,
-            "name": "string",
-            "supervisor": "string",
-            "sex": "string",
-            "length": "string",
-            "education": "string",
-            "location": "string",
-            "subject": "string",
-            "user_id": anwsers.user_id,
-            "sex_id": anwsers.sex,
-            "duration_id": anwsers.duration,
-            "type_id": anwsers.type,
-            "edu_id": 0,
-            "location_id": 0,
-            "subject_id": 0,
-            "primeEdu": 1,
-            "niveau": c,
-            "nationality": true
-        };
+    if (anwsers.subject == "" || anwsers.duration == "") {
+        if (anwsers.subject == "") {
+            const boxes = document.querySelector('.alert_6')
 
-        const options = {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(params)
-        };
-        await fetch('https://uclssapitest.azurewebsites.net/api/Case', options)
-            .then(response => response.json())
-            .then(response => {
-                case_id = response.case_id;
-            });
-    } catch (error) {
-        console.error("failed to post, case");
-    }
+            boxes.classList.add("alert")
+            location.href = "#";
+            location.href = "#alert_6";
 
-    // sender education
-    for (let i = 0; i < anwsers.educations.length; i++) {
+        } else if (anwsers.duration == "") {
+            const boxes = document.querySelector('.alert_7')
+            boxes.classList.add("alert")
+        }
+    } else {
+        step.value = 0;
+
+        const boxes = document.querySelectorAll('alert')
+        boxes.forEach(box => {
+            box.classList.remove("alert");
+        });
+
+
         try {
             const params = {
-                "edu_id": anwsers.educations[i],
-                "case_id": case_id
+                "case_id": 0,
+                "month": anwsers.month,
+                "name": "string",
+                "supervisor": "string",
+                "sex": "string",
+                "length": "string",
+                "education": "string",
+                "location": "string",
+                "subject": "string",
+                "user_id": anwsers.user_id,
+                "sex_id": anwsers.sex,
+                "duration_id": anwsers.duration,
+                "type_id": anwsers.type,
+                "edu_id": 0,
+                "location_id": 0,
+                "subject_id": 0,
+                "primeEdu": 1,
+                "niveau": c,
+                "nationality": true
             };
 
             const options = {
@@ -438,64 +437,91 @@ async function done() {
                 },
                 body: JSON.stringify(params)
             };
-            await fetch(API_URL + 'EducationCase', options)
-                .then(response => response)
+            // Grund sagen bliver oprettet og sender case_id tilbage som bliver gemt i et variable
+            await fetch('https://uclssapitest.azurewebsites.net/api/Case', options)
+                .then(response => response.json())
+                .then(response => {
+                    case_id = response.case_id;
+                });
         } catch (error) {
-            console.error("failed to post, Educations");
+            console.error("failed to post, case");
         }
-    };
 
-    try {
-        const params2 = {
+        // Sender educations til database, her bruges case_id fra grund sagen for at kunne oprette combine tablerne
+        for (let i = 0; i < anwsers.educations.length; i++) {
+            try {
+                const params = {
+                    "edu_id": anwsers.educations[i],
+                    "case_id": case_id
+                };
 
-            "location_id": anwsers.locations,
-            "case_id": case_id
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(params)
+                };
+                await fetch(API_URL + 'EducationCase', options)
+                    .then(response => response)
+            } catch (error) {
+                console.error("failed to post, Educations");
+            }
         };
-
-        const options2 = {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(params2)
-        };
-        await fetch(API_URL + 'LocationCase', options2)
-            .then(response => response)
-    } catch (error) {
-        console.error("failed to post, locations");
-    }
-
-
-    for (let i = 0; i < anwsers.subject.length; i++) {
+        // Sender lokation til database, her bruges case_id fra grund sagen for at kunne oprette combine tablerne
         try {
-            const params = {
+            const params2 = {
 
-                "subject_id": anwsers.subject[i],
+                "location_id": anwsers.locations,
                 "case_id": case_id
             };
 
-            const options = {
+            const options2 = {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(params)
+                body: JSON.stringify(params2)
             };
-            await fetch(API_URL + 'SubjectCase', options)
+            await fetch(API_URL + 'LocationCase', options2)
                 .then(response => response)
         } catch (error) {
-            console.error("failed to post, subjects");
+            console.error("failed to post, locations");
         }
-    };
+        // Sender emner til database, her bruges case_id fra grund sagen for at kunne oprette combine tablerne
+        for (let i = 0; i < anwsers.subject.length; i++) {
+            try {
+                const params = {
 
+                    "subject_id": anwsers.subject[i],
+                    "case_id": case_id
+                };
+
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(params)
+                };
+                await fetch(API_URL + 'SubjectCase', options)
+                    .then(response => response)
+            } catch (error) {
+                console.error("failed to post, subjects");
+            }
+        };
+            // Step bliver sat til 1 igen, så flowet er klar til at bliver gået igennem igen
     step.value = 1;
 
-    window.location.href = '/?succes=true';
+// Sender brugen tilbage til forsiden
+window.location.href = '/?succes=true';
+    }
+
 
 }
-
 </script>
 
 <template>
@@ -522,17 +548,15 @@ async function done() {
                 </div>
             </div>
             <div class="form-group-1">
-
                 <h2>{{ sp_1 }}</h2>
                 <div class="form-group-1-1 form-style">
                     <select @change="month($event)">
                         <option class="form-text" v-for="date in select_month" :value="date.id"> {{ date.name }}
                         </option>
                     </select>
-                    <!-- <button v-on:click="getText()">test</button> -->
                 </div>
                 <h2>{{ sp_2 }}</h2>
-                <p class="alert_text alert_1 ">* Vælg venligst type henvændelse</p>
+                <p class="alert_text alert_1 ">* Du mangler at udfylde noget her.</p>
                 <div class="form-group-1-2 form-style">
                     <button class="form-text" v-for="type in types" @click="meeting(type.id)" :id="type.id"> {{
                             type.name
@@ -568,24 +592,21 @@ async function done() {
                     <p>{{ bub4 }}</p>
                 </div>
             </div>
-
             <h2>{{ sp_3 }}</h2>
-            <p class="alert_text alert_2">Du mangler noget her</p>
+            <p class="alert_text alert_2">* Du mangler at udfylde noget her.</p>
             <div class="form-group-2-1 form-style">
                 <button class="form-text" v-for="person in persons" @click="sex(person)" :id="person.name"> {{
                         person.name
                 }}
                 </button>
             </div>
-
             <h2 class="seperator">{{ sp_4 }}</h2>
-            <p class="alert_text alert_3">* Du mangler at udfylde niveau.</p>
+            <p class="alert_text alert_3">* Du mangler at udfylde noget her.</p>
             <div class="form-group-2-2 form-style">
                 <button class="form-text" v-for="niveau in niveaus" @click="level(niveau)" :id="niveau.id"> {{
                         niveau.name
                 }}</button>
             </div>
-
             <div class="navigation-group">
                 <div class="back "><input class="form_btn button back" type="submit" value="Tilbage"
                         @click.prevent="previous(1)"></div>
@@ -616,7 +637,7 @@ async function done() {
                 </div>
             </div>
             <h2>{{ sp_5 }}</h2>
-            <p class="alert_text alert_4">Du mangler noget her</p>
+            <p class="alert_text alert_4">* Du mangler at udfylde noget her.</p>
             <div class="form-group-3-1 form-style">
                 <button class="form-text" :class="{ 'selected': location.id == anwsers.locations }"
                     v-for="location in locations" :id="location.name" @click="location_anwser(location)"> {{
@@ -624,9 +645,8 @@ async function done() {
                     }}
                 </button>
             </div>
-
             <h2 class="seperator">Uddannelser</h2>
-            <p class="alert_text alert_5">Du mangler noget her</p>
+            <p class="alert_text alert_5">* Du mangler at udfylde noget her.</p>
             <div class="educations form-group-3-2 form-style">
                 <div v-for="educations in f_educations" :key="educations">
                     <button class="form-text" @click="educations_anwser(educations)" :id="educations.name"> {{
@@ -636,12 +656,10 @@ async function done() {
                     <span>Fast</span>
                 </div>
             </div>
-
             <div class="search-box position-fix">
                 <input class="form-text" type="text" v-model="input_educations"
                     placeholder="Søg efter uddannelser..." />
             </div>
-
             <div class="educations loadbtn">
                 <button class="form-text" v-for="educations in filteredEducations" :id="educations.name"
                     :key="educations" @click="educations_anwser(educations)"> {{
@@ -649,9 +667,7 @@ async function done() {
                     }}
                 </button>
             </div>
-
             <span class="load" @click="loadMore()">Indlæs mere</span>
-
             <div class="navigation-group">
                 <div class="back"><input class="form_btn button back" type="submit" value="Tilbage"
                         @click.prevent="previous(1)"></div>
@@ -659,7 +675,6 @@ async function done() {
                 <div class="next"><input class="form_btn button next" type="submit" value="Næste"
                         @click.prevent="next(3)"></div>
             </div>
-
         </section>
         <div class="spinner" v-show="(step === 0)">
             <div class="lds-roller">
@@ -700,11 +715,9 @@ async function done() {
             <div class="search-box">
                 <input class="form-text" type="text" v-model="input_subjects" placeholder="Søg efter emner..." />
             </div>
-            <p class="alert_text alert_6">Du mangler noget her</p>
+            <p class="alert_text alert_6">* Du mangler at udfylde noget her.</p>
             <div class="educations form-group-4-1 form-style">
-
                 <div class="subjects" v-for="(subject, index) in filteredSubject()">
-
                     <p v-show="subject.description" id="subject_icon">i<span id="subject_test"> {{ subject.description
                     }}</span></p>
 
@@ -713,20 +726,16 @@ async function done() {
                                 subject.name
                         }}
                     </button>
-
                 </div>
-
             </div>
-
             <h2 class="seperator">Samtalens længde</h2>
-            <p class="alert_text alert_7">Du mangler noget her</p>
+            <p class="alert_text alert_7">* Du mangler at udfylde noget her.</p>
             <div class="form-group-4-2 form-style">
                 <button class="form-text" v-for="duration in durations" :id="duration.name"
                     @click="duration_anwser(duration)"> {{
                             duration.name
                     }}</button>
             </div>
-
             <div class="navigation-group">
                 <div class="back"><input class="form_btn button back" type="submit" value="Tilbage"
                         @click.prevent="previous(1)"></div>
@@ -734,36 +743,7 @@ async function done() {
                 <div class="next"><input class="form_btn button next" type="submit" value="Næste"
                         @click.prevent="done()"></div>
             </div>
-
         </section>
-
-        <!-- step 5 - result -->
-        <!--         <section class="register" v-show="step === 5">
-            <h2>Dette er de information du har valgt</h2>
-
-            <div class="anwsers">
-                <p>Sex: {{ anwsers.sex }}</p>
-                <p>Type: {{ anwsers.type }}</p>
-                <p>Month: {{ anwsers.month }}</p>
-                <p>Duration: {{ anwsers.duration }}</p>
-                <p>Location: {{ anwsers.locations }}
-                </p>
-                <p>Educations: <li v-for="e in anwsers.educations">{{ e }} </li>
-                </p>
-                <p>Subjects: <li v-for="e in anwsers.subject">{{ e }} </li>
-                </p>
-            </div>
-
-            <div class="navigation-group">
-
-                <div class="back"> <input class="form_btn button back" type="submit" value="Tilbage"
-                        @click.prevent="previous(1)"></div>
-                <div class="seperatordiv"></div>
-                <div class="next"><input class="form_btn button next" type="submit" value="Afslut"
-                        @click.prevent="done"></div>
-            </div>
-
-        </section> -->
     </div>
 </template>
 
@@ -774,8 +754,6 @@ async function done() {
 @import "../assets/scss/button.scss";
 @import "../assets/scss/mixins.scss";
 @import "../assets/scss/layout.scss";
-
-
 
 .progress_bar {
     display: flex;
@@ -813,7 +791,6 @@ async function done() {
             z-index: -1;
 
         }
-
 
         &:first-of-type {
             &:after {
@@ -880,9 +857,7 @@ async function done() {
     text-align: center;
     margin: auto;
     margin-bottom: 20px;
-
 }
-
 
 .section-wrapper {
     @include mainWrap;
@@ -891,7 +866,6 @@ async function done() {
 .register {
     @include flowDesign;
     position: relative;
-
 
     .form_btn {
         border: none;
@@ -914,25 +888,21 @@ async function done() {
             display: flex;
         }
 
-
         button {
             width: 170px;
             height: 40px;
-
         }
 
         span {
             font-size: 12px;
             background-color: $Verdigris;
             padding: 2px 10px;
-
             position: relative;
             left: -6px;
             top: -79px;
             border-radius: 10px;
             box-shadow: $stdDropshadow;
         }
-
     }
 
     .anwsers {
@@ -957,22 +927,19 @@ async function done() {
             font-size: 16px;
             background: #fff;
             border: 1px solid $Midnight-Green;
-        }
+        } 
 
         #subject_icon {
             font-style: italic;
             font-size: 14px;
             color: fff;
             background-color: $Verdigris;
-
             border-radius: 50%;
             width: 20px;
             height: 20px;
-
             display: flex;
             justify-content: center;
             align-items: center;
-
             position: absolute;
             top: -8px;
             right: -10px;
@@ -982,10 +949,8 @@ async function done() {
                     display: block;
                     z-index: 99999;
                 }
-
             }
         }
-
     }
 }
 
