@@ -63,7 +63,7 @@ export default {
         name: "",
         location: "",
       },
-      //profil tab
+      //profil tab 
       profileUsers: [],
       profileUser: {
         edu_id: [],
@@ -72,6 +72,7 @@ export default {
         selectedLocations: [],
         newPassword: ""
       },
+      //creation a profiluser from json
       SVUserid: jsonUser[0].user_id,
       SVFirstName: jsonUser[0].firstName,
       SVLastName: jsonUser[0].lastName,
