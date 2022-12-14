@@ -15,7 +15,7 @@ function toggleNav() {
 
 function logOut() {
   localStorage.removeItem("user-token");
-  window.location.href = '/login';
+  window.location.href = '/';
 }
 </script>
 
