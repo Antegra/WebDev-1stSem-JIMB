@@ -342,27 +342,6 @@ function next(e) {
             }
             break;
 
-        case 4:
-            if (anwsers.subject == "" || anwsers.duration == "") {
-                if (anwsers.subject == "") {
-                    const boxes = document.querySelector('.alert_6')
-
-                    boxes.classList.add("alert")
-                    location.href = "#";
-                    location.href = "#alert_6";
-
-                } else if (anwsers.duration == "") {
-                    const boxes = document.querySelector('.alert_7')
-                    boxes.classList.add("alert")
-                }
-            } else {
-                step.value += 1;
-                const boxes = document.querySelectorAll('alert')
-                boxes.forEach(box => {
-                    box.classList.remove("alert");
-                });
-            }
-            break;
     }
 }
 
@@ -396,57 +375,51 @@ function previous(x) {
 
 // Her sender vi anwsers til database og oprette en ny sag
 async function done() {
-    step.value = 0;
     var c = ((15 < anwsers.niveau) ? false : true);
     let case_id = 0;
 
-    try {
-        const params = {
-            "case_id": 0,
-            "month": anwsers.month,
-            "name": "string",
-            "supervisor": "string",
-            "sex": "string",
-            "length": "string",
-            "education": "string",
-            "location": "string",
-            "subject": "string",
-            "user_id": anwsers.user_id,
-            "sex_id": anwsers.sex,
-            "duration_id": anwsers.duration,
-            "type_id": anwsers.type,
-            "edu_id": 0,
-            "location_id": 0,
-            "subject_id": 0,
-            "primeEdu": 1,
-            "niveau": c,
-            "nationality": true
-        };
+    if (anwsers.subject == "" || anwsers.duration == "") {
+        if (anwsers.subject == "") {
+            const boxes = document.querySelector('.alert_6')
 
-        const options = {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(params)
-        };
-        // Grund sagen bliver oprettet og sender case_id tilbage som bliver gemt i et variable
-        await fetch('https://uclssapitest.azurewebsites.net/api/Case', options)
-            .then(response => response.json())
-            .then(response => {
-                case_id = response.case_id;
-            });
-    } catch (error) {
-        console.error("failed to post, case");
-    }
+            boxes.classList.add("alert")
+            location.href = "#";
+            location.href = "#alert_6";
 
-    // Sender educations til database, her bruges case_id fra grund sagen for at kunne oprette combine tablerne
-    for (let i = 0; i < anwsers.educations.length; i++) {
+        } else if (anwsers.duration == "") {
+            const boxes = document.querySelector('.alert_7')
+            boxes.classList.add("alert")
+        }
+    } else {
+        step.value = 0;
+
+        const boxes = document.querySelectorAll('alert')
+        boxes.forEach(box => {
+            box.classList.remove("alert");
+        });
+
+
         try {
             const params = {
-                "edu_id": anwsers.educations[i],
-                "case_id": case_id
+                "case_id": 0,
+                "month": anwsers.month,
+                "name": "string",
+                "supervisor": "string",
+                "sex": "string",
+                "length": "string",
+                "education": "string",
+                "location": "string",
+                "subject": "string",
+                "user_id": anwsers.user_id,
+                "sex_id": anwsers.sex,
+                "duration_id": anwsers.duration,
+                "type_id": anwsers.type,
+                "edu_id": 0,
+                "location_id": 0,
+                "subject_id": 0,
+                "primeEdu": 1,
+                "niveau": c,
+                "nationality": true
             };
 
             const options = {
@@ -457,62 +430,90 @@ async function done() {
                 },
                 body: JSON.stringify(params)
             };
-            await fetch(API_URL + 'EducationCase', options)
-                .then(response => response)
+            // Grund sagen bliver oprettet og sender case_id tilbage som bliver gemt i et variable
+            await fetch('https://uclssapitest.azurewebsites.net/api/Case', options)
+                .then(response => response.json())
+                .then(response => {
+                    case_id = response.case_id;
+                });
         } catch (error) {
-            console.error("failed to post, Educations");
+            console.error("failed to post, case");
         }
-    };
-    // Sender lokation til database, her bruges case_id fra grund sagen for at kunne oprette combine tablerne
-    try {
-        const params2 = {
 
-            "location_id": anwsers.locations,
-            "case_id": case_id
-        };
+        // Sender educations til database, her bruges case_id fra grund sagen for at kunne oprette combine tablerne
+        for (let i = 0; i < anwsers.educations.length; i++) {
+            try {
+                const params = {
+                    "edu_id": anwsers.educations[i],
+                    "case_id": case_id
+                };
 
-        const options2 = {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(params2)
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(params)
+                };
+                await fetch(API_URL + 'EducationCase', options)
+                    .then(response => response)
+            } catch (error) {
+                console.error("failed to post, Educations");
+            }
         };
-        await fetch(API_URL + 'LocationCase', options2)
-            .then(response => response)
-    } catch (error) {
-        console.error("failed to post, locations");
-    }
-    // Sender emner til database, her bruges case_id fra grund sagen for at kunne oprette combine tablerne
-    for (let i = 0; i < anwsers.subject.length; i++) {
+        // Sender lokation til database, her bruges case_id fra grund sagen for at kunne oprette combine tablerne
         try {
-            const params = {
+            const params2 = {
 
-                "subject_id": anwsers.subject[i],
+                "location_id": anwsers.locations,
                 "case_id": case_id
             };
 
-            const options = {
+            const options2 = {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(params)
+                body: JSON.stringify(params2)
             };
-            await fetch(API_URL + 'SubjectCase', options)
+            await fetch(API_URL + 'LocationCase', options2)
                 .then(response => response)
         } catch (error) {
-            console.error("failed to post, subjects");
+            console.error("failed to post, locations");
         }
-    };
+        // Sender emner til database, her bruges case_id fra grund sagen for at kunne oprette combine tablerne
+        for (let i = 0; i < anwsers.subject.length; i++) {
+            try {
+                const params = {
 
-    // Step bliver sat til 1 igen, så flowet er klar til at bliver gået igennem igen
+                    "subject_id": anwsers.subject[i],
+                    "case_id": case_id
+                };
+
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(params)
+                };
+                await fetch(API_URL + 'SubjectCase', options)
+                    .then(response => response)
+            } catch (error) {
+                console.error("failed to post, subjects");
+            }
+        };
+            // Step bliver sat til 1 igen, så flowet er klar til at bliver gået igennem igen
     step.value = 1;
 
-    // Sender brugen tilbage til forsiden
-    window.location.href = '/?succes=true';
+// Sender brugen tilbage til forsiden
+window.location.href = '/?succes=true';
+    }
+
+
 }
 </script>
 

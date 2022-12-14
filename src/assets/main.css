@@ -4,6 +4,6 @@ body {
   }
   
   body {
-    background: url(src/assets/background.svg);
+    background: url(/src/assets/background.svg);
     height: 100vh;
 }
