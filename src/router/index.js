@@ -10,6 +10,11 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: "/components",
+      name: "components",
+      component: () => import("../views/AboutComponents.vue"),
+    },
+    {
       path: "/newcase",
       name: "newcase",
       component: () => import("../views/NewcaseView.vue"),
@@ -18,11 +23,6 @@ const router = createRouter({
       path: "/oldcases",
       name: "oldcases",
       component: () => import("../views/OldcasesView.vue"),
-    },
-    {
-      path: "/data",
-      name: "data",
-      component: () => import("../views/DataView.vue"),
     },
     {
       path: "/settings",

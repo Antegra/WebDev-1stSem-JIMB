@@ -1,7 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 
-//Toggle menu responsive
 function toggleNav() {
   var x = document.getElementById("main-navigation")
   var y = document.getElementById("toggleicon");
@@ -13,7 +12,7 @@ function toggleNav() {
     x.className = x.className.replace('main-navigation-responsive', 'main-navigation');
   }
 }
-//Removes user-token and redirect to login page
+
 function logOut() {
   localStorage.removeItem("user-token");
   window.location.href = '/';
@@ -36,7 +35,6 @@ function logOut() {
           <RouterLink class="navigation-link" to="/">Hjem</RouterLink>
           <RouterLink class="navigation-link" to="/newcase">Ny sag</RouterLink>
           <RouterLink class="navigation-link" to="/oldcases">Gamle sager</RouterLink>
-          <RouterLink class="navigation-link" to="/data">Data</RouterLink>
           <a class="navigation-link logout" @click="logOut()">Log out</a>
           <RouterLink class="navigation-link" to="/settings">
             <span class="material-symbols-outlined">

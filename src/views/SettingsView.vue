@@ -1,17 +1,19 @@
 <script>
+import JsonCSV from 'vue-json-csv'
 import tab from "../components/tabs.vue";
 import { onBeforeMount, ref } from "vue";
 import { API_URL } from '../connection';
-
 export default {
   components: {
     tab,
+    'downloadCsv': JsonCSV
   },
   data() {
     let user = localStorage.getItem('user-token');
     let jsonUser = JSON.parse(user);
 
     return {
+      allCases: [],
       tabList: [
         "Brugere",
         "Emner",
@@ -63,7 +65,7 @@ export default {
         name: "",
         location: "",
       },
-      //profil tab 
+      //profil tab
       profileUsers: [],
       profileUser: {
         edu_id: [],
@@ -72,7 +74,6 @@ export default {
         selectedLocations: [],
         newPassword: ""
       },
-      //creation a profiluser from json
       SVUserid: jsonUser[0].user_id,
       SVFirstName: jsonUser[0].firstName,
       SVLastName: jsonUser[0].lastName,
@@ -556,6 +557,11 @@ export default {
             this.logOut();
         });
     },
+    getAllCases() {
+      fetch(API_URL + '/case')
+        .then((response) => response.json())
+        .then((data) => (this.allCases = data));
+    },
   },
   beforeMount() {
     this.getUsers();
@@ -564,6 +570,7 @@ export default {
     this.getEducations();
     this.getFavEducation();
     this.getFavLocation();
+    this.getAllCases();
   },
 };
 </script>
@@ -824,7 +831,16 @@ export default {
             </tbody>
           </table>
         </template>
-        <template v-slot:tabPanel-5> Eksporter data </template>
+        <template v-slot:tabPanel-5> 
+          <button>
+            <download-csv
+              :data = "allCases"
+              name = "Alle sager"
+            >
+              Hent alle sager
+            </download-csv>
+        </button>
+        </template>
         <!--Tab for the profil-->
         <template v-slot:tabPanel-6>
           <div class="header">
