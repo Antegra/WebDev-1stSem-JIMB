@@ -927,7 +927,7 @@ window.location.href = '/?succes=true';
             font-size: 16px;
             background: #fff;
             border: 1px solid $Midnight-Green;
-        }
+        } 
 
         #subject_icon {
             font-style: italic;
