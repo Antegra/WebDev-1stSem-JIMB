@@ -16,6 +16,7 @@ import Modal from './components/modal.vue';
 
 .system-container {
   font-family: 'Proixma Nova Alt', sans-serif;
+  background: url(../src/assets/background.svg);
 }
 
 

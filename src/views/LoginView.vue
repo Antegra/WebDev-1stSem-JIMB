@@ -48,6 +48,7 @@ export default {
 .auth-wrapper {
     @include mainWrap;
     margin-top: 80px;
+    
 
     .auth-inner {
         @include flowDesign;
