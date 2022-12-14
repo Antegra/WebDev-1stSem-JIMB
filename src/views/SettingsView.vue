@@ -414,7 +414,7 @@ export default {
     },
     logOut() {
       localStorage.removeItem("user-token");
-      window.location.href = '/login';
+      window.location.href = '/';
     },
     getFavEducation() {
       //split the string and pushs the values to the profilUser 
