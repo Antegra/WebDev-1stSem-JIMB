@@ -92,9 +92,6 @@ export default {
         .then((response) => response.json())
         .then((data) => (this.users = data));
     },
-
-
-
     addUser() {
       this.user.modalTitle = "Tilføj en ny bruger";
       this.user.user_id = 0;
@@ -432,62 +429,50 @@ export default {
       let profilEducation = document.getElementById("profilEducation");
       let isprofilEducationPresent = profilEducation.classList.contains("selected");
 
-      if (this.profileUser.edu_id.includes(edu_id)) {
+      if (isprofilEducationPresent) {
         let selectedEdu = this.profileUser.selectedEducations;
         selectedEdu.push(edu_id);
         let id = this.SVUserid;
         let urlEducationParams = edu_id + ", " + id
-        console.log(urlEducationParams);
-        //for (let i = 0; i < selectedEdu.length; i++) {
-        fetch(API_URL + "EduUser/" + urlEducationParams, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((response) => {
-            response.json();
-            this.getEducations();
-            this.profileUser.edu_id = this.profileUser.edu_id.filter(function (item) {
-              return item != edu_id
-            })
-            /*               if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
-                            this.logOut(); */
-          });
-        //}
 
-
+        for (let i = 0; i < selectedEdu.length; i++) {
+          fetch(API_URL + "EduUser/" + urlEducationParams, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => {
+              response.json();
+              this.getEducations();
+              if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
+                this.logOut();
+            });
+        }
       } else {
         let selectedEdu = this.profileUser.selectedEducations;
         selectedEdu.push(edu_id);
         let id = this.SVUserid;
 
-        //for (let i = 0; i < selectedEdu.length; i++) {
-        fetch(API_URL + "EduUser", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            edu_id: edu_id,
-            user_id: id
-          }),
-        })
-          .then((response) => {
-            response.json();
-            this.profileUser.edu_id.push(edu_id);
-            this.getEducations();
-            /*               if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
-                          this.logOut(); */
-          });
-        //}
+        for (let i = 0; i < selectedEdu.length; i++) {
+          fetch(API_URL + "EduUser", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              user_id: id,
+              edu_id: selectedEdu[0]
+            }),
+          })
+            .then((response) => {
+              response.json();
+              this.getEducations();
+              if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
+                this.logOut();
+            });
+        }
       }
-
-
-
-
-      console.log(this.profileUser);
-
     },
     getFavLocation() {
       //split the string and pushs the values to the profilUser 
@@ -587,9 +572,6 @@ export default {
     this.getFavLocation();
     this.getAllCases();
   },
-
-
-
 };
 </script>
 <template>
@@ -849,12 +831,15 @@ export default {
             </tbody>
           </table>
         </template>
-        <template v-slot:tabPanel-5>
+        <template v-slot:tabPanel-5> 
           <button>
-            <download-csv :data="allCases" name="Alle sager">
+            <download-csv
+              :data = "allCases"
+              name = "Alle sager"
+            >
               Hent alle sager
             </download-csv>
-          </button>
+        </button>
         </template>
         <!--Tab for the profil-->
         <template v-slot:tabPanel-6>
