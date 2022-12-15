@@ -755,6 +755,8 @@ window.location.href = '/?succes=true';
 @import "../assets/scss/mixins.scss";
 @import "../assets/scss/layout.scss";
 
+
+
 .progress_bar {
     display: flex;
     justify-content: space-between;
@@ -780,6 +782,24 @@ window.location.href = '/?succes=true';
         position: relative;
         box-shadow: $stdDropshadow;
 
+        &:nth-child(1) {
+            z-index: 4;
+        }
+
+        &:nth-child(2) {
+            z-index: 3;
+        }
+
+        
+        &:nth-child(3) {
+            z-index: 2;
+        }
+
+        
+        &:nth-child(4) {
+            z-index: 1;
+        }
+
         &:after {
             position: absolute;
             content: " ";
@@ -788,7 +808,7 @@ window.location.href = '/?succes=true';
             background: #fff;
             left: -214px;
             box-shadow: $stdDropshadow;
-            z-index: -1;
+            z-index: 0;
 
         }
 
@@ -817,7 +837,7 @@ window.location.href = '/?succes=true';
         background-color: $Verdigris;
 
         &:after {
-            background-color: $Verdigris;
+            background-color: $Verdigris!important;
         }
 
         p {
