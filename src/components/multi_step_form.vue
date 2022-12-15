@@ -10,7 +10,7 @@ var user_edu = 0;
 
 
 console.log(user);
-console.log(user_edu);
+console.log(user[0].edu_id[0]);
 // Step bruges til at holde styr på hvilket step i flowet brugen er noget til
 let step = ref(1);
 
@@ -77,20 +77,23 @@ let f_educations = ref([]);
 
 // Tjekke hvilker faste uddannelser som den bruger som er logget ind har, og sætte dem ind i f_educations
 if (user[0].edu_id.length > 1) {
+    /*     let user_edu_name = user[0].edu_name.split(",");
+        let user_edu_id = user[0].edu_id.split(",");
+     
+        for (let i = 0; i < user_edu_id.length; i++) {
+            user_edu_real_id.push(Number(user_edu_id[i]));
+        } */
     let user_edu_name = user[0].edu_name.split(",");
-    let user_edu_id = user[0].edu_id.split(",");
+    console.log("1", user[0].edu_id[0]);
     let user_edu_real_id = [];
-    for (let i = 0; i < user_edu_id.length; i++) {
-        user_edu_real_id.push(Number(user_edu_id[i]));
+
+    user_edu_real_id = user[0].edu_id.sort(function (a, b) { return a - b });
+    console.log("2", user_edu_real_id);
+    for (let i = 0; i < user_edu_name.length; i++) {
+
+        f_educations.value.push({ id: user[0].edu_id[i], name: user_edu_name[i] })
     }
-
-    let user_edu_id_sorted = user_edu_real_id.sort(function (a, b) { return a - b });
-
-    for (let i = 0; i < user_edu_id_sorted.length; i++) {
-
-        f_educations.value.push({ id: user_edu_id_sorted[i], name: user_edu_name[i] })
-    }
-
+    console.log(f_educations.value);
 } else {
     let user_edu_name = user[0].edu_name;
     let user_edu_id = user[0].edu_id;

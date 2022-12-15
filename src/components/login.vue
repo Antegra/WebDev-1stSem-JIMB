@@ -20,12 +20,22 @@ export default {
                 API_URL + `User/${this.email}, ${this.password}`
             )
 
+            console.log(result.data);
+            //let user_edu_name = user[0].edu_name.split(",");
+            let user_edu_id = result.data.edu_id.split(",");
+            let user_edu_real_id = [];
+            for (let i = 0; i < user_edu_id.length; i++) {
+                user_edu_real_id.push(Number(user_edu_id[i]));
+            }
+            console.log(user_edu_real_id);
+
+
             let relevantData = [];
-            relevantData.push({ firstName: result.data.firstName, lastName: result.data.lastName, email: result.data.email, passwrod: result.data.password, location: result.data.location, location_id: result.data.location_id, role_id: result.data.role_id, edu_id: result.data.edu_id, edu_name: result.data.edu_name, user_id: result.data.user_id });
+            relevantData.push({ firstName: result.data.firstName, lastName: result.data.lastName, email: result.data.email, passwrod: result.data.password, location: result.data.location, location_id: result.data.location_id, role_id: result.data.role_id, edu_id: user_edu_real_id, edu_name: result.data.edu_name, user_id: result.data.user_id });
             if (result.status == 200 && result.data.user_id > 0) {
                 localStorage.setItem("user-token", JSON.stringify(relevantData))
 
-                // localStorage.setItem("user-token", "Autherized")
+                //localStorage.setItem("user-token", "Autherized")
                 window.location.href = '/';
             } else {
                 document.querySelector(".error-handle").classList.toggle("active")

@@ -71,6 +71,7 @@ export default {
       profileUsers: [],
       profileUser: {
         edu_id: [],
+        edu_name: jsonUser[0].edu_name,
         selectedEducations: [],
         location_id: [],
         selectedLocations: [],
@@ -431,22 +432,22 @@ export default {
     },
     getFavEducation() {
       //split the string and pushs the values to the profilUser 
-      let educationList = this.SVEduid.split(",");
+      let educationList = this.SVEduid;
       for (let i = 0; i < educationList.length; i++) {
         this.profileUser.edu_id.push(Number(educationList[i]))
       }
     },
-    setFavEducation(edu_id) {
+    setFavEducation(e) {
       let profilEducation = document.getElementById("profilEducation");
       let isprofilEducationPresent = profilEducation.classList.contains("selected");
 
-      console.log("1", this.profileUser)
 
-      if (this.profileUser.edu_id.includes(edu_id)) {
+
+      if (this.profileUser.edu_id.includes(e.edu_id)) {
         let selectedEdu = this.profileUser.selectedEducations;
-        selectedEdu.push(edu_id);
+        selectedEdu.push(e.edu_id);
         let id = this.SVUserid;
-        let urlEducationParams = edu_id + ", " + id
+        let urlEducationParams = e.edu_id + ", " + id
         //for (let i = 0; i < selectedEdu.length; i++) {
         fetch(API_URL + "EduUser/" + urlEducationParams, {
           method: "DELETE",
@@ -458,21 +459,27 @@ export default {
             response.json();
 
             this.profileUser.edu_id = this.profileUser.edu_id.filter(function (item) {
-              return item != edu_id
+              return item != e.edu_id
             })
 
             //this.getEducations();
 
+            if (this.profileUsers = [])
+              this.profileUsers.push(this.profileUser)
 
+            /*       let stringEdu = this.profileUsers[0].edu_id.toString();
+                  this.profileUsers.edu_id = stringEdu; */
+
+            window.localStorage.setItem("user-token", JSON.stringify(this.profileUsers))
             /*               if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
                             this.logOut(); */
           });
         //}
-        console.log("2", this.profileUser)
+
 
       } else {
         let selectedEdu = this.profileUser.selectedEducations;
-        selectedEdu.push(edu_id);
+        selectedEdu.push(e.edu_id);
         let id = this.SVUserid;
 
         //for (let i = 0; i < selectedEdu.length; i++) {
@@ -482,17 +489,24 @@ export default {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            edu_id: edu_id,
+            edu_id: e.edu_id,
             user_id: id
           }),
         })
           .then((response) => {
             response.json();
-            console.log("3", this.profileUser)
-            this.profileUser.edu_id.push(edu_id);
+
+            this.profileUser.edu_id.push(e.edu_id);
+
+            this.profileUser.edu_name += ', ' + e.name;
             //this.getEducations();
+            if (this.profileUsers = [])
+              this.profileUsers.push(this.profileUser)
 
-
+            /*       let stringEdu = this.profileUsers[0].edu_id.toString();
+                  this.profileUsers.edu_id = stringEdu; */
+            console.log("test", this.profileUsers);
+            window.localStorage.setItem("user-token", JSON.stringify(this.profileUsers))
 
             /*               if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
                           this.logOut(); */
@@ -502,19 +516,13 @@ export default {
         //}
       }
 
-      if (this.profileUsers = [])
-        this.profileUsers.push(this.profileUser)
-      console.log("test2", this.profileUsers[0].edu_id);
-      /*       let stringEdu = this.profileUsers[0].edu_id.toString();
-            this.profileUsers.edu_id = stringEdu; */
-      console.log("test", this.profileUsers);
-      window.localStorage.setItem("user-token", JSON.stringify(this.profileUsers))
+
 
 
     },
     getFavLocation() {
       //split the string and pushs the values to the profilUser 
-      let locationList = this.SVLocationid.split(",");
+      let locationList = this.SVLocationid;
       for (let i = 0; i < locationList.length; i++) {
         this.profileUser.location_id.push(Number(locationList[i]))
       }
@@ -887,7 +895,7 @@ export default {
           <div class="educations">
             <h3>Vælg faste uddannelser</h3>
             <div class="education-grid">
-              <button v-for="e in educations" id="profilEducation" :key="e.edu_id" @click="setFavEducation(e.edu_id)"
+              <button v-for="e in educations" id="profilEducation" :key="e.edu_id" @click="setFavEducation(e)"
                 :class="{ 'selected': this.profileUser.edu_id.includes(e.edu_id) }">
                 {{ e.name }}
               </button>
