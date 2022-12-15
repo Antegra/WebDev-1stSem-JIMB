@@ -12,6 +12,8 @@ export default {
     let user = localStorage.getItem('user-token');
     let jsonUser = JSON.parse(user);
 
+    console.log(user);
+
     return {
       allCases: [],
       tabList: [
@@ -72,7 +74,13 @@ export default {
         selectedEducations: [],
         location_id: [],
         selectedLocations: [],
-        newPassword: ""
+        newPassword: "",
+        firstName: jsonUser[0].firstName,
+        lastName: jsonUser[0].lastName,
+        email: jsonUser[0].email,
+        role_id: jsonUser[0].role_id,
+        user_id: jsonUser[0].user_id,
+        location: jsonUser[0].location,
       },
       SVUserid: jsonUser[0].user_id,
       SVFirstName: jsonUser[0].firstName,
@@ -432,12 +440,13 @@ export default {
       let profilEducation = document.getElementById("profilEducation");
       let isprofilEducationPresent = profilEducation.classList.contains("selected");
 
+      console.log("1", this.profileUser)
+
       if (this.profileUser.edu_id.includes(edu_id)) {
         let selectedEdu = this.profileUser.selectedEducations;
         selectedEdu.push(edu_id);
         let id = this.SVUserid;
         let urlEducationParams = edu_id + ", " + id
-        console.log(urlEducationParams);
         //for (let i = 0; i < selectedEdu.length; i++) {
         fetch(API_URL + "EduUser/" + urlEducationParams, {
           method: "DELETE",
@@ -447,15 +456,19 @@ export default {
         })
           .then((response) => {
             response.json();
-            this.getEducations();
+
             this.profileUser.edu_id = this.profileUser.edu_id.filter(function (item) {
               return item != edu_id
             })
+
+            //this.getEducations();
+
+
             /*               if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
                             this.logOut(); */
           });
         //}
-
+        console.log("2", this.profileUser)
 
       } else {
         let selectedEdu = this.profileUser.selectedEducations;
@@ -475,18 +488,28 @@ export default {
         })
           .then((response) => {
             response.json();
+            console.log("3", this.profileUser)
             this.profileUser.edu_id.push(edu_id);
-            this.getEducations();
+            //this.getEducations();
+
+
+
             /*               if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
                           this.logOut(); */
           });
+
+
         //}
       }
 
+      if (this.profileUsers = [])
+        this.profileUsers.push(this.profileUser)
+      console.log("test2", this.profileUsers[0].edu_id);
+      /*       let stringEdu = this.profileUsers[0].edu_id.toString();
+            this.profileUsers.edu_id = stringEdu; */
+      console.log("test", this.profileUsers);
+      window.localStorage.setItem("user-token", JSON.stringify(this.profileUsers))
 
-
-
-      console.log(this.profileUser);
 
     },
     getFavLocation() {
