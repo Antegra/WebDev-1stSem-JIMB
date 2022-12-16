@@ -426,52 +426,52 @@ export default {
       }
     },
     setFavEducation(edu_id) {
-      let profilEducation = document.getElementById("profilEducation");
-      let isprofilEducationPresent = profilEducation.classList.contains("selected");
+      //let profilEducation = document.getElementById("profilEducation");
+      //let isprofilEducationPresent = profilEducation.classList.contains("selected");
 
-      if (isprofilEducationPresent) {
+      if (this.profileUser.edu_id.includes(edu_id)) {
         let selectedEdu = this.profileUser.selectedEducations;
         selectedEdu.push(edu_id);
         let id = this.SVUserid;
         let urlEducationParams = edu_id + ", " + id
 
-        for (let i = 0; i < selectedEdu.length; i++) {
-          fetch(API_URL + "EduUser/" + urlEducationParams, {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-            .then((response) => {
-              response.json();
-              this.getEducations();
-              if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
-                this.logOut();
-            });
-        }
+        //for (let i = 0; i < selectedEdu.length; i++) {
+        fetch(API_URL + "EduUser/" + urlEducationParams, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            response.json();
+            this.getEducations();
+            if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
+              this.logOut();
+          });
+        //}
       } else {
         let selectedEdu = this.profileUser.selectedEducations;
         selectedEdu.push(edu_id);
         let id = this.SVUserid;
 
-        for (let i = 0; i < selectedEdu.length; i++) {
-          fetch(API_URL + "EduUser", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              user_id: id,
-              edu_id: selectedEdu[0]
-            }),
-          })
-            .then((response) => {
-              response.json();
-              this.getEducations();
-              if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
-                this.logOut();
-            });
-        }
+        //for (let i = 0; i < selectedEdu.length; i++) {
+        fetch(API_URL + "EduUser", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: id,
+            edu_id: selectedEdu[0]
+          }),
+        })
+          .then((response) => {
+            response.json();
+            this.getEducations();
+            if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
+              this.logOut();
+          });
+        //}
       }
     },
     getFavLocation() {
@@ -831,15 +831,12 @@ export default {
             </tbody>
           </table>
         </template>
-        <template v-slot:tabPanel-5> 
+        <template v-slot:tabPanel-5>
           <button>
-            <download-csv
-              :data = "allCases"
-              name = "Alle sager"
-            >
+            <download-csv :data="allCases" name="Alle sager">
               Hent alle sager
             </download-csv>
-        </button>
+          </button>
         </template>
         <!--Tab for the profil-->
         <template v-slot:tabPanel-6>
