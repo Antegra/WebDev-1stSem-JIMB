@@ -426,16 +426,12 @@ export default {
       }
     },
     setFavEducation(edu_id) {
-      //let profilEducation = document.getElementById("profilEducation");
-      //let isprofilEducationPresent = profilEducation.classList.contains("selected");
-
       if (this.profileUser.edu_id.includes(edu_id)) {
         let selectedEdu = this.profileUser.selectedEducations;
         selectedEdu.push(edu_id);
         let id = this.SVUserid;
         let urlEducationParams = edu_id + ", " + id
 
-        //for (let i = 0; i < selectedEdu.length; i++) {
         fetch(API_URL + "EduUser/" + urlEducationParams, {
           method: "DELETE",
           headers: {
@@ -444,17 +440,17 @@ export default {
         })
           .then((response) => {
             response.json();
-            this.getEducations();
+
             if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
               this.logOut();
           });
-        //}
+
       } else {
         let selectedEdu = this.profileUser.selectedEducations;
         selectedEdu.push(edu_id);
         let id = this.SVUserid;
 
-        //for (let i = 0; i < selectedEdu.length; i++) {
+
         fetch(API_URL + "EduUser", {
           method: "POST",
           headers: {
@@ -467,11 +463,10 @@ export default {
         })
           .then((response) => {
             response.json();
-            this.getEducations();
             if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
               this.logOut();
           });
-        //}
+
       }
     },
     getFavLocation() {
