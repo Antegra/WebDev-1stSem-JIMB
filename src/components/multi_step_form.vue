@@ -513,11 +513,11 @@ async function done() {
                 console.error("failed to post, subjects");
             }
         };
-            // Step bliver sat til 1 igen, så flowet er klar til at bliver gået igennem igen
-    step.value = 1;
+        // Step bliver sat til 1 igen, så flowet er klar til at bliver gået igennem igen
+        step.value = 1;
 
-// Sender brugen tilbage til forsiden
-window.location.href = '/?succes=true';
+        // Sender brugen tilbage til forsiden
+        window.location.href = '/?succes=true';
     }
 
 
@@ -790,12 +790,12 @@ window.location.href = '/?succes=true';
             z-index: 3;
         }
 
-        
+
         &:nth-child(3) {
             z-index: 2;
         }
 
-        
+
         &:nth-child(4) {
             z-index: 1;
         }
@@ -837,7 +837,7 @@ window.location.href = '/?succes=true';
         background-color: $Verdigris;
 
         &:after {
-            background-color: $Verdigris!important;
+            background-color: $Verdigris !important;
         }
 
         p {
@@ -947,7 +947,7 @@ window.location.href = '/?succes=true';
             font-size: 16px;
             background: #fff;
             border: 1px solid $Midnight-Green;
-        } 
+        }
 
         #subject_icon {
             font-style: italic;
