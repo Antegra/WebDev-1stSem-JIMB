@@ -41,7 +41,7 @@ let select_month = ref([]);
 anwsers.month = q;
 
 // Her fortælles hvor mange månede tilbage de har mulighed for at vælge
-select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() - 1], dates.value[d.getMonth() - 2]];
+select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() +11], dates.value[d.getMonth() +10]];
 
 let sp_2 = ref("Type henvendelse")
 let types = ref([]);
