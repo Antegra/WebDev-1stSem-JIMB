@@ -10,7 +10,7 @@ var user_edu = 0;
 
 
 console.log(user);
-console.log(user[0].edu_id[0]);
+console.log(user[0]);
 // Step bruges til at holde styr på hvilket step i flowet brugen er noget til
 let step = ref(1);
 
@@ -47,7 +47,7 @@ let select_month = ref([]);
 anwsers.month = q;
 
 // Her fortælles hvor mange månede tilbage de har mulighed for at vælge
-select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() - 1], dates.value[d.getMonth() - 2]];
+select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() + 11], dates.value[d.getMonth() + 10]];
 
 let sp_2 = ref("Type henvendelse")
 let types = ref([]);
@@ -84,14 +84,20 @@ if (user[0].edu_id.length > 1) {
             user_edu_real_id.push(Number(user_edu_id[i]));
         } */
     let user_edu_name = user[0].edu_name.split(",");
-    console.log("1", user[0].edu_id[0]);
     let user_edu_real_id = [];
 
-    user_edu_real_id = user[0].edu_id.sort(function (a, b) { return a - b });
-    console.log("2", user_edu_real_id);
+    //let splitEduId = user[0].edu_id.split(",");
+
+
+    /*     for (let i = 0; i < splitEduId.length; i++) {
+            user_edu_real_id.push(Number(splitEduId[i]));
+        } */
+
+    user_edu_real_id = user[0].edu_id.sort(function (a, b) { return a - b; });
+
     for (let i = 0; i < user_edu_name.length; i++) {
 
-        f_educations.value.push({ id: user[0].edu_id[i], name: user_edu_name[i] })
+        f_educations.value.push({ id: user_edu_real_id[i], name: user_edu_name[i] })
     }
     console.log(f_educations.value);
 } else {
@@ -122,7 +128,7 @@ onBeforeMount(async () => {
         .then((fetchedUser) => fetchedUser.json())
     user_edu = fetchedUser.edu_id;
 
-    console.log(user_edu);
+
 
 
     // Henter types fra api og gemmen ned i types variablen 
@@ -576,8 +582,8 @@ async function done() {
                 <p class="alert_text alert_1 ">* Du mangler at udfylde noget her.</p>
                 <div class="form-group-1-2 form-style">
                     <button class="form-text" v-for="type in types" @click="meeting(type.id)" :id="type.id"> {{
-                            type.name
-                    }} </button>
+        type.name
+}} </button>
                 </div>
             </div>
 
@@ -613,16 +619,16 @@ async function done() {
             <p class="alert_text alert_2">* Du mangler at udfylde noget her.</p>
             <div class="form-group-2-1 form-style">
                 <button class="form-text" v-for="person in persons" @click="sex(person)" :id="person.name"> {{
-                        person.name
-                }}
+        person.name
+}}
                 </button>
             </div>
             <h2 class="seperator">{{ sp_4 }}</h2>
             <p class="alert_text alert_3">* Du mangler at udfylde noget her.</p>
             <div class="form-group-2-2 form-style">
                 <button class="form-text" v-for="niveau in niveaus" @click="level(niveau)" :id="niveau.id"> {{
-                        niveau.name
-                }}</button>
+        niveau.name
+}}</button>
             </div>
             <div class="navigation-group">
                 <div class="back "><input class="form_btn button back" type="submit" value="Tilbage"
@@ -658,8 +664,8 @@ async function done() {
             <div class="form-group-3-1 form-style">
                 <button class="form-text" :class="{ 'selected': location.id == anwsers.locations }"
                     v-for="location in locations" :id="location.name" @click="location_anwser(location)"> {{
-                            location.name
-                    }}
+        location.name
+}}
                 </button>
             </div>
             <h2 class="seperator">Uddannelser</h2>
@@ -667,8 +673,8 @@ async function done() {
             <div class="educations form-group-3-2 form-style">
                 <div v-for="educations in f_educations" :key="educations">
                     <button class="form-text" @click="educations_anwser(educations)" :id="educations.name"> {{
-                            educations.name
-                    }}
+        educations.name
+}}
                     </button>
                     <span>Fast</span>
                 </div>
@@ -680,8 +686,8 @@ async function done() {
             <div class="educations loadbtn">
                 <button class="form-text" v-for="educations in filteredEducations" :id="educations.name"
                     :key="educations" @click="educations_anwser(educations)"> {{
-                            educations.name
-                    }}
+        educations.name
+}}
                 </button>
             </div>
             <span class="load" @click="loadMore()">Indlæs mere</span>
@@ -736,12 +742,12 @@ async function done() {
             <div class="educations form-group-4-1 form-style">
                 <div class="subjects" v-for="(subject, index) in filteredSubject()">
                     <p v-show="subject.description" id="subject_icon">i<span id="subject_test"> {{ subject.description
-                    }}</span></p>
+}}</span></p>
 
                     <button class="form-text" :id="subject.name" :class="{ 'selected': subject.isSelected }"
                         :key="subject" @click="subject_anwser({ ...subject, index: index })"> {{
-                                subject.name
-                        }}
+        subject.name
+}}
                     </button>
                 </div>
             </div>
@@ -750,8 +756,8 @@ async function done() {
             <div class="form-group-4-2 form-style">
                 <button class="form-text" v-for="duration in durations" :id="duration.name"
                     @click="duration_anwser(duration)"> {{
-                            duration.name
-                    }}</button>
+        duration.name
+}}</button>
             </div>
             <div class="navigation-group">
                 <div class="back"><input class="form_btn button back" type="submit" value="Tilbage"

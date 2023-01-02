@@ -497,7 +497,7 @@ export default {
             response.json();
 
             this.profileUser.edu_id.push(e.edu_id);
-
+            // This needs to be changed, from string to array
             this.profileUser.edu_name += ', ' + e.name;
             //this.getEducations();
             if (this.profileUsers = [])
