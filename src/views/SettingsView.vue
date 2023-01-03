@@ -439,7 +439,7 @@ export default {
     },
     setFavEducation(e) {
       let profilEducation = document.getElementById("profilEducation");
-      let isprofilEducationPresent = profilEducation.classList.contains("selected");
+      //let isprofilEducationPresent = profilEducation.classList.contains("selected");
 
 
 
@@ -461,6 +461,22 @@ export default {
             this.profileUser.edu_id = this.profileUser.edu_id.filter(function (item) {
               return item != e.edu_id
             })
+
+            console.log("e", e.name);
+            let xer;
+            let tester;
+
+            xer = this.profileUser.edu_name.split(", ");
+
+            tester = xer.filter(function (item) {
+              return item != e.name
+            })
+
+
+
+
+            this.profileUser.edu_name = tester.toString();
+            console.log(tester.toString());
 
             //this.getEducations();
 
