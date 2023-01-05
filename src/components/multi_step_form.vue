@@ -6,7 +6,6 @@ import { API_URL } from '../connection';
 
 // henter informantion om bruger som er logget ind
 let user = JSON.parse(localStorage.getItem('user-token'));
-var user_edu = 0;
 
 
 console.log(user);
@@ -77,27 +76,18 @@ let f_educations = ref([]);
 
 // Tjekke hvilker faste uddannelser som den bruger som er logget ind har, og sætte dem ind i f_educations
 if (user[0].edu_id.length > 1) {
-    /*     let user_edu_name = user[0].edu_name.split(",");
-        let user_edu_id = user[0].edu_id.split(",");
-     
-        for (let i = 0; i < user_edu_id.length; i++) {
-            user_edu_real_id.push(Number(user_edu_id[i]));
-        } */
     let user_edu_name = user[0].edu_name.split(",");
+    let user_edu_id = user[0].edu_id;
     let user_edu_real_id = [];
+    for (let i = 0; i < user_edu_id.length; i++) {
+        user_edu_real_id.push(Number(user_edu_id[i]));
+    }
 
-    //let splitEduId = user[0].edu_id.split(",");
+    let user_edu_id_sorted = user_edu_real_id.sort(function (a, b) { return a - b });
 
+    for (let i = 0; i < user_edu_id_sorted.length; i++) {
 
-    /*     for (let i = 0; i < splitEduId.length; i++) {
-            user_edu_real_id.push(Number(splitEduId[i]));
-        } */
-
-    user_edu_real_id = user[0].edu_id.sort(function (a, b) { return a - b; });
-
-    for (let i = 0; i < user_edu_name.length; i++) {
-
-        f_educations.value.push({ id: user_edu_real_id[i], name: user_edu_name[i] })
+        f_educations.value.push({ id: user_edu_id_sorted[i], name: user_edu_name[i] })
     }
     console.log(f_educations.value);
 } else {
@@ -124,13 +114,6 @@ let durations = ref([]);
 
 // Disse functioner bliver kørt som det første når siden bliver loaded
 onBeforeMount(async () => {
-    const fetchedUser = await fetch(API_URL + 'User/' + user[0].email + ', ' + user[0].passwrod)
-        .then((fetchedUser) => fetchedUser.json())
-    user_edu = fetchedUser.edu_id;
-
-
-
-
     // Henter types fra api og gemmen ned i types variablen 
     const fetchedTypes = await fetch(API_URL + 'type')
         .then((fetchedTypes) => fetchedTypes.json())
@@ -582,8 +565,8 @@ async function done() {
                 <p class="alert_text alert_1 ">* Du mangler at udfylde noget her.</p>
                 <div class="form-group-1-2 form-style">
                     <button class="form-text" v-for="type in types" @click="meeting(type.id)" :id="type.id"> {{
-        type.name
-}} </button>
+                        type.name
+                    }} </button>
                 </div>
             </div>
 
@@ -619,16 +602,16 @@ async function done() {
             <p class="alert_text alert_2">* Du mangler at udfylde noget her.</p>
             <div class="form-group-2-1 form-style">
                 <button class="form-text" v-for="person in persons" @click="sex(person)" :id="person.name"> {{
-        person.name
-}}
+                    person.name
+                }}
                 </button>
             </div>
             <h2 class="seperator">{{ sp_4 }}</h2>
             <p class="alert_text alert_3">* Du mangler at udfylde noget her.</p>
             <div class="form-group-2-2 form-style">
                 <button class="form-text" v-for="niveau in niveaus" @click="level(niveau)" :id="niveau.id"> {{
-        niveau.name
-}}</button>
+                    niveau.name
+                }}</button>
             </div>
             <div class="navigation-group">
                 <div class="back "><input class="form_btn button back" type="submit" value="Tilbage"
@@ -664,8 +647,8 @@ async function done() {
             <div class="form-group-3-1 form-style">
                 <button class="form-text" :class="{ 'selected': location.id == anwsers.locations }"
                     v-for="location in locations" :id="location.name" @click="location_anwser(location)"> {{
-        location.name
-}}
+                        location.name
+                    }}
                 </button>
             </div>
             <h2 class="seperator">Uddannelser</h2>
@@ -673,8 +656,8 @@ async function done() {
             <div class="educations form-group-3-2 form-style">
                 <div v-for="educations in f_educations" :key="educations">
                     <button class="form-text" @click="educations_anwser(educations)" :id="educations.name"> {{
-        educations.name
-}}
+                        educations.name
+                    }}
                     </button>
                     <span>Fast</span>
                 </div>
@@ -686,8 +669,8 @@ async function done() {
             <div class="educations loadbtn">
                 <button class="form-text" v-for="educations in filteredEducations" :id="educations.name"
                     :key="educations" @click="educations_anwser(educations)"> {{
-        educations.name
-}}
+                        educations.name
+                    }}
                 </button>
             </div>
             <span class="load" @click="loadMore()">Indlæs mere</span>
@@ -741,13 +724,14 @@ async function done() {
             <p class="alert_text alert_6">* Du mangler at udfylde noget her.</p>
             <div class="educations form-group-4-1 form-style">
                 <div class="subjects" v-for="(subject, index) in filteredSubject()">
-                    <p v-show="subject.description" id="subject_icon">i<span id="subject_test"> {{ subject.description
-}}</span></p>
+                    <p v-show="subject.description" id="subject_icon">i<span id="subject_test"> {{
+                        subject.description
+                    }}</span></p>
 
                     <button class="form-text" :id="subject.name" :class="{ 'selected': subject.isSelected }"
                         :key="subject" @click="subject_anwser({ ...subject, index: index })"> {{
-        subject.name
-}}
+                            subject.name
+                        }}
                     </button>
                 </div>
             </div>
@@ -756,8 +740,8 @@ async function done() {
             <div class="form-group-4-2 form-style">
                 <button class="form-text" v-for="duration in durations" :id="duration.name"
                     @click="duration_anwser(duration)"> {{
-        duration.name
-}}</button>
+                        duration.name
+                    }}</button>
             </div>
             <div class="navigation-group">
                 <div class="back"><input class="form_btn button back" type="submit" value="Tilbage"
@@ -777,6 +761,8 @@ async function done() {
 @import "../assets/scss/button.scss";
 @import "../assets/scss/mixins.scss";
 @import "../assets/scss/layout.scss";
+
+
 
 .progress_bar {
     display: flex;
@@ -802,6 +788,24 @@ async function done() {
         justify-content: center;
         position: relative;
         box-shadow: $stdDropshadow;
+
+        &:nth-child(1) {
+            z-index: 4;
+        }
+
+        &:nth-child(2) {
+            z-index: 3;
+        }
+
+
+        &:nth-child(3) {
+            z-index: 2;
+        }
+
+
+        &:nth-child(4) {
+            z-index: 1;
+        }
 
         &:after {
             position: absolute;

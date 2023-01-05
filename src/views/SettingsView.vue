@@ -33,7 +33,6 @@ export default {
         firstName: "",
         lastName: "",
         email: "",
-        password: "",
         title: "",
         location: "",
         location_id: 0,
@@ -75,7 +74,7 @@ export default {
         selectedEducations: [],
         location_id: [],
         selectedLocations: [],
-        newPassword: "",
+        //newPassword: "",
         firstName: jsonUser[0].firstName,
         lastName: jsonUser[0].lastName,
         email: jsonUser[0].email,
@@ -438,7 +437,7 @@ export default {
       }
     },
     setFavEducation(e) {
-      let profilEducation = document.getElementById("profilEducation");
+      //let profilEducation = document.getElementById("profilEducation");
       //let isprofilEducationPresent = profilEducation.classList.contains("selected");
 
 
