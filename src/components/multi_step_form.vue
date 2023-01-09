@@ -76,29 +76,29 @@ let f_educations = ref([]);
 
 // Tjekke hvilker faste uddannelser som den bruger som er logget ind har, og sætte dem ind i f_educations
 if (user[0].edu_id.length > 1) {
-    let user_edu_name = user[0].edu_name.split(",");
-    let user_edu_id = user[0].edu_id;
+
     let user_edu_real_id = [];
-    for (let i = 0; i < user_edu_id.length; i++) {
-        user_edu_real_id.push(Number(user_edu_id[i]));
+
+    for (let i = 0; i < user[0].edu_id.length; i++) {
+        user_edu_real_id.push(Number(user[0].edu_id[i]));
     }
 
     let user_edu_id_sorted = user_edu_real_id.sort(function (a, b) { return a - b });
 
     for (let i = 0; i < user_edu_id_sorted.length; i++) {
 
-        f_educations.value.push({ id: user_edu_id_sorted[i], name: user_edu_name[i] })
+        f_educations.value.push({ id: user_edu_id_sorted[i], name: user[0].edu_name[i] })
     }
     console.log(f_educations.value);
+
 } else {
-    let user_edu_name = user[0].edu_name;
-    let user_edu_id = user[0].edu_id;
 
-
-    for (let i = 0; i < user_edu_id.length; i++) {
-        f_educations.value.push({ id: user_edu_id, name: user_edu_name })
+    for (let i = 0; i < user[0].edu_id.length; i++) {
+        f_educations.value.push({ id: user[0].edu_id, name: user[0].edu_name })
     }
 }
+
+
 
 // step 4 - Hvad handlede samtalen om ?
 let sp_6 = ref("Samtaleemne");

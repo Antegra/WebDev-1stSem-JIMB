@@ -437,11 +437,6 @@ export default {
       }
     },
     setFavEducation(e) {
-      //let profilEducation = document.getElementById("profilEducation");
-      //let isprofilEducationPresent = profilEducation.classList.contains("selected");
-
-
-
       if (this.profileUser.edu_id.includes(e.edu_id)) {
         let selectedEdu = this.profileUser.selectedEducations;
         selectedEdu.push(e.edu_id);
@@ -461,33 +456,20 @@ export default {
               return item != e.edu_id
             })
 
-            console.log("e", e.name);
-            let xer;
-            let tester;
-
-            xer = this.profileUser.edu_name.split(", ");
-
-            tester = xer.filter(function (item) {
+            this.profileUser.edu_name = this.profileUser.edu_name.filter(function (item) {
               return item != e.name
             })
 
+            console.log(this.profileUser)
 
 
-
-            this.profileUser.edu_name = tester.toString();
-            console.log(tester.toString());
-
-            //this.getEducations();
 
             if (this.profileUsers = [])
               this.profileUsers.push(this.profileUser)
 
-            /*       let stringEdu = this.profileUsers[0].edu_id.toString();
-                  this.profileUsers.edu_id = stringEdu; */
 
             window.localStorage.setItem("user-token", JSON.stringify(this.profileUsers))
-            /*               if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
-                            this.logOut(); */
+
           });
         //}
 
@@ -512,8 +494,10 @@ export default {
             response.json();
 
             this.profileUser.edu_id.push(e.edu_id);
-            // This needs to be changed, from string to array
-            this.profileUser.edu_name += ', ' + e.name;
+
+            this.profileUser.edu_name.push(e.name);
+
+
             //this.getEducations();
             if (this.profileUsers = [])
               this.profileUsers.push(this.profileUser)
@@ -521,6 +505,8 @@ export default {
             /*       let stringEdu = this.profileUsers[0].edu_id.toString();
                   this.profileUsers.edu_id = stringEdu; */
             console.log("test", this.profileUsers);
+
+
             window.localStorage.setItem("user-token", JSON.stringify(this.profileUsers))
 
             /*               if (confirm("Du har nu ændret din din favorrit uddannelse og skal logge ind igen."))
