@@ -89,7 +89,6 @@ if (user[0].edu_id.length > 1) {
 
         f_educations.value.push({ id: user_edu_id_sorted[i], name: user[0].edu_name[i] })
     }
-    console.log(f_educations.value);
 
 } else {
 
