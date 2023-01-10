@@ -20,8 +20,6 @@ export default {
                 API_URL + `User/${this.email}, ${this.password}`
             )
 
-            console.log("User data", result.data);
-
             let user_edu_real_id = [];
             let user_edu_real_name = [];
 

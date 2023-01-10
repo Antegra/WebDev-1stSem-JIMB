@@ -12,7 +12,7 @@ export default {
     let user = localStorage.getItem('user-token');
     let jsonUser = JSON.parse(user);
 
-    console.log(user);
+
 
     return {
       allCases: [],
@@ -80,7 +80,7 @@ export default {
         email: jsonUser[0].email,
         role_id: jsonUser[0].role_id,
         user_id: jsonUser[0].user_id,
-        location: jsonUser[0].location,
+        location: jsonUser[0].location
       },
       SVUserid: jsonUser[0].user_id,
       SVFirstName: jsonUser[0].firstName,
@@ -460,7 +460,7 @@ export default {
               return item != e.name
             })
 
-            console.log(this.profileUser)
+            console.log("Fjern uddannelse ", this.profileUser)
 
 
 
@@ -504,7 +504,7 @@ export default {
 
             /*       let stringEdu = this.profileUsers[0].edu_id.toString();
                   this.profileUsers.edu_id = stringEdu; */
-            console.log("test", this.profileUsers);
+            console.log("Tilføj ", this.profileUsers);
 
 
             window.localStorage.setItem("user-token", JSON.stringify(this.profileUsers))

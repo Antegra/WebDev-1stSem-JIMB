@@ -7,9 +7,7 @@ import { API_URL } from '../connection';
 // henter informantion om bruger som er logget ind
 let user = JSON.parse(localStorage.getItem('user-token'));
 
-
-console.log(user);
-console.log(user[0]);
+console.log("User data: ", user[0]);
 // Step bruges til at holde styr på hvilket step i flowet brugen er noget til
 let step = ref(1);
 
@@ -97,6 +95,8 @@ if (user[0].edu_id.length > 1) {
     }
 }
 
+console.log("Faste uddannelser: ", f_educations.value);
+console.log("Uddannelser: ", educations.value);
 
 
 // step 4 - Hvad handlede samtalen om ?
