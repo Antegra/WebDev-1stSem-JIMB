@@ -35,13 +35,13 @@ let dates = ref([{ name: "Januar", id: 0 }, { name: "Februar", id: 1 }, { name: 
 const d = new Date();
 
 let q = d.toISOString().substring(0, 10)
-let select_month = ref([]);
+/* let select_month = ref([]); */
 
 // Her bliver dagens dato sat automatisk som det, de gerne vil sende med.
 anwsers.month = q;
 
 // Her fortælles hvor mange månede tilbage de har mulighed for at vælge
-select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() +11], dates.value[d.getMonth() +10]];
+let select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() -1], dates.value[d.getMonth() +10]];
 
 let sp_2 = ref("Type henvendelse")
 let types = ref([]);
