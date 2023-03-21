@@ -44,7 +44,7 @@ let select_month = ref([]);
 anwsers.month = q;
 
 // Her fortælles hvor mange månede tilbage de har mulighed for at vælge
-select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() + 11], dates.value[d.getMonth() + 10]];
+select_month = [dates.value[d.getMonth()], dates.value[d.getMonth() - 1], dates.value[d.getMonth() - 2]];
 
 let sp_2 = ref("Type henvendelse")
 let types = ref([]);
@@ -616,8 +616,8 @@ async function done() {
                 <div class="back "><input class="form_btn button back" type="submit" value="Tilbage"
                         @click.prevent="previous(1)"></div>
                 <div class="seperatordiv"></div>
-                <div class="next"><input class="form_btn button next" type="submit" value="Næste"
-                        @click.prevent="next(2)"></div>
+                <div class="next"><input class="form_btn button next" type="submit" value="Næste" @click.prevent="next(2)">
+                </div>
             </div>
         </section>
 
@@ -662,12 +662,11 @@ async function done() {
                 </div>
             </div>
             <div class="search-box position-fix">
-                <input class="form-text" type="text" v-model="input_educations"
-                    placeholder="Søg efter uddannelser..." />
+                <input class="form-text" type="text" v-model="input_educations" placeholder="Søg efter uddannelser..." />
             </div>
             <div class="educations loadbtn">
-                <button class="form-text" v-for="educations in filteredEducations" :id="educations.name"
-                    :key="educations" @click="educations_anwser(educations)"> {{
+                <button class="form-text" v-for="educations in filteredEducations" :id="educations.name" :key="educations"
+                    @click="educations_anwser(educations)"> {{
                         educations.name
                     }}
                 </button>
@@ -677,8 +676,8 @@ async function done() {
                 <div class="back"><input class="form_btn button back" type="submit" value="Tilbage"
                         @click.prevent="previous(1)"></div>
                 <div class="seperatordiv"></div>
-                <div class="next"><input class="form_btn button next" type="submit" value="Næste"
-                        @click.prevent="next(3)"></div>
+                <div class="next"><input class="form_btn button next" type="submit" value="Næste" @click.prevent="next(3)">
+                </div>
             </div>
         </section>
         <div class="spinner" v-show="(step === 0)">
@@ -727,8 +726,8 @@ async function done() {
                         subject.description
                     }}</span></p>
 
-                    <button class="form-text" :id="subject.name" :class="{ 'selected': subject.isSelected }"
-                        :key="subject" @click="subject_anwser({ ...subject, index: index })"> {{
+                    <button class="form-text" :id="subject.name" :class="{ 'selected': subject.isSelected }" :key="subject"
+                        @click="subject_anwser({ ...subject, index: index })"> {{
                             subject.name
                         }}
                     </button>
@@ -746,8 +745,8 @@ async function done() {
                 <div class="back"><input class="form_btn button back" type="submit" value="Tilbage"
                         @click.prevent="previous(1)"></div>
                 <div class="seperatordiv"></div>
-                <div class="next"><input class="form_btn button next" type="submit" value="Næste"
-                        @click.prevent="done()"></div>
+                <div class="next"><input class="form_btn button next" type="submit" value="Næste" @click.prevent="done()">
+                </div>
             </div>
         </section>
     </div>

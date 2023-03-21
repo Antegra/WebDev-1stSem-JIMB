@@ -460,7 +460,7 @@ export default {
               return item != e.name
             })
 
-            console.log("Fjern uddannelse ", this.profileUser)
+
 
 
 
@@ -504,7 +504,7 @@ export default {
 
             /*       let stringEdu = this.profileUsers[0].edu_id.toString();
                   this.profileUsers.edu_id = stringEdu; */
-            console.log("Tilføj ", this.profileUsers);
+
 
 
             window.localStorage.setItem("user-token", JSON.stringify(this.profileUsers))

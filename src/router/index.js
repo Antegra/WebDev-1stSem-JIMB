@@ -5,32 +5,32 @@ const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
+      path: "/studievejledning/",
       name: "home",
       component: HomeView,
     },
     {
-      path: "/components",
+      path: "/studievejledning/components",
       name: "components",
       component: () => import("../views/AboutComponents.vue"),
     },
     {
-      path: "/newcase",
+      path: "/studievejledning/newcase",
       name: "newcase",
       component: () => import("../views/NewcaseView.vue"),
     },
     {
-      path: "/oldcases",
+      path: "/studievejledning/oldcases",
       name: "oldcases",
       component: () => import("../views/OldcasesView.vue"),
     },
     {
-      path: "/settings",
+      path: "/studievejledning/settings",
       name: "settings",
       component: () => import("../views/SettingsView.vue"),
     },
     {
-      path: "/login",
+      path: "/studievejledning/login",
       name: "login",
       component: () => import("../views/LoginView.vue"),
     },
